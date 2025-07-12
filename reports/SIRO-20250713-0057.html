@@ -1,0 +1,1829 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO 分析報告 | SIRO</title>
+    <link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif;
+            color: var(--primary);
+            font-weight: 700;
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+        }
+
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+
+        /* Enhanced Card System */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-xl);
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+
+        .competitor-card {
+            border-top: 4px solid;
+        }
+
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            height: 4px;
+            width: 60px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700;
+            margin-right: 1rem;
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+
+        .priority-high {
+            background-color: var(--danger);
+        }
+
+        .priority-medium {
+            background-color: var(--warning);
+        }
+
+        .priority-low {
+            background-color: var(--success);
+        }
+
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+
+        .analysis-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%);
+            border-left: 6px solid var(--accent);
+            padding: 2rem;
+            border-radius: 0 16px 16px 0;
+            margin: 1.5rem 0;
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%);
+            border-left: 6px solid var(--danger);
+            padding: 2rem;
+            border-radius: 0 16px 16px 0;
+            margin: 1.5rem 0;
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%);
+            border-left: 6px solid var(--success);
+            padding: 2rem;
+            border-radius: 0 16px 16px 0;
+            margin: 1.5rem 0;
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+
+        /* Enhanced Pills */
+        .pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+
+        .pill:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .pill-primary {
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary);
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+
+        /* Enhanced Tables */
+        .comparison-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .comparison-table th {
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+
+        .competitor-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent {
+            background: var(--gradient-success);
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ranking-status-good {
+            background: var(--gradient-primary);
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ranking-status-fair {
+            background: var(--gradient-warning);
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ranking-status-poor {
+            background: var(--gradient-danger);
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+            padding-left: 2.5rem;
+        }
+
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .feature-list li:hover::before {
+            transform: translateX(4px);
+            color: var(--primary);
+        }
+
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">咖啡因洗髮精 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「咖啡因洗髮精」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">3</div>
+                    <p class="text-blue-200 text-sm">表現優異</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+
+                    <!-- 內容摘要 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>內容摘要
+                        </h3>
+                        <p class="mb-4">
+                            該品牌網站頁面以「咖啡因洗髮精好處與副作用」為核心主題，透過 H 標籤結構呈現清晰的內容架構。內容從定義、有效性、選購指南、副作用到不適用人群，提供使用者全面的知識普及，展現其在咖啡因洗髮精領域的教育價值和專業深度。頁面以資訊提供為主，並在文章結尾導向品牌自身的產品推薦，內容完整性在基礎知識層面表現良好，但在競爭比較層面有待加強。
+                        </p>
+                    </div>
+
+                    <!-- 內容缺口 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容缺口
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="content-gap">缺乏與市場上其他主流咖啡因洗髮精品牌（如 Alpecin, O'right, Plantur 39, 施華蔻等）的直接比較內容，未能滿足用戶在決策前進行多品牌對比的搜尋意圖。</div>
+                            <div class="content-gap">雖然提供了選購要點，但缺少具體產品範例（除了自家產品）來對應不同的選購標準（如咖啡因濃度區間、特定成分配方在不同產品中的體現），降低了用戶的決策便利性。</div>
+                            <div class="content-gap">缺少針對不同頭皮問題（如極度敏感、特定皮膚炎、嚴重落髮等）的更深入分析，以及咖啡因洗髮精在這些情況下的具體適用性或替代方案，未能完全覆蓋特定用戶的使用指導需求。</div>
+                            <div class="content-gap">未提供明確的「用戶案例分享」或「使用前後對比」內容，這類內容能有效建立潛在用戶的信任感和對產品效果的期待，是競爭者（如 mybest 推薦文透過描述產品特色間接呈現效果）常使用的信任建立元素。</div>
+                            <div class="content-gap">內容未充分引用外部研究報告、臨床數據或專家證言，強化咖啡因在健髮方面的科學依據和權威性，相較於強調科學實證的競爭者可能顯得論證不足。</div>
+                            <div class="content-gap">未包含針對常見迷思或進階問題的 Q&A 部分，例如咖啡因是否會造成睡眠問題、長期使用的影響、與其他健髮產品的搭配等，mybest 等內容站則會涵蓋此類問答。</div>
+                            <div class="content-gap">雖然文章提及副作用和不適用人群，但缺少更詳細的風險管理或諮詢建議（如「出現XX症狀應立即停用並諮詢醫師」），可能影響內容的信賴度。</div>
+                        </div>
+                    </div>
+
+                    <!-- 頁面體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>頁面體驗
+                        </h3>
+                        <p class="mb-4">
+                            網站頁面在 SEO 基礎設置方面表現良好，包含清晰且與內容高度相關的 Title 和 Description Meta 標籤，有利於搜尋引擎理解頁面主題。Canonical 標籤的設置確保了頁面權威性的集中。Open Graph 標籤的應用有利於頁面在社群媒體上的分享呈現。根據 Meta 資訊，頁面應支援行動裝置優化。內容結構層次分明（H1、H2、H3），邏輯性強，資訊架構清晰，符合使用者閱讀習慣。關鍵字「咖啡因洗髮精」在核心標籤（Title, Description, H1）中得到了有效整合。
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li>品牌方憑藉詳盡的教育內容，在使用者認知「咖啡因洗髮精」的基本知識、選購方法及潛在風險方面建立了良好基礎。</li>
+                            <li>相較於市場上的電商平台和專業評測網站，品牌方在「產品比較」、「多樣化解決方案呈現」及「用戶實證」方面存在顯著內容缺口，限制了轉化潛在用戶的能力。</li>
+                            <li>頁面技術 SEO 基礎設置完備，為內容的有效索引和呈現提供了良好支援。</li>
+                            <li>內容敘事策略採用教育導向，先提供價值再推薦產品，有助於建立信任，但末端的單一 CTA 可能影響轉化效率。</li>
+                            <li>需加強內容的 E-E-A-T 信號，特別是在外部權威引用、專家證言和用戶經驗證明方面，以提升內容的專業度和可信度。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">2</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-excellent p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第3位</div>
+                                <div class="text-sm opacity-90">表現優異</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">2個位置</div>
+                                <div class="text-xs text-gray-600">與第1名距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">您的品牌目前排名第3，表現優異，已進入首頁頂部競爭圈。前方有大型電商平台及領導品牌，後方亦有其他品牌及通路商緊追。主要目標是鞏固前3名位置並爭取更靠前的排名，但競爭激烈，需持續優化。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>SIRO (品牌)</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                            <th>優先級</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="font-semibold">Meta Title</td>
+                                            <td>咖啡因洗髮精好處有哪些？一次了解好處與3種副作用！</td>
+                                            <td>包含「關鍵詞 + 平台/品牌 + 推薦/功效」</td>
+                                            <td>偏向知識查詢，品牌名不明顯。需平衡資訊性與商業性，融入品牌名及核心賣點。</td>
+                                            <td><span class="pill pill-high">高</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">Meta Description</td>
+                                            <td>咖啡因不僅是提神醒腦的好幫手...深入解析咖啡因洗髮精好處和6招選購要點...幫助你找到最適合的洗護產品...</td>
+                                            <td>包含關鍵詞變體，強調功效、特色、平台優勢或專家推薦。</td>
+                                            <td>未明確連結到品牌產品優勢，CTA較弱。需融入SIRO獨特賣點及清晰CTA。</td>
+                                            <td><span class="pill pill-high">高</span></td>
+                                        </tr>
+                                         <tr>
+                                            <td class="font-semibold">OG Title</td>
+                                            <td>咖啡因洗髮精好處有哪些？一次了解好處與3種副作用！</td>
+                                            <td>多數為產品名稱或品牌標語</td>
+                                            <td>應更直接反映產品或品牌核心價值，增加社群分享吸引力。</td>
+                                            <td><span class="pill pill-medium">中</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-semibold">OG Description</td>
+                                            <td>咖啡因不僅是提神醒腦的好幫手...深入解析咖啡因洗髮精好處和6招選購要點...幫助你找到最適合的洗護產品...</td>
+                                            <td>多為產品詳細介紹或品牌承諾。</td>
+                                            <td>需更清晰地呈現產品利益點及品牌特色，提升社群點擊意願。</td>
+                                            <td><span class="pill pill-medium">中</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">基於提供的數據範圍，未發現明顯的技術性問題（如重複內容、索引錯誤等）。然而，一個完整的技術審計（包含網站速度、行動裝置體驗、Schema Markup、Core Web Vitals等）仍是重要的基石，建議定期執行。</div>
+
+
+                        <!-- URL結構與技術指標 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">URL 結構與技術指標比較</h4>
+                            <div class="technical-advantage">URL結構 (`/blog/posts/benefits-of-caffeine-shampoo`) 清晰，符合知識型內容頁面定位，有利於搜尋引擎理解頁面主題。對比電商平台搜尋或標籤頁URL，更具語義清晰度。</div>
+                        </div>
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-3">關鍵詞語義覆蓋</h4>
+                                <div class="keyword-analysis">除核心詞「咖啡因洗髮精」外，SERP競爭者在高頻使用品牌詞（Alpecin, O'right等）、功效詞（強健髮根, 養護頭皮, 控油）、特色詞（無矽靈, 天然, 科學實證）以及特定產品組合/容量詞。品牌SIRO有機會佈局更精準的長尾詞，結合自身產品成分（如特定植萃）、目標用戶（如細軟髮適用）、或解決方案（如改善特定頭皮問題）。語義上，需強化「科學」、「實證」、「獨家配方」、「溫和」等與品牌定位相符的詞彙關聯。</div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-3">內容深度與品質</h4>
+                                <div class="content-depth-analysis">品牌頁面具有清晰的H2/H3結構，深入探討咖啡因洗髮精的定義、有效性、選購、副作用及不適合人群，內容深度針對知識型查詢十分足夠，與排名靠前的mybest知識型文章結構相似。對比電商平台及部分品牌簡易的產品列表或單頁介紹，品牌頁面在提供背景知識和消費指導方面具有顯著優勢。</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-yellow-800 mb-2 flex items-center">
+                                <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>內容差異化機會
+                            </h4>
+                            <div class="content-differentiation-opportunities">品牌可以考慮在內容中融入更多獨特性，例如：
+                                <ul>
+                                    <li><strong>科學/研發故事：</strong> 介紹SIRO咖啡因配方背後的研發理念或科學依據，建立專業形象。</li>
+                                    <li><strong>實證效果：</strong> 分享使用者照片、訪談或第三方測試數據（若有），提供更具體的證明。</li>
+                                    <li><strong>細分情境：</strong> 針對不同性別、年齡、頭皮困擾的使用者提供更個人化的建議，以及SIRO產品如何適應這些需求。</li>
+                                    <li><strong>品牌獨特賣點：</strong> 強調SIRO相較於其他品牌的獨特成分、環保理念、生產過程等。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+
+                        <div class="grid md:grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-3">專業性與權威性對比</h4>
+                                <div class="authority-analysis">排名前方的競爭者包含大型電商平台（momo, Watsons, Cosmed）具有平台權威性，以及 Alpecin, O'right, 古寶無患子 等知名品牌官網，這些網站本身就帶有較高的品牌權威。SIRO作為一個品牌，需要透過提供專業知識、建立良好使用者評價、以及潛在的外部專業背書來累積其在「咖啡因洗髮精」乃至整個頭髮護理領域的權威性，以與這些強大對手抗衡或並駕齊驅。</div>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800 mb-3">可信度指標評估</h4>
+                                <div class="trust-analysis">從提供的數據中，品牌頁面本身未見顯著的可信度指標，如第三方認證標章、媒體報導引用、詳細的公司資訊、使用者評價區塊等。建議在頁面中適當位置增加這些元素，例如在產品推薦區塊旁加入「真實好評」或「專業推薦」等內容模塊。</div>
+                            </div>
+                        </div>
+
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">權威性建立機會點</h4>
+                            <div class="authority-building-opportunities card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">權威性建立機會</h4>
+                                <ul>
+                                    <li><strong>E-E-A-T強化：</strong> 確保文章作者具備相關專業背景（Expertise），提供第一手產品使用或研發相關訊息（Experience），建立網站作為頭髮護理資訊源的權威性（Authoritativeness），並增強網站的透明度和安全性（Trustworthiness）。</li>
+                                    <li><strong>外部連結建設：</strong> 爭取來自健康、美妝、生活風格等領域具權威性網站的引用和連結。</li>
+                                    <li><strong>使用者生成內容：</strong> 鼓勵使用者在品牌網站、社群媒體或第三方平台分享使用心得與評價。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        <div class="ux-analysis">品牌頁面結構清晰，有利於使用者查找資訊。對比電商頁面，品牌頁的閱讀體驗更佳。對比部分產品單頁，品牌的知識內容更豐富。優化機會在於確保從知識獲取到產品購買的轉化路徑順暢，例如優化頁面跳轉速度、確保內部連結指向準確、並在手機等不同裝置上測試閱讀和互動體驗。</div>
+
+                    </div>
+
+
+                </section>
+
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">3</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+
+                    <div class="content-section">
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+
+                            <div class="space-y-6 mb-6">
+                                <!-- Competitor 1 -->
+                                <div class="competitor-card competitor-type-ecommerce card p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <span class="pill pill-primary mr-3">
+                                                <i class="fas fa-trophy mr-1"></i>第1名
+                                            </span>
+                                            <h4 class="font-bold text-xl">momo購物網</h4>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-sm text-gray-500">電商平台</div>
+                                            <div class="text-lg font-semibold text-blue-600">綜合型</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-500 mb-4">
+                                        <a href="https://www.momoshop.com.tw/search/searchShop.jsp?keyword=%E5%92%96%E5%95%A1%E5%9B%A0%E6%B4%97%E9%AB%AE&srsltid=AfmBOooLrermsCEb0PE9VdfCKWG-H9033GyquYvTqytsKpODy5kSoksW" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.momoshop.com.tw</a>
+                                    </p>
+
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <!-- 左側：內容策略分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">內容策略分析</h5>
+                                            <p class="text-gray-700 mb-4">大型綜合電商平台，定位為一站式購物渠道，提供多品牌、多規格的咖啡因洗髮精選擇，強調價格優惠、便利性、品項齊全。Meta側重價格優惠和品牌聚合。結構極簡，主要由商品分類H2和大量產品列表H3/H4組成，缺乏深入內容。主要滿足有明確購買意圖或正在比價的用戶。</p>
+
+                                            <h5 class="font-semibold text-lg mb-2">內容敘事流 & CTA 分析</h5>
+                                            <div class="text-gray-700 narrative-analysis-list">
+                                                <p>敘事流以商品分類開頭，直接羅列商品列表。CTA通過商品圖片和標題引導點擊查看詳情頁，最終導向購買。銷售導向最強烈。</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- 右側：E-E-A-T 分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">E-E-A-T 內容信譽分析</h5>
+                                            <div class="text-gray-700 eeat-analysis-list">
+                                                <ul class="space-y-2">
+                                                    <li><strong>Experience (經驗):</strong> Outline中有大量產品列表，間接展示用戶可購買的具體商品。作為平台，彙集大量用戶購買與評價數據，提供間接經驗證明。</li>
+                                                    <li><strong>Expertise (專業性):</strong> 作為平台，專業性體現在商品分類、篩選功能，而非內容深度。提供商品資訊和規格對比。</li>
+                                                    <li><strong>Authority (權威性):</strong> 台灣大型綜合電商平台，具有極高的品牌權威性和市場佔有率，廣為人知。</li>
+                                                    <li><strong>Trust (信賴性):</strong> 知名平台，提供購物保障、售後服務、用戶評價系統（Meta提及「好評推薦」），建立用戶信賴基礎。</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Competitor 2 -->
+                                <div class="competitor-card competitor-type-brand card p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <span class="pill pill-primary mr-3">
+                                                <i class="fas fa-trophy mr-1"></i>第2名
+                                            </span>
+                                            <h4 class="font-bold text-xl">Dr. Wolff Taiwan (Alpecin 官方)</h4>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-sm text-gray-500">品牌官方商城</div>
+                                            <div class="text-lg font-semibold text-blue-600">專業健髮</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-500 mb-4">
+                                        <a href="https://www.drwolfftaiwan.com/categories/alpecin?srsltid=AfmBOoqHQAwfeec0EfjxkVKx4MCAfhhAAQ2c3CVYrMoyrkNvFAgptzUV" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.drwolfftaiwan.com</a>
+                                    </p>
+
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <!-- 左側：內容策略分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">內容策略分析</h5>
+                                            <p class="text-gray-700 mb-4">Alpecin品牌台灣官方商城，定位為專業男士健髮品牌。Meta強調德國品牌、科學實證、強健髮根、不含矽靈等專業訴求，E-E-A-T強。頁面結構簡潔，主要是品牌/分類H1，後接產品列表或其他導航H3。Meta比Outline提供了更多專業描述。服務於對脫髮/細軟髮有特定困擾並尋求專業解決方案的用戶。</p>
+
+                                            <h5 class="font-semibold text-lg mb-2">內容敘事流 & CTA 分析</h5>
+                                            <div class="text-gray-700 narrative-analysis-list">
+                                                <p>敘事流簡潔的品牌/分類介紹後，直接列出產品。CTA直接導向產品詳情或購買按鈕。銷售導向明確。Meta中的專業術語旨在吸引追求科學證明的用戶。</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- 右側：E-E-A-T 分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">E-E-A-T 內容信譽分析</h5>
+                                            <div class="text-gray-700 eeat-analysis-list">
+                                                <ul class="space-y-2">
+                                                    <li><strong>Experience (經驗):</strong> 頁面本身無直接用戶經驗分享，作為商城有購物流程體驗。主要依賴品牌整體聲譽和用戶在外站的分享。</li>
+                                                    <li><strong>Expertise (專業性):</strong> Meta強調「科學實證」、「咖啡因複合物」、「獨家載體」、「改善頭髮困擾」，具備專業知識表達。作為官方商城，提供產品詳細信息。</li>
+                                                    <li><strong>Authority (權威性):</strong> 「德國No.1男士健髮品牌」、「官方直營商城」，顯示品牌在特定領域的權威地位。品牌歷史和研發投入提供背書。</li>
+                                                    <li><strong>Trust (信賴性):</strong> 官方網站提供信賴基礎。產品的科學實證和德國來源增加可信度。Meta中的時效性描述「2025年7月」可能是平台自動更新，而非官方頁面本意，可能對信賴感有輕微影響。</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Competitor 4 -->
+                                <div class="competitor-card competitor-type-brand card p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <span class="pill pill-primary mr-3">
+                                                <i class="fas fa-trophy mr-1"></i>第4名
+                                            </span>
+                                            <h4 class="font-bold text-xl">Alpecin 官方網站</h4>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-sm text-gray-500">品牌官方產品頁</div>
+                                            <div class="text-lg font-semibold text-blue-600">專業健髮</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-500 mb-4">
+                                        <a href="https://www.alpecin.com/zh-tw/products/details/product/caffeine-shampoo-c1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.alpecin.com</a>
+                                    </p>
+
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <!-- 左側：內容策略分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">內容策略分析</h5>
+                                            <p class="text-gray-700 mb-4">Alpecin官方產品詳情頁，定位為產品信息中心。Meta強調產品名稱、核心功效（強健髮根）和特性（不含矽靈）。內容較為深入，涵蓋使用方法、成分機制、矽靈說明、專業認證等，強調產品功效和專業性，E-E-A-T強。頁面結構包含產品介紹、使用方法、成分說明、功效說明、專業背書、認證等模塊。</p>
+
+                                            <h5 class="font-semibold text-lg mb-2">內容敘事流 & CTA 分析</h5>
+                                            <div class="text-gray-700 narrative-analysis-list">
+                                                <p>敘事流從產品名稱開始，依次介紹使用方法、作用原理、成分、專業背書、使用步驟。敘事流是產品介紹導向，旨在引導用戶全面理解產品價值。頁面中應有導向購買或了解更多的按鈕。</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- 右側：E-E-A-T 分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">E-E-A-T 內容信譽分析</h5>
+                                            <div class="text-gray-700 eeat-analysis-list">
+                                                <ul class="space-y-2">
+                                                    <li><strong>Experience (經驗):</strong> 頁面無直接用戶經驗分享區塊。主要依賴品牌聲譽和用戶在其他平台的反饋。</li>
+                                                    <li><strong>Expertise (專業性):</strong> Outline包含「使用方式」、「活性成分」、「矽靈說明」、「特殊活性成分」，內容專業深入，解釋了產品的作用機制。</li>
+                                                    <li><strong>Authority (權威性):</strong> 品牌官方網站，具有最高權威性。「適用職業運動員的資訊」暗示專業認可。</li>
+                                                    <li><strong>Trust (信賴性):</strong> 官方網站提供信賴基礎。內容詳細透明，解釋成分和使用方法，增加可信度。不含矽靈的強調也是信任信號。</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Competitor 5 -->
+                                <div class="competitor-card competitor-type-ecommerce card p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <span class="pill pill-primary mr-3">
+                                                <i class="fas fa-trophy mr-1"></i>第5名
+                                            </span>
+                                            <h4 class="font-bold text-xl">屈臣氏 Watsons (Alpecin)</h4>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-sm text-gray-500">電商平台產品頁</div>
+                                            <div class="text-lg font-semibold text-blue-600">藥妝零售</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-500 mb-4">
+                                        <a href="https://www.watsons.com.tw/alpecin-%E5%92%96%E5%95%A1%E5%9B%A0%E6%B4%97%E9%AB%AE%E9%9C%B2-250ml%E3%80%90%E5%B1%88%E8%87%A3%E6%B0%8F%E3%80%91/p/BP_900519" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.watsons.com.tw</a>
+                                    </p>
+
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <!-- 左側：內容策略分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">內容策略分析</h5>
+                                            <p class="text-gray-700 mb-4">大型藥妝零售平台上的Alpecin產品頁。定位為產品銷售頁，提供具體商品信息。Meta直接明瞭，包含品牌名、產品名、容量及平台名。頁面結構簡單，以產品資訊為主，重點模塊是「商品評論」。旨在促成購買並提供用戶反饋。</p>
+
+                                            <h5 class="font-semibold text-lg mb-2">內容敘事流 & CTA 分析</h5>
+                                            <div class="text-gray-700 narrative-analysis-list">
+                                                <p>敘事流：產品信息 + 用戶評論。CTA：直接導向購買按鈕。銷售導向明確，並利用用戶評論區提供信任信號。</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- 右側：E-E-A-T 分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">E-E-A-T 內容信譽分析</h5>
+                                            <div class="text-gray-700 eeat-analysis-list">
+                                                <ul class="space-y-2">
+                                                    <li><strong>Experience (經驗):</strong> Outline中有「商品評論」區塊，直接展示用戶使用經驗，這是平台頁面的重要優勢。</li>
+                                                    <li><strong>Expertise (專業性):</strong> 作為零售平台，主要體現商品知識（規格、用途），而非深入專業分析。</li>
+                                                    <li><strong>Authority (權威性):</strong> 知名大型藥妝零售平台，具有高平台權威性，是廣泛認可的購物渠道。</li>
+                                                    <li><strong>Trust (信賴性):</strong> 知名平台，提供購物保障。商品評論、清晰的公司/商品資訊（Outline中的儲存方式、尺寸等雖簡略但也算基礎信息）增加信賴度。</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Competitor 6 -->
+                                <div class="competitor-card competitor-type-brand card p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <span class="pill pill-primary mr-3">
+                                                <i class="fas fa-trophy mr-1"></i>第6名
+                                            </span>
+                                            <h4 class="font-bold text-xl">O'right 歐萊德 (官方網站)</h4>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-sm text-gray-500">品牌官方產品頁</div>
+                                            <div class="text-lg font-semibold text-blue-600">天然環保</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-500 mb-4">
+                                        <a href="https://www.oright.inc/products_green/views/44" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.oright.inc</a>
+                                    </p>
+
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <!-- 左側：內容策略分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">內容策略分析</h5>
+                                            <p class="text-gray-700 mb-4">歐萊德官方產品頁，定位為展示品牌理念與產品特色。Meta強調品牌環保理念（「珍惜大地」、「綠色新標準」、「永續」）。內容側重天然成分、永續認證、綠色生產，旨在吸引注重產品成分、環境友善的特定用戶群。頁面結構較為完整，包含產品介紹、成分介紹、功效說明、專業背書、認證等模塊。</p>
+
+                                            <h5 class="font-semibold text-lg mb-2">內容敘事流 & CTA 分析</h5>
+                                            <div class="text-gray-700 narrative-analysis-list">
+                                                <p>敘事流：產品名稱 -> 核心特色 (成分, 功效) -> 綠色認證 -> 成分詳情 -> 使用技巧 -> 搭配產品。敘事流是產品價值和理念展示導向。CTA：Outline中有E-shop鏈接，引導購買。</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- 右側：E-E-A-T 分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">E-E-A-T 內容信譽分析</h5>
+                                            <div class="text-gray-700 eeat-analysis-list">
+                                                <ul class="space-y-2">
+                                                    <li><strong>Experience (經驗):</strong> 頁面無直接用戶經驗分享。主要依賴品牌在環保領域的長期承諾和用戶對天然產品的偏好。</li>
+                                                    <li><strong>Expertise (專業性):</strong> Outline包含「Beauty Features」、「Beauty Ingredients」、「Green Certifications」，詳細介紹成分、功效和認證，具備專業知識。強調「Research」也暗示專業投入。</li>
+                                                    <li><strong>Authority (權威性):</strong> 品牌官方網站，具有品牌權威性。強調「Zero Carbon Commitment」、「USDA Certified Biobased Product Label」等認證，顯示品牌在環保領域的領導地位。</li>
+                                                    <li><strong>Trust (信賴性):</strong> 官方網站，詳細的環保認證、成分透明度、「Vegan」、「16FREE」等標示，以及品牌對永續的承諾，建立用戶信任。</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Competitor 7 -->
+                                <div class="competitor-card competitor-type-ecommerce card p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <span class="pill pill-primary mr-3">
+                                                <i class="fas fa-trophy mr-1"></i>第7名
+                                            </span>
+                                            <h4 class="font-bold text-xl">屈臣氏 Watsons (Seborin)</h4>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-sm text-gray-500">電商平台產品頁</div>
+                                            <div class="text-lg font-semibold text-blue-600">藥妝零售</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-500 mb-4">
+                                        <a href="https://www.watsons.com.tw/seborin-%E5%92%96%E5%95%A1%E5%9B%A0%E6%B4%97%E9%AB%AE%E9%9C%B2250ml/p/BP_101903" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.watsons.com.tw</a>
+                                    </p>
+
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <!-- 左側：內容策略分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">內容策略分析</h5>
+                                            <p class="text-gray-700 mb-4">大型藥妝零售平台上的Seborin產品頁。定位為產品銷售頁，提供具體商品信息。Meta包含品牌名、產品名、容量及平台名。頁面結構簡單，以產品資訊為主，重點模塊是「商品評論」。旨在促成購買並提供用戶反饋，利用平台流量優勢。</p>
+
+                                            <h5 class="font-semibold text-lg mb-2">內容敘事流 & CTA 分析</h5>
+                                            <div class="text-gray-700 narrative-analysis-list">
+                                                <p>敘事流和CTA類似C5，以產品信息和用戶評論為主導，直接導向購買按鈕。依賴平台自身的導購能力和用戶評論提供信任。</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- 右側：E-E-A-T 分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">E-E-A-T 內容信譽分析</h5>
+                                            <div class="text-gray-700 eeat-analysis-list">
+                                                <ul class="space-y-2">
+                                                    <li><strong>Experience (經驗):</strong> Outline中有「商品評論」區塊，直接展示用戶使用經驗，是平台頁面的重要信任元素。</li>
+                                                    <li><strong>Expertise (專業性):</strong> 作為零售平台，主要體現商品知識，專業性類似C5。</li>
+                                                    <li><strong>Authority (權威性):</strong> 知名大型藥妝零售平台，具有高平台權威性，是消費者信賴的購買渠道。</li>
+                                                    <li><strong>Trust (信賴性):</strong> 知名平台，提供購物保障，商品評論區增加信賴度。</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Competitor 8 -->
+                                <div class="competitor-card competitor-type-ecommerce card p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <span class="pill pill-primary mr-3">
+                                                <i class="fas fa-trophy mr-1"></i>第8名
+                                            </span>
+                                            <h4 class="font-bold text-xl">康是美 Cosmed</h4>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-sm text-gray-500">電商平台</div>
+                                            <div class="text-lg font-semibold text-blue-600">藥妝零售</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-500 mb-4">
+                                        <a href="https://shop.cosmed.com.tw/tagCategory/%E6%B4%97%E9%AB%AE%E7%B2%BE,%E5%92%96%E5%95%A1%E5%9B%A0?lang=zh-TW" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">shop.cosmed.com.tw</a>
+                                    </p>
+
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <!-- 左側：內容策略分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">內容策略分析</h5>
+                                            <p class="text-gray-700 mb-4">大型藥妝零售平台上的咖啡因洗髮精分類頁。定位為產品集合頁。Meta簡潔，強調品項齊全和優惠。頁面主要為產品列表，結構極簡，缺乏深入內容。滿足平台內搜索或品牌外跳用戶尋找具體產品的需求。</p>
+
+                                            <h5 class="font-semibold text-lg mb-2">內容敘事流 & CTA 分析</h5>
+                                            <div class="text-gray-700 narrative-analysis-list">
+                                                <p>敘事流和CTA類似C1，極簡的產品列表頁。以產品列表為主體，通過商品圖片和名稱引導點擊進入詳情頁，最終導向購買。</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- 右側：E-E-A-T 分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">E-E-A-T 內容信譽分析</h5>
+                                            <div class="text-gray-700 eeat-analysis-list">
+                                                <ul class="space-y-2">
+                                                    <li><strong>Experience (經驗):</strong> 頁面無直接用戶經驗分享。作為平台有購物流程體驗。</li>
+                                                    <li><strong>Expertise (專業性):</strong> 作為平台，專業性體現在商品分類和品類廣度。</li>
+                                                    <li><strong>Authority (權威性):</strong> 知名大型藥妝零售平台，具有高平台權威性。</li>
+                                                    <li><strong>Trust (信賴性):</strong> 知名平台，提供購物保障，建立基礎信賴。</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Competitor 9 -->
+                                <div class="competitor-card competitor-type-media card p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <span class="pill pill-primary mr-3">
+                                                <i class="fas fa-trophy mr-1"></i>第9名
+                                            </span>
+                                            <h4 class="font-bold text-xl">mybest</h4>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-sm text-gray-500">內容媒體</div>
+                                            <div class="text-lg font-semibold text-blue-600">評測指南</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-500 mb-4">
+                                        <a href="https://tw.my-best.com/116549" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">tw.my-best.com</a>
+                                    </p>
+
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <!-- 左側：內容策略分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">內容策略分析</h5>
+                                            <p class="text-gray-700 mb-4">mybest 定位為中立的消費指南和評測平台，提供選購知識、產品比較和推薦。Meta強調其內容價值（排行榜、選購要點、專家監製），吸引研究型用戶。內容深入，涵蓋選購要點、成分、常見問題等。頁面結構層次清晰，從用戶痛點出發，提供解決方案，然後是具體產品推薦，最後提供附加信息。是典型的資訊導向結構。</p>
+
+                                            <h5 class="font-semibold text-lg mb-2">內容敘事流 & CTA 分析</h5>
+                                            <div class="text-gray-700 narrative-analysis-list">
+                                                <p>敘事流：問題/需求 -> 選購指南 -> 排行榜推薦 -> 常見問題解答 -> 相關內容。旨在幫助用戶決策。CTA：通過內嵌連結或按鈕導向推薦的產品頁或購買頁（例如電商平台），銷售導向較為間接。</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- 右側：E-E-A-T 分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">E-E-A-T 內容信譽分析</h5>
+                                            <div class="text-gray-700 eeat-analysis-list">
+                                                <ul class="space-y-2">
+                                                    <li><strong>Experience (經驗):</strong> 頁面提供多個品牌的產品評測和比較，雖非第一手自身經驗，但彙集和分析多方信息，對用戶有參考價值。</li>
+                                                    <li><strong>Expertise (專業性):</strong> 「髮型設計師監製」，提供「選購要點」、「常見問題」等，內容結構系統化，具備專業知識表達和組織能力。</li>
+                                                    <li><strong>Authority (權威性):</strong> 作為知名的評測媒體，具備一定的媒體權威性。其背書者「髮型設計師」也增強了專業權威。</li>
+                                                    <li><strong>Trust (信賴性):</strong> 內容透明，包含「Why You Can Trust Us」區塊，提供多個產品對比，FAQ解答用戶疑慮，建立信賴。</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Competitor 10 -->
+                                <div class="competitor-card competitor-type-brand card p-4">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <span class="pill pill-primary mr-3">
+                                                <i class="fas fa-trophy mr-1"></i>第10名
+                                            </span>
+                                            <h4 class="font-bold text-xl">古寶無患子 (官方商城)</h4>
+                                        </div>
+                                        <div class="text-right">
+                                            <div class="text-sm text-gray-500">品牌官方商城</div>
+                                            <div class="text-lg font-semibold text-blue-600">天然草本</div>
+                                        </div>
+                                    </div>
+                                    <p class="text-gray-500 mb-4">
+                                        <a href="https://shop.5soap.com/tagCategory/%E5%92%96%E5%95%A1%E5%9B%A0?lang=zh-TW&srsltid=AfmBOorLuVsS1UIyBZRSe2ljUjm-VrxI4kQ-hwkDN872zS9H-PL8G2zm" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">shop.5soap.com</a>
+                                    </p>
+
+                                    <div class="grid md:grid-cols-2 gap-6">
+                                        <!-- 左側：內容策略分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">內容策略分析</h5>
+                                            <p class="text-gray-700 mb-4">古寶無患子官方商城咖啡因產品分類頁。定位為天然草本、溫和的品牌。Meta強調天然成分（無患子、益生元）、速效（髮根強固）和目標用戶（油頭、扁塌）。結構簡潔，主要是品牌/分類H1，後接產品列表。服務於追求溫和清潔、頭皮健康、特定髮質改善的用戶。</p>
+
+                                            <h5 class="font-semibold text-lg mb-2">內容敘事流 & CTA 分析</h5>
+                                            <div class="text-gray-700 narrative-analysis-list">
+                                                <p>敘事流：產品分類H1，後接產品列表。Meta中包含了產品特色描述。CTA：導向產品詳情或購買。銷售導向。</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- 右側：E-E-A-T 分析 -->
+                                        <div>
+                                            <h5 class="font-semibold text-lg mb-3">E-E-A-T 內容信譽分析</h5>
+                                            <div class="text-gray-700 eeat-analysis-list">
+                                                <ul class="space-y-2">
+                                                    <li><strong>Experience (經驗):</strong> 頁面無直接用戶經驗分享。作為商城有購物流程體驗。</li>
+                                                    <li><strong>Expertise (專業性):</strong> Meta和Description提及「無患子皂素」、「益生元」、「咖啡因」、「頭皮微生態」，表達了成分和功效的專業知識。</li>
+                                                    <li><strong>Authority (權威性):</strong> 品牌官方商城，具有品牌權威性。作為歷史較長的天然品牌，積累了一定市場認可度。</li>
+                                                    <li><strong>Trust (信賴性):</strong> 官方網站，提及成分透明度，建立基礎信賴。強調天然成分也是信任信號。</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+
+                            <div class="insight-box card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">Meta策略洞察</h4>
+                                <ul>
+                                    <li>平台型網站 (C1, C5, C7, C8) 的Meta通常包含「關鍵詞 + 平台名稱 + 推薦/優惠/月份」等元素，強調購物便利性與時效性。</li>
+                                    <li>品牌官網 (C2, C4, C6, C10) 的Meta則更側重品牌名、產品名稱、核心功效 (強健髮根、抗屑、控油、環保、天然等) 和獨特賣點 (德國No.1, 科學實證, USDA認證)。</li>
+                                    <li>內容媒體 (C9) 的Meta強調其內容價值 (排行榜、選購要點、專家監製)，吸引研究型用戶。</li>
+                                    <li>大多數Meta描述都包含了「咖啡因洗髮精」核心關鍵詞及其變體或相關詞彙，並嘗試加入吸引人的利益點。</li>
+                                    <li>部分競爭者 (C5, C7) 在Meta中提及「商品評論」或「好評推薦」，暗示用戶經驗和信任。</li>
+                                    <li>CTA元素在Meta中較不明顯，主要通過「推薦」、「優惠」、「查看」等詞彙暗示。</li>
+                                </ul>
+                            </div>
+
+
+
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+
+                            <div class="content-outline-section card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">內容大綱結構分析</h4>
+                                <p>分析不同類型競爭者頁面的內容結構：</p>
+                                <ul>
+                                    <li><strong>電商平台列表頁 (C1, C8)</strong>：結構極簡，主要由商品分類H2和大量產品列表H3/H4組成，缺乏深入內容。</li>
+                                    <li><strong>品牌官網產品頁 (C4, C6)</strong>：結構較為完整，包含產品介紹、使用方法、成分介紹、功效說明、專業背書、認證等模塊，試圖全面展示產品價值。C4更偏技術和專業，C6更強調環保和天然。</li>
+                                    <li><strong>電商平台產品頁 (C5, C7)</strong>：結構簡單，以產品資訊為主，重點模塊是「商品評論」，將E-E-A-T中的Experience外包給用戶生成內容。</li>
+                                    <li><strong>內容媒體評測頁 (C9)</strong>：結構層次清晰，從用戶痛點出發 (H1, H2選購要點)，提供解決方案 (H3成分功效, H4針對不同問題的配方)，然後是具體產品推薦 (H2排行榜, H3/H4單品介紹)，最後提供附加信息 (H2 FAQ, 更多推薦)，是典型的資訊導向結構。</li>
+                                    <li><strong>品牌官網分類/標籤頁 (C2, C10)</strong>：結構簡潔，主要是品牌/分類H1，後接產品列表或其他導航H3。C2的Meta比Outline提供了更多專業描述。</li>
+                                </ul>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+
+                    <div class="content-section">
+                        <!-- 搜尋意圖概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-search text-blue-500 mr-2"></i>核心搜尋意圖識別
+                            </h3>
+
+                            <div class="analysis-grid">
+                                <div class="insight-box">
+                                    <h4>核心意圖</h4>
+                                    <p>主要為<strong>商業調研與資訊獲取</strong>，用戶積極尋找解決掉髮/稀疏問題的方案。</p>
+                                </div>
+                                <div class="insight-box">
+                                    <h4>意圖強度</h4>
+                                    <p>具備<strong>中至高</strong>購買意圖，已進入產品/方案評估階段。</p>
+                                </div>
+                                <div class="insight-box">
+                                    <h4>決策階段</h4>
+                                    <p>處於<strong>考慮及決策階段</strong>，需比較不同產品並確認可行性。</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+
+
+                            <div class="analysis-grid">
+                                <div class="strategy-card">
+                                    <h4>主要用戶群體</h4>
+                                    <p>30-50歲面臨掉髮/稀疏困擾者，尋求有效且科學的解決方案。</p>
+                                </div>
+                                <div class="strategy-card">
+                                    <h4>核心痛點</h4>
+                                    <p>焦慮、選擇困難、擔憂效果與安全、對產品宣傳存疑。</p>
+                                </div>
+                                <div class="strategy-card">
+                                    <h4>期望目標</h4>
+                                    <p>有效減少掉髮、促進生長、改善頭皮健康，並獲得科學驗證和信任保證。</p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+
+                            <div class="roadmap-step">
+                                <h5>1. 搜尋與首屏</h5>
+                                <p>精準響應關鍵詞，首屏快速傳達核心價值與科學優勢。</p>
+                            </div>
+                            <div class="roadmap-step">
+                                <h5>2. 資訊消費</h5>
+                                <p>結構化內容引導，穿插信任信號，深度解析產品。</p>
+                            </div>
+                            <div class="roadmap-step">
+                                <h5>3. 意圖深化</h5>
+                                <p>通過數據與證詞強化價值，主動消除潛在疑慮。</p>
+                            </div>
+                            <div class="roadmap-step">
+                                <h5>4. 行動轉換</h5>
+                                <p>清晰、易見的 CTA 設計，優化結帳流程，提供購買保障。</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <div class="serp-overview">關鍵詞「咖啡因洗髮精」SERP由大型電商平台 (#1 momo, #5 Watsons, #7 Watsons, #8 Cosmed)、知名品牌官網 (#2 Alpecin, #4 Alpecin, #6 O'right, #10 古寶無患子) 及權威內容媒體 (#9 mybest) 組成。品牌SIRO (#3) 位於首頁靠前位置，但需在平台權威與品牌權威之間，通過內容差異化和用戶體驗突圍。競爭激烈，排名具一定波動風險。</div>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-building text-green-500 mr-2"></i>內容基石分析
+                            </h3>
+                            <div class="content-analysis">品牌SIRO目前在第3名的頁面可能是一個知識型文章，內容結構嚴謹，涵蓋了咖啡因洗髮精的基礎知識、選購要點和副作用，這為滿足資訊獲取意圖奠定了良好基礎。然而，相較於排名更靠前的產品頁或品牌頁，品牌需在內容中更清晰地整合SIRO產品的獨特價值、科學證明和使用者經驗，以橋接資訊與商業意圖之間的差距。缺乏詳細的成分原理闡述、權威背書和用戶評價是當前的內容缺口。</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-search-plus text-purple-500 mr-2"></i>關鍵詞差異化機會
+                            </h3>
+                            <div class="keyword-analysis">除核心詞「咖啡因洗髮精」外，SERP競爭者在高頻使用品牌詞（Alpecin, O'right等）、功效詞（強健髮根, 養護頭皮, 控油）、特色詞（無矽靈, 天然, 科學實證）以及特定產品組合/容量詞。品牌SIRO有機會佈局更精準的長尾詞，結合自身產品成分（如特定植萃）、目標用戶（如細軟髮適用）、或解決方案（如改善特定頭皮問題）。語義上，需強化「科學」、「實證」、「獨家配方」、「溫和」等與品牌定位相符的詞彙關聯。</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-cog text-orange-500 mr-2"></i>用戶體驗差異化機會
+                            </h3>
+                             <div class="ux-analysis">品牌SIRO的知識型頁面結構有利於閱讀，但在用戶體驗層面可進一步優化以提升轉化。機會點包括：優化頁面載入速度和行動端響應，確保信息獲取流暢；通過列表、圖表、摺疊面板等格式提升內容可讀性；在內容中自然融入顯眼的CTA按鈕，引導用戶至產品頁；增加用戶評論或見證模塊，提升頁面互動性和信任度；考慮開發簡易互動工具（如髮質測驗）以提升用戶參與感和個性化體驗。</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+
+                    <div class="content-section">
+                        <!-- 內容策略概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-file-alt text-blue-500 mr-2"></i>內容策略概述
+                            </h3>
+                            <div class="insight-box card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">基於機會分析的內容策略概述</h4>
+                                <p>本內容大綱設計策略核心在於 leveraging SIRO 目前已有的高排名基礎 (#3)，透過深度內容補強 E-E-A-T 信號，特別是科學原理、獨家配方、使用者見證及專業背書，直接針對排名更靠前的 Alpecin 科學專業形象與 momo/Watsons 的用戶評價優勢進行差異化競爭。內容結構對應使用者從認知、考慮到決策的完整旅程，並策略性地將 SIRO 產品資訊和轉換點融入知識型內容中，彌補目前內容與商業目的連結不足的弱點。同時，優化 Meta 標籤及頁面基礎技術，提升點擊率及用戶體驗，最終目標是超越競品，爭取「咖啡因洗髮精」關鍵詞榜首位置。</p>
+                            </div>
+                        </div>
+
+                        <!-- 內容架構規劃 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-sitemap text-green-500 mr-2"></i>內容架構規劃
+                            </h3>
+                            <div class="content-outline-section card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">基於競爭者分析和使用者意圖的內容架構規劃</h4>
+                                <p>架構規劃對應搜尋「咖啡因洗髮精」的用戶意圖：</p>
+                                <ul>
+                                    <li class="outline-item"><strong>認知階段：</strong> 提供全面、專業的咖啡因洗髮精基礎知識，解答「是什麼」、「為什麼有效」、「有無副作用」等普遍疑問。此部分需比肩甚至超越 mybest 等知識站點的深度。</li>
+                                    <li class="outline-item"><strong>考慮階段：</strong> 引導用戶進行產品選擇，通過分析選購要點和市場上可能存在的不足，自然引出 SIRO 方案的獨特價值和優勢。此部分需比競爭品牌官網更具指導性，比電商平台更有深度。</li>
+                                    <li class="outline-item"><strong>決策階段：</strong> 通過 SIRO 專業方案的詳細介紹、具體的使用指南、真實的使用者成功案例以及詳盡的 FAQ，建立信任，打消疑慮，促使用戶做出選擇。此部分需整合分析中提及的 E-E-A-T 元素（證明、背書、見證）。</li>
+                                    <li class="outline-item"><strong>轉換階段：</strong> 提供清晰的轉換路徑和多樣化的 CTA，引導用戶從了解內容轉向購買或進一步諮詢。</li>
+                                </ul>
+                                <p>整體結構參考了 mybest 等知識站點的清晰分層，同時增加了品牌獨有的「專業方案」、「獨家優勢」和「使用者見證」等模塊，以實現差異化和商業目標。</p>
+                            </div>
+                        </div>
+
+                        <!-- SEO優化策略 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-search text-purple-500 mr-2"></i>SEO關鍵詞整合策略
+                            </h3>
+                            <div class="analysis-grid">
+                                <div class="strategy-card">
+                                    <h4>主關鍵詞</h4>
+                                    <p>「咖啡因洗髮精」：自然分佈於標題、首段、各主要 H2/H3 小標題中，避免生硬堆砌。</p>
+                                </div>
+                                <div class="strategy-card">
+                                    <h4>相關關鍵詞</h4>
+                                    <p>「強健髮根」、「改善掉髮」、「頭皮護理」、「科學實證」、「獨家配方」、「無矽靈」：融入「為什麼有效」、「SIRO優勢」、「成分解析」等章節，強化頁面語義相關性。</p>
+                                </div>
+                                <div class="strategy-card">
+                                    <h4>長尾關鍵詞</h4>
+                                    <p>「咖啡因洗髮精 副作用」、「咖啡因洗髮精多久見效」、「咖啡因洗髮精推薦 ptt」、「細軟髮 咖啡因洗髮精」：主要布局於 FAQ、選購指南、使用情境建議等區塊，精準捕捉用戶細分查詢。</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="warning-box card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">競品缺失模組補強 (SIRO的機會)</h4>
+                                <ul>
+                                    <li>競品電商頁缺乏深入的科學原理和成分解析，SIRO可提供圖文並茂的詳細說明。</li>
+                                    <li>部分競品未充分展示使用者見證或前後對比，SIRO可整合真實案例。</li>
+                                    <li>大多數競品（除特定品牌官網）缺乏專業背書或第三方研究引用，SIRO可加入 E-E-A-T 信號。</li>
+                                    <li>電商平台缺乏針對性的選購指導，SIRO可提供更個人化的決策框架和情境建議。</li>
+                                </ul>
+                            </div>
+                            <div class="success-box card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">標準內容的差異化升級 (SIRO的優勢)</h4>
+                                <ul>
+                                    <li>基礎知識：從「是什麼」升級為「SIRO視角下的專業解析」。</li>
+                                    <li>選購指南：從通用建議升級為結合 SIRO 獨家配方與技術的深度解讀。</li>
+                                    <li>使用方法：從標準流程升級為「善用 SIRO 方案」的最佳實踐與獨家技巧。</li>
+                                    <li>FAQ：從通用問答升級為包含 SIRO 產品特性的專業解答。</li>
+                                </ul>
+                            </div>
+                            <div class="insight-box card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">獨特價值模組創新 (SIRO的獨有賣點)</h4>
+                                <ul>
+                                    <li>「SIRO專業方案：科學實證與獨家優勢」專門章節，系統呈現品牌獨有賣點。</li>
+                                    <li>「真實使用者見證：SIRO如何帶來改變？」專門章節，用事實說話。</li>
+                                    <li>潛在的「免費頭皮健康線上檢測」等互動工具（若開發），提供獨特的用戶體驗。</li>
+                                    <li>強調 SIRO 在配方研發背後的「科學故事」或「研發理念」。</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="roadmap-step card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">搜尋與首屏</h4>
+                                <p>優化 Meta Title/Description 吸引點擊，首屏 H1/H2 及核心價值宣言明確回應「咖啡因洗髮精」搜尋意圖，快速建立 SIRO 專業形象及解決方案優勢。</p>
+                            </div>
+                            <div class="roadmap-step card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">資訊消費</h4>
+                                <p>清晰導航、結構化內容、高品質圖文、易讀排版確保用戶順暢獲取資訊。在知識點解釋後自然插入 SIRO 相關內容或連結，引導興趣。</p>
+                            </div>
+                            <div class="roadmap-step card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">意圖深化</h4>
+                                <p>「SIRO專業方案」、「使用者見證」、「FAQ」等章節針對性解決用戶疑慮，通過科學實證、真實案例、專業解答建立信任和購買信心。</p>
+                            </div>
+                            <div class="roadmap-step card p-4 mb-4">
+                                <h4 class="font-semibold mb-2">行動轉換</h4>
+                                <p>頁面中段和結尾設置顯眼的 CTA 按鈕（如「了解SIRO獨家優勢」、「立即選購」），引導至產品頁或諮詢頁。結尾提供多樣化聯繫方式和延伸資源，滿足不同轉換偏好。確保手機端 CTA 可見且易點擊。</p>
+                            </div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="analysis-grid">
+                                <div class="strategy-card">
+                                    <h4>可讀性優化</h4>
+                                    <p>使用 H2-H4 標題結構、列表、引用區塊、粗體字。段落簡短。增加圖文搭配，信息圖解複雜原理。</p>
+                                </div>
+                                <div class="strategy-card">
+                                    <h4>互動性增強</h4>
+                                    <p>考慮加入 FAQ 摺疊面板、成分表格、成功案例輪播圖。若資源允許，可開發簡易頭皮類型/需求測試小工具。</p>
+                                </div>
+                                <div class="strategy-card">
+                                    <h4>載入速度與移動端</h4>
+                                    <p>壓縮圖片、優化代碼，確保頁面快速載入。響應式設計保證在各尺寸設備上良好顯示和互動。特別測試手機端閱讀體驗和 CTA 點擊。</p>
+                                </div>
+                                <div class="strategy-card">
+                                    <h4>信任信號</h4>
+                                    <p>在頁面適當位置展示品牌故事、研發團隊（E-E-A-T）、第三方認證、媒體報導（若有）、用戶評價/見證區塊。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 SIRO | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
