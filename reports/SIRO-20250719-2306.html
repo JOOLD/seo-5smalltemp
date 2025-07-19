@@ -1,0 +1,2755 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | SIRO </title>
+    <link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2"> SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「SEO」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">27</div>
+                    <p class="text-blue-200 text-sm">有待檢測</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#ai-overview" class="toc-link">Google AI 怎麼看「SEO」</a>
+                    <a href="#ai-sources" class="toc-link">Google AI 參考了誰</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站內容以「<strong>SEO是什麼</strong>」為核心，定位為一篇針對<strong>SEO新手</strong>的<strong>終極指南（Ultimate Guide）</strong>。文章從最基礎的定義、與SEM的區別，到深入的執行方法、演算法介紹及工具推薦，旨在為初學者提供一站式的完整學習路徑。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容的廣度極為出色，幾乎涵蓋了SEO的所有關鍵面向。從<strong>三大核心（內容、技術、連結）</strong>到具體的<strong>內容面12則指南</strong>和<strong>技術面10則優化</strong>，再到站外策略、演算法歷史、企業決策評估、工具推薦及常見Q&A，<strong>架構非常完整且全面</strong>，堪稱SEO知識的百科全書。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對目標讀者（SEO新手、行銷人員、企業主）提供了極高的教育價值。文章不僅解釋了「是什麼」，更著重於「怎麼做」，並以<strong>具體的案例（女鞋品牌）</strong>收尾，提供了從理論到實踐的完整閉環。這種結構能有效<strong>建立品牌專業形象與信任感</strong>。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-robot text-red-600 mr-2"></i>AI 搜尋時代的內容缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">缺少關於 <strong>AI 搜尋（如 Google AI Overviews / SGE）</strong>對 SEO 衝擊的探討、以及應對策略如 <strong>AISO (AI 搜尋最佳化)</strong> 或 <strong>GEO (生成式引擎優化)</strong> 的內容。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">當前用戶最焦慮的問題是「AI 會不會讓 SEO 消失？」、「我的網站內容如何被 AI 引用？」排名靠前的競爭者（如 Frank Chiu, Whoops SEO）已將此作為核心議題，直接回應市場最大的不確定性，而貴站對此的沉默會削弱內容的時效性與權威感。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">新增一個專門的 H2 章節，討論 <strong>AI Overviews</strong> 的運作機制、對點擊率的潛在影響，並提出品牌應如何調整內容策略以成為 AI 回答的「<strong>權威來源</strong>」。</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-dollar-sign text-orange-600 mr-2"></i>商業決策支援內容不足
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">缺少關於「<strong>SEO 費用</strong>」的深入分析，以及不同<strong>合作模式（如顧問型 vs. 績效型）</strong>的具體比較。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">尋求 SEO 服務的企業主，最關心的問題之一就是成本與回報。競爭者（如達文西）直接提供 SEO 費用預估、比較不同收費方式的優劣，能快速幫助潛在客戶評估預算與需求，這是從「教育」走向「轉換」的關鍵一步。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">在「企業可以做 SEO 嗎？」章節中，增加一個 H3 子標題，用表格或列表形式詳細說明<strong>市場上常見的 SEO 收費區間</strong>與服務內容，並分析不同模式的適用情境。</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-check-circle text-purple-600 mr-2"></i>E-E-A-T 實踐細節不足
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">文章雖提到 YMYL，但未將 <strong>E-E-A-T（經驗、專業、權威、信任）</strong>作為一個獨立且核心的品質評估框架來詳細闡述。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">隨著 Google「實用內容演算法」的更新，用戶和搜尋引擎都越來越重視內容的真實性與可信度。競爭者（如 Ranking, Frank Chiu）已將 E-E-A-T 作為核心章節，教導讀者如何具體地在文章中體現這四個指標，這對建立高品質內容至關重要。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">建議將 YMYL 的討論擴展為一個完整的 <strong>E-E-A-T 章節</strong>，並提供具體的操作清單，例如：如何展示作者簡介、如何引用權威來源、如何呈現第一手經驗的證明（如案例、評測）。</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-store text-blue-600 mr-2"></i>特定行業 SEO 指導缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">文章內容非常通用，但缺少針對特定商業模式如「<strong>電商 SEO</strong>」或「<strong>國際 SEO</strong>」的專門指導。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">不同行業的 SEO 重點截然不同。電商網站主關心的是商品頁優化、分類頁策略；而外銷企業則需要了解 hreflang 標籤、國際關鍵字研究。競爭者（如達文西）已針對這些需求提供專門內容，能更精準地吸引高價值的潛在客戶。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">在文章末尾或相關章節中，透過內部連結導向新的獨立文章，專門探討<strong>電商平台（如 Shopify, WooCommerce）的 SEO 設定</strong>或<strong>B2B 產業的內容策略</strong>，建立更深入的內容主題集群（Topic Cluster）。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站的基礎 SEO 設置非常健全。<strong>Meta Title 與 Description</strong> 精心撰寫，有效吸引點擊；<strong>Open Graph 標籤</strong>完整，有利於社群分享；<strong>Canonical 標籤</strong>設置正確，避免了重複內容問題。整體來看，頁面的基礎技術符合 Google 的規範。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">文章的層次結構堪稱典範。從 H1 到 H4 的使用邏輯清晰、 Последовательно，有效幫助搜尋引擎和讀者理解內容脈絡。URL 結構（/blog/what-is-seo/）簡潔且語意明確，<strong>關鍵字佈局自然</strong>，是<strong>內容導向型 SEO</strong> 的優秀範例。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">根據 &lt;meta&gt; 標籤顯示，網站使用 <strong>WordPress 搭配 Elementor</strong> 頁面編輯器。雖然功能強大，但這類組合創建的長篇文章，通常伴隨著<strong>程式碼臃腫</strong>與<strong>載入速度較慢</strong>的問題，這可能是影響排名的關鍵技術瓶頸。此外，數據顯示頁面中存在<strong>多個 &lt;H1&gt; 標籤</strong>，這違反了「一個頁面一個核心主題」的原則，應修正為只有一個主 &lt;H1&gt;，其餘改為 &lt;H2&gt;。建議立即使用 Google PageSpeed Insights 檢測<strong>核心網頁指標（Core Web Vitals）</strong>並進行優化。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <ul class="list-disc pl-5 space-y-2">
+<li>貴公司的文章是一篇極其<strong>全面的 SEO 支柱型內容（Pillar Page）</strong>，在廣度上超越了多數競爭者，這是非常寶貴的內容資產。</li>
+<li>當前最大的內容缺口在於<strong>未能跟上 AI 搜尋的趨勢</strong>。排名靠前的對手已將 AI Overviews 和 AISO 作為核心賣點，貴站在此議題上的缺席可能導致被視為資訊過時。</li>
+<li>技術層面上，雖然基礎設置良好，但<strong>多個 &lt;H1&gt; 標籤的存在是明確的技術錯誤</strong>。同時，基於 Elementor 的技術棧，<strong>網頁載入速度</strong>很可能是影響排名的隱性殺手。</li>
+<li>文章末尾的<strong>女鞋品牌案例研究</strong>是強大的 E-E-A-T 證明，有效將理論與實踐結合，這是多數純理論文章所不具備的差異化優勢。</li>
+<li>內容雖廣，但在<strong>商業應用深度上有所不足</strong>，例如缺少 SEO 費用模型、電商 SEO 等能直接吸引高意向企業客戶的具體內容。</li>
+</ul>
+                        </ul>
+                    </div>
+                </section>
+
+                
+  <!-- Google AI Overview Analysis Sections -->
+  <section id="ai-overview" class="mb-12">
+      <div class="flex items-center mb-6">
+          <span class="section-number">2</span>
+          <h2 class="text-2xl md:text-3xl font-bold section-header">Google AI 怎麼看「SEO」</h2>
+      </div>
+      
+      <![CDATA[
+<div style="background-color: #e3f2fd; border-left: 6px solid #2196F3; margin-bottom: 20px; padding: 16px;">
+    <h3 style="color: #1e88e5; margin-top: 0;">🤖 Google AI 對「SEO」的內容理解分析</h3>
+    <div style="margin-top: 16px;">
+        <h4 style="color: #0d47a1;">AI 摘要內容深度解析</h4>
+        <p><strong>主題組織架構：</strong><br>AI 採用了經典的教學式結構來組織內容，邏輯層次清晰，從宏觀到微觀，循序漸進：<br>1. <strong>核心定義 (What)：</strong> 首先用一段話精準定義 SEO 及其根本目的。<br>2. <strong>實現方法 (How)：</strong> 接著將實現路徑拆解為三個核心支柱（內容、技術、外部連結）。<br>3. <strong>重要性 (Why)：</strong> 論證執行 SEO 的價值，以條列式說明其商業效益。<br>4. <strong>應用範圍 (Where)：</strong> 最後將其應用場景具體化。<br>整個結構遵循著「是什麼 → 怎麼做 → 為何做 → 用在哪」的完整邏輯鏈。</p>
+        <p><strong>核心重點分布：</strong><br>AI摘要的重點高度集中在SEO的「基礎概念」與「核心價值」上。最高權重給予開篇的定義，並透過列表形式強調三大支柱（內容、技術、外部連結）及商業效益。</p>
+        <p><strong>專業程度定位：</strong><br>AI生成的內容定位為「入門級的全面概述」。語言專業但易於理解，旨在教育對SEO不熟悉的受眾，內容停留在概念和策略層面，而非深入的執行細節。</p>
+    </div>
+    <div style="margin-top: 16px;">
+        <h4 style="color: #0d47a1;">呈現方式與語言特徵分析</h4>
+        <p><strong>結構化特徵：</strong><br>AI摘要大量運用結構化元素，如段落與列表結合、帶有標題的列表項（如 &lt;strong&gt;內容優化:&lt;/strong&gt;）以及高亮強調，以提升資訊的可讀性。</p>
+        <p><strong>語言風格：</strong><br>摘要的語言風格呈現出「權威、客觀、指導性」的特點。採用中性、肯定的陳述句，偏好使用定義性和指導性的詞彙，且內容高度精煉。</p>
+        <p><strong>內容組織方式：</strong><br>以「易於掃描」為核心原則，採用短段落、分點論述和邏輯遞進的資訊排列方式，降低了用戶的認知負荷。</p>
+    </div>
+</div>
+]]>
+      
+  </section>
+
+  <section id="ai-sources" class="mb-12">
+      <div class="flex items-center mb-6">
+          <span class="section-number">3</span>
+          <h2 class="text-2xl md:text-3xl font-bold section-header">Google AI 參考了誰</h2>
+      </div>
+      
+      <![CDATA[
+<div style="margin-bottom: 20px;">
+    <h3 style="color: #004d40;">📚 Google AI 引用來源權威性與競爭分析</h3>
+    <div style="display: flex; flex-wrap: wrap; gap: 16px; margin-top: 16px;">
+        <div style="flex: 1; min-width: 250px; background-color: #e8f5e9; padding: 12px; border-radius: 8px;">
+            <h4 style="color: #2e7d32; margin-top:0;">引用頻次分布</h4>
+            <p><strong>總引用網站數：</strong> 3個網站</p>
+            <p><strong>頻次分析：</strong> 每個網站在5個內容區塊中均被共同引用，AI採取「共識驅動」策略。</p>
+        </div>
+        <div style="flex: 1; min-width: 250px; background-color: #fff3e0; padding: 12px; border-radius: 8px;">
+            <h4 style="color: #e65100; margin-top:0;">來源類型分布</h4>
+            <p><strong>SEO專業服務/內容網站：</strong> 3個 (佔100%)</p>
+            <p>AI完全依賴高度垂直的SEO專業網站。</p>
+        </div>
+    </div>
+    <div style="margin-top: 20px;">
+        <h4 style="color: #004d40;">重點引用來源詳細分析</h4>
+        
+        <div style="border: 1px solid #b2dfdb; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+            <p><strong>網址：</strong> <a href="https://ranking.works/knowledge/seo/#:..." target="_blank">https://ranking.works/knowledge/seo/...</a></p>
+            <p><strong>引用頻次：</strong> 被共同引用 5次</p>
+            <p><strong>對 AI 摘要的貢獻：</strong> 其全面的「懶人包」式內容結構，可能為AI摘要的整體框架提供了基礎藍圖。</p>
+            <p><strong>E-E-A-T 分析：</strong><br>
+              - <strong>Experience:</strong> 高 (SEO代理商，具實戰經驗)<br>
+              - <strong>Expertise:</strong> 高 (網站內容完全聚焦SEO)<br>
+              - <strong>Authoritativeness:</strong> 中-高 (台灣市場知名SEO品牌)<br>
+              - <strong>Trustworthiness:</strong> 高 (代理商提供專業可靠資訊)</p>
+        </div>
+        
+        <div style="border: 1px solid #d1c4e9; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+            <p><strong>網址：</strong> <a href="https://www.yesharris.com/learning-seo-menu/#:..." target="_blank">https://www.yesharris.com/learning-seo-menu/...</a></p>
+            <p><strong>引用頻次：</strong> 被共同引用 5次</p>
+            <p><strong>對 AI 摘要的貢獻：</strong> 強調「架構」與「內容」，可能為「技術優化」和「內容優化」支柱提供了概念支撐。</p>
+            <p><strong>E-E-A-T 分析：</strong><br>
+              - <strong>Experience:</strong> 高 (基於個人專家的長期實戰)<br>
+              - <strong>Expertise:</strong> 高 (網站圍繞專家知識構建)<br>
+              - <strong>Authoritativeness:</strong> 中 (個人專家權威)<br>
+              - <strong>Trustworthiness:</strong> 高 (個人品牌與信譽掛鉤)</p>
+        </div>
+
+        <div style="border: 1px solid #ffecb3; border-radius: 8px; padding: 16px; margin-bottom: 12px;">
+            <p><strong>網址：</strong> <a href="https://www.seoseo.com.tw/article_detail_591.html#:..." target="_blank">https://www.seoseo.com.tw/article_detail_591.html/...</a></p>
+            <p><strong>引用頻次：</strong> 被共同引用 5次</p>
+            <p><strong>對 AI 摘要的貢獻：</strong> 提供了「策略」、「技術」、「SERP」等具體術語，並將SEO與商業目標掛鉤。</p>
+            <p><strong>E-E-A-T 分析：</strong><br>
+              - <strong>Experience:</strong> 高 (SEO服務商，具行業經驗)<br>
+              - <strong>Expertise:</strong> 高 (網站專精於SEO實戰技巧)<br>
+              - <strong>Authoritativeness:</strong> 中-高 (本地SEO社群權威聲音)<br>
+              - <strong>Trustworthiness:</strong> 高 (商業實體需維持客戶信任)</p>
+        </div>
+    </div>
+     <div style="margin-top: 20px; background-color: #fce4ec; border-left: 6px solid #e91e63; padding: 16px;">
+        <h4 style="color: #c2185b; margin-top:0;">競爭格局洞察與 SIRO 品牌機會</h4>
+        <p><strong>被引用網站共同特徵：</strong> 均為高度垂直的SEO專家，提供結構清晰、全面的「入門指南」型文章，並強調內容的時效性。</p>
+        <p><strong>SIRO引用機會識別：</strong></p>
+        <ul>
+            <li><strong>內容空白機會：</strong> 專注於「成果導向」的案例研究、特定「工具應用」指南、或針對「特定產業」的SEO策略。</li>
+            <li><strong>權威性建立方向：</strong> 發布原創數據報告、建立獨家「SIRO方法論」、開發免費診斷小工具。</li>
+            <li><strong>差異化切入角度：</strong> 專注於深入的「技術SEO」、結合「AI與自動化」、或強調「使用者體驗SEO」。</li>
+            <li><strong>執行優先序：</strong>
+                <ul>
+                    <li><strong>短期：</strong> 撰寫一篇終極版「SEO是什麼」指南，優化現有內容結構。</li>
+                    <li><strong>中期：</strong> 發布產業策略文章和深度案例研究。</li>
+                    <li><strong>長期：</strong> 投資原創研究和開發品牌工具，建立護城河。</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+]]>
+      
+  </section>
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-poor p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第27位</div>
+                                <div class="text-sm opacity-90">有待檢測</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">26個位置</div>
+                                <div class="text-xs text-gray-600">與第1名距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前排名第27位，處於競爭激烈的環境中，距離搜尋結果首頁有顯著差距。這表示儘管內容詳盡，但在權威性、使用者意圖匹配或特定SEO訊號上存在明顯落後。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>ADBest</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+    <td class="font-semibold text-gray-700 p-3 border-b">標題 (Title)</td>
+    <td class="p-3 border-b">SEO是什麼？10分鐘掌握搜尋引擎優化方法，新手也能輕鬆上手！...</td>
+    <td class="p-3 border-b">多包含「2025」、「最新」、「指南」、「懶人包」、「全掌握」等詞，強調時效性與全面性。</td>
+    <td class="p-3 border-b text-red-600 font-semibold">加入年份「2025」，並將「10分鐘掌握」調整為更具權威感的「全方位指南」或「從入門到精通」。</td>
+</tr>
+<tr>
+    <td class="font-semibold text-gray-700 p-3 border-b">描述 (Description)</td>
+    <td class="p-3 border-b">SEO是什麼？這篇文章帶你了解SEO原理、SEO與SEM的差異？你將學到22種優化網站SEO的方式...</td>
+    <td class="p-3 border-b">強調能為使用者帶來的效益（如：提升流量、掌握方法），並概括文章核心內容。</td>
+    <td class="p-3 border-b text-red-600 font-semibold">更精煉地總結文章核心價值，並納入「AI趨勢」、「實戰策略」等進階概念，吸引更廣泛的受眾。</td>
+</tr>
+<tr>
+    <td class="font-semibold text-gray-700 p-3 border-b">URL 結構</td>
+    <td class="p-3 border-b">/blog/what-is-seo/</td>
+    <td class="p-3 border-b">更簡潔的結構，如 /knowledge/seo/ 或 /what-is-seo/。</td>
+    <td class="p-3 border-b text-yellow-600">目前URL可接受，若未來有機會重構，可考慮移除 /blog/ 層級，使結構更扁平化。</td>
+</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="analysis-section">
+    <h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+    <ul class="list-disc list-inside space-y-2 text-gray-800">
+        <li><strong>Meta標籤時效性缺失：</strong> 您的 &lt;title&gt; 標籤缺乏年份（如「2025」），這在與不斷更新的競爭對手（如競品3, 5, 6）比較時，會失去一個重要的「內容新鮮度」點擊訊號。</li>
+        <li><strong>語意覆蓋不足：</strong> N-gram分析顯示，您的頁面缺少對 `ai seo`, `technical seo`, `content seo` 等核心子主題的明確詞組使用。這可能導致Google在理解您內容的特定專業領域時不夠深入。</li>
+        <li><strong>結構化資料潛力未發揮：</strong> 雖然文章涵蓋FAQ，但未提及是否使用FAQ Schema。競品普遍利用結構化資料爭取更豐富的搜尋結果樣式（Rich Snippets），這是您需要檢視和補強的技術點。</li>
+    </ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="analysis-section">
+    <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+    <ul class="list-disc list-inside space-y-2 text-gray-800">
+        <li><strong>全面的內容架構：</strong> 您的頁面擁有極其完整的 H1-H4 結構，覆蓋了從基礎到進階的各個層面。這為搜尋引擎提供了清晰的內容層次，是排名爬升的堅實基礎。</li>
+        <li><strong>清晰的URL結構：</strong> `.../what-is-seo/` 的URL直觀且包含了核心關鍵字，有利於搜尋引擎和使用者理解頁面主題。</li>
+        <li><strong>行動裝置友善：</strong> 從Meta標籤中的 `viewport` 設定來看，網站已具備響應式設計，符合Google以行動版內容優先索引（Mobile-First Indexing）的核心要求。</li>
+    </ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="analysis-section">
+    <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">關鍵詞覆蓋分析</h4>
+    <div class="space-y-3">
+        <p>您的頁面核心關鍵詞「SEO」、「SEO是什麼」覆蓋良好。主要問題在於<strong>二級和長尾語意詞組的覆蓋缺口</strong>。</p>
+        <p><strong>主要缺失詞組：</strong></p>
+        <ul class="list-disc list-inside space-y-1 text-gray-700">
+            <li><strong>趨勢類：</strong> `2025 SEO`, `AI SEO`, `AISO`</li>
+            <li><strong>技術分類：</strong> `Technical SEO`, `Content SEO`, `On-Page SEO`</li>
+            <li><strong>權威實體：</strong> `Google Search Console`, `Google Analytics` (應更頻繁地與教學內容結合)</li>
+        </ul>
+        <p class="font-semibold text-green-700"><strong>策略建議：</strong> 在不影響閱讀流暢性的前提下，將上述詞組策略性地融入對應的H2/H3標題和段落首句中，以強化主題相關性。</p>
+    </div>
+</div>
+                                <div class="analysis-section">
+    <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">內容深度分析</h4>
+    <p>您的內容<strong>廣度有餘，但特定前瞻性主題的深度不足</strong>。</p>
+    <ul class="list-disc list-inside space-y-2">
+        <li><strong>優勢：</strong> 您對SEO的「內容、技術、連結」三大核心，以及各項優化指南的解釋非常詳盡，提供了大量的「How-to」步驟，對新手極具價值。</li>
+        <li><strong>劣勢：</strong> 相較於排名靠前的競爭者（如競品5、6），您對`SEO與AI結合`的未來趨勢探討幾乎為零。在當前搜尋生態下，這是一個巨大的內容缺口，使您的內容顯得不夠前沿。</li>
+    </ul>
+    <p class="mt-3 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-3"><strong>核心洞察：</strong> 您需要從一個「全面的SEO知識庫」轉變為「洞察未來的SEO戰略指南」，才能在頂級競爭中脫穎而出。</p>
+</div>
+                                
+                        </div>
+
+                            <div class="analysis-section">
+    <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容差異化機會</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 成為「AI SEO」的早期解說者</h5>
+            <p class="mb-2">大多數競爭者僅點到為止。您可以建立一個市場上最詳盡的「AI 對 SEO 影響」章節，內容包括：</p>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>AI Overviews 應對策略：</strong> 不只是介紹，而是提供具體建議，如如何優化內容以成為被引用的來源。</li>
+                <li><strong>AISO/GEO 概念詳解：</strong> 深入解釋 AI 搜尋最佳化（AISO）或生成式引擎優化（GEO），並提供初步實作框架。</li>
+                <li><strong>AI 工具於 SEO 的應用：</strong> 除了推薦工具，更要分享如何利用 AI 工具（如 ChatGPT, Gemini）進行關鍵字研究、內容生成和技術診斷的實戰工作流。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 強化並前置「品牌成功案例」</h5>
+            <p class="mb-2">您的S&amp;T STUDIO案例是獨一無二的資產。應將其從附屬內容提升為核心賣點：</p>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>數據化呈現：</strong> 用更具視覺衝擊力的圖表展示案例前後的流量、排名、轉換率變化。</li>
+                <li><strong>方法論連結：</strong> 在案例分析中，明確指出「我們運用了本文提到的第X、Y、Z項優化技巧」，將理論與實踐緊密結合，極大增強可信度。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="analysis-section">
+    <h4 class="font-semibold text-gray-700 mb-2 pb-1 border-b-2 border-gray-300">權威性 (E-E-A-T) 對比</h4>
+    <p>這是您與前10名競爭者最大的差距所在。競品包含Google官方、Wikipedia，以及在行業內深耕多年的品牌（如Ranking, Welly, Frank Chiu），這些網站擁有大量的自然反向連結和品牌搜尋量。</p>
+    <ul class="list-disc list-inside space-y-2 mt-2">
+        <li><strong>經驗 (Experience)：</strong> 您的成功案例是建立此項目的基石，但目前僅一個，略顯單薄。</li>
+        <li><strong>專業 (Expertise)：</strong> 文章內容詳盡，展現了專業知識，但缺乏具名作者的背書。</li>
+        <li><strong>權威 (Authoritativeness)：</strong> 這是最弱的一環，需要透過持續的內容產出和外部連結建設來積累。</li>
+        <li><strong>信譽 (Trustworthiness)：</strong> 網站有SSL，但缺少其他信任指標，如客戶評價、媒體報導、合作夥伴等。</li>
+    </ul>
+</div>
+                                <div class="analysis-section">
+    <h4 class="font-semibold text-gray-700 mb-2 pb-1 border-b-2 border-gray-300">信任指標評估</h4>
+    <ul class="list-disc list-inside space-y-2">
+        <li><strong>[+] 具備 SSL 加密：</strong> 網站使用 HTTPS，這是基本的信任訊號。</li>
+        <li><strong>[+] 成功案例：</strong> 提供了一個具體的客戶案例，增加了實踐經驗的可信度。</li>
+        <li><strong>[-] 缺乏作者資訊：</strong> 文章為匿名或品牌名義發布，降低了專業性和可信度。競品5、6的作者都有明確的個人品牌。</li>
+        <li><strong>[-] 缺少社會證明：</strong> 頁面上沒有客戶評價、媒體推薦、合作夥伴Logo等常見的社會證明元素。</li>
+    </ul>
+</div>
+                                
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標：</h5>
+      <ul class="space-y-2">
+        <li><strong>建立作者簡介：</strong> 在文章開頭或結尾處，明確標示作者（例如：ADBest SEO 團隊專家 Ricky），並附上簡短的專業資歷介紹和社群連結，將品牌專業度人格化。</li>
+        <li><strong>數據來源標註：</strong> 在引用任何數據或演算法資訊時，明確連結至Google官方文件或權威研究報告，展現內容的嚴謹性。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展權威內容：</h5>
+      <ul class="space-y-2">
+        <li><strong>案例研究系列化：</strong> 將單一案例擴展為「客戶成功案例」系列文章，定期發布不同產業的SEO優化成果，展示您解決方案的廣泛適用性。</li>
+        <li><strong>發布原創數據/觀點：</strong> 每年或每半年發布一篇「台灣SEO趨勢觀察」或「特定產業SEO數據洞察」報告，創造被其他媒體引用和連結的機會。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設：</h5>
+      <ul class="space-y-2">
+        <li><strong>策略性客座文章：</strong> 在相關的行銷或商業部落格上發表客座文章，內容可為本文的精簡版，並策略性地連回這篇權威指南。</li>
+        <li><strong>引導客戶評價：</strong> 在合作結束後，積極邀請滿意的客戶在Google商家檔案或第三方評論平台上留下正面評價。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li><strong>實作「浮動目錄」：</strong> 對於如此長度的文章，一個隨頁面滾動的浮動目錄（Sticky Table of Contents）是必備的，能讓使用者隨時跳轉至感興趣的章節，顯著降低跳出率。</li>
+        <li><strong>增加視覺化摘要：</strong> 在每個核心大段落（如內容SEO、技術SEO）的開頭，增加一個包含3-5個要點的「本章節重點」(Key Takeaways)區塊，幫助使用者快速吸收。</li>
+        <li><strong>優化表格可讀性：</strong> 將複雜的比較（如SEO vs. SEM）製作成更清晰的視覺化表格或資訊圖表，取代大段純文字。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>開發互動式工具：</strong> 在頁面中嵌入一個簡單的互動工具，例如「SEO自評檢查表」或「網頁標題預覽器」，能極大增加頁面停留時間和使用者參與度。</li>
+        <li><strong>拆分與聚合策略：</strong> 考慮將某個特別深入的章節（如「技術SEO教學」）擴寫成一篇獨立的子文章，並在本頁中保留摘要並提供內部連結，形成「主幹-分支」(Pillar-Cluster)的內容結構。</li>
+        <li><strong>影片內容補充：</strong> 為最核心的概念（如「搜尋引擎運作原理」）製作一個2-3分鐘的動畫解說短片並嵌入文章中，迎合不同學習偏好的使用者。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <!-- C1 -->
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第1名
+                </span>
+                <h4 class="font-bold text-xl">Google for Developers</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">官方文檔</div>
+                <div class="text-lg font-semibold text-blue-600">官方權威</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://developers.google.com/search/docs/fundamentals/seo-starter-guide?hl=zh-tw" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">developers.google.com</a>
+        </p>
+
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">Google官方開發者文檔，提供SEO入門指南，強調搜尋引擎運作原理與Google的建議，內容權威且技術導向，不帶商業目的。其H1為「搜尋引擎最佳化 (SEO) 入門指南」，結構涵蓋Google搜尋運作、整理網站、打造實用網站等，全面且具指導性。</p>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">官方指導式敘事，條理清晰，從Google搜尋運作到網站推廣，側重於提供標準化的最佳實踐和指引。無明確商業CTA，旨在教育使用者，提供最可靠的官方資訊。</p>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">作為搜尋引擎的開發者與營運者，擁有無與倫比的第一手數據與經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">在搜尋引擎技術與最佳化領域擁有最高層級的專業知識。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">為搜尋引擎的發布者，其指南是業界公認的最高權威標準。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">作為官方資訊來源，內容中立客觀，具備極高可信度。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+
+    <!-- C2 -->
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第2名
+                </span>
+                <h4 class="font-bold text-xl">愛貝斯</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">教學文章</div>
+                <div class="text-lg font-semibold text-blue-600">教育型顧問</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.ibest.tw/seo-detail/basic-knowledge/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.ibest.tw</a>
+        </p>
+
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">愛貝斯作為台灣知名的SEO服務商，提供SEO行銷知識懶人包，強調SEO是改善網站排名的工作，並通過全面性教學（H1為「第一章：SEO是什麼？SEO行銷知識懶人包」）吸引潛在客戶，從基礎概念到演算法、工具應用，目標為獲取業務，並利用「愛貝斯網路」的品牌影響力。</p>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用教科書式敘事，從定義、自然排名、重要性、黑白帽SEO，到演算法和工具，層層遞進。末尾提供「更多SEO行銷相關文章」，隱性引導用戶探索更多服務，最終促成諮詢。</p>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">作為一家網頁設計和SEO公司，具備豐富的客戶服務實戰經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">文章內容全面，從基礎到演算法均有涉獵，展現專業知識。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">網頁設計公司身份，在數位行銷領域具備一定話語權。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">提供SEO知識懶人包，旨在教育用戶，建立可信賴的形象。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+
+    <!-- C3 -->
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第3名
+                </span>
+                <h4 class="font-bold text-xl">Ranking SEO</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">教學文章</div>
+                <div class="text-lg font-semibold text-blue-600">自學指南型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://ranking.works/knowledge/seo/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">ranking.works</a>
+        </p>
+
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">Ranking SEO提供2025年最新SEO自學懶人包，其H1明確強調「2025 最新 SEO 自學懶人包」，從SEO目的、搜尋引擎原理、演算法介紹到網站建立與內容優化，結構非常完整且具時效性，旨在幫助自學者並間接推廣其SEO專案服務。</p>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用詳盡的懶人包敘事，從宏觀到微觀，從理論到實踐，全面覆蓋。末尾包含「SEO 要自學或找公司」、「Rankking SEO 專案公司」等章節，有效引導讀者考慮其商業服務。</p>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">作為一家SEO代理商，具備豐富的客戶服務與實戰經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">內容深度廣泛，涵蓋SEO各個層面，展示了其高度專業性。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">在台灣SEO市場中擁有良好聲譽和品牌知名度。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">提供2025年最新指南，內容實用且可靠，建立讀者信任。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+
+    <!-- C4 -->
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第4名
+                </span>
+                <h4 class="font-bold text-xl">維基百科</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">百科全書</div>
+                <div class="text-lg font-semibold text-blue-600">中立知識源</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://zh.wikipedia.org/zh-tw/%E6%90%9C%E5%B0%8B%E5%BC%95%E6%93%8E%E6%9C%80%E4%BD%B3%E5%8C%96" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">zh.wikipedia.org</a>
+        </p>
+
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">維基百科的SEO頁面，提供中立、客觀的搜尋引擎最佳化定義、歷史沿革與基本方法，H1為「搜尋引擎最佳化」，內容涵蓋歷史、與搜尋引擎關係、白帽與黑帽方法等，以學術性、資訊完整性為主，非商業導向，主要目的是知識普及。</p>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用百科全書式敘事，從概念到歷史，再到白帽與黑帽方法，提供概括性知識，側重事實羅列與定義。無任何商業CTA，純粹為資訊提供者，旨在提供全面且中立的知識。</p>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">作為全球最大的協作百科全書，經驗來自於其龐大的內容貢獻者群體。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">涵蓋各領域知識，其內容經過社群審核，具備廣泛的專業性。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">作為公認的知識來源，在全球範圍內享有極高權威性。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">內容中立客觀，且引用來源明確，高度可信賴。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+
+    <!-- C5 -->
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第5名
+                </span>
+                <h4 class="font-bold text-xl">Frank Chiu</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">個人部落格</div>
+                <div class="text-lg font-semibold text-blue-600">AI趨勢引導型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://frankchiu.io/seo-seo-basic-intro-know-how/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">frankchiu.io</a>
+        </p>
+
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">個人專家Frank Chiu的SEO自學指南，H1為「SEO 是什麼？如何高效自學 SEO？（2025 更新）」，強調SEO與AI的結合，深度探討AI Overviews對SEO的影響，並提供新時代的SEO做法，以其前瞻性洞察與個人品牌吸引讀者，內容涵蓋SEO定義、核心目標、好處、兩大調整方向等。</p>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用專家對話式敘事，從SEO基礎切入，重點引導至AI時代的SEO變革與策略，充滿個人見解與未來展望。末尾有訂閱電子報和相關閱讀推薦，旨在建立個人品牌影響力並沉澱受眾。</p>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">作者「Frank Chiu」作為個人專家，其內容建立在其豐富的實戰與教學經驗上。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">網站內容圍繞SEO及數位行銷，尤其在AI趨勢方面有深入探討，專業性強。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">作者在台灣數位行銷界有一定知名度，透過其個人品牌建立權威。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">內容透明，更新及時，作者親自背書，可信度高。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+
+    <!-- C6 -->
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第6名
+                </span>
+                <h4 class="font-bold text-xl">Whoops SEO</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">教學文章</div>
+                <div class="text-lg font-semibold text-blue-600">權威指南型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://seo.whoops.com.tw/what-is-seo/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">seo.whoops.com.tw</a>
+        </p>
+
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">Whoops SEO的權威指南，H1明確標示「【2025 SEO 權威指南】」，提供2025年最新SEO自學入門教學，強調SEO核心價值與搜尋引擎運作原理，內容涵蓋技術、站內、站外SEO及關鍵字策略，並特別提及AI搜尋對SEO的影響，旨在成為用戶首選的學習資源。</p>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用全面的權威指南敘事，從基本概念到演算法、三大SEO面向，再到與SEM、AISO的戰略佈局比較，邏輯清晰。末尾包含FAQ、相關文章及訂閱電子報，旨在提供深度學習並引導進一步互動。</p>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">作為專業SEO公司，具備豐富的實戰經驗，由具名作者Sliven褚崇名撰寫。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">網站內容專注於SEO，對演算法、技術細節有深入分析，專業度高。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">在SEO社群內有一定影響力，發布權威指南有助於鞏固其地位。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">強調「2025權威指南」，且內容誠實回答常見問題，可信賴。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+
+    <!-- C7 -->
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第7名
+                </span>
+                <h4 class="font-bold text-xl">Google for Developers</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">官方文檔</div>
+                <div class="text-lg font-semibold text-blue-600">官方資料</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://developers.google.com/search/docs/fundamentals/do-i-need-seo?hl=zh-tw" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">developers.google.com</a>
+        </p>
+        
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-400">
+            <h5 class="font-semibold text-lg mb-3 text-gray-700 flex items-center">
+                <i class="fas fa-info-circle mr-2"></i>基礎分析
+            </h5>
+            <p class="text-gray-700 mb-4 leading-relaxed">Google官方開發者文檔，提供SEO相關資訊。此頁面主要回答「我需要SEO嗎？」此類問題，屬於概念引導型內容。由於其meta和outline數據缺失，無法進行深入分析，但其作為Google官方來源，在任何SEO相關查詢中都擁有極高的權威性。</p>
+            
+            <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                <div class="flex items-center mb-2">
+                    <i class="fas fa-clock text-yellow-600 mr-2"></i>
+                    <span class="font-semibold text-yellow-800">分析進度狀態</span>
+                </div>
+                <p class="text-yellow-700 text-sm leading-relaxed">
+                    詳細技術分析進行中，完整的E-E-A-T評估和內容策略分析將在數據收集完成後提供。
+                    目前已完成基礎排名位置識別和頁面類型分析。
+                </p>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+
+    <!-- C8 -->
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第8名
+                </span>
+                <h4 class="font-bold text-xl">Welly SEO</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">教學文章</div>
+                <div class="text-lg font-semibold text-blue-600">自學導向型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://welly.tw/blog/what-is-seo" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">welly.tw</a>
+        </p>
+
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">Welly SEO的2025自學指南，H1為「SEO是什麼？2025 SEO自學指南！」，從基礎介紹SEO是什麼、怎麼做，以及SEO自學資源推薦。強調SEO可為網站帶來免費流量、品牌信任感及節省行銷成本的效益，內容涵蓋基礎名詞、行銷漏斗、演算法、2大優化面向等，結構清晰，旨在幫助讀者自學。</p>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">教學導向敘事，從基礎概念到Google演算法、再到具體優化面向，內容易懂，並提供大量學習資源和工具推薦。末尾有SEO公司選擇指南，旨在幫助讀者自學並建立對Welly的信任，引導潛在合作。</p>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">作為SEO服務商，具有提供SEO解決方案的實際經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">內容涵蓋廣泛，從SEO基本概念到演算法，顯示出其專業知識。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">作為提供SEO服務的品牌，在行業中逐步建立權威。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">內容實用，提供自學資源，有助於建立讀者信任。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+
+    <!-- C9 -->
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第9名
+                </span>
+                <h4 class="font-bold text-xl">達文西數位科技</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">問答文章</div>
+                <div class="text-lg font-semibold text-blue-600">商業效益導向型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.da-vinci.com.tw/tw/blog/seo-what" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.da-vinci.com.tw</a>
+        </p>
+
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">達文西數位科技通過9個問答改變SEO優化思維，H1為「搞懂SEO真的不難 : 改變你SEO優化思維的9個問答」，直接指出SEO的真正目的應是「帶來生意」，而非僅是排名。內容深入探討費用、成效週期、公司選擇等商業考量，旨在快速吸引有明確商業需求的潛在客戶，從痛點切入，商業導向性強。</p>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用問答式銷售敘事，直接模擬用戶心中的疑問並給出解答，旨在快速破除用戶疑慮，建立信任。敘事節奏快，商業導向性極強，每個問答都指向「SEO能賺錢，我們能幫你」的核心CTA，末尾直接提供業務聯繫。</p>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">作為提供數位行銷服務的公司，具備實際專案操作經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">內容專注於SEO的商業應用和常見問題，顯示其在解決客戶問題上的專業。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">通過直接回應商業痛點，在企業主群體中建立解決方案供應商的權威。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">透明化分析SEO費用和成效週期，有助於建立客戶信任。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+
+    <!-- C10 -->
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第10名
+                </span>
+                <h4 class="font-bold text-xl">愛貝斯</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">教學文章</div>
+                <div class="text-lg font-semibold text-blue-600">影響因素解析型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.ibest.tw/seo-detail/ranking-factors/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.ibest.tw</a>
+        </p>
+
+        <div class="border-t border-gray-200 my-4"></div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">愛貝斯提供的第二章內容，H1明確標示「影響SEO排名的因素有那些？掌握13個關鍵因素讓SEO優化變簡單」，專注於影響SEO排名的13個關鍵因素，包括內容品質、獨特性、反向鏈接、網站載入速度和E-A-T等。旨在深入解析Google演算法，幫助讀者掌握SEO優化的核心訣竅，與其第一章形成主題集群策略。</p>
+        </div>
+        
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用主題聚焦式敘事，圍繞SEO排名的具體因素展開，提供詳細的技術和內容要點。文章結尾依然引導至「更多SEO行銷相關文章」，旨在鞏固愛貝斯在SEO專業知識領域的地位，並促進站內流量循環。</p>
+            </div>
+        </div>
+        
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">作為網頁設計和SEO公司，通過提供具體影響因素，展示其對SEO實戰的理解。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">針對SEO排名的關鍵因素進行深入剖析，展現專業知識深度。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">作為SEO服務商，其在關鍵因素上的專業解讀有助於提升行業權威。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">內容詳實具體，可作為SEO優化的參考指南，建立用戶信任。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+</div>
+
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>標題效能：</strong>品牌方標題缺乏時效性（如「2025」），且價值主張（「10分鐘掌握」）相較於競爭者的「權威指南」或「懶人包」略顯不足，降低了點擊吸引力。</div>
+        <div><strong>描述效能：</strong>描述內容具體列出了學習點，但未能像競爭者一樣，清晰地傳達核心商業效益或AI趨勢等前瞻性價值。</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">時效性強調型：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>代表：</strong>C3 (Ranking SEO), C5 (Frank Chiu), C6 (Whoops SEO), C8 (Welly SEO)</div>
+        <div><strong>策略：</strong>在標題和描述中加入「2025最新」、「2025更新」等，吸引尋求最新資訊的用戶。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">價值導向型：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>代表：</strong>C1 (Google for Developers), C3 (Ranking SEO), C6 (Whoops SEO)</div>
+        <div><strong>策略：</strong>使用「入門指南」、「權威指南」、「自學懶人包」等詞彙，清晰承諾內容的價值與形式。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">結果導向型：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>代表：</strong>C9 (達文西數位科技), C2 (愛貝斯)</div>
+        <div><strong>策略：</strong>直接訴諸用戶痛點和期望結果，如「改變你SEO優化思維」、「高點擊流量造就高業績」，轉化意圖強烈。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">權威背書型：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>代表：</strong>C1 (Google), C4 (維基百科), C5 (Frank Chiu)</div>
+        <div><strong>策略：</strong>利用品牌或作者名號（如「Google搜尋中心」、「維基百科」、「白話文商學院」）建立信賴感。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                            
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>專注於「商業成果」而非「技術教學」。從新手市場中跳脫，吸引更高質量的潛在客戶。</li>
+        <li><strong>競爭優勢：</strong>定位為「不僅教你做SEO，更教你用SEO賺錢」的實戰顧問。</li>
+        <li><strong>目標受眾：</strong>針對創業者、企業主、行銷經理，而非SEO初學者。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong><br>範例1 (B2B導向): 「B2B企業SEO策略：從0到1打造潛在客戶開發引擎 (2025實戰)」<br>範例2 (電商導向): 「電商SEO終極指南：提升90%自然流量與營收的實戰框架」</li>
+        <li><strong>描述優化：</strong><br>範例1: 「還在煩惱SEO沒效果？SIRO提供專為B2B設計的SEO策略，結合內容行銷與數據分析，精準獲取高價值客戶。立即探索我們的成功案例與框架。」<br>範例2: 「告別無效流量！本指南揭示電商SEO核心，從選品關鍵字到技術優化，一步步教你將流量轉化為訂單。附贈獨家產品頁優化清單。」</li>
+        <li><strong>執行優先級：</strong>高。Meta是點擊率的第一道關卡，必須在內容創建之初就規劃好，以確保內容與標題高度一致。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>架構特點：</strong>目前品牌方SIRO的內容缺乏可比的結構化數據，因排名過低，未有效進入SERP的內容大綱分析。</div>
+        <div><strong>板塊覆蓋：</strong>由於缺乏實際頁面可供分析，目前無法評估品牌方在核心內容板塊的覆蓋情況。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">競爭者內容架構趨勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>普遍模式：</strong>頭部競爭者（C3, C5, C6, C8）普遍採用「百科全書式」結構，覆蓋基礎定義、運作原理、核心概念（演算法、E-E-A-T）、執行方法（技術、內容、站外SEO）、工具與資源、商業考量及FAQ。</div>
+        <div><strong>信息架構邏輯：</strong>多數內容從「是什麼」到「怎麼做」，旨在提供一站式學習體驗，但也導致內容高度同質化。</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">E-E-A-T 及敘事流對比：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>C1 (Google)：</strong>官方教學敘事，結構嚴謹，權威性與專業性極高，旨在教育市場。</div>
+        <div><strong>C3, C6 (Ranking SEO, Whoops SEO)：</strong>教科書式敘事流，通過引用演算法、E-E-A-T等術語建立專業形象，引導至商業服務。</div>
+        <div><strong>C5 (Frank Chiu)：</strong>專家對話式敘事，以個人品牌建立權威，融入大量AI趨勢獨到見解，展現個人經驗。</div>
+        <div><strong>C9 (達文西)：</strong>Q&amp;A式銷售敘事，直接模擬用戶疑問並給予解答，快速破除疑慮，商業導向性強。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">品牌方內容補強方向：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>品牌方SIRO應避免複製「史上最全的SEO入門指南」，而是專注於「某個領域最深度的SEO解決方案」。</div>
+        <div>基礎模塊可簡化處理或使用資訊圖表，快速切入SIRO的核心價值區。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                            
+
+                            <div class="success-box">
+    <h4><strong>🚀 品牌方內容優化策略</strong></h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容補強機會識別：</h5>
+            <ul class="space-y-2">
+                <li><strong>優先補強主題：</strong>基於競爭者分析，應補強關於「AI對SEO的衝擊與應對策略」的深度內容，以及針對特定行業（如B2B、SaaS、電商）的SEO解決方案。</li>
+                <li><strong>專業模塊建設：</strong>需要建立具備SIRO獨特方法論的模塊，如「SIRO的AI應對框架」、「SEO ROI評估模型」。</li>
+                <li><strong>深度內容機會：</strong>可以深入挖掘「獨家數據/案例分析」、「互動工具」等，將理論與實踐結合，建立難以複製的護城河。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">差異化內容策略：</h5>
+            <ul class="space-y-2">
+                <li><strong>獨特角度：</strong>創建「解決方案」而非「字典」，圍繞核心商業問題構建內容，將SEO從「技術」轉變為「商業增長引擎」。</li>
+                <li><strong>競爭優勢：</strong>通過分享SIRO服務客戶的匿名化數據、成功/失敗案例分析，建立專業性與經驗，提升可信度。</li>
+                <li><strong>執行路徑：</strong>短期內補齊AI趨勢內容，中期開發互動工具與案例模塊，長期則建立品牌方法論與原創數據報告。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">中小企業主、行銷經理、新創公司創辦人、品牌決策者。</span>
+            </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">SEO新手，對行銷有基本概念，但對SEO的技術細節感到陌生和畏懼。</span>
+            </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">決策影響力：</strong>
+        <span class="text-gray-600">決策者或核心影響者，掌握預算但需要充分理由來支持投資。</span>
+            </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">時間有限，預算敏感，尋求高效率、高回報的解決方案。</span>
+            </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">資訊過載與術語焦慮：</strong>
+        <span class="text-gray-600">對於反向連結、網站權重、Schema等專業術語感到困惑與不知所措。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">信任危機與成效不確定性：</strong>
+        <span class="text-gray-600">聽過太多SEO失敗或被詐騙的案例，害怕投入大量資金卻石沉大海。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">價值衡量困難：</strong>
+        <span class="text-gray-600">不清楚如何將「排名提升」這種技術指標，與「營收增長」等商業目標連結起來。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">服務內容與價格不透明：</strong>
+        <span class="text-gray-600">難以比較。</span>
+            </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">害怕被長期合約綁定：</strong>
+        <span class="text-gray-600">卻看不到預期效果。</span>
+            </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">無法有效辨別：</strong>
+        <span class="text-gray-600">不同SEO服務商的專業水平與策略差異。</span>
+            </div>
+        </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>將SEO從技術術語重新定義為「可持續的商業成長策略」。提供一篇權威性的指南，用商業語言解釋SEO的價值、基本原理與預期回報，並直接回應「成本」、「時間」、「風險」等核心疑慮。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>提供「如何選擇SEO合作夥伴」的框架、展示與商業目標（如營收、客戶獲取成本降低）緊密連結的案例研究、詳細說明SIRO獨特的「數據驅動策略方法論」。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>透明化展示我們的合作流程、服務範疇、報告範例與客戶見證。提供清晰的下一步行動指引。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>1. 策略優先，而非技術堆砌；2. 過程全透明，成效可預期；3. 建立長期品牌資產，而非短期排名技巧。</div>
+          <div><strong>競爭優勢展現：</strong>提供的不只是「SEO服務」，而是「以搜尋為核心的數位成長顧問」。將複雜的SEO執行過程，轉化為決策者能理解的商業洞察與行動方案。我們的成功案例不只秀排名，更展示客戶的「潛在客戶增長率」、「營收提升幅度」。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>1. 重技術、輕商業；2. 缺乏信任建立機制；3. 內容同質化高。</div>
+          <div><strong>品牌突破機會：</strong>1. 創作一篇專為「商業決策者」設計的SEO權威指南；2. 設計一個引導式的頁面旅程；3. 提出「策略健檢」或「機會分析」等高價值、低門檻的前導服務。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">頁面標題與首屏內容直接命中「想了解SEO如何幫助事業成長」的核心意圖，而非枯燥定義。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">3秒內傳達：「SEO是您最穩健的商業投資之一，讓我們告訴您如何正確執行。」</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導：</strong>
+          <span class="text-gray-600">內容結構從「Why (為何重要)」到「What (是什麼)」再到「How (如何做)」，並在其中穿插SIRO的觀點與方法論。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立：</strong>
+          <span class="text-gray-600">透過引用權威數據、展示客戶Logo牆、嵌入簡潔的案例摘要，在閱讀過程中持續建立權威感。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化：</strong>
+          <span class="text-gray-600">提供「常見SEO迷思破解」、「SEO成效時間軸」等內容，幫助用戶建立正確預期，強化SIRO的專業形象。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除：</strong>
+          <span class="text-gray-600">設立一個「為何選擇SIRO」的區塊，直接回應「透明度」、「策略差異」、「風險規避」等用戶痛點。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計：</strong>
+          <span class="text-gray-600">提供分層次的CTA。初步興趣者可「下載指南」，意圖強烈者可「預約策略健檢」。文案強調價值，如「獲取你的專屬成長藍圖」，而非「聯絡我們」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化：</strong>
+          <span class="text-gray-600">預約表單極簡化，只索取最必要資訊，降低填寫阻力。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                            
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>競爭格局極度激烈，由Google官方、維基百科等權威來源及多家深耕已久的SEO機構主導。當前市場充斥著針對新手的「入門指南」，內容同質化嚴重，這為SIRO提供了以「商業成果導向」和「特定行業解決方案」為切入點的明確差異化機會。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：技術與內容基礎快速優化 (Quick Wins)</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>解決Meta標籤時效性不足、缺失關鍵語意詞組、長文缺乏導覽等基礎問題，是成本最低、見效最快的排名提升方式。</div>
+        <div><strong>執行評估：</strong>難度：低；預期效果：排名提升5-10位；資源：內部人力。</div>
+        <div><strong>優先級：</strong>極高 - 這是所有後續策略的基礎。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容角度差異化與深度超越</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>跳脫同質化的「新手指南」，將內容重構成為「商業決策者」設計的「SEO增長劇本」，並在AI趨勢、獨家案例等模塊上建立絕對深度。</div>
+        <div><strong>執行評估：</strong>難度：高；預期效果：建立思想領導力，吸引高價值流量。</div>
+        <div><strong>優先級：</strong>高 - 這是實現競爭超越的核心。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：使用者意圖精準滿足與信任建立</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>直接回應決策者對ROI、信任度、執行風險的深層焦慮。透過調整溝通語言和轉換路徑（如提供策略健檢），將頁面從資訊提供者轉變為信任顧問。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：顯著提升高品質商機的轉換率。</div>
+        <div><strong>優先級：</strong>高 - 直接影響商業回報。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>商業導向：</strong>「SEO 公司如何收費」、「SEO ROI 計算」、「B2B SEO 策略」</div>
+        <div><strong>解決方案型：</strong>「SaaS SEO 增長指南」、「電商 SEO 實戰框架」、「提升網站權重方法」</div>
+        <div><strong>決策輔助型：</strong>「如何選擇SEO公司」、「SEO 合約 注意事項」</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「什麼是SEO」的教學語氣，轉變為「如何利用SEO驅動營收」的顧問語氣。</div>
+        <div><strong>專業詞彙：</strong>開拓「增長飛輪 (Growth Flywheel)」、「客戶生命週期價值 (LTV)」、「潛在客戶獲取成本 (CAC)」等與商業成果結合的語義。</div>
+        <div><strong>品牌調性：</strong>建立「策略優先」、「數據驅動」、「透明可信」的品牌溝通調性。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>我們的轉換優化藍圖旨在將頁面從單純的資訊載體，升級為一個高品質商機的孵化器。核心策略是放棄傳統、高阻力的「聯絡我們」或「免費報價」，轉而設計一條引導用戶從「認知」到「信任」再到「行動」的無縫路徑。我們將提供分層次的行動號召(CTA)：對於尚在探索階段的用戶，提供「下載決策者SEO評估清單」等高價值內容磁鐵；對於意圖明確的用戶，則提供低門檻、高價值的「預約15分鐘免費策略健檢」。整個流程將圍繞消除用戶的決策焦慮、建立SIRO的專業顧問形象來設計，以確保最終獲取的潛在客戶不僅數量更多，質量也更高。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>從同質化的「SEO教學者」轉型為「商業策略顧問」，提供以ROI為導向的深度內容，吸引高品質商業決策者流量。</div>
+        <div><strong>競爭者超越路徑：</strong>創建競品普遍缺失的「AI趨勢商業應對框架」、「獨家數據化案例研究」、「SEO夥伴選擇決策模型」等高價值模組，建立內容護城河。</div>
+        <div><strong>使用者價值最大化：</strong>直接回應商業決策者對「商業回報(ROI)」、「合作信任度」、「執行風險」的核心關切，而不僅是解釋技術細節。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將SIRO定位為能幫助客戶將SEO投資轉化為可預測營收增長的「商業增長夥伴」。</div>
+        <div><strong>差異化價值：</strong>提供一套可執行的「增長劇本(Playbook)」和決策框架，而非另一份理論知識百科全書。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>第一階段（1-4週）進入前20名，中長期（3-6個月）挑戰前10名。</div>
+        <div><strong>流量增長目標：</strong>吸引更多具有「B2B SEO」、「SaaS SEO」、「SEO ROI」等高商業意圖的目標客群。</div>
+        <div><strong>轉換率優化：</strong>透過分層CTA（行動號召），顯著提升高品質MQL（策略健檢預約）的申請數量。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速優化（1-4週）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">Meta標籤優化：</strong>
+          <span class="text-gray-600">立即更新&lt;title&gt;與&lt;meta name="description"&gt;，加入「2025」、「最新指南」、「實戰策略」等詞彙，強化時效性與價值主張。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">頁面結構與UX微調：</strong>
+          <span class="text-gray-600">實作頁首「浮動導覽目錄」，並為重要段落加入「本章重點」區塊，降低長文閱讀跳出率。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">關鍵詞語義補強：</strong>
+          <span class="text-gray-600">自然地融入`ai seo`、`technical seo`、`content seo`等缺失的高價值詞組，補全語意覆蓋。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容深化（1-3個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心內容模組重構：</strong>
+          <span class="text-gray-600">新增「AI如何重塑SEO商業策略」深度章節，將「自學 vs. 委外」擴寫為「如何選擇能創造商業價值的SEO夥伴」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">信任與轉換路徑優化：</strong>
+          <span class="text-gray-600">插入數據化的成功案例模組，設計並上線分層次的CTA（下載指南 vs. 預約健檢）。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">E-E-A-T信號強化：</strong>
+          <span class="text-gray-600">為文章加上具名作者，創建詳細的作者介紹頁面，引用數據時明確標註權威來源。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：競爭超越（3-6個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">創建利基市場的「支柱內容」：</strong>
+          <span class="text-gray-600">開發一篇全新的、更具體的支柱頁面，如「SaaS企業SEO增長劇本」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">開發互動式工具：</strong>
+          <span class="text-gray-600">在頁面中嵌入一個小型工具，如「SEO潛力與預算ROI計算機」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">權威性內容系列化：</strong>
+          <span class="text-gray-600">定期發布不同行業的深度案例研究或「台灣SEO趨勢數據報告」。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>內容廣度極其全面，作為一篇針對新手讀者的「終極指南」具備潛力；已具備基礎的成功案例作為信任證明。</div>
+          <div><strong>改善空間：</strong>缺乏前瞻性AI趨勢內容；商業應用深度不足，未能有效回應決策者的成本與ROI關切；信任建立機制（如作者歸屬）仍有待強化。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">關鍵詞整合策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>主詞布局：</strong>確保「SEO是什麼」、「SEO優化」等核心關鍵詞在標題、首段、重要H2標題中自然分佈。</div>
+          <div><strong>長尾詞機會：</strong>針對「B2B SEO策略」、「SEO ROI計算」、「如何選擇SEO公司」等高商業意圖長尾詞，規劃專門的H2/H3章節或問答形式。</div>
+          <div><strong>AI趨勢詞：</strong>立即融入`AI SEO`、`AI Overviews`、`AISO`等詞組，並圍繞其擴展深度內容。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">內容差異化與E-E-A-T強化：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>創建獨家模組：</strong>新增「SIRO的AI應對框架」、「SEO ROI評估模型」、「獨家客戶成功案例分析」等模組，從「解釋」到「解決方案」。</div>
+          <div><strong>強化作者權威：</strong>為文章添加具名作者，並提供詳細的專業簡介，增加內容的經驗和可信度。</div>
+          <div><strong>數據化呈現：</strong>將所有關鍵數據（如案例成果、市場趨勢）以圖表或數據框形式呈現，提升專業性和可讀性。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">內容分發與推廣：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>內部連結優化：</strong>確保網站內其他相關文章能有效連結到這篇支柱內容。</div>
+          <div><strong>外部推廣機會：</strong>將改造後的內容推廣給相關商業媒體或行業論壇，爭取優質外部連結。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>顧問式溝通語言：</strong>全文採用「商業增長夥伴」視角，直接與決策者的ROI焦慮對話。</div>
+        <div><strong>前瞻性AI趨勢洞察：</strong>提供市場上最深入的「AI對SEO的商業衝擊與應對框架」模組。</div>
+        <div><strong>ROI導向的案例實證：</strong>將成功案例從附錄提升為核心論證，並以數據化圖表呈現。</div>
+        <div><strong>獨家決策框架：</strong>提供「如何選擇SEO夥伴」的評估模型，建立信任並教育市場。</div>
+        <div><strong>強化E-E-A-T信號：</strong>在內容中明確標示SIRO的觀點、流程，並連結至具名的專家團隊介紹。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>將&lt;h1&gt;和首屏文案從「解釋SEO」改為「解決商業增長問題」。</div>
+        <div>創建一個全新的、深度超過所有競品的「AI與SEO」章節。</div>
+        <div>在文章中段顯著位置插入圖文並茂的數據化案例研究模組。</div>
+        <div>設計一個教育性的比較表格或檢查清單，幫助用戶評估潛在的SEO服務商。</div>
+        <div>為文章添加具名作者，並創建詳細的作者/團隊介紹頁面。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：價值導向的首屏內容</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">目標：</strong>
+          <span class="text-gray-600">立即吸引商業決策者，明確指出SEO能解決的商業問題（如流量停滯、獲客成本高）。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">執行：</strong>
+          <span class="text-gray-600">優化&lt;h1&gt;和首段文案，直接以「SEO：驅動您事業持續增長的最穩健投資」等商業化語言開頭。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：建立信任的深度內容</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">目標：</strong>
+          <span class="text-gray-600">通過專業知識、獨家觀點和真實案例，逐步消除用戶的資訊焦慮和不信任感。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">執行：</strong>
+          <span class="text-gray-600">新增AI趨勢章節（SIRO的AI應對框架），並將成功案例以數據圖表化形式前置化展示。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：低阻力、高價值的潛客獲取</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">目標：</strong>
+          <span class="text-gray-600">為不同意圖階段的用戶提供恰當的CTA，從「了解」轉向「行動」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">執行：</strong>
+          <span class="text-gray-600">在內容中段提供「[免費下載]決策者SEO評估清單」；在文章結尾和浮動欄提供「[預約席位]15分鐘免費策略健檢」。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="analysis-grid space-y-4">
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h5 class="font-semibold text-blue-800 mb-2">快速導覽與可讀性</h5>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+            <li>在文章開頭實作一個**浮動的「快速導覽目錄」**，讓用戶能迅速跳轉至感興趣的章節。</li>
+            <li>在每個核心大段落（H2或H3）的開頭，增加一個**視覺化的「本章重點」摘要框**，幫助讀者快速掌握要點。</li>
+            <li>**優化表格和圖表**的可讀性，將複雜的數據以清晰、易懂的視覺化形式呈現，而非純文字描述。</li>
+        </ul>
+    </div>
+    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+        <h5 class="font-semibold text-green-800 mb-2">互動性與參與度</h5>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+            <li>考慮**嵌入一個簡單的互動工具**，例如「SEO潛力自評檢查表」或「網頁標題預覽器」，增加用戶停留時間和參與度。</li>
+            <li>為最核心的概念（如「搜尋引擎運作原理」或「E-E-A-T」）製作**2-3分鐘的動畫解說短片**並嵌入文章中，以迎合不同學習偏好的使用者。</li>
+        </ul>
+    </div>
+    <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-400">
+        <h5 class="font-semibold text-purple-800 mb-2">內容組織與深度</h5>
+        <ul class="list-disc list-inside text-gray-700 space-y-1">
+            <li>考慮將某些特別深入的章節（如「技術SEO教學」或「AI應對框架」）**擴寫成獨立的子文章**，並在本頁中保留摘要並提供內部連結，形成「主幹-分支」(Pillar-Cluster)的內容結構，方便深度探索。</li>
+            <li>確保所有內容在**行動裝置上都有極佳的瀏覽體驗**，包括響應式圖片、簡潔的段落和易於點擊的CTA按鈕。</li>
+        </ul>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 SIRO | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
