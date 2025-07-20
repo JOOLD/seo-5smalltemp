@@ -1,0 +1,1107 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO SEO 分析報告 | ADBest</title>
+    <link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        .info-box::before {
+            content: 'ℹ️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-top: 1rem; }
+        .stat-item { background-color: #F0F4F8; padding: 1rem; border-radius: 0.5rem; text-align: center; }
+        .stat-value { font-size: 1.875rem; font-weight: bold; color: var(--primary); }
+        .stat-label { font-size: 0.875rem; color: var(--secondary); }
+        
+        .source-card { background-color: white; padding: 1rem; border-radius: 0.5rem; border: 1px solid #E2E8F0; margin-bottom: 1rem; }
+        .source-dominant { border-left: 4px solid #38A169; } /* Green for dominant */
+        .source-major { border-left: 4px solid #1E88E5; } /* Blue for major */
+        .source-minor { border-left: 4px solid #F59E0B; } /* Orange for minor */
+        .tag { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; margin-right: 0.5rem; }
+        .tag-high { background-color: #D1FAE5; color: #065F46; }
+        .tag-medium { background-color: #FEF3C7; color: #92400E; }
+        .tag-low { background-color: #FEE2E2; color: #991B1B; }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">SEO SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「SEO」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站ADBest在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">27</div>
+                    <p class="text-blue-200 text-sm">有待檢測</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">ADBest的網站現狀評估</a>
+                    
+    <a href="#ai-overview" class="toc-link">Google AI 怎麼看「SEO」</a>
+    <a href="#ai-sources" class="toc-link">Google AI 參考了誰</a>
+    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">ADBest的網站現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        
+        <div class="space-y-4">
+            <div>
+                <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+                <p class="text-gray-700">網站內容定位為一篇極其詳盡的<strong>SEO入門百科全書</strong>，旨在為初學者提供一站式學習資源。文章從最基礎的「<strong>SEO是什麼</strong>」和「<strong>SEO與SEM的差異</strong>」開始，系統性地引導讀者進入SEO的世界，目標是讓新手也能在短時間內掌握核心概念。</p>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+                <p class="text-gray-700">內容的廣度與深度是其最大優勢。文章結構完整，涵蓋了<strong>SEO三大核心（內容、技術、連結）</strong>、搜尋引擎運作原理、詳細的<strong>內容面與技術面優化教學（合計22項指南）</strong>、站外策略、Google演算法演進、企業導入評估、工具推薦及常見問題解答。這種全面的覆蓋在SERP中極具競爭力。</p>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+                <p class="text-gray-700">對用戶而言，這篇文章提供了極高的教育價值和實用性。它不僅僅是理論闡述，更提供了大量<strong>可操作的優化步驟</strong>。文末的「<strong>ADBest操作成功案例</strong>」更是點睛之筆，將理論與實踐相結合，有效證明了品牌方的專業能力，為潛在客戶建立了強大的信任基礎。</p>
+            </div>
+        </div>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            
+        <div class="space-y-6">
+            <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+                <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+                    <i class="fas fa-robot text-red-600 mr-2"></i>AI 搜尋時代的內容缺口
+                </h4>
+                <div class="space-y-3">
+                    <div class="bg-white p-4 rounded border-l-2 border-red-300">
+                        <strong class="text-red-700">缺少內容：</strong>
+                        <span class="text-gray-600">文章中完全沒有提及當前最重要的SEO趨勢：<strong>AI搜尋（如Google AI Overviews）</strong>對SEO的衝擊與應對策略。</span>
+                    </div>
+                    <div class="bg-white p-4 rounded border-l-2 border-red-300">
+                        <strong class="text-red-700">用戶需求：</strong>
+                        <span class="text-gray-600">使用者現在最關心的問題是「AI會不會讓SEO消失？」、「我的網站內容如何被AI摘要選中？」。目前排名靠前的競爭者（如Whoops SEO、Frank Chiu）都已將「<strong>AISO（AI 搜尋最佳化）</strong>」納為核心章節，直接回應了市場最迫切的疑慮。</span>
+                    </div>
+                    <div class="bg-white p-4 rounded border-l-2 border-red-300">
+                        <strong class="text-red-700">建議補強：</strong>
+                        <span class="text-gray-600">新增一個專門的H2章節，標題可設為「<strong>AI浪潮來襲：SEO已死，還是迎來新生？</strong>」，深入探討AI Overviews的運作機制、如何優化內容以被AI採納、以及未來SEO策略的轉變方向。</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+                <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+                    <i class="fas fa-certificate text-orange-600 mr-2"></i>E-E-A-T 框架的論述缺失
+                </h4>
+                <div class="space-y-3">
+                    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+                        <strong class="text-orange-700">缺少內容：</strong>
+                        <span class="text-gray-600">雖然文章內容符合高品質標準，但並未明確介紹Google評估內容品質的核心框架——<strong>E-E-A-T（經驗、專業、權威、信賴）</strong>。</span>
+                    </div>
+                    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+                        <strong class="text-orange-700">用戶需求：</strong>
+                        <span class="text-gray-600">了解 E-E-A-T 是現代SEO的必修課。用戶需要知道Google如何評判內容，並學習如何具體地在網站上展示這四個維度的訊號，而不僅僅是寫出「好內容」。競爭者（Ranking.works）已將其列為重要評估機制。</span>
+                    </div>
+                    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+                        <strong class="text-orange-700">建議補強：：</strong>
+                        <span class="text-gray-600">在「內容面SEO教學」章節中，增加一個H3專門講解<strong>E-E-A-T是什麼</strong>，並為每個字母提供2-3個具體的實踐範例，例如如何建立作者簡介頁面、引用權威來源、展示客戶見證等。</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+                <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+                    <i class="fas fa-tools text-purple-600 mr-2"></i>工具推薦的深度與比較不足
+                </h4>
+                <div class="space-y-3">
+                    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+                        <strong class="text-purple-700">缺少內容：</strong>
+                        <span class="text-gray-600">文章提供了工具列表，但缺乏對工具的<strong>橫向比較</strong>和<strong>具體應用場景</strong>的說明。</span>
+                    </div>
+                    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+                        <strong class="text-purple-700">用戶需求：</strong>
+                        <span class="text-gray-600">新手面對Ahrefs、SEMrush等昂貴工具時會感到困惑。他們想知道「我該選哪個？」、「免費的Ubersuggest夠用嗎？」、「GSC和GA4的數據如何結合分析？」。提供比較能幫助他們做出更明智的決策。</span>
+                    </div>
+                    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+                        <strong class="text-purple-700">建議補強：：</strong>
+                        <span class="text-gray-600">創建一個「<strong>SEO工具比較表</strong>」，列出各工具的核心功能、優缺點、價格區間和最適合的用戶類型（如部落客、電商、B2B企業）。同時，可以簡要說明一個「<strong>基礎SEO分析流程</strong>」，示範如何結合使用GSC和Ahrefs進行關鍵字研究。</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+                <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+                    <i class="fas fa-sync-alt text-blue-600 mr-2"></i>內容時效性的信號不足
+                </h4>
+                <div class="space-y-3">
+                    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+                        <strong class="text-blue-700">缺少內容：</strong>
+                        <span class="text-gray-600">文章標題和內容中缺少明確的年份標示，例如「<strong>2025最新</strong>」。</span>
+                    </div>
+                    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+                        <strong class="text-blue-700">用戶需求：</strong>
+                        <span class="text-gray-600">SEO是一個快速變化的領域，用戶在搜尋時會優先點擊看起來最新、最權威的資訊。多數排名靠前的競爭者（Ranking.works, Whoops SEO, Frank Chiu, Welly）都在標題中加入了年份，這是一個強烈的<strong>時效性與新鮮度信號</strong>。</span>
+                    </div>
+                    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+                        <strong class="text-blue-700">建議補強：：</strong>
+                        <span class="text-gray-600">將文章標題更新為「<strong>SEO是什麼？2025最新搜尋引擎優化指南，新手也能輕鬆上手！</strong>」。同時，在內文中明確標注演算法更新的最新動態（如已提及的MUM、BERT等），並加入對近期「Helpful Content Update」的討論。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        
+        <div class="space-y-4">
+            <div>
+                <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+                <p class="text-gray-700">網站的基礎SEO設置非常完善。Meta Title和Description資訊豐富且包含核心關鍵詞；<strong>Open Graph標籤</strong>設定齊全，有利於社群分享；<strong>Canonical標籤</strong>使用正確，避免了重複內容問題；Robots指令清晰，整體技術基底穩固。作者資訊的標示也增加了內容的可信度。</p>
+            </div>
+            
+            <div>
+                <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+                <p class="text-gray-700">文章的結構是其最強大的資產之一。利用清晰的<strong>&lt;h1&gt;至&lt;h4&gt;層級</strong>，將一個龐大複雜的主題拆解成易於理解的模塊。從定義、重要性、做法、演算法到工具，邏輯流程極為順暢，這不僅對讀者友好，也極大地幫助搜尋引擎理解文章的<strong>主題層次和深度</strong>。</p>
+            </div>
+            
+            <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+                <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+                    技術改善建議
+                </h4>
+                <p class="text-yellow-700">網站由 <strong>Elementor 3.28.4</strong> 構建。雖然 Elementor 提供了設計彈性，但它可能產生額外的程式碼，對<strong>網站載入速度</strong>造成負擔。鑒於頁面內容極為豐富，強烈建議使用 Google PageSpeed Insights 進行詳細測速，並專注於優化<strong>核心網頁指標（Core Web Vitals）</strong>，特別是 LCP 和 CLS。此外，雖然文章已有 `article:modified_time`，但可以考慮在頁面頂部顯著位置也標示「最後更新日期」，以增強使用者對內容時效性的信任感。</p>
+            </div>
+        </div>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        
+        <ul class="list-disc pl-5 space-y-2 text-gray-800">
+            <li><strong>內容全面性突出：</strong>文章在「SEO是什麼」這個主題上，提供了市場上最全面的內容架構之一，涵蓋了從入門到實戰的各個層面。</li>
+            <li><strong>最大內容缺口：：</strong>與排名靠前的競爭者相比，最關鍵的短板是完全<strong>缺乏對AI搜尋趨勢（AISO, AI Overviews）的討論</strong>，這使得內容在2025年顯得略有滯後。</li>
+            <li><strong>E-E-A-T訊號強烈：：</strong>透過詳盡的專業教學和真實的客戶案例研究，文章已自然地建立了強大的<strong>專業性(Expertise)和經驗(Experience)</strong>，這是極大的排名優勢。</li>
+            <li><strong>技術優化潛力：：</strong>雖然基礎SEO配置無懈可擊，但基於Elementor構建的頁面需要特別關注<strong>載入速度和Core Web Vitals</strong>，這可能是影響排名的潛在技術瓶頸。</li>
+            <li><strong>更新與再包裝：：</strong>只需補上AI相關內容、明確闡述E-E-A-T框架，並在標題中加入年份，這篇文章就有極大潛力挑戰搜尋結果首頁。</li>
+        </ul>
+                    </div>
+                    
+                    <!-- E-E-A-T 內容信譽分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>E-E-A-T 內容信譽分析
+                        </h3>
+                        <div class="text-gray-700 eeat-analysis-list">
+                            
+**品牌方 (ADBest) E-E-A-T 分析:**
+- **經驗(E):** 極強。文章末尾的「<strong>ADBest 操作成功案例：以 S&amp;T STUDIO 女鞋品牌為例</strong>」部分，直接展示了品牌在SEO領域的第一手實戰經驗和成功結果，這是最有力的經驗證明。
+- **專業(E):G極強。文章對SEO的拆解極為細緻，涵蓋了<strong>內容面、技術面、站外策略、演算法歷史</strong>等多個維度，並列出了具體的12項內容優化和10項技術優化指南。具名的作者「<strong>ADB_EDIT_Ricky</strong>」也提升了專業感。
+- **權威(A):** 強。內容發布於一家名為「<strong>ADBest</strong>」的數位行銷公司部落格，其本身在該領域就具備一定的行業權威性。提供的資訊全面且深入，使其成為一個可靠的資訊來源。
+- **信賴(T):** 強。文章在FAQ中誠實地回答了「SEO要多久才有效」、「SEO公司有保證排名嗎？」等敏感問題，設定了務實的期望。技術上，<strong>Canonical標籤</strong>和清晰的網站結構也建立了技術層面的可信度。
+
+                        </div>
+                    </div>
+
+                    <!-- 內容敘事流 & CTA 分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-comments text-purple-500 mr-2"></i>內容敘事流 &amp; CTA 分析
+                        </h3>
+                        <div class="text-gray-700 narrative-analysis-list">
+                            
+<h4>敘事策略</h4>
+<p>採用了經典的「<strong>終極指南（Ultimate Guide）</strong>」敘事策略。其目標是成為使用者學習SEO時唯一需要閱讀的文章，透過提供壓倒性的全面資訊來建立權威感，並在使用者充分信任後，順勢引導至商業服務。</p>
+<h4>內容流程</h4>
+<ol class="list-decimal pl-5 space-y-1">
+    <li><strong>基礎定義 (What)：：</strong>從「SEO 是什麼？」和「與SEM的差別」切入，為新手建立基礎認知。</li>
+    <li><strong>價值主張 (Why)：：</strong>闡述「SEO的重要性」，激發讀者的學習動機。</li>
+    <li><strong>核心原理 (How it Works)：：</strong>解釋搜尋引擎運作的底層邏輯，建立讀者的宏觀理解。</li>
+    <li><strong>實踐教學 (How to Do)：：</strong>提供內容、技術、站外三大塊，超過20條可執行的詳細優化步驟。</li>
+    <li><strong>進階知識 (Advanced)：：</strong>深入探討Google演算法、企業決策、工具推薦等進階主題。</li>
+    <li><strong>答疑解惑 (Q&amp;A)：：</strong>解決新手的常見困惑，消除學習障礙。</li>
+    <li><strong>實力證明與轉化 (Proof &amp; CTA)：：</strong>以自家成功案例作為結尾，展示專業實力，並自然地引導潛在客戶。</li>
+</ol>
+<h4>CTA 分析</h4>
+<ul>
+    <li><strong>主要CTA：：</strong>文末的H2標題「<strong>準備開始優化 SEO？...回顧 ADBest 如何操作女鞋品牌 SEO？</strong>」是核心行動呼籲。</li>
+    <li><strong>CTA強度：：</strong>非常高。這是一個以「價值證明」為導向的強力CTA，它沒有直接說「聯絡我們」，而是說「看我們多厲害」，更能吸引有實際需求的潛在客戶。</li>
+    <li><strong>改善建議：：</strong>文章篇幅極長，可以在文章中段，例如「技術面SEO教學」或「SEO工具推薦」章節後，加入一個軟性的、非侵入式的CTA，例如：「對複雜的技術SEO感到頭痛嗎？<strong>歡迎與我們的專家聊聊</strong>」，以捕捉中途可能失去耐心的讀者。</li>
+</ul>
+                        </div>
+                    </div>
+
+                </section>
+
+                
+    <!-- Google AI Overview Analysis Sections -->
+    <section id="ai-overview" class="mb-12">
+        <div class="flex items-center mb-6">
+            <span class="section-number">2</span>
+            <h2 class="text-2xl md:text-3xl font-bold section-header">Google AI 怎麼看「SEO」</h2>
+        </div>
+        
+<div class="card card-blue-theme">
+    <div class="card-header">
+        <h3>🤖 Google AI 對「SEO」的內容理解分析</h3>
+    </div>
+    <div class="card-body">
+        <h4>AI 摘要內容深度解析</h4>
+        <p><strong>主題組織架構：</strong><br>AI 採用了經典的「定義-展開-總結」金字塔結構來組織內容。<br>1. <strong>首段定義：</strong> 開宗明義，直接給出 SEO 的完整定義與簡化版解釋。<br>2. <strong>主體展開：</strong> 透過一個無序列表，將 SEO 拆解為五個具體的「關鍵方面」。<br>3. <strong>結尾總結：</strong> 最後一段強調 SEO 的「持續過程」特性。</p>
+        <p><strong>核心重點分布：：</strong><br>AI 的核心重點明確地放在「構成 SEO 的五大關鍵方面」。這五個列表項目構成了摘要的主體。「技術優化」引用了最多的來源（3個），暗示其定義需要整合更多元觀點。開頭段落中被高亮的詞語「一系列用來提升網站在搜尋引擎結果頁(SERP) 中可見度的技術和策略」，精準概括了核心概念。</p>
+        <p><strong>專業程度定位：：</strong><br>內容定位於「SEO 初學者」。摘要使用了行業標準術語（如 SERP, Backlinks），但都放在易於理解的上下文中。整體語言平實、具有指導性，旨在為初學者建立清晰的基礎知識框架。</p>
+        
+        <h4>呈現方式與語言特徵分析</h4>
+        <p><strong>結構化特徵：：</strong><br>AI 高度依賴結構化元素提升可讀性，包括分段陳述、帶有粗體標題的項目列表 (<code>&lt;ul&gt;</code>) 和關鍵詞高亮，極大增強了資訊的清晰度。</p>
+        <p><strong>語言風格：：</strong><br>語言風格呈現為「權威且客觀的教學口吻」。精準使用專業術語並附上中文，表達方式直接、肯定，給人可靠、值得信賴的感覺。</p>
+        <p><strong>內容組織方式：：</strong><br>摘要遵循由總到分的邏輯，段落簡潔，信息層次清晰（宏觀定義 → 具體分解 → 總結觀點），邏輯流暢。</p>
+    </div>
+</div>
+
+    </section>
+
+    <section id="ai-sources" class="mb-12">
+        <div class="flex items-center mb-6">
+            <span class="section-number">3</span>
+            <h2 class="text-2xl md:text-3xl font-bold section-header">Google AI 參考了誰</h2>
+        </div>
