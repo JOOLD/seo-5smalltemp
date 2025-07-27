@@ -1,0 +1,2613 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO 分析報告 | Hi-Q Health</title>
+    <link rel="stylesheet" href="https://lf3-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/2.2.19/tailwind.min.css">
+    <link rel="stylesheet" href="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-100-M/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        .competitor-type-gov { border-top-color: #D97706; }
+        .competitor-type-video { border-top-color: #E53E3E; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">Hi-Q Health SEO 分析報告</h1>
+<p class="text-blue-100">深入剖析「血糖控制」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">有待提升</div>
+<p class="text-blue-200 text-sm">未進前10名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">Hi-Q Health的網站現狀評估</a>
+                    <a href="#ai-overview" class="toc-link">Google AI 怎麼看「血糖控制」</a>
+<a href="#ai-sources" class="toc-link">Google AI 參考了誰</a>
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">Hi-Q Health的網站現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">您的網站定位為一個<strong>品牌與產品展示的官方門戶</strong>，而非一個針對「血糖控制」的深度主題內容頁。網站核心是介紹旗下三大明星產品線：<strong>藻衡糖、褐抑定、鱸魚精</strong>，並透過專利配方與品牌榮譽來建立產品價值。內容的最終目標是引導用戶了解並購買產品，而非提供全面的健康知識教育。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容廣度上，涵蓋了<strong>關鍵期照護、促進代謝、體力營養補充</strong>等多個健康需求。對於「血糖控制」這一主題，主要是透過「藻衡糖」產品及其「幫助調整平衡、促進新陳代謝」的功能描述間接觸及。網站的資訊架構是<strong>以產品為中心</strong>，將不同產品歸類於不同的健康需求下，缺乏針對單一健康議題（如血糖管理）的系統性論述。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對用戶而言，網站的核心價值在於<strong>提供一個值得信賴的品牌形象與具體的產品解決方案</strong>。透過展示國際發明金獎、各類大獎及官方認可等權威證明，能有效吸引已對品牌有初步認識或正在尋找高端保健品的用戶。然而，對於處於「血糖控制」問題探索初期的用戶，頁面提供的直接解答和實用資訊相對有限。</p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>資訊意圖缺口：缺乏「血糖控制」基礎知識內容
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">網站完全沒有提供關於「血糖控制」的基礎教育文章。例如：血糖是什麼、為何需要控制、正常值範圍、高血糖的風險等。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">搜尋「血糖控制」的用戶，首要需求是了解這個健康議題的基本概念與重要性。他們想知道自己是否處於風險中，以及該如何開始管理。競爭者如 Health2Sync 和診所網站都提供了詳細的血糖值解說，直接滿足了用戶的求知慾。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">建立一篇名為「<strong>血糖控制入門指南：從認識血糖標準到管理的5個關鍵步驟</strong>」的內容頁，系統性地回答用戶的基礎疑問，以此作為吸引流量和建立專業形象的基石。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-utensils text-orange-600 mr-2"></i>使用指導缺口：缺少具體的飲食與生活建議
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">您的網站未提供任何關於如何透過飲食和生活方式進行血糖管理的具體方法，例如推薦食物、食譜範例或運動建議。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶在了解基礎知識後，最迫切想知道的就是「我該怎麼做？」。他們尋求可以立即執行的方案。競爭者如《康健雜誌》和香港衛生防護中心提供了「降血糖食物列表」和「一週菜單範例」，這些實用內容極具吸引力。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">發布一篇「<strong>穩定血糖飲食全攻略：營養師推薦的15種降血糖食物與3日控糖菜單</strong>」的文章，提供包含表格和圖片的實用飲食指南。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-balance-scale text-purple-600 mr-2"></i>決策支援缺口：產品科學原理與定位不明
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">雖然提到了「藻衡糖」有「專利平衡配方」，但缺乏對其作用機轉、科學研究證據以及在整體血糖管理中扮演角色的詳細說明。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">對於保健食品，用戶的決策過程非常謹慎。他們想了解產品的有效成分是什麼、如何作用、是否有科學研究支持。在未建立足夠的知識信任前，直接推銷產品效果不佳。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">為「藻衡糖」創建一個獨立的詳細介紹頁或部落格文章，標題可為「<strong>解密藻衡糖：小分子褐藻醣膠如何輔助新陳代謝與健康平衡？</strong>」，並引用相關專利或研究文獻，清楚說明其在輔助血糖控制中的定位。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-users text-blue-600 mr-2"></i>信任建立缺口：缺乏使用者見證或案例分享
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面中缺少來自真實使用者的回饋、心得分享或成功案例，尤其是在血糖管理方面的應用。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">除了科學證據，社會認同（Social Proof）是建立信任的關鍵一環。用戶想知道「別人用了有效嗎？」，真實的經驗分享能大幅降低購買疑慮，並讓產品效益更具體化。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">在產品頁或內容文章中加入匿名的「<strong>使用者分享</strong>」或「<strong>客戶見證</strong>」區塊，描述他們在使用藻衡糖後，如何在搭配飲食與運動下，感受到精神體力或生理機能的正向改變。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">您的網站具備了良好的SEO基礎技術配置。<strong>Meta 標籤</strong>（title, description）、<strong>Open Graph 標籤</strong>（用於社群分享）皆設定完整。同時，正確使用了 <strong>&lt;canonical&gt;</strong> 標籤來指定標準網址，並透過 robots.txt 允許搜尋引擎抓取，技術基礎穩固。網站系統為 <strong>WordPress</strong>，這為內容擴充提供了良好的平台。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">當前頁面的內容結構是以<strong>產品目錄</strong>的形式呈現，採用了大量的 &lt;h2&gt; 標籤來區分各個產品和品牌資訊區塊。這種結構適合品牌首頁，但對於要競爭「血糖控制」這類資訊型關鍵字而言，其<strong>主題關聯性不足且資訊層次扁平</strong>。關鍵字「血糖控制」並未出現在最重要的 &lt;h1&gt; 或 meta title 中，導致搜尋引擎難以將此頁面視為該主題的核心資源。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">主要問題不在於技術錯誤，而在於<strong>策略錯位</strong>。您試圖用一個品牌首頁去競爭一個高度專業的資訊型關鍵字。<strong>建議：</strong>不要修改首頁，而是應建立一個全新的內部頁面（例如部落格文章或獨立的「健康知識」頁面），專門針對「血糖控制」主題進行深度內容撰寫。該新頁面的 <strong>&lt;h1&gt; 標題應直接包含「血糖控制」</strong>，並且 meta title 應設計為如「如何有效控制血糖？飲食、運動與保健全方位指南｜Hi-Q health」。</p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="list-disc pl-5 space-y-2">
+    <li><strong>策略與意圖不匹配：</strong> 網站內容為產品導向（交易意圖），但目標關鍵字「血糖控制」背後的使用者需求是資訊導向（了解如何做）。這是導致排名競爭力不足的核心原因。</li>
+    <li><strong>權威性未能聚焦：</strong> 品牌雖擁有國際大獎、專利等強大權威信號，但這些信號目前僅用於支持品牌整體形象，未能有效聚焦於證明品牌在「血糖控制」領域的專業與權威。</li>
+    <li><strong>錯失內容行銷機會：</strong> 網站缺乏系統性的教育內容，無法在使用者探索階段建立信任。這導致流量入口狹窄，只能吸引到已認識品牌的用戶，錯失了大量透過解決問題來開發潛在客戶的機會。</li>
+    <li><strong>產品價值溝通不足：</strong> 「藻衡糖」作為核心解決方案，其科學原理、適用對象、與飲食運動的搭配方式等深度價值未被充分闡述，難以說服使用者從眾多競品中選擇它。</li>
+    <li><strong>技術基礎優良，但應用不當：</strong> 網站擁有良好的技術SEO基礎，但用首頁去競爭特定主題是資源錯配。最大的機會是利用現有平台，創建專門的內容頁來承載相關主題流量。</li>
+</ul>
+                    </div>
+                </section>
+
+                <!-- Google AI Overview Analysis Sections -->
+  <section id="ai-overview" class="mb-12">
+      <div class="flex items-center mb-6">
+          <span class="section-number">2</span>
+          <h2 class="text-2xl md:text-3xl font-bold section-header">Google AI 怎麼看「血糖控制」</h2>
+      </div>
+      
+      <div class="analysis-section" style="background-color: #eef7ff; border-left: 5px solid #0066cc; padding: 20px; margin-bottom: 25px; border-radius: 8px;">
+    <h3 style="color: #0066cc; margin-top: 0; font-size: 22px; display: flex; align-items: center;"><span style="font-size: 28px; margin-right: 12px;">🤖</span> Google AI 內容理解與呈現方式分析</h3>
+    <div style="padding-left: 40px;">
+        <div class="analysis-item" style="margin-bottom: 18px;">
+            <h4 style="color: #333; font-size: 18px; margin-bottom: 8px;">📝 主題組織架構：總-分-總的完整指南</h4>
+            <p style="color: #555; font-size: 16px; line-height: 1.6;">AI以「定義 → 五大核心方法（飲食、運動、藥物、監測、生活）→ 總結」的邏輯構建內容，結構清晰，符合使用者尋求解決方案的思路。重點方法（飲食、運動）下再細分具體建議，層次感極佳。</p>
+        </div>
+        <div class="analysis-item" style="margin-bottom: 18px;">
+            <h4 style="color: #333; font-size: 18px; margin-bottom: 8px;">🎯 核心重點分布：生活方式干預為主</h4>
+            <p style="color: #555; font-size: 16px; line-height: 1.6;">內容篇幅高度集中於「飲食控制」（6個子項）和「規律運動」（4個子項），顯示AI優先滿足用戶對可自主執行方法的資訊需求。藥物和監測作為必要補充，但著墨較少。</p>
+        </div>
+        <div class="analysis-item" style="margin-bottom: 18px;">
+            <h4 style="color: #333; font-size: 18px; margin-bottom: 8px;">🧑‍🏫 專業程度定位：大眾健康教育</h4>
+            <p style="color: #555; font-size: 16px; line-height: 1.6;">內容定位於向一般大眾提供實用、易懂的健康指導。雖使用「升糖指數(GI)」等術語，但立即提供解釋與範例，兼顧了專業性與易讀性，旨在賦予讀者行動力。</p>
+        </div>
+        <div class="analysis-item">
+            <h4 style="color: #333; font-size: 18px; margin-bottom: 8px;">🎨 呈現方式與語言特徵：結構化與指導性</h4>
+            <p style="color: #555; font-size: 16px; line-height: 1.6;">AI大量採用編號列表 (<code>&lt;ol&gt;</code>) 和項目列表 (<code>&lt;ul&gt;</code>) 來組織資訊，使內容易於掃描。語言風格直接、權威，充滿「建議」、「應避免」等指導性詞彙，旨在引導用戶採取行動。</p>
+        </div>
+    </div>
+</div>
+  </section>
+
+  <section id="ai-sources" class="mb-12">
+      <div class="flex items-center mb-6">
+          <span class="section-number">3</span>
+          <h2 class="text-2xl md:text-3xl font-bold section-header">Google AI 參考了誰</h2>
+      </div>
+      
+      <div class="analysis-section" style="background-color: #f9f9f9; border-left: 5px solid #f2b007; padding: 20px; margin-bottom: 25px; border-radius: 8px;">
+    <h3 style="color: #f2b007; margin-top: 0; font-size: 22px; display: flex; align-items: center;"><span style="font-size: 28px; margin-right: 12px;">📚</span> Google AI 引用來源權威性與競爭分析</h3>
+    <div style="padding-left: 40px;">
+        <div class="stat-overview" style="display: flex; justify-content: space-around; background-color: #fff; padding: 15px; border-radius: 8px; margin-bottom: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+            <div style="text-align: center;">
+                <div style="font-size: 28px; font-weight: bold; color: #d9534f;">10</div>
+                <div style="font-size: 14px; color: #555;">總引用網站數</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 28px; font-weight: bold; color: #5cb85c;">40%</div>
+                <div style="font-size: 14px; color: #555;">健康/營養網站</div>
+            </div>
+            <div style="text-align: center;">
+                <div style="font-size: 28px; font-weight: bold; color: #0275d8;">30%</div>
+                <div style="font-size: 14px; color: #555;">醫療機構/診所</div>
+            </div>
+             <div style="text-align: center;">
+                <div style="font-size: 28px; font-weight: bold; color: #f0ad4e;">10%</div>
+                <div style="font-size: 14px; color: #555;">政府機構</div>
+            </div>
+        </div>
+        <h4 style="color: #333; font-size: 18px; margin-bottom: 15px; border-bottom: 2px solid #eee; padding-bottom: 5px;">重點引用來源詳細分析：</h4>
+        
+        <div class="source-card" style="background: #fff; border: 1px solid #ddd; border-left: 4px solid #d9534f; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+            <p><strong>網址：</strong> <a href="https://shuxinclinic.com.tw/..." target="_blank" rel="noopener noreferrer">shuxinclinic.com.tw/...</a></p>
+            <p><strong>引用頻次：</strong> 6 次 (最高)</p>
+            <p><strong>對AI摘要的貢獻：</strong> 提供了摘要的整體框架，涵蓋定義、飲食、運動、監測和生活習慣等多個核心面向。</p>
+            <p><strong>E-E-A-T：</strong> 專業(高) · 權威(高) · 可信賴(高) - 由醫師署名，診所網站背景提供了極強的專業背書。</p>
+        </div>
+
+        <div class="source-card" style="background: #fff; border: 1px solid #ddd; border-left: 4px solid #f0ad4e; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+            <p><strong>網址：</strong> <a href="https://www.chp.gov.hk/..." target="_blank" rel="noopener noreferrer">www.chp.gov.hk/...</a></p>
+            <p><strong>引用頻次：</strong> 4 次</p>
+            <p><strong>對AI摘要的貢獻：</strong> 貢獻了多項關鍵的飲食建議，如均衡飲食、增加纖維、健康烹調等。</p>
+            <p><strong>E-E-A-T：</strong> 專業(極高) · 權威(極高) · 可信賴(極高) - 政府衛生部門(.gov.hk)的官方指南，是權威性的黃金標準。</p>
+        </div>
+
+        <div class="source-card" style="background: #fff; border: 1px solid #ddd; border-left: 4px solid #5cb85c; padding: 15px; margin-bottom: 15px; border-radius: 5px;">
+            <p><strong>網址：</strong> <a href="https://nuturefit.com/..." target="_blank" rel="noopener noreferrer">nuturefit.com/...</a> (共3個URL)</p>
+            <p><strong>引用頻次：</strong> 3+2+2 = 7 次 (合計)</p>
+            <p><strong>對AI摘要的貢獻：</strong> 多篇文章貢獻了運動原則、飲食建議（定時定量、控制碳水化合物）等實用內容。</p>
+            <p><strong>E-E-A-T：</strong> 經驗(高) · 專業(高) · 可信賴(高) - 營養師團隊背景，提供基於專業實踐的建議，可信度高。</p>
+        </div>
+        
+        <h4 style="color: #333; font-size: 18px; margin: 25px 0 15px 0; border-bottom: 2px solid #eee; padding-bottom: 5px;">Hi-Q Health 品牌機會識別：</h4>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <div class="opportunity-card" style="background: #fdfdfe; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px;">
+                <h5 style="color: #0066cc; margin-top: 0;">內容空白機會</h5>
+                <ul>
+                    <li>特定保健成分的科學解析</li>
+                    <li>特殊族群的血糖管理方案</li>
+                    <li>血糖監測數據的解讀與應用</li>
+                    <li>壓力管理與血糖健康的深度連結</li>
+                </ul>
+            </div>
+            <div class="opportunity-card" style="background: #fdfdfe; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px;">
+                <h5 style="color: #0066cc; margin-top: 0;">權威性建立方向</h5>
+                <ul>
+                    <li>與醫師/營養師進行內容協作</li>
+                    <li>發布科學文獻回顧與整理</li>
+                    <li>建立一站式「血糖健康資源中心」</li>
+                    <li>提升產品資訊與檢驗報告透明度</li>
+                </ul>
+            </div>
+            <div class="opportunity-card" style="background: #fdfdfe; border: 1px solid #e0e0e0; padding: 15px; border-radius: 8px;">
+                <h5 style="color: #0066cc; margin-top: 0;">差異化切入角度</h5>
+                <ul>
+                    <li>定位為「生活管理+精準營養補充」</li>
+                    <li>強調「海洋健康專家」的獨特視角</li>
+                    <li>提供整合性解決方案（飲食+運動+產品）</li>
+                    <li>分享真實使用者經驗與故事</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+  </section>
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-poor p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">有待檢測</div>
+                                <div class="text-sm opacity-90">目前排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">10+ 個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 財團法人糖尿病關懷基金會 距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前品牌頁面未進入前10名，顯示在內容相關性、頁面權威性或整體SEO優化上與市場領先者存在顯著差距。然而，這也意味著巨大的提升潛力。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>Hi-Q Health</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="border-b">
+        <td class="py-2 px-4 text-left font-semibold">標題 (Title)</td>
+        <td class="py-2 px-4">標題模糊，未突出核心價值</td>
+        <td class="py-2 px-4">多數包含「血糖控制」或「降血糖」，並以提問（如何）或價值主張（醫師公開、食物清單）吸引點擊</td>
+        <td class="py-2 px-4">改寫為：<strong>如何有效控制血糖？醫師詳解5大飲食原則與10個實用方法</strong></td>
+      </tr>
+      <tr class="border-b">
+        <td class="py-2 px-4 text-left font-semibold">描述 (Description)</td>
+        <td class="py-2 px-4">缺乏結構性說明與行動號召</td>
+        <td class="py-2 px-4">明確說明文章內容範疇，部分提及適合族群（如糖尿病患者、高風險族群）</td>
+        <td class="py-2 px-4">改寫為：<strong>血糖控制是維持健康的關鍵。本文由專業醫師解析血糖不穩的原因，提供完整的飲食原則、降血糖食物清單、運動建議與生活調整方法，助您有效穩定血糖。</strong></td>
+      </tr>
+      <tr>
+        <td class="py-2 px-4 text-left font-semibold">關鍵詞密度</td>
+        <td class="py-2 px-4">核心關鍵詞出現頻率低</td>
+        <td class="py-2 px-4">高排名頁面在標題和描述中均清晰地使用了核心或相關關鍵詞</td>
+        <td class="py-2 px-4">確保「血糖控制」出現在標題開頭附近，並在描述中自然地融入1-2次。</td>
+      </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">
+  <h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+  <ul class="list-disc list-inside space-y-1 text-gray-700">
+    <li><strong>E-E-A-T 信任信號缺失：</strong> 對於此類「Your Money or Your Life (YMYL)」主題，頁面上缺乏明確的作者資訊（醫師、營養師背景）、審閱者資訊及參考文獻，將嚴重影響Google的信任度評分。</li>
+    <li><strong>結構化資料 (Schema) 未實施：</strong> 競爭者普遍未使用，這正是我們的機會點。未使用 <code>Article</code>、<code>FAQPage</code>、<code>Author</code> 等結構化資料，錯失了在SERP中以更豐富形式呈現的機會。</li>
+    <li><strong>URL結構不佳：</strong> URL可能未包含英文或中文的目標關鍵詞，降低了主題相關性。例如，應使用 `/blood-sugar-control` 而非 `/article/123`。</li>
+  </ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage">
+  <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+  <ul class="list-disc list-inside space-y-1 text-gray-700">
+    <li><strong>可塑性強：</strong> 作為一個待優化的頁面，我們可以從一開始就建立完美的頁面結構、URL和Meta標籤，避免歷史包袱。</li>
+    <li><strong>後發優勢：</strong> 可以全面分析並整合排名靠前頁面的所有優點，建立一個在內容廣度、深度和結構上都超越所有現存競爭者的「終極指南」頁面。</li>
+    <li><strong>結構化資料機會：</strong> 透過實施 <code>FAQPage</code> 和 <code>Article</code> schema，有機會在搜尋結果中獲得更醒目的版面，直接提升點擊率。</li>
+  </ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+  <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">關鍵詞覆蓋與語義分析</h4>
+  <p class="text-gray-700">當前SERP的領導者不僅僅是優化「血糖控制」單一詞彙，而是圍繞一個完整的<strong>語義主題叢集</strong>。成功的頁面廣泛地回答了以下使用者問題：</p>
+  <ul class="list-disc list-inside space-y-2 mt-3 text-gray-600">
+    <li><strong>定義與標準：</strong>「血糖正常值」、「高血糖是什麼」、「糖化血色素標準」。</li>
+    <li><strong>飲食方法：</strong>「降血糖食物」、「低GI飲食」、「糖尿病菜單」、「飲食原則」。</li>
+    <li><strong>生活方式：</strong>「降血糖運動」、「穩定血糖方法」、「不吃藥降血糖」。</li>
+    <li><strong>原因探討：</strong>「血糖不穩原因」、「胰島素阻抗」。</li>
+  </ul>
+  <p class="mt-3 font-semibold text-gray-800">策略：我們的內容必須超越單點式回答，成為一個能全面覆蓋上述所有子題目的「一站式解決方案」。</p>
+</div>
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+  <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容深度分析</h4>
+  <p class="text-gray-700">競爭對手的內容深度呈現兩極化。高權威網站（如#1, #4, #6, #7）內容往往較淺、結構鬆散，僅依賴域名權威。而商業網站（如#2, #3, #5, #10）則提供了更深入、結構更佳的內容來競爭。</p>
+  <ul class="list-disc list-inside space-y-2 mt-3 text-gray-600">
+    <li><strong>超越機會：</strong> 我們的內容深度目標是結合兩者之長——既要有高權威網站的專業性（透過E-E-A-T展示），也要有商業網站的全面性和實用性（如提供食物清單、菜單範例、FAQ）。</li>
+    <li><strong>具體指標：</strong> 內容應包含至少2000字，涵蓋所有子主題，並輔以圖表（如血糖值範圍圖）、清單和實用工具（如下載菜單）。</li>
+  </ul>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化與超越機會</h4>
+  <p class="text-gray-700 mb-4">為了在眾多高權威競爭者中脫穎而出，我們不僅要做到「更好」，更要做到「不同」。以下是幾個關鍵的差異化策略：</p>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 打造「終極指南」結構</h5>
+      <ul class="list-decimal list-inside space-y-2 text-gray-600">
+        <li><strong>整合性：</strong> 將「原因」、「標準」、「飲食」、「運動」、「生活」、「監測」整合在一頁，成為用戶唯一需要的參考資料。</li>
+        <li><strong>實用工具：</strong> 提供競品沒有或做得不好的實用工具，例如「可互動的GI值查詢表」或「個人化熱量計算機」。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 強化視覺化與多媒體</h5>
+      <ul class="list-decimal list-inside space-y-2 text-gray-600">
+        <li><strong>資訊圖表 (Infographic)：</strong> 將「穩定血糖飲食原則」或「進食順序」設計成易於分享的資訊圖表。</li>
+        <li><strong>短影音教學：</strong> 嵌入一段由醫師或營養師親自示範的1分鐘短片，例如「如何正確使用血糖機」或「三餐外食控糖技巧」。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-orange-600 mb-2 pb-1 border-b-2" style="border-color: #fbbf24;">3. 突顯真實案例與經驗 (Experience)</h5>
+      <ul class="list-decimal list-inside space-y-2 text-gray-600">
+        <li><strong>匿名案例分享：</strong> 在不違反隱私的前提下，分享匿名的成功案例故事，增加內容的說服力和溫度。例如：「一位45歲上班族的控糖心路歷程」。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="warning-box">
+  <h4 class="font-semibold text-orange-600 mb-2 pb-1 border-b-2" style="border-color: #fbbf24;">權威性對比與挑戰</h4>
+  <p class="text-gray-700">這是最大的挑戰。我們的品牌權威性初期無法與「財團法人糖尿病關懷基金會 (.org.tw)」、「香港衞生防護中心 (.gov.hk)」、「亞東紀念醫院 (.org.tw)」等機構相比。</p>
+  <p class="mt-3 font-semibold text-gray-800">應對策略：</p>
+  <ul class="list-disc list-inside space-y-2 mt-2 text-gray-600">
+    <li><strong>借力使力：</strong> 頁面內容必須由具備執照的醫師或營養師撰寫或審稿，並清楚展示其資歷。我們不能成為權威來源，但我們可以成為「權威資訊的可靠傳播者」。</li>
+    <li><strong>引用外部權威：</strong> 在文章中引用國際醫學期刊（如 The Lancet, NEJM）或國內權威機構（如 衛福部國健署）的指引與數據，並附上來源連結，以增強內容的可信度。</li>
+  </ul>
+</div>
+                                <div class="success-box">
+  <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">信任指標評估與建立</h4>
+  <p class="text-gray-700">為了彌補域名權威的不足，必須在頁面上建立強烈的信任指標。以下為必須包含的元素：</p>
+  <ul class="list-disc list-inside space-y-2 mt-3 text-gray-600">
+    <li><strong>作者專區：</strong> 在文章開頭或結尾設置作者簡介區塊，包含照片、姓名、職稱（如：內分泌科 主治醫師）、學經歷。</li>
+    <li><strong>審稿人資訊：</strong> 標明「本文由 [另一位專家姓名/職稱] 審閱」，增加內容的嚴謹性。</li>
+    <li><strong>內容更新日期：</strong> 明確標示「最後更新日期」，向Google和使用者表明資訊的時效性。</li>
+    <li><strong>參考文獻：</strong> 在文末列出內容所引用的醫學研究或官方指南來源。</li>
+    <li><strong>清晰的聯絡方式：</strong> 在網站頁腳提供診所/公司的地址、電話，增加實體存在的可信度。</li>
+  </ul>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2" style="border-color: #fbbf24;">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標：</h5>
+      <ul class="space-y-2">
+        <li>於文章開頭顯著位置設置作者卡片，內容包括「作者：[醫師全名] [醫師職稱]」、「審稿：[另一位專家]」，並連結至完整的專家介紹頁面。</li>
+        <li>在提到具體數據或建議時，使用句中引用的方式，例如「根據《2024年美國糖尿病學會指南》建議...」，並在文末提供完整參考文獻列表。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展權威內容：</h5>
+      <ul class="space-y-2">
+        <li>定期邀請醫師或營養師開設線上直播問答，並將錄影內容整理成部落格文章，作為支持性內容。</li>
+        <li>若有使用特殊儀器（如連續血糖監測CGM），可撰寫專文介紹其原理與應用，展示在該領域的專業深度。</li>
+        <li>系統性地收集並展示匿名化的使用者成功案例（文字或影音見證），強化「經驗」訊號。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設：</h5>
+      <ul class="space-y-2">
+        <li>將文章中的優質資訊圖表投稿至健康類媒體或內容聚合平台，爭取曝光與高品質的反向連結。</li>
+        <li>在服務流程結束後，主動引導滿意的用戶在Google商家檔案上留下正面評價，特別是提及血糖控制相關的成功經驗。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2" style="border-color: #fbbf24;">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li>在文章開頭立即加入一個「文章目錄」或「快速導航」，允許使用者點擊跳轉至特定章節，滿足不同用戶的即時需求。</li>
+        <li>將關鍵數字和建議使用<strong>粗體</strong>或顏色突顯，並將長段落拆分為短句和點列式清單，提高行動裝置上的可讀性。</li>
+        <li>確保所有圖片都經過壓縮，並加上描述性的`alt`文字，提升頁面加載速度與可及性。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li>在文章結尾處，提供清晰的「下一步」指引，例如「預約專業諮詢」、「下載完整飲食指南」或「閱讀相關文章」，引導使用者旅程。</li>
+        <li>嵌入一個簡單的互動工具，如「您的風險評估」，使用者回答幾個問題後給予初步建議，能大幅增加頁面互動性和停留時間。</li>
+        <li>監控頁面熱點圖 (Heatmaps)，了解使用者在哪些區塊停留最久、點擊最多，並據此持續優化內容佈局與CTA按鈕位置。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第1名
+                </span>
+                <h4 class="font-bold text-xl">財團法人糖尿病關懷基金會</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">文章</div>
+                <div class="text-lg font-semibold text-blue-600">高權威專業型</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.dmcare.org.tw/article/521" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">dmcare.org.tw</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">作為頂級權威的非營利組織，其內容策略完全聚焦於提供可信的衛教資訊。頁面直接切入「一日三餐控醣」主題，提供具體的飲食建議，例如選擇高纖維主食、低脂蛋白質，並解釋份量評估原則。內容簡潔，直接滿足使用者尋求「如何吃」的核心問題，是典型的健康教育內容模式。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流為教育導向，結構為「點出問題(隨便吃) -> 提供解決方案(複雜吃) -> 細化執行方法(各類食物選擇)」。CTA非常薄弱，幾乎沒有商業導向，僅在頁面底部有「友站連結」，完全符合其非營利組織的定位，目標是純粹的知識傳播。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">高 - 來自基金會長期衛教經驗，內容由營養師撰寫，代表了豐富的臨床指導經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">極高 - 內容由專業營養師提供，資訊準確可靠。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">極高 - 「財團法人糖尿病關懷基金會」的域名本身就是極強的權威信號。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">極高 - 非營利組織提供的健康資訊，無商業動機，使用者信賴度極高。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第2名
+                </span>
+                <h4 class="font-bold text-xl">Health2Sync Blog</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">部落格</div>
+                <div class="text-lg font-semibold text-blue-600">商業服務型</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://blog.health2sync.com/individual-diabetes-glucose-management-goals/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">blog.health2sync.com</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">內容策略極為出色，採用「全面解析」的深度內容模式。頁面不僅提供一般血糖標準，更針對兒童、青少年、成人、老年人、孕婦、住院期間等不同族群提供客製化的血糖控制目標。這種精細化的內容分眾策略，能滿足更多元、更具體的用戶需求，建立起高度的專業形象，目標是成為血糖管理APP的權威內容入口。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流從廣泛的「血糖正常值」問題出發，逐步深入到各個族群的細分目標，最後以「如何行動」收尾，邏輯清晰。CTA設計巧妙，文末大量佈局「Related Posts」引導用戶持續瀏覽，並在側邊欄提供「認識智抗糖」和「訂閱電子報」，旨在將訪客轉化為長期用戶或App使用者。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">高 - 作為一款血糖管理App，擁有大量用戶數據和實踐經驗，內容反映了對糖尿病患者需求的深刻理解。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">高 - 內容專注於糖尿病管理，涵蓋多種情境，展現了在該垂直領域的深度專業知識。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">中 - 雖非醫療機構，但作為知名健康應用，在糖尿病管理領域已建立起相當的市場權威。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">中高 - 品牌具有高知名度，且專注於此領域，其提供的資訊被用戶認為是可靠的。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第3名
+                </span>
+                <h4 class="font-bold text-xl">康健雜誌</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">文章</div>
+                <div class="text-lg font-semibold text-blue-600">專業媒體型</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.commonhealth.com.tw/article/85359" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">commonhealth.com.tw</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">作為主流健康媒體，康健雜誌的內容策略是「價值導向」與「問題解決」的結合。標題直接使用「降血糖食物」、「不吃藥自然降血糖」等強烈吸引用戶的詞語。內容結構清晰，分為「推薦食物」、「飲食原則」、「天然方法」三大塊，快速提供使用者尋求的實用資訊，目標是透過高品質內容鞏固其在健康領域的媒體影響力。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用典型的「問題-解決方案」敘事模式，開篇即用提問抓住用戶，隨後快速給出列表式的解決方案。CTA設計以媒體訂閱和內部內容推薦為主，如「最新雜誌」、「延伸閱讀」，旨在增加用戶停留時間和媒體黏著度，而非直接的商業轉換。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">高 - 長期經營健康媒體，累積了大量面向公眾的內容製作與議題解讀經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">高 - 內容通常會引用專家觀點或研究，具備媒體專業性。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">高 - 作為台灣頂尖的健康媒體品牌，在公眾心中具有高度權威。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">高 - 品牌信譽良好，長期提供可靠的健康資訊，深受讀者信賴。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+    <div class="competitor-card competitor-type-gov card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第4名
+                </span>
+                <h4 class="font-bold text-xl">衞生防護中心</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">衛教頁面</div>
+                <div class="text-lg font-semibold text-blue-600">政府機構</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.chp.gov.hk/tc/static/102339.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">chp.gov.hk</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">香港衛生防護中心的內容策略是提供極致的「實用性」與「權威性」。頁面不僅條列出詳細的飲食原則，更提供了一個完整的「一週餐單範例」，內容具體到每一餐的菜色。這種極度實用的內容，直接解決了用戶「不知道怎麼吃」的最大痛點，是其他類型網站難以匹敵的。目標純粹是公共衛生教育。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流為典型的政府公告風格，從定義、原則到範例，結構清晰、嚴謹。頁面完全沒有CTA，體現了其公益性和非商業性。表格化（`<table>`）的菜單是其最強大的用戶體驗元素，提供了無與倫比的實用價值。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">極高 - 代表了政府衛生部門面向公眾進行健康教育的長期經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">極高 - 內容由公共衛生專家團隊制定，專業性無可置疑。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">頂級 - `.gov.hk` 的域名是權威性的黃金標準。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">頂級 - 政府網站發布的健康資訊，具有最高等級的可信度。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第5名
+                </span>
+                <h4 class="font-bold text-xl">存奕美學診所</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">文章</div>
+                <div class="text-lg font-semibold text-blue-600">商業服務型</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://drglowbeauty.com.tw/news/article/10-ways-to-improve-glucose" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">drglowbeauty.com.tw</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">此頁面採用「專業背書」型內容策略。標題直接打出「醫師公開」，利用專家身份建立權威感。內容架構完整，從原因、風險，到飲食原則、實用方法，全面覆蓋了用戶的資訊需求。最終目標是透過提供專業的健康知識，引導用戶對診所的服務（如CGM血糖監測儀）產生興趣並進行諮詢。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流為「問題(血糖不穩) -> 原因分析 -> 解決方案(飲食/方法) -> 進階方案(CGM)」。流程清晰，逐步引導用戶從理解問題走向尋求專業協助。CTA設計明確，文末提供「預約諮詢」按鈕，直接導向商業目標，是商業導向內容的優秀範本。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">高 - 內容由周建存醫師分享，直接反映其臨床經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">高 - 醫師署名提供了強大的專業性。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">高 - 醫療診所網站本身就是一個權威信號。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">高 - 來自專業醫師和診所的健康資訊，可信度高。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第6名
+                </span>
+                <h4 class="font-bold text-xl">亞東紀念醫院</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">院訊文章</div>
+                <div class="text-lg font-semibold text-blue-600">高權威專業型</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.femh.org.tw/magazine/viewmag.aspx?ID=8545" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">femh.org.tw</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">此頁面內容非常單薄，僅為一篇短小的「亞東院訊」文章，探討血糖控制不好的常見原因。它並非一個為SEO優化的頁面，之所以能獲得排名，完全是憑藉亞東紀念醫院（.org.tw）這個高權威域名的力量。內容策略上，它僅滿足了用戶尋找「原因」這一極小部分的意圖。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流簡單，直接條列出數個原因。頁面缺乏明確的CTA，用戶看完後沒有下一步的引導，體驗較差。這是一個典型的「內容質量低但域名權威高」的案例，是優質內容可以輕易超越的目標。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">高 - 來自大型醫院的臨床經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">高 - 資訊來源於醫院內部，專業性有保障。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">極高 - 醫學中心等級的大型綜合醫院，域名權威極高。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">極高 - 用戶對大型醫院發布的資訊抱持高度信賴。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第7名
+                </span>
+                <h4 class="font-bold text-xl">臺北榮總護理部健康e點通</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">衛教文章</div>
+                <div class="text-lg font-semibold text-blue-600">高權威專業型</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://ihealth.vghtpe.gov.tw/media/1101" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">ihealth.vghtpe.gov.tw</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">臺北榮總的頁面是標準的衛教單張格式，內容高度概括，以條列式呈現「學習重點」。涵蓋了症狀、治療方式（飲食、運動、藥物）和控制目標，內容準確但缺乏深度。其策略在於提供快速、標準化的衛教資訊，類似醫院發放的紙本傳單，目標是滿足病患及其家屬的基本資訊需求。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流為「重點摘要 -> 定義 -> 治療方法」，非常直接。頁面UI設計較為過時，CTA僅有「分享」、「QR code」、「列印」等功能性按鈕，完全沒有商業或導流行為。與亞東醫院類似，排名主要依賴其頂級的域名權威(.gov.tw)。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">極高 - 內容源自頂級醫學中心護理部的臨床照護經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">極高 - 由護理部製作的衛教內容，專業性極強。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">頂級 - 臺北榮總的子域名(.gov.tw)，權威性毋庸置疑。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">頂級 - 用戶對於國家級醫學中心發布的健康資訊有最高程度的信任。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第8名
+                </span>
+                <h4 class="font-bold text-xl">正欣診所</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">文章</div>
+                <div class="text-lg font-semibold text-blue-600">商業服務型</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.csclinic.com.tw/%E4%BB%80%E9%BA%BC%E6%98%AF%E9%AB%98%E8%A1%80%E7%B3%96/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">csclinic.com.tw</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">正欣診所的內容策略是「全面解析型」，旨在成為高血糖議題的一站式資訊來源。頁面詳細解釋了高血糖與低血糖的定義、原因、症狀，並提供了包含飲食、體重、運動、藥物、監測在內的五種控制方法。內容完整，架構清晰，目標是透過專業內容吸引目標客群，並引導至診所的特色療程（如EECP）。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流為「定義 -> 原因 -> 症狀 -> 方法 -> FAQ -> 服務介紹」，是一個非常完整且邏輯性強的引導路徑。CTA設計多元，除了文末的特色療程介紹，側邊欄還有「專人諮詢」、「LINE客服」等，為用戶提供了多種聯繫管道，轉換意圖明確。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">中 - 提供專業建議，但較少第一人稱的臨床經驗分享。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">高 - 網站為診所背景，內容圍繞醫療主題，專業性強。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">高 - 診所網站本身就是一個強烈的權威信號。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">高 - 由醫療機構提供的健康資訊，具有很高的可信度。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+    <div class="competitor-card competitor-type-video card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第9名
+                </span>
+                <h4 class="font-bold text-xl">YouTube - 腎寶思樂腎臟專科</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">影片</div>
+                <div class="text-lg font-semibold text-blue-600">影音平台</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.youtube.com/watch?v=zgtLOd0_3Wo" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">youtube.com</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">此競爭者以影片形式提供內容，策略是利用醫師的個人魅力與口語化講解，降低健康知識的理解門檻。影片標題《糖尿病控制血糖只做對1/3必做三件事來保護血管！》極具吸引力，點出多數人可能存在的誤區。內容強調「保護血管」的重要性，提供了與純粹控糖不同的新穎視角，目標是建立醫師個人品牌，並推廣其產品。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流透過講故事和類比（時光機）來吸引觀眾，情感連結力強。CTA位於影片描述區，直接引導至「選購聖寶思樂真的產品」，商業意圖明確。影片下方的大量正面留言也構成了強大的社會認同（Social Proof）。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">高 - 影片由腎臟科醫師主講，直接分享其豐富的臨床經驗與觀察。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">高 - 主講人為專科醫師，專業性強。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">中高 - 醫師個人在特定社群中建立起權威，YouTube頻道本身也具有高域名權威。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">高 - 觀眾對醫師的專業身份抱有高度信任，大量的正面留言進一步強化了可信度。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3">
+                    <i class="fas fa-trophy mr-1"></i>第10名
+                </span>
+                <h4 class="font-bold text-xl">Nuturefit 營養專家</h4>
+        </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">文章</div>
+                <div class="text-lg font-semibold text-blue-600">商業服務型</div>
+    </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://nuturefit.com/foods-to-lower-blood-sugar/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">nuturefit.com</a>
+        </p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center">
+                <i class="fas fa-lightbulb mr-2"></i>內容策略分析
+            </h5>
+            <p class="text-gray-700 leading-relaxed">Nuturefit的內容策略與康健雜誌類似，採用「價值導向」模式。標題《怎樣可以馬上降血糖？》直接命中用戶最急切的痛點。內容由營養師團隊提供，極具專業性。結構上分為「降血糖方法」、「飲食原則」、「推薦食物表」、「菜單推薦」，層層遞進，實用性極強。目標是透過專業內容吸引有健康需求的用戶，進而推廣其線上營養諮詢服務。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center">
+                <i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析
+            </h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流為典型的問題解決方案框架，快速給予用戶想要的答案。CTA位於頁面底部，明確展示「服務項目」和「聯絡方式」，引導用戶從內容消費者轉變為潛在客戶，轉換路徑清晰。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center">
+                <i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析
+            </h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Experience (經驗):</strong> 
+                        <span class="text-gray-600">高 - 內容基於營養師團隊的專業實踐經驗。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Expertise (專業性):</strong> 
+                        <span class="text-gray-600">高 - 網站內容由營養師團隊產出，專業度高。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Authority (權威性):</strong> 
+                        <span class="text-gray-600">中高 - 雖然不是醫療機構，但在營養諮詢領域建立了良好的專業聲譽。</span>
+                    </div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300">
+                        <strong class="text-green-700">Trust (信賴性):</strong> 
+                        <span class="text-gray-600">高 - 有明確的專家團隊背書，內容科學可靠，可信度高。</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-b border-gray-300 mt-6 mb-2"></div>
+    </div>
+</div>
+
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方目前未上榜，而高排名競爭者（C2, C3, C5, C10）的Meta標題直接命中用戶痛點，多採用「如何/有哪些/方法/原則」等疑問詞或解決方案詞。</div>
+          <div><strong>描述效能：</strong>競爭者普遍在描述中加入「醫師公開」、「營養師推薦」等權威背書，極具點擊吸引力，這是品牌方可以立即學習的策略。</div>
+          <div><strong>關鍵詞使用：</strong>競爭者普遍將「血糖控制」、「降血糖」、「糖尿病」、「飲食」作為核心詞，並與「方法」、「原因」、「食物」、「原則」等詞彙組合，全面覆蓋用戶意圖。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">價值導向型 (C3, C10)：</h5>
+            <p class="text-gray-600">強調「不吃藥」、「馬上降血糖」、「天然方法」，直接訴求用戶期望的結果，點擊動機強烈。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">專業背書型 (C5)：</h5>
+            <p class="text-gray-600">標題直接寫明「醫師公開」，利用專家身份快速建立信賴感，降低使用者疑慮。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">全面解析型 (C2, C8)：</h5>
+            <p class="text-gray-600">標題承諾「不同年齡階段」、「一次解析」，吸引希望獲得完整、有條理資訊的用戶。</p>
+        </div>
+         <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">權威機構型 (C1, C4)：</h5>
+            <p class="text-gray-600">直接以機構名稱（基金會、衞生防護中心）作為信譽保證，在健康議題上具有天然優勢。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>從「營養科學」切入，跳脫純粹的飲食/運動建議。定位為提供「進階輔助方案」的專家。</li>
+        <li><strong>競爭優勢：</strong>主打「海洋科學實證」，強調產品成分的獨特性與研究基礎，這是所有競爭者都不具備的獨特賣點。</li>
+        <li><strong>目標受眾：</strong>專注於「已嘗試基礎方法、尋求更有效輔助手段」的用戶，提供他們更深度的科學資訊。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>
+            <ul class="list-disc pl-5 mt-1">
+                <li>範例1 (科學角度): 「血糖控制新觀念：褐藻醣膠如何輔助穩定？Hi-Q Health科學解析」</li>
+                <li>範例2 (解決方案角度): 「飲食運動外，如何有效控制血糖？海洋多醣體的科學輔助策略」</li>
+            </ul>
+        </li>
+        <li><strong>描述優化：</strong>
+            <ul class="list-disc pl-5 mt-1">
+                <li>「想穩定血糖不只靠飲食！Hi-Q Health帶您認識褐藻醣膠的科學原理，從多篇國際研究了解海洋多醣體如何成為您血糖控制的得力助手。探索更科學、有效的健康管理方式。」</li>
+            </ul>
+        </li>
+        <li><strong>執行優先級：</strong><strong>高</strong>。Meta是影響點擊率的第一道門，優化成本低、見效快。應立即為相關頁面撰寫具備品牌獨特性的Meta資訊。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>目前缺乏一個針對「血糖控制」主題的全面性、權威性內容支柱頁面(Pillar Page)。</div>
+          <div><strong>板塊覆蓋：</strong>網站內容以產品為中心，尚未建立涵蓋「基礎知識」、「解決方案」和「進階知識」的系統性內容板塊。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者核心內容板塊：</h5>
+        <div class="space-y-2 text-gray-600">
+            <div><strong>基礎知識 (C2, C5, C8):</strong> 普遍涵蓋定義、原因、症狀。</div>
+            <div><strong>解決方案 (C1, C3, C5, C10):</strong> 聚焦於飲食原則、推薦食物、生活方式調整。</div>
+            <div><strong>進階知識 (C2):</strong> 針對不同族群提供客製化目標，內容深度最佳。</div>
+            <div><strong>實用工具 (C4):</strong> 提供一週菜單範例，極具實用價值。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">敘事流與CTA分析：</h5>
+            <p class="text-gray-600">競爭者主要採用「教育導向型」（以傳遞知識為主，CTA較弱）和「問題-解決方案型」（快速提供方案，CTA導向商業服務）。品牌方的機會在於採用「<strong>認知-科學-方案</strong>」的敘事流，先同理用戶現有認知，再引入獨家科學新知，最後提供產品作為解決方案。</p>
+        </div>
+         <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">專業模塊缺口識別：</h5>
+            <p class="text-gray-600">目前市場上普遍缺乏「<strong>營養補充品在血糖管理中的角色</strong>」這一專業模塊。特別是缺乏對特定成分（如褐藻醣膠）的作用機制、科學文獻佐證、挑選標準等深度內容，這是品牌方可以佔領的內容制高點。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200"><strong>🚀 品牌方內容優化策略</strong></h4>
+    <div class="space-y-4">
+    <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200"><strong>內容補強機會識別：</strong></h5>
+        <ul class="space-y-2">
+          <li><strong>優先補強主題：</strong>應立即規劃並建立一個關於「血糖控制」的Pillar Page，作為所有相關內容的核心支柱。</li>
+          <li><strong>專業模塊建設：</strong>頁面核心部分，建立一個品牌獨有的、無法被複製的模塊：「<strong>科學驗證的營養輔助：褐藻醣膠的角色</strong>」。</li>
+          <li><strong>深度內容機會：</strong>此模塊應包含褐藻醣膠的定義、國際科學研究（引用文獻）、作用機制圖解、高品質產品的選擇標準。</li>
+        </ul>
+    </div>
+    <div>
+        <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200"><strong>差異化內容策略：</strong></h5>
+        <ul class="space-y-2">
+          <li><strong>獨特角度：</strong>在頁面前半部涵蓋基礎知識以滿足用戶基本搜尋意圖，後半部則以獨家科學壁壘建立差異化。</li>
+          <li><strong>競爭優勢：</strong>參考C4的實用性，設計一個「結合褐藻醣膠的一週飲食建議」，將產品無縫融入用戶的生活場景。</li>
+          <li><strong>執行路徑：</strong>邀請合作的營養師或醫師為內容背書或引用其觀點，大幅提升E-E-A-T，彌補域名權威性初期的不足。</li>
+        </ul>
+    </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            <div class="space-y-6">
+  <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">核心群體：</strong>
+        <span class="text-gray-600">45-65歲的<strong>初診斷者</strong>（糖尿病前期/第二型）、有家族史的<strong>積極預防者</strong>、以及為年邁父母搜尋資訊的<strong>關懷家人者</strong>。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">知識水平：</strong>
+        <span class="text-gray-600">普遍為新手，對醫療術語和營養學感到陌生，需要簡潔易懂、值得信賴的資訊。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">搜尋情境：</strong>
+        <span class="text-gray-600">收到體檢報告後，或身體出現不適時，帶著解決問題的動機和健康焦慮進行搜尋。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">資訊混亂：</strong>
+        <span class="text-gray-600">網路資訊真假難辨，不同說法相互矛盾，迫切需要一個權威、可靠的資訊來源。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">執行困難：</strong>
+        <span class="text-gray-600">知道要改變飲食運動，但在日常生活中難以實踐，感到挫折，希望找到更簡單、有效的輔助方法。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">未來恐懼：</strong>
+        <span class="text-gray-600">害怕疾病惡化、需要終身服藥、擔心併發症，對未來的生活品質感到無力與悲觀。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">信任不足：</strong>
+        <span class="text-gray-600">對商業內容抱持懷疑態度，擔心保健食品的功效被誇大，安全性存疑。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">價值模糊：</strong>
+        <span class="text-gray-600">無法判斷保健品的價格是否合理，不確定投入金錢能否換來期望的效果。</span>
+      </div>
+    </div>
+    </div>
+    </div>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6 mt-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>提供權威、易懂的衛教資訊，用圖文、影片解釋核心概念。透過同理心安撫用戶焦慮，建立「可靠嚮導」的形象，並引導下載指南或加入LINE。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>呈現「飲食+運動+智能補充」的整合方案，在此框架下自然帶出Hi-Q Health產品的「科學輔助」角色。提供使用者見證與科學實證，強化價值。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>清晰展示產品成分、檢驗報告與專利認證，並提供FAQ消除購買疑慮。提供「營養師諮詢」等保障與承諾，讓用戶感覺購買的是一份安心。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>強調產品源於科學研究（而非傳統配方）、提供「產品+知識+諮詢」的全面夥伴關係、並有專業的個人化支持服務。</div>
+          <div><strong>競爭優勢展現：</strong>提供競品缺乏的「科學機轉解釋」與「國際研究證據」，滿足深度研究型用戶的需求，並透過完整的服務閉環超越僅銷售產品的對手。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>多數競品只說「有效」，未解釋「為何有效」；內容冰冷，缺乏情感安撫；售後支持斷裂，用戶感到孤立。</div>
+          <div><strong>品牌突破機會：</strong>創建「血糖控制科學觀」專區建立專業權威；設計從「安撫」到「賦能」的頁面體驗；建立LINE自動化關懷流程，將一次性購買轉化為長期品牌關係。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋與首屏吸引</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">頁面標題和首屏大綱需直接命中「如何有效控制血糖？」的核心問題，並以安撫人心的標題（如「血糖控制並不可怕...」）建立同理心。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">前3秒內，透過清晰的頁面目錄和權威標示（如：醫師審閱），讓用戶快速認知到這是一個全面、可信賴的資訊來源。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費與信任建立</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">使用清晰的小標題、圖表、重點標示將複雜資訊模組化。在飲食建議段落後，順勢引導至「更進階的科學輔助方式」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任元素嵌入：</strong>
+          <span class="text-gray-600">在內容側邊欄或段落間，策略性地放置專家頭像與引言、SGS標章、專利證書縮圖等信任符號。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化與疑慮消除</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化：</strong>
+          <span class="text-gray-600">展示使用者見證，從「他們也做到了」的情感共鳴中強化產品價值。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除：</strong>
+          <span class="text-gray-600">主動呈現FAQ區塊，以Q&A形式解答「安全嗎？」、「要吃多久？」、「會不會跟藥物衝突？」等核心疑慮。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換與關係延伸</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">分層CTA設計：</strong>
+          <span class="text-gray-600">提供多樣化的行動呼籲。認知區提供「下載指南」（微轉換）；考慮區提供「查看見證」；決策區提供「立即購買」和「諮詢專家」兩個選項（宏轉換）。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換體驗優化：</strong>
+          <span class="text-gray-600">簡化購買流程，提供多種支付方式，並在結帳頁面再次強調安全保障與品牌承諾，降低最終轉換阻力。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>目前「血糖控制」SERP由高權威網站(醫院、基金會)與商業內容網站瓜分。高權威網站雖有信任優勢，但SEO優化普遍不足；商業網站內容結構較佳，但在科學深度與品牌獨特性上存在缺口。Hi-Q Health的機會在於利用獨家「褐藻醣膠」科學實證，成為該利基領域的權威，從而實現差異化超越。</p>
+                        </div>
+
+                        <!-- 戰略機會矩陣 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：技術SEO與E-E-A-T基礎建設</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>透過優化Meta標籤、URL，並全面實施`Article`、`Author`、`FAQPage`等結構化資料與專家作者信號，快速在技術層面與信任層面超越優化不足的競爭對手。</div>
+        <div><strong>執行評估：</strong>難度：低；預期效果：高；資源需求：低。</div>
+        <div><strong>優先級：</strong><strong>極高</strong> - 這是所有後續策略成功的基石，投入產出比最高。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：打造「科學實證」差異化內容護城河</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>建立市場上獨一無二的Pillar Page，將用戶需要的基礎知識與品牌獨有的「褐藻醣膠科學機轉」深度內容結合，建立無法被複製的內容壁壘。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：極高；資源需求：中。</div>
+        <div><strong>優先級：</strong><strong>高</strong> - 這是品牌建立核心競爭力、實現超越的關鍵。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：優化使用者旅程以深化品牌關係</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>設計從「同理安撫」到「科學賦能」的用戶體驗，並透過互動工具與長期支持系統（如LINE），將訪客轉化為忠實客戶，滿足其深層情感與支持需求。</div>
+        <div><strong>執行評估：</strong>難度：中至高；預期效果：高；資源需求：中至高。</div>
+        <div><strong>優先級：</strong><strong>中</strong> - 在穩固排名後，此為提升客戶終身價值、鞏固領導地位的策略。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>結合品牌專業領域：</strong>「褐藻糖膠功效 血糖」、「穩定血糖營養素有哪些」、「海洋多醣體 糖尿病」</div>
+        <div><strong>問題導向：</strong>「血糖控制保健食品有效嗎」、「餐後血糖控制 補充品」、「糖尿病前期如何逆轉」</div>
+        <div><strong>商業意圖：</strong>「褐藻糖膠推薦 糖尿病」、「Hi-Q Health 血糖」</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從泛濫的「飲食/運動」紅海中跳脫，專注於「科學營養輔助」的藍海視角。</div>
+        <div><strong>專業詞彙：</strong>圍繞「海洋科學」、「多醣體」、「輔助代謝」、「科學實證」、「國際研究」等詞彙建立獨特的語義網絡。</div>
+        <div><strong>品牌調性：</strong>建立「科學、嚴謹、溫暖、可靠」的品牌溝通調性，與冰冷的醫療資訊或誇大的商業廣告做出區隔。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>設計一條從「焦慮搜尋」到「安心轉換」的完整用戶旅程。1. 以「同理心+權威性」的首屏內容抓住用戶。2. 透過模組化、視覺化的內容降低理解門檻，並在全程嵌入信任元素（專家背書、檢驗報告）。3. 藉由真實使用者見證與清晰的科學證據深化用戶意圖。4. 提供分層的CTA（微轉換：下載指南；宏轉換：購買/諮詢），並以完善的FAQ和專家支持服務，消除最後的決策障礙，促成高價值轉換。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>透過「科學實證」的深度內容，專攻高權威網站（醫院、政府）未能深入的「營養輔助」細分領域，避開直接權威性競爭。</div>
+        <div><strong>競爭者超越路徑：</strong>建立市場首個將「血糖控制基礎知識」與獨家「褐藻醣膠科學機轉」深度結合的權威Pillar Page，形成無法被輕易複製的內容護城河。</div>
+        <div><strong>使用者價值最大化：</strong>設計從「同理焦慮」到「科學賦能」再到「長期陪伴」的完整內容旅程，不僅提供資訊，更建立深度品牌信賴。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將Hi-Q Health定位為「血糖控制領域的海洋科學營養專家」，而非僅是保健食品銷售者。</div>
+        <div><strong>差異化價值：</strong>提供市場上獨有的，基於多篇國際研究的「褐藻醣膠」在輔助調節生理機能方面的科學論述與實證數據。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>6個月內，「血糖控制」核心關鍵詞進入搜尋結果前5名。</div>
+        <div><strong>流量增長目標：</strong>目標頁面每月自然搜尋流量達5,000+。</div>
+        <div><strong>轉換率優化：</strong>微轉換（LINE加入/資料下載）率達5%，宏轉換（諮詢/購買點擊）率達1%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+    <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+    <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速優化與基礎建立 (1-4週)</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+        <strong class="text-orange-700">準備與評估：</strong>
+        <span class="text-gray-600">提供自我檢測清單，幫助用戶了解自身需求。強調在開始補充前與專業醫療人員討論的重要性，並建立風險評估與預防措施的認知。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+    <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容深化與執行 (1-3個月)</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">產品選擇與正確補充：</strong>
+        <span class="text-gray-600">教導用戶如何挑選優質的褐藻醣膠（看純度、分子量、來源、檢驗報告），並提供正確的補充時機與搭配方式，建立品牌在品類中的專業形象。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+    <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+    <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：效果監測與長期關係 (3-6個月)</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <strong class="text-green-700">效果追蹤與優化：</strong>
+        <span class="text-gray-600">鼓勵用戶不僅監測血糖數字，更要關注體力、精神等「生活品質指標」的改善。引導用戶加入LINE社群，獲取持續的健康新知與個人化建議，建立長期關係。</span>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">E-E-A-T 最大化：</h5>
+        <p class="text-gray-600">明確標示具備專業證照的審稿人資訊、引用科學文獻並提供來源。</p>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">視覺化溝通：</h5>
+        <p class="text-gray-600">將複雜的科學機轉製作成簡單易懂的資訊圖表與短影音。</p>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">實用性工具：</h5>
+        <p class="text-gray-600">提供可下載的飲食計畫表、互動式自我評估工具，提升用戶停留時間與互動率。</p>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">內部連結策略：</h5>
+        <p class="text-gray-600">建立以Pillar Page為核心，多篇衛星文章為輔的Topic Cluster，鞏固主題權威。</p>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>由專業營養師/醫師團隊審閱：</strong>在頁面顯著位置展示審稿人卡片，建立Google與使用者信任。</div>
+        <div><strong>深入解析獨家成分「褐藻醣膠」的科學機轉：</strong>提供競品無法複製的深度科學內容，建立專業壁壘。</div>
+        <div><strong>提供基於國際科學文獻的輔助方案：</strong>所有論點均有據可考，強化內容的權威性與可信度。</div>
+        <div><strong>分享匿名化處理的真實使用者回饋：</strong>透過溫暖的故事建立情感連結與社會認同。</div>
+        <div><strong>在Q&A中提供結合產品科學的專業解答：</strong>直接解決高意圖用戶的核心疑慮，展現品牌專業。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在文章開頭與結尾加入附有資歷連結的審稿人資訊區塊。</div>
+        <div>製作「褐藻醣膠作用機轉」資訊圖表，並嵌入文章核心區塊。</div>
+        <div>在相關段落後方，以引用格式附上參考文獻編號與來源。</div>
+        <div>設計風格統一的「使用者見證」卡片，包含背景、挑戰與心得。</div>
+        <div>建立專門的FAQ區塊，並為其部署`FAQPage` Schema結構化資料。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="space-y-4">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+        <div class="flex items-center mb-3">
+            <div class="w-10 h-10 rounded-full bg-green-500 text-white flex items-center justify-center font-bold text-lg mr-4">1</div>
+            <h4 class="font-bold text-lg text-green-800">認知階段：低門檻微轉換</h4>
+        </div>
+        <p class="text-gray-700 ml-14">以「下載飲食指南電子書」或「索取7日控糖好食力菜單」作為低門檻的誘因，目的是獲取潛在客戶的聯繫方式（如Email），並將一次性訪客轉化為可長期溝通的潛在客戶名單。</p>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+        <div class="flex items-center mb-3">
+            <div class="w-10 h-10 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-lg mr-4">2</div>
+            <h4 class="font-bold text-lg text-blue-800">考慮階段：關係深化</h4>
+        </div>
+        <p class="text-gray-700 ml-14">引導用戶加入「LINE官方帳號」，承諾提供持續的健康新知、專家提醒與專屬優惠。透過自動化內容推播，定期觸及用戶，建立長期的品牌信任與專業形象。</p>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+        <div class="flex items-center mb-3">
+            <div class="w-10 h-10 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-lg mr-4">3</div>
+            <h4 class="font-bold text-lg text-purple-800">決策階段：高價值宏轉換</h4>
+        </div>
+        <p class="text-gray-700 ml-14">提供清晰的雙重宏轉換路徑：為高意圖、需要專業建議的用戶提供「與健康顧問一對一諮詢」的預約連結；為已有明確購買意願的用戶提供「前往官方商城購買」的直接按鈕，滿足不同決策風格的需求。</p>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">清晰導航</h4>
+        <p class="text-gray-600">文章開頭設置錨點連結目錄，方便用戶快速跳轉至所需章節。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">降低閱讀負擔</h4>
+        <p class="text-gray-600">使用列表、引言、重點標示和大量留白，讓長文易於消化。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">互動設計</h4>
+        <p class="text-gray-600">開發「血糖風險自我評估」小工具，增加頁面互動性與停留時間。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">感性連結</h4>
+        <p class="text-gray-600">首屏文案從同理心出發，內文穿插溫暖的使用者故事，平衡科學內容的冰冷感。</p>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Hi-Q Health | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
