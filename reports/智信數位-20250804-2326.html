@@ -1,0 +1,2486 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO 分析報告 | 智信數位</title>
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+        
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+       /* AI Overview Styles */
+       .analysis-card-container {
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: white;
+        }
+
+        .theme-blue .card-header { background: linear-gradient(135deg, #3B82F6, #1D4ED8); }
+        .theme-multi-color .card-header { background: linear-gradient(135deg, #3b82f6, #8b5cf6); }
+
+        .card-icon {
+            font-size: 1.75rem;
+            margin-right: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: white;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            background-color: #F9FAFB;
+        }
+
+        .analysis-section {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .analysis-section:last-child {
+             margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #1E40AF;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #93C5FD;
+        }
+
+        .section-item {
+            margin-bottom: 0.75rem;
+        }
+        
+        .section-item:last-child {
+             margin-bottom: 0;
+        }
+        
+        .section-item h5 {
+            font-weight: bold;
+            color: #3B82F6;
+            margin-bottom: 0.25rem;
+        }
+
+        .section-item p {
+            color: #4B5563;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-item {
+            background-color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #E5E7EB;
+        }
+
+        .summary-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1E40AF;
+        }
+
+        .summary-unit {
+            font-size: 1rem;
+            color: #6B7280;
+        }
+
+        .summary-label {
+            font-size: 0.875rem;
+            color: #6B7280;
+        }
+
+        .summary-conclusion {
+            background-color: #EFF6FF;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #3B82F6;
+            color: #1E40AF;
+        }
+
+        .section-title-sources, .section-title-opportunity {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+        }
+        .section-title-sources { color: #065F46; border-bottom: 2px solid #34D399; }
+        .section-title-opportunity { color: #9A3412; border-bottom: 2px solid #FDBA74; }
+
+
+        .source-card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .source-card {
+            background-color: white;
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+            overflow: hidden;
+            border-left: 4px solid;
+        }
+        .source-card.color-1 { border-color: #3B82F6; }
+        .source-card.color-2 { border-color: #10B981; }
+        .source-card.color-3 { border-color: #8B5CF6; }
+        .source-card.color-4 { border-color: #F59E0B; }
+        .source-card.color-5 { border-color: #6B7280; }
+
+        .source-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 1rem;
+            background-color: #F3F4F6;
+        }
+        
+        .source-url-wrapper {
+            display: flex;
+            align-items: center;
+        }
+
+        .source-icon {
+            margin-right: 0.5rem;
+        }
+
+        .source-url {
+            font-weight: bold;
+            color: #1E40AF;
+            text-decoration: none;
+        }
+        .source-url:hover { text-decoration: underline; }
+
+        .source-frequency {
+            font-size: 0.875rem;
+            background-color: #E5E7EB;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            color: #4B5563;
+        }
+
+        .source-content {
+            padding: 1rem;
+        }
+        .source-content p {
+             margin-bottom: 0.75rem;
+        }
+
+        .eeat-analysis {
+            display: flex;
+            justify-content: space-around;
+            background-color: #F9FAFB;
+            padding: 0.5rem;
+            border-radius: 6px;
+        }
+
+        .eeat-item {
+            font-size: 0.875rem;
+            font-weight: bold;
+            color: #4B5563;
+        }
+
+        .opportunity-section {
+            margin-top: 2rem;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+        }
+        
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .opportunity-item h5 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #1F2937;
+            margin-bottom: 0.75rem;
+        }
+        
+        .opportunity-item ul {
+            list-style: disc;
+            padding-left: 1.25rem;
+            color: #4B5563;
+            space-y: 0.5rem;
+        }
+
+        .priority-timeline {
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+         .priority-timeline h5 {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #1F2937;
+            padding: 1rem;
+            background-color: #F3F4F6;
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            gap: 1rem;
+            padding: 1rem;
+            align-items: center;
+            border-top: 1px solid #E5E7EB;
+        }
+        
+        .timeline-phase {
+            font-weight: bold;
+            padding: 0.25rem 0.5rem;
+            border-radius: 999px;
+            text-align: center;
+            font-size: 0.875rem;
+        }
+        .short-term { background-color: #FEF2F2; color: #DC2626; }
+        .mid-term { background-color: #FFFBEB; color: #D97706; }
+        .long-term { background-color: #ECFDF5; color: #059669; }
+
+        .timeline-actions {
+            color: #4B5563;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">智信數位 SEO 分析報告</h1>
+<p class="text-blue-100">深入剖析「自動化倉儲」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵商業主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">有待提升</div>
+<p class="text-blue-200 text-sm">未進前100名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">智信數位的網站現狀評估</a>
+                    <a href="#ai-overview" class="toc-link">Google AI 怎麼看關鍵詞</a>
+<a href="#ai-sources" class="toc-link">Google AI 參考了誰</a>
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">智信數位的網站現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站內容明確定位於為<strong>電商賣家</strong>提供整合式物流解決方案。核心服務圍繞在 <strong>3PL (第三方物流)</strong> 與 <strong>WMS (倉儲管理系統)</strong>，強調自己是「電商物流的創新者」與「電商經營的最佳夥伴」。整體內容策略非廣泛探討「自動化倉儲」的技術或概念，而是聚焦於自家服務如何解決電商在進出貨、訂單與庫存管理上的痛點。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容涵蓋範圍較為垂直且聚焦，主要介紹「3PL 第三方電商物流中心」和「WMS 出貨管理大師」兩大核心服務。網站架構以<strong>服務介紹為主</strong>，缺乏對比、教學或產業趨勢等多元化內容。與其說是知識型內容，更接近一個<strong>精準的服務說明頁面</strong>，旨在直接吸引已有外包物流需求的潛在客戶。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對於目標客群（中小型電商賣家），網站提供了清晰的價值主張：將繁瑣的倉儲與出貨流程外包，透過專業系統提升效率。其核心優勢在於提供<strong>輕資產的倉儲自動化方案</strong>，客戶無需投入巨額資本建置實體自動倉儲，而是透過訂閱服務的方式，即可享有專業的物流管理與系統支援，這對資源有限的成長型電商極具吸引力。</p>
+    </div>
+</div>
+                        
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-6">
+                            <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>搜尋意圖不符：缺乏「自動化倉儲」基礎知識內容
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">完全沒有解釋「什麼是自動化倉儲」、其優點、類型或必要的軟硬體設備。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">搜尋「自動化倉儲」的用戶，多數處於資訊收集的初期階段，他們想了解這個概念的基本定義與價值。目前您的網站直接跳到銷售自家服務，無法滿足這類高層次的資訊需求，導致潛在客戶在初步研究階段就流失。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">建立一篇關於「自動化倉儲」的<strong>權威指南文章</strong>。內容可涵蓋其定義、為電商帶來的5大好處、不同系統（如AS/RS、AGV）的介紹，並巧妙地將 GoodDeal 的 3PL+WMS 服務定位為一種更靈活、低門檻的<strong>「倉儲自動化」解決方案</strong>。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-balance-scale text-orange-600 mr-2"></i>方案比較缺口：未能比較不同倉儲模式
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">缺乏「自建倉儲 vs. 傳統外包 vs. 導入自動化倉儲 vs. GoodDeal 3PL服務」的成本與效益分析。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">企業主在做決策時，需要進行多方比較。他們想知道不同選項的初期投資、運營成本、管理複雜度及擴展性。競爭者如「神助物流」提供了導入流程與FAQ，正是為了滿足此類決策支援需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">新增「<strong>方案比較</strong>」或「<strong>成本效益分析</strong>」頁面。使用表格或資訊圖表，清晰對比不同倉儲模式的優劣。強調貴司服務在<strong>資金彈性、快速啟動、降低管理負擔</strong>方面的絕對優勢，幫助客戶做出對其最有利的選擇。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-handshake text-purple-600 mr-2"></i>信任建立缺口：缺乏客戶成功案例
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">網站上沒有展示具體的客戶案例、使用見證或不同產業的應用實例。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">信任是 B2B 服務的基石。潛在客戶需要看到實際的成功故事來驗證您服務的價值。競爭者「鈞曜科技」透過羅列大量知名客戶案例，有效地建立了其在行業中的權威與信賴感。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">建立「<strong>客戶案例</strong>」專區。分享2-3個不同類型電商（如服飾、美妝、食品）的合作故事，包含他們遇到的痛點、導入GoodDeal服務的過程，以及<strong>量化</strong>的成果（例如：出貨錯誤率降低90%、人力成本節省50%、訂單處理速度提升2倍）。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-cogs text-blue-600 mr-2"></i>系統功能深度缺口：WMS 系統介紹過於簡略
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">對「WMS 出貨管理大師」的功能細節、系統介面截圖、以及如何與各大電商平台（如Shopify, Shopee）串接的說明不足。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">對於考慮使用您服務的電商賣家來說，WMS系統是核心。他們想了解這個系統是否易用、功能是否強大、能否無縫整合現有銷售管道。僅僅提到「輕鬆管理」是不夠的，需要更具體的展示。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">為「WMS 出貨管理大師」建立一個<strong>詳細的功能介紹頁面</strong>。內容應包含：核心功能列表（庫存同步、訂單自動拋轉、報表分析）、系統操作介面截圖或短片、支援的電商平台與物流商Logo牆，並提供<strong>申請 Demo 演示</strong>的行動呼籲。</span>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站的基礎 SEO 技術設置相當健全。具備完整的 <strong>Meta Title</strong>、<strong>Meta Description</strong>，並正確設定了 <strong>Canonical 標籤</strong>以避免重複內容問題。同時，<strong>Open Graph 標籤</strong>（如 og:title, og:url）也配置妥當，有助於社群分享時的預覽呈現。Robots.txt 設定為允許搜尋引擎索引，整體技術面無重大缺失。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">網頁結構邏輯清晰，採用 &lt;H1&gt; 作為核心服務標題，再以多個 &lt;H2&gt; 標籤分述不同服務區塊，層次分明。關鍵字佈局主要集中在「<strong>3PL</strong>」、「<strong>第三方物流</strong>」及「<strong>WMS</strong>」，與目前網站的服務定位高度一致。從技術特徵（generator: WordPress）來看，網站使用 <strong>WordPress</strong> 平台建置，這為未來擴充內容與SEO優化提供了良好的彈性。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">目前的網頁標題以「Home -」開頭，這佔用了寶貴的標題空間。建議將首頁標題優化為「<strong>電商3PL第三方物流 &amp; WMS倉儲系統｜GoodDeal 智信數位整合</strong>」，將核心關鍵字前移，更能吸引目標用戶點擊。此外，目前網站內容與「自動化倉儲」此一目標關鍵詞的關聯性極低，若要爭取此關鍵詞排名，必須<strong>從根本上新增相關主題的內容頁面</strong>，而非僅調整現有首頁的技術細節。</p>
+    </div>
+</div>
+                        
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>核心內容錯位：</strong>網站內容強項在「電商3PL物流」與「WMS系統」，與廣泛的「自動化倉儲」搜尋意圖存在巨大鴻溝，這是無法獲得排名的根本原因。</li>
+    <li><strong>獨特市場切角：</strong>相較於競爭者推廣的重資產硬體設備，貴司的「訂閱制3PL+WMS」模式是針對<strong>中小電商的輕資產「自動化」解決方案</strong>，這是一個極具潛力的獨特市場定位，但目前尚未在內容中凸顯。</li>
+    <li><strong>缺乏教育性內容：</strong>網站幾乎完全是銷售導向，缺乏如競爭對手般的「是什麼」、「如何導入」、「優缺點分析」等教育性內容，無法吸引處於研究階段的潛在客戶。</li>
+    <li><strong>信任證明不足：</strong>儘管提到了10年經驗，但網站缺乏<strong>客戶案例、數據佐證、服務流程說明</strong>等能將經驗轉化為信任的具體內容，削弱了說服力。</li>
+    <li><strong>技術基礎良好：</strong>網站的基礎SEO技術配置完善，平台（WordPress）也具備高擴充性，非常適合未來進行大規模的內容策略部署。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Google AI Overview Analysis Sections -->
+  <section id="ai-overview" class="mb-12">
+      <div class="flex items-center mb-6">
+          <span class="section-number">2</span>
+          <h2 class="text-2xl md:text-3xl font-bold section-header">Google AI 怎麼看「自動化倉儲」</h2>
+      </div>
+      
+      <div class="analysis-card-container theme-blue">
+    <div class="card-header">
+        <span class="card-icon">🤖</span>
+        <h3 class="card-title">Google AI 內容理解與呈現方式分析</h3>
+    </div>
+    <div class="card-body">
+        <div class="analysis-section">
+            <h4 class="section-title">AI 摘要內容深度解析</h4>
+            <div class="section-item">
+                <h5>主題組織架構：</h5>
+                <p>AI摘要以一個高度結構化的方式呈現「自動化倉儲」的資訊，其組織邏輯遵循著「定義 → 核心技術 → 效益 → 挑戰」的標準知識普及路徑，涵蓋了從概念入門到商業影響的完整論述。</p>
+            </div>
+            <div class="section-item">
+                <h5>核心重點分布：</h5>
+                <p>AI摘要內容的重點明顯集中在「<strong>核心技術的構成</strong>」(約佔50%)與「<strong>導入效益</strong>」(約佔30%)兩大塊，直接回應了商業決策者與技術了解者最關心的核心問題。</p>
+            </div>
+            <div class="section-item">
+                <h5>專業程度定位：</h5>
+                <p>內容定位於「<strong>商業決策者</strong>」與「<strong>初階技術了解者</strong>」。語言專業但淺顯易懂，避免了過於艱深的學術術語，提供了足夠的商業價值與技術入門指引。</p>
+            </div>
+        </div>
+        <div class="analysis-section">
+            <h4 class="section-title">呈現方式與語言特徵分析</h4>
+            <div class="section-item">
+                <h5>結構化特徵：</h5>
+                <p>大量運用結構化元素，包括清晰的<strong>分段</strong>、用於羅列要點的<strong>項目列表</strong> (如 &lt;ul&gt;)，以及通過<strong>粗體</strong> (如 &lt;strong&gt;) 強調關鍵術語，極大地提升了內容的可讀性。</p>
+            </div>
+            <div class="section-item">
+                <h5>語言風格：</h5>
+                <p>語言風格呈現<strong>客觀、資訊導向</strong>的特點。全文語氣中立，旨在傳遞事實與業界共識。專業術語使用精準，並在首次出現時提供全稱與縮寫，展現專業與友好。</p>
+            </div>
+             <div class="section-item">
+                <h5>內容組織方式：</h5>
+                <p>採用金字塔結構，由核心定義展開至細節。段落長度適中，信息點密度高，確保了信息傳遞的效率與清晰度，整體閱讀體驗緊湊而流暢。</p>
+            </div>
+        </div>
+    </div>
+</div>
+      
+  </section>
+
+  <section id="ai-sources" class="mb-12">
+      <div class="flex items-center mb-6">
+          <span class="section-number">3</span>
+          <h2 class="text-2xl md:text-3xl font-bold section-header">Google AI 參考了誰</h2>
+      </div>
+      
+      <div class="analysis-card-container theme-multi-color">
+    <div class="card-header">
+        <span class="card-icon">📚</span>
+        <h3 class="card-title">Google AI 引用來源權威性與競爭分析</h3>
+    </div>
+    <div class="card-body">
+        <div class="summary-grid">
+            <div class="summary-item">
+                <div class="summary-value">5 <span class="summary-unit">個</span></div>
+                <div class="summary-label">總引用網站</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">60%</div>
+                <div class="summary-label">在地系統整合商</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-value">3 <span class="summary-unit">次</span></div>
+                <div class="summary-label">最高引用頻次</div>
+            </div>
+        </div>
+        <p class="summary-conclusion"><strong>引用來源總結：</strong>Google AI 在建構此主題時，展現出對「<strong>實務經驗</strong>」與「<strong>在地化</strong>」的高度偏好。被引用的來源絕大多數是直接提供解決方案或服務的公司，而非純理論或新聞網站。這表明，要被AI引用，內容必須展現出解決實際問題的能力與深度。</p>
+
+        <h4 class="section-title-sources">重點引用來源詳細分析</h4>
+        
+        <div class="source-card-container">
+            <div class="source-card color-1">
+                <div class="source-header">
+                    <div class="source-url-wrapper">
+                        <span class="source-icon">🔗</span>
+                        <a href="https://www.logi-tek.com.tw/solutions-list/3" target="_blank" class="source-url">logi-tek.com.tw</a>
+                    </div>
+                    <div class="source-frequency">引用 3 次</div>
+                </div>
+                <div class="source-content">
+                    <p><strong>內容與貢獻：</strong>作為台灣物流龍頭，其整合性智慧物流方案頁面主要貢獻了「導入效益」和「WMS系統整合」的論述，被AI視為實踐效益的有力證明。</p>
+                    <div class="eeat-analysis">
+                        <div class="eeat-item" title="Experience: 作為台灣物流龍頭，擁有數十年的倉儲運營與自動化導入實戰經驗。"><strong>E:</strong> 高</div>
+                        <div class="eeat-item" title="Expertise: 網站內容深入探討了軟硬體整合的細節，展現了高度專業知識。"><strong>E:</strong> 高</div>
+                        <div class="eeat-item" title="Authoritativeness: 在台灣物流界具有指標性地位，是業界公認的權威。"><strong>A:</strong> 高</div>
+                        <div class="eeat-item" title="Trustworthiness: 品牌歷史悠久，客戶基礎廣泛，可靠性強。"><strong>T:</strong> 高</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="source-card color-2">
+                <div class="source-header">
+                     <div class="source-url-wrapper">
+                        <span class="source-icon">🔗</span>
+                        <a href="https://www.daifuku.com/tw/solution/intralogistics/asrs/" target="_blank" class="source-url">daifuku.com/tw</a>
+                    </div>
+                    <div class="source-frequency">引用 2 次</div>
+                </div>
+                <div class="source-content">
+                    <p><strong>內容與貢獻：</strong>全球領導者大福的官方頁面，成為AI摘要中關於「AS/RS技術定義與分類」的核心資訊來源，其權威性讓AI能精確解釋此項關鍵技術。</p>
+                    <div class="eeat-analysis">
+                        <div class="eeat-item" title="Experience: 全球性的領導品牌，擁有無數大型專案的建置經驗。"><strong>E:</strong> 高</div>
+                        <div class="eeat-item" title="Expertise: 在AS/RS領域擁有核心技術專利和深度研發能力。"><strong>E:</strong> 高</div>
+                        <div class="eeat-item" title="Authoritativeness: 是全球公認的AS/RS技術權威，市場份額領先。"><strong>A:</strong> 高</div>
+                        <div class="eeat-item" title="Trustworthiness: 產品穩定性與品牌信譽在全球範圍內備受認可。"><strong>T:</strong> 高</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="source-card color-3">
+                <div class="source-header">
+                    <div class="source-url-wrapper">
+                        <span class="source-icon">🔗</span>
+                        <a href="https://www.gfe.com.tw/zh-tw/solution/3" target="_blank" class="source-url">gfe.com.tw</a>
+                    </div>
+                    <div class="source-frequency">引用 1 次</div>
+                </div>
+                <div class="source-content">
+                    <p><strong>內容與貢獻：</strong>廣運機械的解決方案頁面補充了「在地化系統整合」的觀點，特別是針對台灣製造業的客製化方案，為摘要增添了產業應用廣度。</p>
+                    <div class="eeat-analysis">
+                        <div class="eeat-item" title="Experience: 深耕台灣市場多年，擁有豐富的跨行業整合經驗。"><strong>E:</strong> 高</div>
+                        <div class="eeat-item" title="Expertise: 具備自主研發與製造能力，提供端到端的解決方案。"><strong>E:</strong> 高</div>
+                        <div class="eeat-item" title="Authoritativeness: 在台灣自動化領域具備高知名度與權威性。"><strong>A:</strong> 中</div>
+                        <div class="eeat-item" title="Trustworthiness: 上市公司，長期經營，客戶信賴度高。"><strong>T:</strong> 高</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="source-card color-4">
+                <div class="source-header">
+                    <div class="source-url-wrapper">
+                        <span class="source-icon">🔗</span>
+                        <a href="https://www.e-lead.com.tw/tw/product/detail/5" target="_blank" class="source-url">e-lead.com.tw</a>
+                    </div>
+                    <div class="source-frequency">引用 1 次</div>
+                </div>
+                <div class="source-content">
+                    <p><strong>內容與貢獻：</strong>怡利電子的AMR產品頁為AI摘要中的「AMR技術」部分提供了具體的產品級資訊，使技術描述更加具象化。</p>
+                    <div class="eeat-analysis">
+                        <div class="eeat-item" title="Experience: 從汽車電子跨足自動化領域，在AMR產品上積累了特定應用經驗。"><strong>E:</strong> 中</div>
+                        <div class="eeat-item" title="Expertise: 在機器人與電子控制領域具備深厚的技術專長。"><strong>E:</strong> 高</div>
+                        <div class="eeat-item" title="Authoritativeness: 在AMR領域是新興但專業的參與者。"><strong>A:</strong> 中</div>
+                        <div class="eeat-item" title="Trustworthiness: 作為一家穩健的電子製造商，其產品可靠度有保障。"><strong>T:</strong> 高</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="source-card color-5">
+                <div class="source-header">
+                    <div class="source-url-wrapper">
+                        <span class="source-icon">🔗</span>
+                        <a href="https://www.e-stock.com.tw/solutions.php?i=2" target="_blank" class="source-url">e-stock.com.tw</a>
+                    </div>
+                    <div class="source-frequency">引用 1 次</div>
+                </div>
+                <div class="source-content">
+                    <p><strong>內容與貢獻：</strong>誼存科技的頁面提供了「應用視角」，從倉儲服務使用者的角度闡述自動化帶來的運營效益，特別是針對電商物流的痛點。</p>
+                    <div class="eeat-analysis">
+                        <div class="eeat-item" title="Experience: 長期運營第三方倉儲服務，深刻理解客戶需求與運營痛點。"><strong>E:</strong> 高</div>
+                        <div class="eeat-item" title="Expertise: 專業在於倉儲運營與流程優化，而非設備研發。"><strong>E:</strong> 中</div>
+                        <div class="eeat-item" title="Authoritativeness: 在台灣電商倉儲服務領域具有一定的代表性。"><strong>A:</strong> 中</div>
+                        <div class="eeat-item" title="Trustworthiness: 提供實際的倉儲服務，其解決方案經過市場驗證。"><strong>T:</strong> 高</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="opportunity-section">
+            <h4 class="section-title-opportunity">智信數位 品牌競爭機會識別</h4>
+            <div class="opportunity-grid">
+                <div class="opportunity-item">
+                    <h5>內容空白機會</h5>
+                    <ul>
+                        <li>創建<strong>中小企業(SME)自動化入門</strong>指南</li>
+                        <li>強調<strong>軟體定義倉儲</strong>的核心價值</li>
+                        <li>發布<strong>倉儲數據分析與AI預測</strong>的深度內容</li>
+                        <li>提供詳盡的<strong>投資回報率(ROI)分析</strong>模型或工具</li>
+                    </ul>
+                </div>
+                <div class="opportunity-item">
+                    <h5>權威性建立方向</h5>
+                     <ul>
+                        <li>發布包含具體數據的<strong>客戶成功案例</strong></li>
+                        <li>撰寫針對特定行業的<strong>技術白皮書</strong></li>
+                        <li>舉辦<strong>線上研討會(Webinar)</strong>建立思想領導力</li>
+                        <li>展示<strong>合作的硬體夥伴</strong>，提升信賴感</li>
+                    </ul>
+                </div>
+                <div class="opportunity-item">
+                    <h5>差異化切入角度</h5>
+                     <ul>
+                        <li>主打「<strong>數位整合專家</strong>」，凸顯軟體與數據能力</li>
+                        <li>聚焦「<strong>彈性與擴展性</strong>」，吸引成長型企業</li>
+                        <li>提供「<strong>顧問式服務</strong>」內容，提升品牌定位</li>
+                        <li>強調<strong>售後服務與長期維運</strong>的價值</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="priority-timeline">
+                <h5>執行優先序</h5>
+                <div class="timeline-item">
+                    <div class="timeline-phase short-term">短期（1個月內）</div>
+                    <div class="timeline-actions">創建SME入門長文；優化服務頁面，強化軟體價值；準備客戶案例。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-phase mid-term">中期（3個月內）</div>
+                    <div class="timeline-actions">發布2+篇客戶案例；撰寫第一份產業白皮書；建立合作夥伴專區。</div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-phase long-term">長期（6個月+）</div>
+                    <div class="timeline-actions">規劃系列線上研討會；開發ROI互動評估工具；建立完整知識中心。</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+      
+  </section>
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-poor p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">有待提升</div>
+                                <div class="text-sm opacity-90">未進前100名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">超過 10 個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 久穩系統物流 距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">品牌頁面目前在「自動化倉儲」這個高價值的商業關鍵詞上缺乏可見度，搜尋引擎可能尚未找到一個能代表品牌、且與此搜尋意圖高度相關的頁面。這既是挑戰也是機會，因為一個全新且高度優化的頁面有潛力快速爬升。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>智信數位</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+    <td class="font-semibold p-3 border-b">標題 (Title)</td>
+    <td class="p-3 border-b">可能僅為「自動化倉儲」或產品名稱，缺乏吸引力。</td>
+    <td class="p-3 border-b">多採用「自動倉儲是什麼？」的提問式標題，並附加「一文掌握」、「導入全攻略」、「優勢、種類、設備」等價值承諾。</td>
+    <td class="p-3 border-b">採用更具競爭力的標題，例如：<strong>「自動化倉儲是什麼？從優點、系統到設備規劃，一篇看懂導入效益」</strong>。</td>
+</tr>
+<tr>
+    <td class="font-semibold p-3 border-b">描述 (Description)</td>
+    <td class="p-3 border-b">可能為空或由系統自動抓取，未經優化。</td>
+    <td class="p-3 border-b">清晰概括文章內容，包含 AS/RS、優勢、種類、軟硬體等關鍵字，引導使用者點擊。</td>
+    <td class="p-3 border-b">撰寫高吸引力的描述，例如：<strong>「想導入自動化倉儲系統(AS/RS)？本文詳解6大核心優勢、棧板式與料盒式系統比較、及WMS等關鍵軟硬體。立即了解如何提升倉儲效率與降低成本。」</strong></td>
+</tr>
+<tr>
+    <td class="font-semibold p-3 border-b">URL 結構</td>
+    <td class="p-3 border-b">URL 可能包含中文或無意義的ID，不利於SEO。</td>
+    <td class="p-3 border-b">排名靠前的競爭者 (C1, C2) 多使用簡潔的英文URL，如 `automatic-storage-retrieval-system`。</td>
+    <td class="p-3 border-b">建立一個新的、語義清晰的URL，例如 `/solutions/automated-storage-retrieval-system`。</td>
+</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">
+    <h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+    <p>目前最大的技術問題是 <strong>缺乏一個能夠承載排名、符合搜尋意圖的專門頁面</strong>。此外，分析部分競爭者網站，發現以下可避免的技術弱點：</p>
+    <ul class="list-disc list-inside space-y-1 mt-2">
+        <li><strong>圖片缺少替代文字 (Alt Text)：</strong> 部分競品圖片未妥善設定 alt text，損失了圖片搜尋的流量機會。</li>
+        <li><strong>非 HTTPS 資源：</strong> 競爭者1 的 OG:Image 使用 <code>http://</code>，這是不安全的做法，應全面使用 <code>https</code>。</li>
+        <li><strong>Canonical 標籤問題：</strong> 競爭者10 (YouTube) 的 canonical 標籤為 <code>undefined</code>，顯示其頁面非為SEO最佳化。品牌方應確保所有頁面都有正確的自我參照 canonical 標籤。</li>
+        <li><strong>內容結構混亂：</strong> 競爭者9 的頁面大量使用 H5 標籤傳達段落內容，違反了標題層級的語義結構，不利於搜尋引擎理解文章脈絡。</li>
+    </ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage">
+    <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+    <p>從零開始建立頁面，意味著我們可以完美地規避所有競品的技術缺陷，建立一個技術上無懈可擊的頁面：</p>
+    <ul class="list-disc list-inside space-y-1 mt-2">
+        <li><strong>100% 安全連線：</strong> 全站使用 HTTPS，包括所有內部資源 (圖片、CSS、JS)。</li>
+        <li><strong>結構化資料 (Schema Markup)：</strong> 部署 <code>Article</code> 或 <code>FAQPage</code> 結構化資料，爭取在 SERP 中獲得複合式摘要 (Rich Snippets)，提升點閱率。這是競品普遍缺乏的優化。</li>
+        <li><strong>行動裝置優先體驗：</strong> 確保頁面在行動裝置上載入快速、閱讀流暢，超越部分僅在桌面端體驗良好的競品。</li>
+        <li><strong>清晰的標題層級：</strong> 嚴格遵守 H1-H6 的使用規範，建立邏輯清晰的內容架構，幫助搜尋引擎快速理解頁面主題。</li>
+    </ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+  <h4 class="font-bold text-lg mb-2 text-blue-800">關鍵詞語義覆蓋分析</h4>
+  <p>要在此主題取得權威性，內容必須全面覆蓋以下三大類別的關鍵詞：</p>
+  <ul class="list-disc list-inside space-y-2 mt-2">
+      <li><strong>核心概念詞：</strong> 自動化倉儲、自動倉儲、AS/RS (Automated Storage and Retrieval System)、智慧倉儲、智能倉儲、智慧物流。</li>
+      <li><strong>系統與技術詞：</strong> 棧板式自動倉儲、料盒式自動倉儲、穿梭車系統 (Shuttle Cart)、AGV (無人搬運車)、AMR (自主移動機器人)、WMS (倉儲管理系統)、WCS (倉儲控制系統)、WES (倉儲執行系統)。</li>
+      <li><strong>效益與應用詞：</strong> 導入效益、成本分析、ROI (投資回報率)、空間利用率、揀貨效率、適用產業、規劃、解決方案、廠商推薦。</li>
+  </ul>
+  <p class="mt-2">目前競品多半涵蓋了前兩類，但在「效益與應用詞」，特別是量化的成本與ROI分析上較為薄弱，這是我們的切入點。</p>
+</div>
+                                <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+    <h4 class="font-bold text-lg mb-2 text-green-800">內容深度與品質分析</h4>
+    <p>排名靠前的文章（C1, C2, C7）建立了內容深度的基準線，它們不只是解釋「是什麼」，還詳細說明了「為什麼」（優點）、「有哪些」（種類）和「需要什麼」（設備）。</p>
+    <ul class="list-disc list-inside space-y-2 mt-2">
+        <li><strong>深度基準：</strong> 至少要包含定義、5-7個優點、2-3種主流系統的運作方式、以及軟硬體三大核心系統（WMS, WCS, WES）的介紹。</li>
+        <li><strong>超越機會：</strong>
+            <ul class="list-decimal list-inside ml-4 mt-1">
+                <li><strong>增加比較維度：</strong> 不僅介紹系統，更要提供「成本、空間效率、導入難度、適用情境」等多維度比較表。</li>
+                <li><strong>深化軟體層面：</strong> 解釋 WMS/WCS/WES 如何協同工作，以及如何與企業的 ERP 系統整合，這點是多數競品忽略的技術細節。</li>
+                <li><strong>提供「導入藍圖」：</strong> 從需求評估、廠商選擇、場地規劃、系統建置到人員培訓，提供一個階段性的導入指南。</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+                        </div>
+
+                            <div class="insight-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化機會：從「資訊提供者」進化為「問題解決者」</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 提供互動工具，提升使用者參與度</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>簡易 ROI 計算器：</strong> 讓使用者輸入倉儲面積、貨物件數、員工人數等數據，初步估算導入自動化倉儲後的潛在效益與回收期。這將是極具吸引力的獨家內容。</li>
+        <li><strong>系統選擇測驗：</strong> 設計一個問卷，引導使用者根據貨物類型、出入庫頻率等，推薦最適合他們的系統類型（棧板式/料盒式/其他）。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 強化視覺化內容，降低理解門檻</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>3D 運作動畫：</strong> 製作高品質的 3D 動畫來展示不同系統（如穿梭車、存取機）的運作流程，比靜態圖片更具說服力。</li>
+        <li><strong>資訊圖表 (Infographic)：</strong> 將「傳統倉儲 vs. 自動化倉儲」的效益對比、或「導入流程」製作成清晰的資訊圖表，方便使用者分享與理解。</li>
+        <li><strong>客戶案例影片：</strong> 邀請滿意的客戶錄製短片，分享導入前後的真實改變，比廠商自述更具公信力。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+  <h4 class="font-bold text-lg mb-2 text-blue-800">專業性與權威性對比</h4>
+  <p>目前 SERP 上的權威性來源分為兩類：</p>
+  <ul class="list-disc list-inside space-y-2 mt-2">
+      <li><strong>品牌權威：</strong> 盟立(C4, C8)、村田(C3) 這類知名製造商，其品牌本身就是信任的保證。他們的域名權重高，即使頁面內容較簡單也能獲得排名。</li>
+      <li><strong>內容權威：</strong> 久穩(C1)、開楠銘(C2)、神助(C7) 透過提供極度詳盡、解決使用者問題的內容來建立權威性。他們證明了只要內容品質夠高，中小型企業也能挑戰大廠。</li>
+  </ul>
+  <p class="mt-2">我們的策略是先成為「內容權威」，透過提供市場上最完整的資訊來贏得使用者和搜尋引擎的信任，再逐步累積品牌權威。</p>
+</div>
+                                <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+  <h4 class="font-bold text-lg mb-2 text-green-800">可信度指標評估</h4>
+  <p>多數競品頁面在建立信任感方面做得並不足夠，這給了我們超越的機會。他們普遍缺乏：</p>
+  <ul class="list-disc list-inside space-y-2 mt-2">
+      <li><strong>明確的作者資訊：</strong> 除了 C1 和 C2 標示了作者，多數文章都是匿名的「編輯部」發文，削弱了專業感。</li>
+      <li><strong>數據與引用來源：</strong> 很少引用第三方研究報告或市場數據來支持其論點。</li>
+      <li><strong>客戶見證與認證：</strong> 頁面中較少直接展示客戶 Logo、成功案例數據或相關的 ISO 認證。</li>
+  </ul>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標 (Trust)：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>建立專家作者形象：</strong> 在文章開頭或結尾附上作者簡介，標明其職稱（如：資深物流規劃顧問）與專業經歷，增加內容的可信度。</li>
+        <li><strong>數據化呈現效益：</strong> 將「提升效率」、「降低成本」等優點具體化，例如：「透過導入，揀貨錯誤率從 3% 降至 0.01%」、「倉儲空間利用率提升 200%」。引用客戶的真實數據更佳。</li>
+        <li><strong>展示客戶 Logo 與認證：</strong> 在頁面底部或側邊欄展示合作過的知名客戶 Logo 牆以及公司獲得的相關認證（如 ISO9001）。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展權威內容 (Expertise & Authoritativeness)：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>發布原創研究/白皮書：</strong> 針對台灣市場進行小型調查，發布「台灣中小企業倉儲自動化趨勢白皮書」，並讓使用者留下資料下載，同時建立權威性與潛在客戶名單。</li>
+        <li><strong>深入的客戶案例研究：</strong> 不只是介紹案例，而是深入分析客戶導入前的痛點、導入過程的挑戰、以及導入後的詳細效益數據，製作成可下載的 PDF 報告。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設 (External Authority)：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>媒體合作與投稿：</strong> 將成功的案例或白皮書投稿至專業的物流、製造業媒體，獲取具有高度相關性的反向連結。</li>
+        <li><strong>引導客戶評價：</strong> 在專案完成後，主動邀請滿意的客戶在 Google 我的商家留下正面評價，這不僅有助於本地搜尋，也增強了整體品牌信譽。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX 層面)：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>增加「文章目錄/索引」：</strong> 由於文章篇幅長，在開頭提供可點擊的目錄，讓使用者能快速跳轉到感興趣的章節。C1 有此功能，我們必須跟進並做得更好。</li>
+        <li><strong>優化表格與圖示：</strong> 使用清晰、易於閱讀的表格來比較不同系統。關鍵數據用突出的顏色或圖示標示，幫助使用者快速抓取重點。</li>
+        <li><strong>行動裝置閱讀優化：</strong> 確保在手機上段落不會過長、字體大小適中、點擊目標（如按鈕、連結）容易觸控。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>互動式內容整合：</strong> 將前述的「ROI 計算器」或「系統選擇測驗」嵌入頁面，將被動閱讀轉化為主動參與，大幅提升使用者體驗與頁面價值。</li>
+        <li><strong>個人化內容推薦：</strong> 在文章結尾，根據使用者可能感興趣的內容（例如，若他們在「料盒式」章節停留較久），推薦相關的案例研究或更詳細的技術文章。</li>
+        <li><strong>清晰的聯絡路徑：</strong> 除了頁尾的聯絡表單，在頁面右側提供一個浮動的「預約諮詢」按鈕，讓潛在客戶在任何時候都能輕鬆發起聯繫。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">久穩系統物流</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">系統整合/解決方案商</div>
+                <div class="text-lg font-semibold text-blue-600">教育導向型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://racking.com.tw/automatic-storage-retrieval-system/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">racking.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">以「自動倉儲是什麼？」為核心，打造了一篇教科書式的完整指南，內容從定義、優點、系統分類到軟硬體設備，結構完整且邏輯清晰。此策略精準地吸引了大量處於認知與研究階段的初階使用者，成功佔據了資訊制高點。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用標準的「教育導向型」敘事，從基礎概念逐步深入到應用層面，引導使用者全面了解主題。CTA策略較為保守，僅在文末提供「專業諮詢」的軟性引導，降低了銷售壓迫感，有利於建立專業形象。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 透過引用「大成集團」、「大昌華嘉」等知名企業的實際案例，強烈證明了其豐富的專案執行經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 內容結構完整，對WMS、WCS等專業系統有清晰的闡述，展現了高度的行業專業知識。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 頁面發布在專業的物流設備供應商網站上，其本身就是一種權威證明。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 網站技術健全（儘管og:image有小瑕疵），提供了明確的作者資訊，建立了基礎的信任感。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">開楠銘有限公司</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">系統整合/解決方案商</div>
+                <div class="text-lg font-semibold text-blue-600">教育導向型 (深化版)</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://cainamin.com/automatic-storage-retrieval-system/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">cainamin.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">在與第一名相似的「教科書」結構基礎上，增加了「優缺點分析」和獨特的「抗震設計」等差異化內容，顯示出其不僅僅是知識普及，更具備深入的技術考量與風險評估能力，內容深度超越了第一名。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">敘事流同樣是教育導向，但透過增加對比（優缺點）和特殊議題（抗震），提升了內容的專業說服力。CTA策略非常直接，在文末直接推薦自家公司「開楠銘有限公司」，意圖明確，有利於捕獲高意向客戶。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 引用JYSK丹麥的國際案例，展示其跨國專案的服務經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 提出「抗震設計」是極強的專業信號，表明其技術考量已達到結構安全層級，遠超普通整合商。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 在內容中自信地推薦自身品牌，是其作為解決方案提供者權威性的體現。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 內容詳盡，提供了豐富的聯絡資訊，並以公司名義發布，建立了高度的可信賴度。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第10名</span>
+                <h4 class="font-bold text-xl">YouTube (三立iNEWS)</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">影音媒體</div>
+                <div class="text-lg font-semibold text-blue-600">視覺驗證型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.youtube.com/watch?v=Udh_CzMTWow&pp=0gcJCfwAo7VqN5tD" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">youtube.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">作為SERP中唯一的影音內容，其策略是提供強大的「視覺證據」。透過實地拍攝全台最大的智慧物流園區，將抽象的「自動化倉儲」概念轉化為具體的、運作中的震撼場景。這滿足了使用者「眼見為憑」的心理需求，建立了極強的直觀感受。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用新聞專題報導的敘事方式，透過記者旁白和業界人士訪談，引導觀眾了解自動化的實際效益（如人力節省三分之一）和應用規模。YouTube平台的CTA主要是引導訂閱頻道或觀看相關影片，而非直接的商業轉換。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 影片內容是記者實地探訪的「第一手經驗」，極具真實感。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 引用了物流中心高層的訪談，提供了來自業內專家的見解。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 由知名新聞媒體「三立iNEWS」製作和發布，其媒體品牌本身就是強大的權威背書。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 新聞報導的形式本身就帶有客觀、中立的屬性，相比廠商的自我宣傳，更容易獲得用戶的信任。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方目前為空白，而領先的競爭者（C1, C2, C6, C7）已形成高效的「[問題] + [全面性解答]」標題模式，如`自動倉儲是什麼？...定義、優點、工具`，有效捕獲了資訊型搜索意圖，這是品牌方需立即補強的巨大差距。</div>
+          <div><strong>描述效能：</strong>競爭者普遍在描述中整合了「AS/RS」、「效益」、「系統種類」、「軟硬體」等關鍵詞，全面覆蓋使用者疑問，而品牌方在此方面完全缺失，導致無法在SERP上有效傳達頁面價值。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+     <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">價值導向型 (C1, C7)：</h5>
+        <p class="text-gray-600">使用`一文掌握`、`導入全攻略`等詞彙，向使用者承諾提供全面、高效的資訊，旨在節省其研究時間，快速建立內容的價值感。</p>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">教育普及型 (C2, C6)：</h5>
+        <p class="text-gray-600">採用`帶你了解`、`詳細概念介紹`等親和的語言，扮演知識傳播者的角色，降低專業門檻，吸引初階使用者。</p>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌直達型 (C3, C4, C8, C9)：</h5>
+        <p class="text-gray-600">直接在標題中突出`盟立自動化`、`村田機械`等品牌名，利用既有的市場知名度和權威性來吸引點擊，目標是已有品牌認知度的潛在客戶。</p>
+      </div>
+    </div>
+  </div>
+                            
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>從「是什麼」的紅海，轉向「<strong>如何實現價值</strong>」的藍海。強調成果、ROI與數據智能，吸引決策層級的用戶。</li>
+        <li><strong>競爭優勢：</strong>利用「智信數位」的品牌名，主打軟硬體整合與數據分析能力，而非單純的設備供應商。</li>
+        <li><strong>目標受眾：</strong>針對已對自動倉儲有基礎認識，正在尋求「投資回報」和「導入可行性評估」的企業主或倉儲經理。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>
+            <br>- <strong>方案A (ROI導向):</strong> `自動化倉儲導入ROI分析｜3步驟評估成本效益，智信數位助您精準投資`
+            <br>- <strong>方案B (問題解決導向):</strong> `您的倉庫還在靠人力？自動化倉儲導入實戰指南：從痛點分析到系統整合 - 智信數位`
+        </li>
+        <li><strong>描述優化：</strong>
+            <br>- `想導入自動化倉儲卻不知從何評估？智信數位提供從【需求診斷、ROI計算、系統模擬到客製化整合】的一站式解決方案。我們不只建置倉儲，更用數據驅動您的物流效率。立即獲取免費初步評估報告！`
+        </li>
+        <li><strong>執行優先級：</strong>**高**。Meta是點擊率的第一道門，優質的Meta能讓新頁面在SERP中脫穎而出，即使排名稍後也能獲得不成比例的點擊。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>目前為空白。直接複製現有競爭者的框架將陷入同質化競爭，無法超越。必須在「基礎知識框架」之上，增加獨特的、更高價值的內容模塊以實現差異化。</div>
+        </div>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者核心內容板塊：</h5>
+         <div class="space-y-2 text-gray-600">
+          <p>C1, C2, C6, C7 的內容結構高度同質化，已形成一個市場公認的「基礎知識框架」：</p>
+          <ol class="list-decimal list-inside">
+              <li><strong>定義</strong>：什麼是自動倉儲？</li>
+              <li><strong>優點</strong>：為何需要？(省空間、省人力、高效率)</li>
+              <li><strong>分類</strong>：有哪些類型？(棧板式、料盒式)</li>
+              <li><strong>組成</strong>：需要哪些設備？(硬體：貨架、存取機；軟體：WMS/WCS/WES)</li>
+              <li><strong>應用</strong>：案例或未來趨勢。</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+     <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">顧問導向型 (C7 神助物流)：</h5>
+            <p class="text-gray-600">其敘事流最為高明，按「問題 -> 方案 -> 效益 -> 行動」的決策流程組織內容，並提供「規劃流程」與FAQ，極大增強了專業性與信賴感。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">價值優先型 (C9 鈞曜科技)：</h5>
+            <p class="text-gray-600">開篇即強調「空間極大化」等核心價值，並羅列數十個具名客戶案例，是E-E-A-T中「經驗」與「權威」的極致展現。</p>
+        </div>
+         <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">深化專業型 (C2 開楠銘)：</h5>
+            <p class="text-gray-600">透過增加「優缺點分析」和「抗震設計」等獨特議題，展現了超越基礎知識的深度技術專長。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200"><strong>🚀 品牌方內容優化策略</strong></h4>
+  <div class="space-y-4">
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200"><strong>內容補強機會識別：</strong></h5>
+        <ul class="space-y-2">
+          <li><strong>優先補強主題：</strong>應建立一個超越基礎框架的「決策者指南」頁面，優先補強「導入前的自我評估」、「投資回報率(ROI)詳解」、「系統整合的挑戰與策略」等競爭者缺失的模塊。</li>
+          <li><strong>專業模塊建設：</strong>創建「互動式ROI計算器」，讓用戶輸入參數估算效益，這將是極具吸引力的差異化功能。</li>
+          <li><strong>深度內容機會：</strong>製作「數據驅動的案例研究」，不僅展示「做了什麼」，更要展示「數據如何變化」（如：揀貨錯誤率從3%降至0.01%）。</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200"><strong>差異化內容策略：</strong></h5>
+        <ul class="space-y-2">
+          <li><strong>獨特角度：</strong>拍攝「系統模擬動畫」與「客戶訪談影片」，彌補純文字的不足，直觀建立信任感。</li>
+          <li><strong>競爭優勢：</strong>定位為「智信數位研究院」，定期發布智慧物流趨勢報告或白皮書，建立思想領導者地位。</li>
+          <li><strong>執行路徑：</strong>短期內創建「決策者指南」核心頁面；中期開發互動工具並製作影片案例；長期建立「智信數位研究院」發布報告。</li>
+        </ul>
+      </div>
+  </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">物流/倉儲經理、廠長、供應鏈總監、電商企業主、企業營運長(COO)或總經理(CEO)。他們是商業決策者或核心影響者。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">在自身業務領域是專家，但對自動化倉儲技術可能為新手或進階者，需要清晰、有商業價值的資訊。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">時間寶貴，面臨預算限制，需要高效獲取關鍵資訊，並向管理層證明投資的合理性。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：資訊不透明</strong>
+        <span class="text-gray-600">導入成本和預期效益難以量化，市場上充滿技術術語，難以評估哪個方案最適合自己。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：導入風險高</strong>
+        <span class="text-gray-600">害怕投資巨大卻無法達到預期效果，擔心導入過程影響現有營運，或系統未來無法擴展。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：缺乏信任感</strong>
+        <span class="text-gray-600">難以判斷供應商的專業能力和服務品質，害怕成為廠商的技術白老鼠或售後服務孤兒。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙1：高昂的初期投資</strong>
+        <span class="text-gray-600">對於中小企業而言，這是一筆鉅額資本支出，財務風險是最大考量。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙2：ROI的不確定性</strong>
+        <span class="text-gray-600">無法精準計算投資回報週期，難以說服決策層批准預算。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙3：系統整合複雜性</strong>
+        <span class="text-gray-600">擔心新系統與現有的ERP、WMS系統無法順利對接，造成更多問題。</span>
+      </div>
+    </div>
+    </div>
+                            
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>提供教育性內容(如：5個訊號，你的倉庫該升級了)，扮演行業顧問角色，以建立初步信任，轉換目標為「下載白皮書」。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>聚焦於解決方案比較，提供「線上ROI計算機」和「客戶成功案例」，將抽象效益具體化，轉換目標為「預約免費倉儲健檢」。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>提供詳細的「導入流程」與「售後服務」說明，消除最後疑慮，展現可靠夥伴形象，轉換目標為「索取客製化規劃書」。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>專為中小企業設計的彈性方案、透明化的ROI評估流程、整合式軟硬體與顧問服務。</div>
+          <div><strong>競爭優勢展現：</strong>提供線上初步ROI計算機、針對不同行業的情境式解決方案、強調從診斷到優化的全程顧問式服務。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>競品普遍重產品輕方案，缺乏成本效益的量化溝通，且忽略了中小企業對高昂投資的恐懼。</div>
+          <div><strong>品牌突破機會：</strong>內容上創建「ROI計算機」，體驗上設計「線上方案配置器」，服務上推出「陪跑式導入服務」，全面解決用戶痛點。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋與首屏策略</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">用戶到達「一站式自動化倉儲解決方案」綜合頁面，首屏標題直接命中「降成本、提效率」，副標題強調「專為成長型企業設計的彈性方案」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">立即放置一個醒目的CTA：「免費獲取您的倉儲升級評估報告」，在前3秒內建立核心價值認知並引導行動。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費與信任建立</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導路徑：</strong>
+          <span class="text-gray-600">頁面依序呈現「痛點共鳴」->「效益展示」->「信任證言(案例)」->「專業知識(技術解析)」->「價值量化(ROI計算)」，引導用戶深入了解。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立機制：</strong>
+          <span class="text-gray-600">嵌入創辦人或技術總監短影片，闡述品牌理念；清晰展示合作過的品牌Logo牆，增強信譽。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化與疑慮消除</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化與線索磁鐵：</strong>
+          <span class="text-gray-600">在案例研究旁提供「下載完整案例報告(含導入前後數據對比)」，作為獲取高品質潛在客戶名單的磁鐵。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">關鍵問題解答(FAQ)：</strong>
+          <span class="text-gray-600">設置一個FAQ區塊，主動回答「導入需要多久？」、「會影響現有營運嗎？」、「如何與我現有的ERP整合？」等使用者最關心的問題。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換與優化</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">多層次CTA設計：</strong>
+          <span class="text-gray-600">提供不同深度的CTA：初級「下載白皮書」、中級「預約線上DEMO」、高級「申請免費倉儲健檢」，滿足不同階段用戶的需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">表單與聯繫優化：</strong>
+          <span class="text-gray-600">轉換表單設計極簡化，並明確承諾「我們承諾24小時內由專業顧問與您聯繫」，降低用戶的填寫阻力與焦慮。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>品牌方「智信數位」為新進挑戰者，面臨由內容詳盡的系統整合商（如久穩、神助）和品牌權威高的大型製造商（如盟立、村田）主導的高度競爭市場。當前最大的挑戰是從零建立權威，最大的機會則在於利用後發優勢，針對競品內容同質化、體驗單一化和缺乏ROI量化分析的共同弱點，打造一個以「數據驅動」和「解決決策者痛點」為核心的差異化內容資產。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：技術SEO與基礎內容快速建置</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>創建一個技術無懈可擊、內容結構完整的支柱頁面，以填補品牌方當前在該關鍵詞下的內容真空，快速獲得基礎排名與可見度。</div>
+        <div><strong>執行評估：</strong>難度：低；預期效果：高(從無到有)；資源：內容與技術人力。</div>
+        <div><strong>優先級：</strong>極高 - 所有後續策略的基石，必須最先完成。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與使用者體驗超越</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>針對競品普遍缺乏的「ROI量化分析」與「多維度方案比較」進行內容深化，並透過影片、圖表等視覺化元素和實用工具下載來優化使用者體驗，建立明顯的內容優勢。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：高(超越競品)；資源：需UX與多媒體製作資源。</div>
+        <div><strong>優先級：</strong>高 - 進入SERP前列的關鍵一步。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：精準滿足決策者意圖與信任塑造</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>直接回應使用者對「投資風險」和「資訊不透明」的深層恐懼，透過開發「ROI計算器」等互動工具和建立專家形象(E-E-A-T)，將品牌定位為值得信賴的數據顧問，而非僅是設備商。</div>
+        <div><strong>執行評估：</strong>難度：高；預期效果：極高(建立護城河與提升轉換)；資源：需跨部門協作與較高技術投入。</div>
+        <div><strong>優先級：</strong>中長期核心 - 實現市場領導地位的戰略關鍵。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會 (建立主題集群)：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>決策導向型：</strong>`自動倉儲 ROI 計算`, `自動化倉儲 成本分析`, `導入自動倉儲 流程`, `自動倉儲 廠商 比較`。</div>
+        <div><strong>行業應用型：</strong>`電商 自動化倉儲 方案`, `醫藥冷鏈 自動倉儲`, `中小企業 倉儲自動化`。</div>
+        <div><strong>技術整合型：</strong>`自動倉儲 WMS 整合`, `ERP 對接 自動倉儲`。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間 (品牌定位)：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「這是什麼設備」轉向「這能為你的財報帶來什麼改變」。</div>
+        <div><strong>專業詞彙：</strong>強化 `數據驅動`, `商業智慧(BI)`, `總擁有成本(TCO)`, `供應鏈優化`, `數位孿生` 等詞彙，建立專業壁壘。</div>
+        <div><strong>品牌調性：</strong>以「智信數位」為核心，塑造「精準」、「可靠」、「透明」、「賦能」的顧問式溝通風格。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>設計一個從「痛點共鳴」到「價值量化」的完整用戶決策旅程。首屏以「彈性方案」和「ROI評估」吸引目標用戶；中段透過「系統比較」、「數據化案例」建立專業信任；後段利用「FAQ」消除疑慮。全程佈局「下載白皮書(低門檻)」、「預約線上Demo(中門檻)」、「申請免費倉儲健檢(高門檻)」等多層次CTA，有效篩選並引導不同意圖深度的用戶，最大化潛在客戶的捕獲與轉換。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>以「ROI量化分析」與「導入決策框架」等競品缺失的深度內容為突破口，建立權威性。</div>
+        <div><strong>競爭者超越路徑：</strong>將品牌論述從「設備供應商」提升至「數據驅動的投資顧問」，直接命中決策者的商業痛點。</div>
+        <div><strong>使用者價值最大化：</strong>提供透明、可量化的評估工具與實施藍圖，賦能使用者做出高質量、低風險的投資決策。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>「智信數位」在內容中扮演值得信賴的「數據驅動倉儲整合專家」，專為成長型企業提供透明、可擴展的解決方案。</div>
+        <div><strong>差異化價值：</strong>提供競爭者迴避的「透明ROI評估」與「客製化整合能力」，解決使用者最核心的信任與風險問題。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>6個月內進入「自動化倉儲」關鍵詞排名前5名。</div>
+        <div><strong>流量增長目標：</strong>為此支柱頁面帶來每月1000+的目標自然搜尋流量。</div>
+        <div><strong>轉換率優化：</strong>每月透過ROI計算器、白皮書下載、諮詢表單等獲取至少20個高質量銷售線索。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速優化與基礎建設 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心任務：</strong>
+          <span class="text-gray-600">快速建置包含核心ROI分析的權威支柱頁面，部署優化的Meta標籤與清晰的URL結構，獲取基礎排名。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容深化與體驗超越 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心任務：</strong>
+          <span class="text-gray-600">透過增加多維度比較圖表、3D動畫影片與可下載的實用工具，實現內容深度和使用者體驗的全面超越，衝擊SERP首頁。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：權威建立與競爭超越 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心任務：</strong>
+          <span class="text-gray-600">開發互動式ROI計算器，並建立圍繞WMS、ERP整合等子議題的主題集群，鞏固行業領導地位並建立難以被複製的品牌護城河。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>從零開始，無歷史包袱，可直接採用市場最優的「數據驅動」+「決策者導向」內容策略。</div>
+          <div><strong>改善空間：</strong>目前完全空白，需要建立一個能承載排名的權威支柱頁面，並在內容深度、廣度和體驗上全面超越競爭者。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">內容架構策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div>本文將引導用戶走過一條從「對高投資感到焦慮」到「對清晰ROI充滿信心」的決策路徑。頁面結構將以「痛點(首屏)」->「教育(基礎知識)」->「深度分析(方案比較與ROI模型)」->「建立信任(實施流程與案例)」->「消除疑慮(FAQ)」->「引導行動(多層次CTA)」的邏輯佈局，確保在使用者旅程的每個節點提供對應價值並有效推動其向轉換邁進。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>以「ROI與TCO」為核心，而非僅談功能：</strong>將所有討論聚焦於對客戶財務報表的實質影響，直接回應決策者的核心關切。</div>
+        <div><strong>展示透明的「數據驅動」實施流程：</strong>公開從數據診斷、方案模擬到整合部署的詳細步驟，消除客戶對導入過程的未知恐懼。</div>
+        <div><strong>強調「中立的系統整合能力」：</strong>定位為不綁定特定硬體品牌的整合專家，能根據客戶需求客觀地組合最優方案。</div>
+        <div><strong>分享「量化的」真實客戶成功案例：</strong>所有案例均包含具體的效率提升、成本下降等數字，用結果證明價值。</div>
+        <div><strong>在Q&A中提供「顧問級」的專業解答：</strong>針對成本、整合等敏感問題，提供透明、深入的分析，而非銷售話術。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在「深度方案分析」章節中建立專門的「導入成本與ROI分析模型」小節。</div>
+        <div>在「實施指南」章節中，用流程圖和詳細文字描述四階段實施法。</div>
+        <div>在「方案比較」章節中，將「智信數位整合方案」作為獨立選項，強調其客製化與中立性。</div>
+        <div>在「成功案例」章節，每個案例都必須包含一個「量化成果」的數據看板。</div>
+        <div>在「FAQ」章節，設計專門的問答來詳細闡述成本構成與系統整合策略。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <p>設計一個分層的轉換漏斗：1) <strong>低門檻認知層</strong>：提供「自我評估檢查清單」或「行業白皮書」下載，用少量資訊換取Email，用於後續培育。2) <strong>中門檻考慮層</strong>：引導觀看「3D系統動畫」或「客戶案例影片」，並預約「線上Demo」，獲取更具體的潛在客戶資訊。3) <strong>高門檻決策層</strong>：提供「免費客製化ROI初步報告」或「預約30分鐘專家諮詢」作為最終行動號召，直接篩選出高意向、高質量的銷售線索。</p>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <p>透過在頁面頂部設置浮動/靜態的「快速導航目錄」，方便用戶在長篇內容中快速跳轉。大量使用高質量的圖表（如方案比較矩陣）、流程圖（如實施步驟）和短影片（如系統運作動畫）來打破文字的單調，提升內容的可消化性。嵌入「互動式ROI計算器」等工具，增加頁面停留時間和用戶參與度。確保所有元素在行動裝置上都能完美呈現，按鈕易於點擊。</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 智信數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
