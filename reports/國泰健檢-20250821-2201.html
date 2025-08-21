@@ -1,0 +1,1932 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 國泰健檢</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap">
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">國泰健檢 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「台南健檢中心」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">9</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站頁面核心定位為一個全面的<strong>健檢方案列表</strong>，旨在展示國泰健康管理中心提供的所有健檢服務。從頁面標題「方案比較」及內容結構來看，其主要功能是作為一個方案目錄，讓用戶快速瀏覽所有可選項目。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容的廣度是其最大特色。方案涵蓋了從<strong>基礎的「微型方案」</strong>、<strong>中階的「健康樂活」</strong>到<strong>高階的「全方位全身影像」</strong>，並針對特定族群設計了<strong>「婚前健檢」</strong>和多種價位的<strong>「公務員方案」</strong>。這種多元化的方案組合，顯示了其滿足不同預算和健康需求的強大能力。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對目標明確的用戶而言，此頁面提供了<strong>一站式的方案概覽</strong>，特別是包含價格的公務員方案，能幫助有預算考量的用戶快速篩選。核心優勢在於<strong>方案選擇的極致豐富性</strong>，幾乎能滿足所有潛在客群的初步查詢需求。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>方案內容透明度與比較性缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面僅列出方案名稱，完全沒有各方案的<strong>詳細檢查項目、適用對象、以及方案間的差異比較表</strong>。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶搜尋「健檢中心」時，核心需求是了解「哪個方案適合我」。他們需要明確知道「健康樂活+肺部」比「健康樂活」多了哪些檢查？「尊鼎全方位」又涵蓋什麼？缺乏這些資訊，用戶無法進行有效比較和決策，即使頁面標題為「方案比較」，卻沒有提供任何比較基礎。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">為每個方案建立彈出式視窗或獨立連結頁面，詳述檢查項目。最關鍵的是，建立一個<strong>互動式比較表格</strong>，讓用戶可以勾選2-3個方案，並列比較其檢查項目的異同。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-tasks text-orange-600 mr-2"></i>決策支援與引導內容缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">缺少引導用戶選擇方案的內容，例如<strong>「依年齡/性別推薦」、「依家族病史建議」、「首次健檢指南」</strong>等決策輔助資訊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">面對數十種方案，多數用戶會感到不知所措。他們期望健檢中心能提供專業建議，幫助他們根據個人狀況（如年齡、生活習慣、特定健康擔憂）找到最合適的方案。成大醫院（競爭者5）提供「健檢Q&A」，顯然更貼近用戶的決策需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">在方案列表上方增加一個<strong>「如何選擇適合您的健檢方案？」</strong>的區塊，提供簡單的分類導航，或設計一個簡短的問卷，根據用戶回答推薦合適的方案組合。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-shield-alt text-purple-600 mr-2"></i>信任建立與環境展示缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面完全沒有關於<strong>健檢中心環境、醫療團隊、儀器設備、服務流程</strong>的介紹。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">選擇健檢中心不僅是看方案，更是看重專業度與體驗感。用戶想知道環境是否舒適、醫生是否專業、設備是否先進。安南醫院（競爭者8）直接強調「舒適環境」、「專業服務」，更能贏得用戶的信賴感。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">在頁面中加入一個區塊，以高品質圖片或影片展示<strong>台南健檢中心的內部環境、先進的影像儀器</strong>，並簡介核心醫療團隊的專業背景，建立專業與信賴形象。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-info-circle text-blue-600 mr-2"></i>健檢流程與準備須知缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">缺乏健檢前的<strong>準備事項（如禁食、用藥規定）、當日流程說明、以及檢查後的報告解說與追蹤服務</strong>資訊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶在預約前後，會有許多關於流程的疑問。提供清晰的流程說明不僅能解答疑惑，也能展現中心的專業與細心，提升用戶體驗。高雄榮總台南分院（競爭者6）頁面就提供了許多此類實用指示。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">新增一個「健檢流程與須知」的FAQ區塊，以圖文並茂的方式解釋從預約到領取報告的完整步驟，並提供常見問題的解答。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">基礎的技術設置存在嚴重不足。雖然具備了基礎的 <strong>&lt;viewport&gt;</strong> 標籤，確保了行動裝置的基礎瀏覽體驗，但最重要的 <strong>&lt;title&gt;</strong> 標籤內容「方案比較」極度通用，完全無法反映頁面主題與地理位置，對搜尋引擎極不友善。缺少 meta description 和 Open Graph 標籤，也降低了在搜尋結果和社群分享時的點擊吸引力。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">頁面結構過於扁平，所有方案均使用 <strong>&lt;h2&gt;</strong> 標籤，形成了一個冗長且缺乏層次的列表。這不僅對用戶不友好，也讓搜尋引擎難以理解內容的組織邏輯。關鍵字「台南健檢中心」完全沒有出現在標題和內文結構中，導致頁面與目標關鍵詞的關聯性極低。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">首要任務是優化 <strong>&lt;title&gt;</strong> 標籤，應修改為如「國泰台南健檢中心方案比較與費用｜多元健檢套餐選擇」這樣包含<strong>品牌、地名、核心關鍵詞</strong>的格式。其次，需重整內容結構，使用 &lt;h2&gt; 作為方案大分類（如：基礎方案、高階影像、族群限定），&lt;h3&gt; 作為具體方案名稱，建立清晰的資訊層級。最後，應補上具吸引力的 <strong>meta description</strong>，並加入 Open Graph 標籤以優化社群分享效果。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>方案多元性是核心優勢：</strong>網站提供了市場上極具競爭力的多樣化健檢方案，從入門到頂級，並涵蓋特殊族群，這是吸引不同客戶的基礎。</li>
+    <li><strong>內容呈現方式是最大短版：</strong>頁面名為「方案比較」，卻只有方案列表，缺乏細節與比較工具，導致用戶無法有效決策，使用者體驗不佳。</li>
+    <li><strong>在地化SEO嚴重缺失：</strong>頁面完全沒有針對「台南」地區進行優化，無論是標題或內容結構都缺少地理關鍵詞，難以在地區性搜尋中獲得良好排名。</li>
+    <li><strong>信任感與專業形象建立不足：</strong>相較於競爭對手，頁面缺少關於醫療團隊、環境設施及服務流程的介紹，未能有效傳遞專業與信賴感，降低了轉換的可能。</li>
+    <li><strong>資訊架構混亂：</strong>採用單一 &lt;h2&gt; 標籤羅列所有方案，造成資訊過載且缺乏邏輯層次，用戶難以快速找到符合需求的方案分類。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第9位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">8個位置</div>
+                                <div class="text-xs text-gray-600">與第1名距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前排名第 9，已在搜尋結果第一頁，具備良好的基礎。但因頁面內容與搜尋意圖嚴重脫節，導致排名位於頁尾，存在巨大的優化空間。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>國泰健檢</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><strong>Meta 標題</strong></td><td>「方案比較」- 完全無關</td><td>包含「機構名稱」+「健康管理中心」或「健檢中心」，如成大醫院、奇美醫院</td><td>修改為「【台南健檢中心推薦】國泰健康管理｜頂級健檢方案比較與線上預約」</td></tr><tr><td><strong>Meta 描述</strong></td><td>未提供，可能為空或自動生成</td><td>部分競爭者有簡短介紹，如奇美醫院的「介紹奇美醫院健康管理中心」</td><td>撰寫包含「台南健檢」、「方案特色」、「專業團隊」等關鍵詞的吸引人描述</td></tr><tr><td><strong>關鍵詞包含度</strong></td><td>極低，幾乎為零</td><td>普遍在標題中包含「健檢中心」或「健康管理中心」</td><td>確保核心關鍵詞「台南健檢中心」出現在標題、描述及頁面主要標題中</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</div><ul class="list-disc list-inside space-y-2 mb-6"><li><strong>URL 結構不佳：</strong> <code>/tw/front/plan</code> 的 URL 結構過於通用，完全未包含任何與「台南」或「健檢 (health-checkup)」相關的關鍵字，降低了頁面的主題相關性。</li><li><strong>Meta 標題無效：</strong> 當前標題「方案比較」是最大的 SEO 技術債。它未能向搜尋引擎及用戶傳達頁面的核心價值與主題，是導致排名落後的主要原因。</li><li><strong>標題結構混亂：</strong> 頁面缺乏唯一的 &lt;h1&gt; 標籤，而是由大量重複性的 &lt;h2&gt; 組成，無法形成清晰的內容層級，對搜尋引擎理解頁面結構造成困擾。</li></ul>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</div><ul class="list-disc list-inside space-y-2"><li><strong>品牌權威：</strong> 「國泰」本身是個高權威的品牌，這為頁面提供了良好的信任基礎，一旦修正 SEO 技術問題，排名爬升潛力巨大。</li><li><strong>網站穩定性：</strong> 頁面能被正常索引並排名在第 9，表示網站基礎的技術健康度（如伺服器回應、可爬取性）是合格的，優化後的內容能被快速反應。</li></ul>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div><h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">關鍵詞覆蓋分析</h4><p class="mb-2">當前頁面在關鍵詞覆蓋上存在嚴重缺口，幾乎完全錯失了目標受眾的搜尋意圖。</p><ul class="list-disc list-inside space-y-2"><li><strong class="text-red-600">缺失的核心關鍵詞：</strong> 台南健檢中心、健康檢查、健檢推薦、健檢中心。</li><li><strong class="text-orange-600">缺失的意圖關鍵詞：</strong> 費用、價格、比較、預約、流程、項目。</li><li><strong class="text-green-600">過度集中的詞彙：</strong> 頁面內容過度集中在內部方案代號和數字（如 "114", "16000"），這些詞彙對外部搜尋用戶毫無意義。</li></ul></div>
+                                <div><h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容深度分析</h4><p class="mb-2">內容深度極淺，是目前排名難以前進的核心障礙。</p><ul class="list-disc list-inside space-y-2"><li><strong>品牌頁面：</strong> 本質上是一個沒有任何解釋說明的價目表，無法回答用戶除了「有哪些方案」以外的任何問題。</li><li><strong>競爭者頁面：</strong> 排名靠前的競爭者（如安南醫院、成大醫院）提供了更豐富的內容，包括：<ul><li>服務理念與環境介紹 (建立好感)</li><li>詳細的檢查流程 (消除疑慮)</li><li>常見問題解答 (解決痛點)</li><li>不同方案的適用對象說明 (提供指引)</li></ul></li><li><strong>結論：</strong> 必須將頁面從「方案列表」升級為「全方位服務介紹頁」，增加至少 800-1000 字的輔助性內容，才能在內容深度上與競爭者抗衡。</li></ul></div>
+                        </div>
+
+                            <div class="success-box"><h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化機會</h4><div class="space-y-4"><div><h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">突顯品牌獨特性：</h5><ul class="space-y-2"><li><strong>強調「國泰」品質：</strong> 強調非醫院體系的精緻服務、隱私保護、一站式流程等，與公立醫院做出區隔。</li><li><strong>視覺化呈現：</strong> 使用高品質的內部環境照片、儀器設備圖、以及親切的服務人員照片，建立優於醫院的專業與舒適形象。</li></ul></div><div><h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">深化方案價值：</h5><ul class="space-y-2"><li><strong>方案故事化：</strong> 為每個方案類型（如 心血管、消化道）添加簡短說明，解釋「哪些族群適合」、「能幫助發現什麼潛在問題」，而不僅是列出項目。</li><li><strong>建立透明度：</strong> 提供清晰的價格，並解釋價格包含的服務（如：專人解說報告、餐點提供），建立信任感。</li></ul></div></div></div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div><h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">權威性 (E-E-A-T) 對比</h4><p class="mb-2">競爭對手多為大型綜合醫院，在醫療領域擁有天然的權威性 (Expertise, Authoritativeness, Trustworthiness)。品牌方雖然是知名企業，但在「醫療專業」的展現上需要加強。</p><ul class="list-disc list-inside space-y-2"><li><strong>競爭者優勢：</strong> 網站本身就是醫院官網，擁有大量醫生介紹、學術研究、衛教資訊，E-E-A-T 信號極強。</li><li><strong>品牌劣勢：</strong> 當前頁面完全沒有體現醫療專業性。沒有醫師團隊介紹、沒有儀器設備說明、沒有任何健康資訊，僅僅是一個商業銷售頁面。</li></ul></div>
+                                <div><h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">信任指標評估</h4><p class="mb-2">頁面目前嚴重缺乏建立用戶信任的元素。</p><ul class="list-disc list-inside space-y-2"><li><strong>缺失的信任指標：</strong><ul><li>醫師團隊的資歷介紹。</li><li>專業認證或獎項。</li><li>客戶見證或評價。</li><li>清晰的聯絡地址、電話與營業時間。</li><li>詳細的隱私權政策說明。</li></ul></li></ul></div>
+                        </div>
+
+                            <div class="success-box"><h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4><div class="space-y-4"><div><h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標：</h5><ul class="space-y-2"><li>在頁面顯著位置增加「我們的醫療團隊」區塊，展示主要醫師的照片、學經歷與專長，直接提升專業形象。</li><li>引用具公信力的健康數據或衛福部統計資料來佐證特定健檢項目的重要性，增加內容的客觀性與可信度。</li></ul></div><div><h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展權威內容：</h5><ul class="space-y-2"><li>邀請醫師撰寫相關文章，例如「認識低劑量電腦斷層在肺癌篩檢中的角色」，並從方案頁連結過去。</li><li>以圖文並茂的方式介紹中心採用的高階醫療儀器型號與特色，突顯硬體實力。</li><li>分享匿名的客戶成功案例，例如「透過健檢及早發現問題的真實故事」，增加內容的說服力與溫度。</li></ul></div><div><h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設：</h5><ul class="space-y-2"><li>與健康類媒體或知名部落客合作，撰寫台南國泰健檢中心的體驗文，爭取高質量的外部連結與曝光。</li><li>在健檢流程結束後，鼓勵滿意的客戶在 Google 我的商家留下正面評價，提升在地搜尋的信譽。</li></ul></div></div></div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box"><h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4><div class="space-y-4"><div><h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5><ul class="space-y-2"><li><strong>增加方案篩選器：</strong> 在方案列表上方增加依「對象（男性/女性）」、「年齡層」、「關注項目（心血管/腸胃）」篩選的功能。</li><li><strong>彈出式詳細項目：</strong> 點擊方案名稱時，使用彈出視窗或展開區塊顯示詳細的檢查項目列表，避免頁面過於冗長。</li><li><strong>固定式預約按鈕：</strong> 在頁面右下角設置一個隨滾動固定的「立即預約」按鈕，方便用戶隨時採取行動。</li></ul></div><div><h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5><ul class="space-y-2"><li><strong>互動式方案推薦工具：</strong> 開發一個簡單的問卷（如：您的年齡？是否有家族病史？），引導用戶找到最適合自己的健檢方案。</li><li><strong>方案並排比較功能：</strong> 允許用戶勾選 2-3 個方案，進行並排比較，一目了然地看出項目差異。</li><li><strong>整合線上預約系統：</strong> 將預約流程直接整合在此頁面，減少用戶跳轉，提升轉換率。</li></ul></div></div></div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">郭綜合醫院</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">醫院官網</div>
+                <div class="text-lg font-semibold text-blue-600">綜合醫院附設中心</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.kgh.com.tw/MedCenter/HealthCheck/SC05" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.kgh.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此頁面採用純粹的「產品羅列型」策略，直接展示健檢專案項目、種類及可加做的項目。這種方式假設用戶已有明確需求，專注於提供選項而非引導。其內容深度不足，缺乏對方案的詳細解釋或適用對象的說明，主要依賴醫院本身的品牌信譽來吸引用戶。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 narrative-analysis-list leading-relaxed">敘事流極為單一，從頭到尾都是項目列表，缺乏任何引導或價值溝通。頁面沒有設置任何明確的行動呼籲(CTA)，用戶在瀏覽完畢後，需要自行尋找預約方式，轉換路徑不清晰，可能導致潛在客戶流失。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 頁面未展示任何用戶經驗或服務流程，此項指標較弱。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 僅透過羅列檢查項目來暗示專業性，但缺乏醫師團隊或設備介紹。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 主要依賴「郭綜合醫院」的品牌背書，頁面本身權威信號不足。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 資訊透明度低，缺乏詳細說明和聯繫方式，信賴感建立不足。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第3名</span>
+                <h4 class="font-bold text-xl">奇美醫療財團法人奇美醫院</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">醫院官網</div>
+                <div class="text-lg font-semibold text-blue-600">綜合醫院附設中心</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="http://health.chimei.org.tw/index.php?option=module&lang=cht&task=pageinfo&id=48&index=5" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">health.chimei.org.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此頁面定位為健康管理中心下的高層目錄頁，提供睡眠中心、健檢中心、醫美中心等多個子單位的入口。其策略是利用醫院的強大品牌吸引流量，再進行內部分流。然而，登陸頁本身內容深度極為不足，未能提供任何關於健檢的實質性資訊，對尋求方案比較的用戶價值較低。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 narrative-analysis-list leading-relaxed">敘事流為「目錄導航型」，結構清晰，引導用戶前往更具體的服務頁面。每個中心都是一個明確的CTA，鼓勵用戶點擊以獲取更多資訊。這種結構對目標明確的用戶是高效的，但對尚在探索階段的用戶則缺乏引導。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 頁面未展示服務經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 頁面本身缺乏專業內容，專業性體現在其連結的子頁面中。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 「奇美醫院」作為醫學中心，具有極高的品牌權威性，這是其最強的E-E-A-T信號。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 品牌本身帶來高度信賴感，Meta標籤中包含詳細的機構資訊，也增強了信賴度。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第4名</span>
+                <h4 class="font-bold text-xl">臺南市政府健檢預約平台</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">政府網站</div>
+                <div class="text-lg font-semibold text-blue-600">政府公共平台</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://health-examination.tncghb.gov.tw/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">health-examination.tncghb.gov.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此平台完全是功能導向，旨在提供一個市民健檢的線上預約入口。它不涉及任何品牌行銷或內容引導，策略核心是提供公共服務的便利性。對於尋求資訊比較或服務品質的用戶來說，此頁面價值為零，但對於目標明確要預約政府健檢的用戶，則是直接的解決方案。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 narrative-analysis-list leading-relaxed">無敘事流，整個頁面就是一個大型的CTA，引導用戶進行預約操作。其設計邏輯是工具性而非溝通性，所有元素都為完成「預約」這一任務服務。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 無。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 無。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 極高，來自「臺南市政府」的官方背書。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 極高，政府網站的公信力是其核心資產。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第5名</span>
+                <h4 class="font-bold text-xl">國立成功大學醫學院附設醫院</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">醫院官網</div>
+                <div class="text-lg font-semibold text-blue-600">綜合醫院附設中心</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://hmc.hosp.ncku.edu.tw/checkup_list.php" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">hmc.hosp.ncku.edu.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">成大醫院的頁面策略是「使用者任務導向」。它清晰地將內容圍繞用戶可能執行的任務展開，如「套裝選擇」、「預約登記」、「線上詢問」、「健檢Q&A」。這種結構非常實用，能有效解答用戶在決策過程中的疑問，並引導他們完成預約，使用者體驗良好。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 narrative-analysis-list leading-relaxed">敘事流清晰，從「認識我們」建立信任，到「健檢套裝」提供選項，再到「預約登記」和「Q&A」促成行動與消除疑慮。整個流程符合用戶的決策路徑。側邊欄的導航項目本身就是一系列明確的CTA，引導性強。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 透過清晰的流程和Q&A，間接展示了其豐富的服務經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 頁面內容的組織和分類展現了其專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 「成大醫院」作為頂尖醫學中心，權威性極高。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 透過提供詳盡的Q&A和清晰的預約流程，有效建立了用戶的信賴感。</div>
+            </div></div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方目前排名第一，顯示其Meta標題與描述已具備良好的相關性與點擊率基礎。然而，與競爭者相比，仍有提升價值主張的空間。</div>
+          <div><strong>描述效能：</strong>多數競爭者（如郭綜合、成大）的Meta標題極為基礎，僅陳述機構名稱，缺乏用戶導向的價值訴求，這為品牌方創造了差異化機會。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">品牌權威型 (奇美、成大):</h5>
+            <p class="text-gray-600">直接展示醫院全名，利用強大的品牌知名度吸引點擊。此策略對高權威機構有效，但缺乏情感連結與價值溝通。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">功能直述型 (市府平台、安南、部立台南):</h5>
+            <p class="text-gray-600">標題直接點出頁面功能，如「健檢預約平台」、「高階健檢套裝總覽」，意圖明確，能有效吸引有特定需求的用戶。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">品牌缺失型 (郭綜合):</h5>
+            <p class="text-gray-600">標題過於籠統（如「全球資訊網」），未能與「台南健檢」建立直接關聯，SEO效能不佳，是品牌方可以輕易超越的對象。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>強調「體驗」與「關懷」。跳脫醫院冰冷的儀器與流程感，塑造一個溫暖、專業、令人安心的健康夥伴形象。</li>
+        <li><strong>競爭優勢：</strong>B1可溝通「不僅是檢查，更是您專屬的健康管理計畫起點」，這是大型醫院分科而治的模式下難以提供的整合性服務。</li>
+        <li><strong>目標受眾：</strong>針對重視生活品質、希望獲得詳盡解說與個人化建議的族群，溝通「一對一報告解讀」、「資深健管師諮詢」等價值。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>在現有基礎上加入情感與價值詞。例如：「【台南健檢中心推薦】國泰健檢｜舒適環境與專業團隊，客製化您的健康管理計畫」</li>
+        <li><strong>描述優化：</strong>融入差異化價值主張，並包含明確CTA。例如：「正在尋找台南健檢中心？國泰健檢提供一站式高品質健康檢查服務，從精密儀器、舒適環境到醫師一對一詳盡解說，給您最安心的體驗。立即線上預約諮詢。」</li>
+        <li><strong>執行優先級：</strong>高。此為低成本、高回報的優化項目，能直接提升SERP點擊率，鞏固排名優勢。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方的內容架構需超越競爭者，才能穩固領先地位。目前應聚焦於從單純的方案列表，擴展為包含教育、引導、信任建立的綜合性頁面。</div>
+          <div><strong>板塊覆蓋：</strong>目前僅覆蓋「產品列表」板塊，缺乏「品牌價值」、「專業介紹」、「決策輔助」等關鍵板塊。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者內容架構模式：</h5>
+        <div class="space-y-2 text-gray-600">
+            <div><strong>產品列表型 (郭綜合、部立台南):</strong> 直接羅列健檢方案，假設用戶已明確知道需求，缺乏引導。</div>
+            <div><strong>功能導向型 (成大、安南):</strong> 圍繞「預約流程」、「Q&A」等用戶任務展開，實用性高但品牌溫度不足。</div>
+            <div><strong>規則公告型 (高榮台南分院):</strong> 內容雜亂如佈告欄，用戶體驗差，不足為懼。</div>
+            <div><strong>高層目錄型 (奇美):</strong> 登陸頁僅作為導航，內容深度不足。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">普遍性內容缺口：</h5>
+            <p class="text-gray-600">競爭者普遍缺乏「為何做」與「做完後」的內容。他們專注於銷售「檢查項目」，而忽略了用戶完整的決策與認知旅程。例如，沒有頁面深入探討不同年齡層的健檢重點、如何解讀關鍵指標、或健檢後的飲食運動建議。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">E-E-A-T & 敘事流分析：</h5>
+            <p class="text-gray-600">安南醫院(C7)的「價值主張 -> 行動流程」敘事流最為清晰，有效展現經驗(Experience)並建立信賴(Trust)。成大醫院(C4)透過Q&A建立信賴感。多數競爭者敘事流混亂或單一，為品牌方提供了透過優質內容敘事超越的機會。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">內容補強機會識別：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                <li><strong>健檢前導教育：</strong>新增 &lt;h2&gt; 區塊，主題如「如何根據年齡與生活習慣，選擇最適合您的健檢方案？」，解決用戶最大痛點。</li>
+                <li><strong>環境與設備展示：</strong>新增 &lt;h2&gt; 區塊，以高品質圖片和文字介紹舒適環境、頂級儀器，強調與醫院的差異。</li>
+                <li><strong>專業團隊介紹：</strong>建立醫師與健管師團隊介紹區塊，附上資歷與專長，大幅提升專業性(Expertise)與信賴感(Trustworthiness)。</li>
+                <li><strong>健檢後續服務：</strong>明確說明報告解讀流程、後續健康追蹤與管理服務，這是建立長期關係的關鍵。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">差異化內容策略：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                <li><strong>建立「健檢方案比較表」：</strong>以互動式表格呈現不同方案的項目、適合族群與價格，讓用戶一目了然。</li>
+                <li><strong>融入「客戶見證」：</strong>在頁面中穿插真實客戶的匿名感言，分享正面體驗，有效提升經驗(Experience)信號。</li>
+                <li><strong>創建「健檢知識庫」：</strong>從主頁面連結至部落格，定期發布預防醫學專業文章，將品牌打造成領域內的思想領袖。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">主要為35-55歲的家庭照顧者（為父母安排）、30-50歲注重健康品質的專業人士（為自己安排），以及企業人資/福委（為員工安排）。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">決策特點：</strong>
+        <span class="text-gray-600">預算中高，願意為品質、效率與安心支付更高費用；時間寶貴，重視流暢的服務體驗。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：資訊混亂</strong>
+        <span class="text-gray-600">各家方案名稱五花八門，檢查項目列表冗長，難以橫向比較優劣。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：選擇困難</strong>
+        <span class="text-gray-600">不確定哪個方案最適合自己或家人的年齡與健康狀況，害怕「選錯浪費錢」或「選漏重要項目」。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：流程焦慮</strong>
+        <span class="text-gray-600">擔心醫院環境冰冷、流程繁瑣、侵入性檢查（如腸胃鏡）的不適感與風險。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：</strong>
+        <span class="text-gray-600">在「價格與價值」之間權衡，以及在眾多選項中建立「信任感」。用戶需要明確的信號來判斷高價位是否等於高品質服務。</span>
+      </div>
+    </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>提供「如何為父母挑選健檢方案」等教育性內容，建立權威形象。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>開發「互動式方案篩選器」，並透過高品質影音展示舒適環境與高階設備，將品質具象化。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>展示醫師團隊介紹與客戶見證，提供清晰的預約流程與FAQ，消除最後疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>強調國泰是「全方位健康管理夥伴」，提供檢後追蹤與轉介的長期關係，而非一次性檢查。</div>
+          <div><strong>競爭優勢展現：</strong>製作圖表比較「國泰健檢」與「一般醫院」在環境、隱私、流程效率上的差異，突顯五星級服務體驗。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>競品普遍缺乏決策輔助工具、體驗價值展示不足、後續服務價值模糊。</div>
+          <div><strong>品牌突破機會：</strong>開發「健檢方案智能推薦問答」，製作「一日健檢流程」短影片，並建立「檢後健康管理服務」專區，直接命中用戶痛點。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">用戶搜尋「台南健檢中心」後，登陸頁的H1標題直接命中關鍵詞，快速確認資訊相關性。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">前3秒內展示台南中心實景照、核心價值主張（如：「不只發現問題，更為您規劃健康」）及清晰的CTA「依需求推薦方案」。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">提供「互動式方案篩選器」或清晰的方案卡片，每個卡片標明適用對象與核心項目，幫助用戶快速篩選。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立策略：</strong>
+          <span class="text-gray-600">在頁面側邊或下方，放置「醫師團隊」、「高階設備」、「客戶好評」等信任錨點(Trust Anchors)，增強專業形象。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化策略：</strong>
+          <span class="text-gray-600">提供「方案比較」功能，將用戶所選方案的項目並列，並用圖標突顯差異，強化國泰的獨家優勢。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除策略：</strong>
+          <span class="text-gray-600">在比較頁面下方放置FAQ區塊，解答「無痛腸胃鏡安全嗎？」、「報告多久出來？」等常見問題，消除用戶決策前的疑慮。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #D97706;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計策略：</strong>
+          <span class="text-gray-600">提供兩種層級的CTA，「立即預約」（高意圖）與「專人諮詢」（中高意圖，降低決策壓力），滿足不同用戶需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化策略：</strong>
+          <span class="text-gray-600">簡化預約表單，只留必要欄位。提供Line@諮詢選項，滿足行動端用戶的即時通訊偏好，最大化轉換機會。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>品牌方(國泰健檢)當前排名第9，主因是頁面存在致命的基礎SEO缺陷。競爭格局由奇美、成大等大型醫院主導，它們擁有高權威性但用戶體驗普遍不佳。這為品牌方提供了明確的突破口：以卓越的用戶體驗和差異化的服務價值，結合紮實的SEO基礎優化，極有潛力快速超越並挑戰領先地位。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：技術SEO與基礎內容快速修正</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修正無效的Meta標籤、混亂的頁面標題結構(&lt;h1&gt;,&lt;h2&gt;)，這是當前排名落後的核心原因，也是最快見效的突破點。</div>
+        <div><strong>執行評估：</strong>難度：低；預期效果：排名提升4-6位；資源：少量技術人力。</div>
+        <div><strong>優先級：</strong>極高 - 這是所有優化的基礎，ROI最高。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度擴充與E-E-A-T權威性建立</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>將頁面從「價目表」升級為「服務介紹頁」，增加團隊、環境、流程、Q&amp;A等內容，建立用戶信任感與醫療專業形象(E-E-A-T)。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：穩固前三名；資源：內容與設計人力。</div>
+        <div><strong>優先級：</strong>高 - 這是超越普通競爭者，挑戰權威醫院的關鍵。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：使用者體驗創新與轉換路徑優化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>開發互動式方案推薦工具、製作體驗影片等，解決用戶「選擇困難」的痛點，並在體驗上建立決定性優勢。</div>
+        <div><strong>執行評估：</strong>難度：高；預期效果：鞏固榜首、提升轉換率；資源：開發、設計與行銷團隊。</div>
+        <div><strong>優先級：</strong>中 - 這是建立品牌護城河的長期戰略。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>特定需求型：</strong>台南 孝親健檢 推薦、台南 女性健檢 費用、台南 上班族健康檢查。</div>
+        <div><strong>解決問題型：</strong>健檢報告怎麼看、無痛腸胃鏡會痛嗎、第一次做全身健檢要注意什麼。</div>
+        <div><strong>體驗導向型：</strong>台南 健檢中心 環境好、台南 健檢報告 解說詳細。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>從「醫療」到「健康管理」：</strong>使用「健康夥伴」、「預防醫學」、「客製化規劃」等詞彙，區隔醫院的「治療」導向。</div>
+        <div><strong>從「項目」到「價值」：</strong>溝通「安心」、「舒適」、「高效」、「一對一」等體驗價值，而不僅是儀器名稱。</div>
+        <div><strong>品牌調性：</strong>建立「專業、溫暖、值得信賴」的語氣，而非冰冷的功能性陳述。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>轉換優化藍圖應圍繞「消除用戶決策焦慮」設計。路徑為：用戶登陸後，立即看到核心價值與信任標誌 -&gt; 使用「方案推薦器」或清晰的分類快速鎖定範圍 -&gt; 在方案詳情頁看到透明的價格、項目及「客戶見證」 -&gt; 點擊雙軌CTA：「立即預約」(給高意圖用戶)或「專人諮詢」(給需要更多資訊的用戶)，並提供Line@即時溝通渠道，最大化捕獲潛在客戶。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>首先，通過修正致命的技術SEO缺陷（機會點A）實現快速排名躍升；接著，以深度E-E-A-T內容（機會點B）建立專業權威，超越內容單薄的競爭者。</div>
+        <div><strong>競爭者超越路徑：</strong>將頁面從「健檢方案價目表」升級為「頂級健康管理體驗指南」。主打醫院競爭者所缺乏的「舒適環境」、「精緻服務」、「隱私性」與「詳盡的檢後諮詢」，實現價值差異化。</div>
+        <div><strong>使用者價值最大化：</strong>核心是解決使用者的「選擇困難」與「流程焦慮」。提供清晰的方案分類、決策框架與透明的流程說明，讓使用者在預約前就感到安心與信賴。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將國泰健檢定位為台南地區「預防醫學的專家」與「個人化的健康夥伴」，而不僅是一個做檢查的地方。</div>
+        <div><strong>差異化價值：</strong>提供「醫療專業」與「飯店級服務」的完美結合，滿足追求高品質健康生活客群的需求。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>第一階段（1個月內）進入前5名；第二階段（3個月內）穩定排名前3，並挑戰第1名。</div>
+        <div><strong>流量增長目標：</strong>預計自然搜尋流量提升50%以上，頁面停留時間增加30%。</div>
+        <div><strong>轉換率優化：</strong>「專人諮詢」表單提交量和「線上預約」點擊率提升25%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速突破 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">Meta標籤優化：</strong>
+          <span class="text-gray-600">立即重寫標題與描述，植入「台南健檢中心」等核心關鍵詞與價值主張，目標是快速提升頁面相關性與點擊率。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">頁面結構修正：</strong>
+          <span class="text-gray-600">新增唯一的&lt;h1&gt;標題，並將方案列表的&lt;h2&gt;降級為&lt;h3&gt;，建立清晰的資訊層級，解決當前最嚴重的SEO技術債。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #D97706;">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：競爭超越 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">內容深度擴充：</strong>
+          <span class="text-gray-600">新增「為何選擇我們」、「醫療團隊」、「環境設備」等圖文模組，將頁面從價目表升級為服務介紹頁。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">E-E-A-T權威建立：</strong>
+          <span class="text-gray-600">增加「常見問題 Q&A」與客戶見證，建立信任錨點，提升頁面的專業性與信賴感，目標是穩固排名前三。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：領導地位 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">使用者體驗創新：</strong>
+          <span class="text-gray-600">開發「健檢方案智能推薦器」，解決用戶選擇困難的核心痛點，建立體驗護城河。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">權威內容建設：</strong>
+          <span class="text-gray-600">拍攝並上線介紹中心的形象短片，並撰寫由醫師掛名的專業衛教文章，鞏固榜首地位。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>方案選擇的廣度與多元性是核心資產。</div>
+          <div><strong>改善空間：</strong>內容深度嚴重不足，本質上是無說明的價目表，缺乏引導性、專業性與信任感建立的內容。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">引導式內容結構：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>Hook (吸引):</strong> 用價值主張吸引用戶，強調與醫院的不同。</div>
+          <div><strong>Educate (教育):</strong> 提供清晰的方案分類和選擇指南，解決選擇困難。</div>
+          <div><strong>Showcase (展示):</strong> 展示專業團隊、先進設備和舒適環境，建立E-E-A-T。</div>
+          <div><strong>Reassure (消除疑慮):</strong> 透過詳盡的流程說明和FAQ解答潛在問題。</div>
+          <div><strong>Convert (轉換):</strong> 在多個關鍵節點佈置清晰的雙軌CTA（預約/諮詢）。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>五星級舒適環境與隱私：</strong>強調獨立空間、流暢動線，對比醫院的擁擠與混亂。</div>
+        <div><strong>一對一健康管理師服務：</strong>從檢前諮詢到檢後追蹤，提供全程個人化服務。</div>
+        <div><strong>資深醫師親自解說報告：</strong>保障客戶有充分時間理解報告，並獲得專業建議。</div>
+        <div><strong>預防醫學導向的方案設計：</strong>不僅是檢查，更提供後續的健康促進計畫。</div>
+        <div><strong>客戶見證與真實體驗分享：</strong>通過匿名化案例，展現服務的實際價值與溫度。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>視覺化呈現：</strong>大量使用高品質實景照片、360度環景導覽或短影片來展示中心環境。</div>
+        <div><strong>服務流程具象化：</strong>製作圖文並茂的「健檢旅程」時間軸，詳細描述每個服務接觸點。</div>
+        <div><strong>團隊專業化：</strong>建立醫師與健康管理師的介紹專區，附上資歷與服務理念。</div>
+        <div><strong>內容專業化：</strong>撰寫由醫師審閱的衛教文章，連結至健檢頁面，建立主題權威。</div>
+        <div><strong>體驗故事化：</strong>蒐集客戶正面回饋，以引言或短故事形式呈現在頁面上，增加真實感。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+    <h4 class="font-bold text-lg mb-4 text-green-800">雙軌轉換路徑策略</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">高意圖用戶路徑 (硬性CTA)：</h5>
+            <p class="text-gray-600">針對已做好決策、尋求快速預約的用戶。在頁眉、方案列表後及頁尾設置醒目的「線上預約」按鈕，直接引導至預約系統，縮短轉換步驟。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">考慮階段用戶路徑 (軟性CTA)：</h5>
+            <p class="text-gray-600">針對仍在比較、需要更多資訊的用戶。提供「專人諮詢」表單與Line@即時洽詢選項，作為低門檻的溝通渠道，先建立聯繫再進行培育轉換。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+            <h5 class="font-semibold text-yellow-700 mb-2">CTA優化建議：</h5>
+            <p class="text-gray-600">所有CTA按鈕設計應清晰、具引導性，文案從模糊的「了解更多」轉變為行動導向的「預約我的健康諮詢」或「查看方案詳細項目」，以提升點擊意願。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h5 class="font-semibold text-blue-800 mb-2">響應式設計與導航</h5>
+        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+            <li>確保頁面在手機、平板和電腦上均有良好瀏覽效果。</li>
+            <li>使用頁內錨點連結的快速導航目錄，方便用戶快速跳轉至感興趣的章節。</li>
+            <li>確保行動端所有按鈕都易於點擊，文字大小適中。</li>
+        </ul>
+    </div>
+    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+        <h5 class="font-semibold text-green-800 mb-2">內容呈現與互動</h5>
+        <ul class="list-disc pl-5 text-gray-700 space-y-1">
+            <li>對於Q&A等長內容，使用可展開/收合的元件（Accordion）以保持頁面整潔。</li>
+            <li>適當加入方案比較表格、流程圖、客戶引言區塊，增加頁面豐富度。</li>
+            <li>圖片資源需進行壓縮優化，確保頁面載入速度，避免用戶因等待而流失。</li>
+        </ul>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
