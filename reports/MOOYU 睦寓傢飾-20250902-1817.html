@@ -1,0 +1,2163 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | MOOYU 睦寓傢飾</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@3.4.0/dist/tailwind.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap">
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">MOOYU 睦寓傢飾 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「家具推薦」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">10</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站內容定位為一篇全方位的<strong>「傢俱推薦懶人包」</strong>，專為處於選購初期、資訊焦慮的消費者設計。文章從根本問題「去哪裡買」、「怎麼挑」切入，試圖成為使用者在傢俱購買決策流程中的首要參考指南。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容架構完整，涵蓋了從<strong>購買前的常見迷思釐清</strong>（如工廠直營、網路購買）、<strong>通路優缺點分析</strong>，到<strong>挑選傢俱店與傢俱本身的四大關鍵重點</strong>（風格、空間、需求、預算），最後再提供一份精選的<strong>10大傢俱品牌推薦清單</strong>。整體內容兼具廣度與基礎深度，邏輯層次清晰。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對用戶的核心價值在於<strong>提供一個清晰的決策框架</strong>。文章不僅僅是推薦品牌，更重要的是教育消費者如何思考、如何評估，幫助他們建立一套自己的選購標準。將自家品牌「MOOYU 睦寓傢飾」置於推薦列表首位，是一種高明的內容行銷手法，在提供價值的同時自然地介紹了自己。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>比較意圖缺口：缺乏品牌橫向對比
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">目前僅是條列式介紹10個品牌，缺少一個<strong>快速比較的總覽表格</strong>或摘要。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶在看到長長的品牌清單後，最直接的需求是快速了解各品牌的差異，例如「哪個品牌價位較高？」、「哪個主打北歐風？」、「哪個提供客製化服務？」。他們希望能一目了然地篩選出符合自己需求的2-3個目標品牌，而不是逐一點擊研究。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">在推薦列表前，新增一個比較表格，欄位可包含：<strong>品牌風格、主力產品、平均價位、客製化選項、保固服務</strong>等，讓用戶能迅速做出初步篩選。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-search text-orange-600 mr-2"></i>決策支援缺口：選購要點不夠深入
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">文章提到的選購要點較為宏觀，但缺少了競爭者（如TZUMii、Amour Wood）所提及的<strong>具體材質、甲醛含量、五金零件</strong>等魔鬼細節的討論。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">當代消費者越來越重視健康與耐用性，他們想知道如何辨別傢俱的品質，例如不同板材（實木、MDF、塑合板）的優劣、油漆或貼皮的環保標準（如F☆☆☆☆認證），以及五金零件的品牌與耐用度。這些具體資訊是影響最終購買決策的關鍵因素。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">在「傢俱推薦怎麼挑」段落中，增加一個「<strong>重點五：檢視材質與細節</strong>」的小節，說明常見材質的差異、如何檢查甲醛認證標章，以及五金零件的重要性。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-search text-purple-600 mr-2"></i>信任建立缺口：缺乏真實案例與社會認同
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">全文為資訊型內容，完全沒有<strong>客戶實際案例、用戶評價或空間佈置照片</strong>等社會認同元素。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">購買傢俱是高單價、重體驗的決策。消費者在吸收完理論知識後，非常需要看到「真實的樣子」。他們想看這些傢俱在實際家庭中的樣貌，想聽聽其他購買者的使用心得。排名第一的 MR. LIVING 正是利用「居友的家」這個區塊，極大地滿足了此需求，建立了強烈的信任感與代入感。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">在介紹自家品牌 MOOYU 時，嵌入2-3張精美的<strong>客戶實拍照片或一個簡短的客戶案例分享</strong>，展示產品在真實居家環境中的質感與氛圍，並連結至更詳細的案例頁面。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-search text-blue-600 mr-2"></i>深度價值缺口：品牌推薦分類與廣度不足
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">推薦的10個品牌未經分類，且數量上少於競爭者（TZUMii、Amour Wood）的19個。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶通常帶著特定的風格偏好或預算範圍來搜尋，例如「平價傢俱推薦」或「北歐風傢俱品牌」。一個未經分類的列表增加了用戶的篩選時間。競爭者透過<strong>「平價推薦」、「北歐風推薦」、「工業風推薦」</strong>等分類，更精準地滿足了不同用戶子群的需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">將現有的10個品牌，甚至擴充至15個以上，並依照<strong>風格（如：日系無印、北歐簡約、現代設計）、價位（如：小資入門、中階設計、高階進口）<strong>或</strong>特色（如：實木工藝、模組化設計）</strong>進行分類，提高文章的實用性與全面性。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站的基礎SEO設置相當完善。Meta 標籤中的 <strong>&lt;title&gt; 和 &lt;description&gt;</strong> 精準地包含了目標關鍵詞與吸引點擊的文案。<strong>Open Graph (OG) 標籤</strong>設定齊全，有利於社群分享時的預覽呈現。具備 <strong>Canonical 標籤</strong>，能有效避免重複內容問題。從 `shopify-checkout-api-token` 可判斷網站使用 <strong>Shopify</strong> 平台，其本身對行動裝置優化與技術SEO有良好基礎。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">內容結構採用了清晰的 <strong>H1-H2-H3 層級</strong>，邏輯分明，從廣泛的議題逐步深入到具體的品牌推薦，符合用戶的閱讀習慣，也有利於搜尋引擎理解文章脈絡。標題的命名直接回應了用戶的潛在問題，關鍵詞佈局自然合理。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">經分析發現兩個可優化的技術細節：
+<br>1. <strong>重複的 &lt;H1&gt; 標籤：</strong> 頁面中出現了兩個內容完全相同的 &lt;H1&gt; 標籤。雖然現代搜尋引擎對此容忍度較高，但最佳實踐是每頁只保留一個最核心的 &lt;H1&gt;，建議移除其中一個。
+<br>2. <strong>不安全的 OG:Image URL：</strong> `og:image` 標籤中的圖片網址為 `http://` 開頭，而非安全的 `https://`。在全站皆為 HTTPS 的情況下，應將此 URL 更新為 `https://`，以確保所有資源都透過安全連線傳輸，避免潛在的混合內容警告。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+    <li><strong>內容策略正確：</strong> 採用「懶人包」形式的綜合指南，是有效吸引「家具推薦」這類高價值研究型流量的正確策略。</li>
+    <li><strong>競爭力不足：</strong> 與排名靠前的內容型對手（如 TZUMii、Amour Wood）相比，在推薦品牌的<strong>數量（10 vs 19）和分類細緻度</strong>上處於劣勢，內容的全面性有待加強。</li>
+    <li><strong>錯失信任元素：</strong> 嚴重缺乏<strong>社會認同（Social Proof）</strong>內容，如客戶實例、用戶評價或實景照片，而這正是高排名品牌（如 MR. LIVING）建立信任感的關鍵武器。</li>
+    <li><strong>使用者體驗可優化：</strong> 缺乏<strong>品牌比較表格</strong>，用戶無法快速篩選資訊，增加了決策時間與跳出風險。強化內容的「可掃視性」與「工具性」是提升排名的關鍵。</li>
+    <li><strong>技術基礎良好但有小瑕疵：</strong> 整體SEO技術配置健全，但存在<strong>重複&lt;H1&gt;標籤</strong>與<strong>非HTTPS圖片連結</strong>等細節問題，修正後可讓頁面技術健康度更趨完美。</li>
+</ul>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第10位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">9個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 MR. LIVING 居家先生距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前位於搜尋結果第一頁的末端，有良好的基礎，但面臨被擠出首頁的風險。主要挑戰來自於內容的全面性及關鍵詞精準度不足。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>MOOYU 睦寓傢飾</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+            <td class="font-semibold">標題 Title</td>
+            <td>傢俱推薦懶人包｜選購要點、常見問題、10大傢俱行推薦</td>
+            <td>普遍使用「家具」而非「傢俱」，並以更具吸引力的數字（如19大）和價值主張（如平價、熱門）吸引點擊。</td>
+            <td>1. 將「傢俱」改為「家具」。<br/>2. 增加推薦數量或強化價值主張，例如：「15大家具推薦品牌」。</td>
+        </tr>
+        <tr>
+            <td class="font-semibold">描述 Description</td>
+            <td>僅說明文章內容，關鍵詞錯位（傢俱），缺乏觸發點擊的誘因。</td>
+            <td>清晰傳達頁面核心價值（如「平價家具工廠」、「數萬網友好評」），並在句首置入核心關鍵詞。</td>
+            <td>修正為「家具」，並在前段加入獨特賣點，如「從平價到設計師款」、「Dcard網友熱議品牌」等。</td>
+        </tr>
+        <tr>
+            <td class="font-semibold">關鍵詞 Keywords</td>
+            <td>未提供。</td>
+            <td>部分競爭者（如MR. LIVING、多瓦娜）仍在使用Keywords標籤，涵蓋「家具推薦」、「沙發推薦」等。</td>
+            <td>雖然Google已不太重視此標籤，但可補上核心詞「家具推薦, 家具行推薦, 平價家具」作為輔助。</td>
+        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">
+          <h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+          <ul class="space-y-2">
+            <li><strong>重複的 <code>&lt;H1&gt;</code> 標籤：</strong> 頁面原始碼中出現兩個 <code>&lt;H1&gt;</code> 標籤，這會混淆搜尋引擎對頁面核心主題的判斷。應確保每頁只有一個唯一的 <code>&lt;H1&gt;</code>。</li>
+            <li><strong>URL結構冗長：</strong> 當前URL <code>/blogs/mooyu-%E9%81%B8%E8%B3%BC%E6%8C%87%E5%8D%97/best-furniture</code> 包含中文編碼，較為冗長。雖然末端的 "best-furniture" 尚可，但與競爭者如 <code>/blog/furniture-recommend</code> 相比，清晰度和專業度稍遜一籌。</li>
+          </ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage">
+          <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+          <ul class="space-y-2">
+            <li><strong>穩定的平台基礎：</strong> 網站基於Shopify建置，通常具有良好的行動裝置適應性、安全的HTTPS加密以及合理的頁面載入速度，這些都是SEO的基礎優勢。</li>
+            <li><strong>清晰的內容結構：</strong> 儘管有 <code>&lt;H1&gt;</code> 標籤問題，但整體內容使用 <code>&lt;H2&gt;</code>、<code>&lt;H3&gt;</code> 等標籤劃分段落，層次分明，有助於搜尋引擎理解文章架構。</li>
+          </ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="insight-box">
+        <h5 class="font-semibold text-gray-800 mb-2">關鍵詞語義覆蓋分析</h5>
+        <div class="space-y-4">
+            <div>
+                <h5 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">主要覆蓋缺口</h5>
+                <p>最嚴重的問題是通篇使用「傢俱」而非使用者主要搜尋的「家具」。這導致在最核心的關鍵詞上與搜尋意圖產生偏差，大幅削弱了頁面的相關性。所有標題、內文、Meta標籤都應進行系統性修正。</p>
+            </div>
+            <div>
+                <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">次要語義缺口</h5>
+                <p>文章缺乏對不同「家具風格」（如：北歐風、工業風、無印風）和「家具材質」（如：實木、原木、貓抓布）等長尾關鍵詞的覆蓋。競爭者（如TZUMii）透過內容分類自然地融入了這些詞彙，擴大了搜尋能見度。</p>
+            </div>
+        </div>
+</div>
+                                <div class="insight-box">
+        <h5 class="font-semibold text-gray-800 mb-2">內容深度與品質分析</h5>
+        <div class="space-y-4">
+            <div>
+                <h5 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">內容廣度不足</h5>
+                <p>推薦的品牌數量（10家）明顯少於排名第3和第9的競爭者（均為19家）。在「懶人包」類型的文章中，內容的廣度和全面性是使用者評估其價值的重要指標。數量上的劣勢直接影響了內容的競爭力。</p>
+            </div>
+            <div>
+                <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容深度不足</h5>
+                <p>目前對每個品牌的介紹較為單一。與之相比，排名靠前的內容提供了更深入的分析，例如品牌風格分類、價格區間、優缺點分析等。此外，缺少如「選購注意事項」、「如何檢查甲醛」等具體、實用的知識點，使得文章的專業深度有所欠缺。</p>
+            </div>
+        </div>
+</div>
+                        </div>
+
+                            <div class="success-box">
+            <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">🚀 內容差異化與價值提升機會</h4>
+            <div class="space-y-4">
+                <div>
+                    <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">建立獨家專業視角</h5>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>「MOOYU 設計師精選」單元：</strong> 新增一個由品牌內部設計師或選物專家署名的推薦單元，分享專業的挑選心得或點評，這能有效提升內容的獨特性與權威性，是純資訊整合型文章無法比擬的。</li>
+                        <li><strong>「風格搭配實戰」：</strong> 不僅是推薦品牌，更可以提供一個小篇幅的教學，例如「如何用3個品牌混搭出完美的北歐客廳」，提供超越競爭者的實用價值。</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">優化資訊呈現方式</h5>
+                    <ul class="list-disc list-inside space-y-2">
+                        <li><strong>視覺化比較表格：</strong> 創建一個清晰的比較圖表，列出各推薦品牌的「主要風格」、「價格範圍」、「推薦品項」、「優點/缺點」，幫助使用者快速做出決策。</li>
+                        <li><strong>使用者真實回饋整合：</strong> 類似排名第一的MR. LIVING展示「居友的家」，可以引用或總結網路上（如Dcard、Mobile01）對各品牌的真實評價，增加內容的客觀性與可信度。</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="insight-box">
+        <h5 class="font-semibold text-gray-800 mb-2">專業性與權威性對比</h5>
+        <p>目前頁面作為一篇部落格文章，其權威性主要來自內容的專業程度。與排名第一、第二的品牌首頁相比，缺少了整個網站的品牌力、使用者案例、媒體報導等權威信號的支撐。與同類型的文章（第3、9名）相比，由於內容深度和廣度稍遜一籌，其權威感也相對較弱。</p>
+</div>
+                                <div class="insight-box">
+        <h5 class="font-semibold text-gray-800 mb-2">可信度指標評估</h5>
+        <p>當前頁面缺乏明確的信任指標。例如，沒有清晰的作者資訊（E-E-A-T中的Authoritativeness），也沒有引用客戶評價或第三方數據來支撐觀點。排名第一的MR.LIVING透過大量「居友的家」真實案例建立信任感，這是我們可以學習的方向。</p>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標：</h5>
+      <ul class="space-y-2">
+        <li><strong>明確作者資訊：</strong> 在文章開頭或結尾處，新增一個作者介紹區塊，例如「本文由MOOYU睦寓資深家居顧問 [姓名] 撰寫，擁有超過10年家具配置經驗」，並附上簡短介紹與照片，直接提升專業形象（Experience & Expertise）。</li>
+        <li><strong>引用客觀數據與評價：</strong> 在介紹品牌時，可以加入「Dcard網友票選最愛」、「年銷售量破千件」等客觀描述（需有來源），或嵌入正面的Google評論截圖，增加可信度。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展權威內容：</h5>
+      <ul class="space-y-2">
+        <li><strong>創建「MOOYU選物標準」：</strong> 在文章中闡述MOOYU品牌自身挑選家具的標準（如材質、工藝、設計理念），不僅推廣了自家品牌，也為整篇文章的推薦背書，建立權威性（Authoritativeness）。</li>
+        <li><strong>分享客戶成功案例：</strong> 在文章中連結到1-2個使用MOOYU家具的客戶案例或空間佈置分享，展示真實的使用情境與成果，將流量導向品牌自身內容。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設：</h5>
+      <ul class="space-y-2">
+        <li><strong>尋求媒體或KOL引用：</strong> 將此篇優化後的優質文章推薦給居家設計領域的KOL或網路媒體，爭取外部連結或引用，這是提升頁面權威性的最有效方法之一。</li>
+        <li><strong>引導用戶分享：</strong> 在文章結尾加入分享按鈕，並鼓勵讀者「如果覺得這篇文章有幫助，歡迎分享給正在煩惱買家具的朋友！」，增加社群訊號。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li><strong>新增文章目錄/快速導覽：</strong> 在文章開頭處建立一個可點擊的目錄，讓使用者能直接跳轉到他們感興趣的特定品牌或段落，對於長篇文章來說至關重要。</li>
+        <li><strong>優化標題易讀性：</strong> 對於推薦的每一個品牌，使用更清晰的標題格式，如「1. IKEA 宜家家居｜小資族的好朋友」，讓使用者在快速滾動時能迅速抓住重點。</li>
+        <li><strong>凸顯關鍵資訊：</strong> 使用粗體、引言區塊（blockquote）或不同顏色的背景來標示出每個品牌的「推薦理由」或「注意事項」，幫助使用者快速吸收核心資訊。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>開發互動式篩選器：</strong> 在頁面頂部或側邊欄增加一個簡易的篩選功能，讓使用者可以根據「風格」、「預算」、「空間」（客廳/臥室）來篩選推薦的品牌，提供高度個人化的閱讀體驗。</li>
+        <li><strong>嵌入影片內容：</strong> 為「MOOYU設計師精選」單元製作一個簡短的介紹影片，或嵌入介紹家具材質的知識型短片，增加頁面停留時間並豐富內容形式。</li>
+        <li><strong>優化行動版閱讀體驗：</strong> 確保圖片大小經過壓縮，段落不要過長，並使用更大的字體，讓手機使用者也能輕鬆閱讀這篇長文。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">MR. LIVING 居家先生</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">設計/風格導向</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.mrliving.com.tw/?srsltid=AfmBOop98XhUxtNVzDXELfGwMaa8UMofEKnh25OxINSVIyL8JZIkpI5p" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.mrliving.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用品牌故事與生活方式導向策略。以「走入北歐侘寂的生活日常」的氛圍營造開篇，強調平價精品與北歐設計感。透過展示具名設計師及其國際獲獎紀錄，建立強大的專業形象，再以海量的「居友的家」用戶實例作為社會證明，最終提供空間佈置靈感等教育性內容，形成一套完整的品牌價值溝通閉環。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流從品牌哲學出發，建立情感認同，接著用專業背書和社會證明強化信任，引導用戶深度探索生活靈感。其CTA較為隱性，重在培養用戶對品牌的認同感與忠誠度，而非直接的硬性推銷，旨在讓用戶沉浸在其營造的生活美學中。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> <span class="text-gray-600">極強。「居友的家」單元展示了大量真實用戶的使用經驗，是第一手經驗的鐵證。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> <span class="text-gray-600">極強。詳細列出合作的國際知名設計師及其獲獎資歷，直接展示了產品設計的專業高度。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> <span class="text-gray-600">強。與丹麥、德國等設計師合作，本身就是一種權威背書，建立了在北歐設計領域的權威地位。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> <span class="text-gray-600">極強。「超過五萬位居友信賴」的數據聲明，結合清晰的品牌形象和用戶案例，建立了極高的信賴感。</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">多瓦娜家居</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">電商平台</div>
+                <div class="text-lg font-semibold text-blue-600">價格/CP值導向</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.dowana.com.tw/?srsltid=AfmBOopmEFhqKeewZRqmTH8aHoMUJgFi5lxp9cosUbE8FXRpNJJrropq" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.dowana.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">核心策略是強調「全台最大平價家具品牌」的市場定位，以海量的商品選擇和具競爭力的價格作為主要吸引力。頁面內容圍繞產品分類、促銷活動和新品推薦展開，旨在直接滿足有明確購買目標和預算考量的使用者，讓打造幸福居家不再是難事。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用直接了當的電商賣場敘事邏輯。用戶進入頁面後，透過清晰的分類導航和顯眼的促銷橫幅，被引導至產品列表頁。其CTA設計非常明確，以「立即購買」、「加入購物車」為主，目標是縮短用戶決策路徑，快速完成線上交易。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> <span class="text-gray-600">良好。Meta中「數萬網友好評推薦」的聲明提供了強而有力的社會證明。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> <span class="text-gray-600">良好。網站提供上萬件家具，品類眾多，展現了其在家具供應鏈整合上的專業能力。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> <span class="text-gray-600">中等。自稱「全台最大平價品牌」建立了一定的市場權威形象，但相較於設計師品牌，權威感來源不同。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> <span class="text-gray-600">良好。實體與電商的整合經營模式，加上明確的售後服務說明，為消費者提供了購買保障。</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第3名</span>
+                <h4 class="font-bold text-xl">TZUMii 厝覓</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">內容媒體/資訊型文章</div>
+                <div class="text-lg font-semibold text-blue-600">內容權威/指南導向</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.tzumii.com/Article/Detail/78603?srsltid=AfmBOoqdewYMmLLfuaDylLtbVjDlkWT6TIiQWlMGX9WBB3uFbfqgZ3j1" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.tzumii.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此頁面是典型的內容行銷範例，定位為「家具推薦懶人包」。策略核心是透過提供極度全面、結構化的購買指南和19大熱門品牌清單，來捕獲處於研究階段的廣泛搜尋流量。文章不直接銷售，而是以解決用戶資訊焦慮為首要目標，從而建立品牌專業形象。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流遵循經典的「問題解決」教學模式：「如何挑選 -> 推薦清單 -> 注意事項」。這種結構完美匹配了研究型用戶的心理預期，引導他們逐步建立知識、評估選項。CTA設計巧妙，在文末以「買家具推薦哪家？快到 TZUMii 厝覓看一看！」的問句形式，自然地將流量導向自家品牌。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> <span class="text-gray-600">中等。文章內容偏向第三方資訊整理，較少第一手使用經驗的分享。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> <span class="text-gray-600">強。透過撰寫詳盡的購買指南和整理多達19個品牌，展現了其市場調研的深度與專業性。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> <span class="text-gray-600">強。其內容的全面性使其成為該主題下的權威資訊來源之一，被搜尋引擎高度認可。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> <span class="text-gray-600">良好。為用戶提供結構化、有價值的免費資訊，本身就是一種建立信賴的方式。</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第4名</span>
+                <h4 class="font-bold text-xl">H&D東稻家居</h4>
+            </div>
+            <div class="text-right">
+                <div class="sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">風格聚焦型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.hdlife.com.tw/Browsing/SpecialFeature/Japanese?srsltid=AfmBOooSEanOxbwJj2zUJAKcsHJhqDUoJo_7NvVb1SBzIZ0U5zk52vrL" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.hdlife.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此頁面為一個風格策展頁，專注於「日系風家具推薦」。策略是透過聚焦特定風格，吸引對日系美學有明確偏好的目標客群。頁面直接展示符合該風格的商品，減少用戶的搜尋和篩選時間，定位為「台灣國民家具品牌」，試圖在親民與風格之間找到平衡。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流非常直接，進入頁面即是符合「日系風」主題的商品陳列。這種方式適合已有明確風格偏好的用戶，能夠快速瀏覽並找到心儀的商品。CTA是標準的電商模式，引導用戶點擊商品進入詳情頁，並最終完成購買。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> <span class="text-gray-600">良好。其另一排名頁面（第8名）主打「網紅推薦」，顯示品牌積極與使用者及影響者互動，積累了豐富的實際使用案例。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> <span class="text-gray-600">良好。作為「台灣國民家具品牌」，在家具的生產、銷售和風格趨勢把握上具備長期經驗。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> <span class="text-gray-600">中等。品牌在台灣市場具有較高知名度，但在特定風格（如日系）的權威性上，需與專門品牌競爭。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> <span class="text-gray-600">良好。擁有實體門市和清晰的品牌形象，為消費者提供了可靠的購買渠道和售後保障。</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第5名</span>
+                <h4 class="font-bold text-xl">晶華傢俱 CHC</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">設計/進口導向</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://c-h-c.com.tw/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">c-h-c.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位於中高端市場，強調「精品家具」與「進口沙發」。內容策略結合了產品推薦、客戶案例分享和專業知識文章。頁面重點展示高CP值的「沃荷」系列全牛皮沙發，同時也介紹義大利進口系列，試圖在品質、設計感與價格之間建立一個吸引人的價值主張。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流採用「產品展示 -> 社會證明 -> 知識教育」的模式。先用精選的沙發推薦吸引用戶，再透過客戶案例分享建立信任感，最後提供沙發知識文章（如配色、挑選技巧）來鞏固其專業形象。CTA主要引導用戶到實體門市體驗，符合其高單價產品的銷售模式。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> <span class="text-gray-600">良好。網站設有「客戶案例分享」專區，展示了產品在真實環境中的應用經驗。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> <span class="text-gray-600">強。專營進口沙發、電動沙發，並提供「沙發知識文章」，展現了在沙發領域的深度專業。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> <span class="text-gray-600">良好。作為義大利進口沙發的代理商，其品牌定位本身就帶有一定的權威性。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> <span class="text-gray-600">強。在全台設有多家實體門市，提供百坪展示空間，讓消費者可以親身體驗，建立了高度的信賴感。</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第6名</span>
+                <h4 class="font-bold text-xl">億家具批發倉庫</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">電商平台</div>
+                <div class="text-lg font-semibold text-blue-600">價格/CP值導向</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.billion-home.com.tw/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.billion-home.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此品牌的核心策略是「工廠直營」與「批發價」。內容上極力強調價格優勢和服務的便利性，如「送貨到府、免費安裝、貨到付款、3期0利率」。目標客群是尋求最高CP值、對價格敏感的消費者。同時提供客製化選項，滿足部分個性化需求。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流圍繞「省錢」和「方便」展開。頁面直接展示多樣化的商品款式，並在顯眼位置標示出價格和優惠服務。CTA設計旨在降低購買門檻，例如「貨到付款」和「3期0利率」，鼓勵消費者立即下單。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> <span class="text-gray-600">強。「30年老字號」的聲明直接證明了其長期的行業經驗。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> <span class="text-gray-600">良好。作為MIT家具工廠，並提供客製化服務，顯示其在生產製造端的專業能力。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> <span class="text-gray-600">良好。「工廠直營」的模式本身就是一種價格權威的體現。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> <span class="text-gray-600">強。全台擁有14間實體門市，並提供專人配送組裝和完整的售後服務，極大地增強了消費者的信賴感。</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第7名</span>
+                <h4 class="font-bold text-xl">iloom怡倫</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">風格聚焦型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.iloom.com.tw/collections/living-room?srsltid=AfmBOop4MlKYqohaJsO2swY3q0thcTTSI7eof8zQlXmLg1v5fEHY3NVK" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.iloom.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此頁面專注於「客廳家具」，並以「簡約韓系設計」為核心賣點。策略是吸引對韓劇、韓流文化感興趣的年輕客群。內容融合柔和線條與溫暖色調，強調高質感生活氛圍。同時，透過相關雜誌文章（如韓系房間設計、奶油風裝潢），進行內容行銷，深化品牌風格印象。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流首先以「以簡約韓系設計為主，展現質感生活氛圍」的標題設定風格基調，接著陳列商品，並在頁面下方提供延伸閱讀的雜誌文章。這種結構旨在讓用戶在瀏覽商品的同時，也能吸收風格知識，加深對品牌的認同。CTA引導用戶探索商品和閱讀相關文章。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> <span class="text-gray-600">良好。透過「相關雜誌文章」分享韓系佈置的經驗與技巧，展示了對該風格的深入理解。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> <span class="text-gray-600">強。作為一個專注於韓系設計的家具品牌，其在特定風格領域的專業性非常突出。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> <span class="text-gray-600">良好。iloom作為一個知名的韓國品牌，其品牌本身就帶有在「韓系設計」領域的權威性。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> <span class="text-gray-600">良好。清晰的品牌形象和官方網站提供了可靠的購買渠道，建立了消費者的信賴。</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第8名</span>
+                <h4 class="font-bold text-xl">H&D東稻家居</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">社會證明型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.hdlife.com.tw/Articles/Experience?srsltid=AfmBOop9m8Anr9okAAl_nEvl3fL3pjoQvFSX6tV-0smWiNUx-9ECUyNL" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.hdlife.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此頁面策略非常聚焦，主打「網紅推薦」。內容完全由與品牌合作的網紅、KOL的開箱體驗文和影片組成。這種策略旨在利用影響者的粉絲基礎和信譽，為品牌進行背書，吸引年輕、注重社群口碑的消費族群，是一種典型的社會證明行銷手法。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流以網紅的個人體驗故事為主軸，透過真實的開箱、佈置過程和使用心得，讓潛在消費者產生代入感。每個網紅推薦區塊都附有相關產品的連結，CTA明確引導用戶去購買「網紅同款」，轉換路徑清晰直接。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> <span class="text-gray-600">極強。整個頁面就是由大量第一手的使用者（網紅）經驗構成，說服力強。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> <span class="text-gray-600">中等。網紅分享的是使用體驗，而非技術專業，但從多樣化的合作可以看出品牌在社群行銷上的專業。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> <span class="text-gray-600">良好。與眾多網紅合作，本身就是一種市場認可的權威性體現。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> <span class="text-gray-600">強。第三方（網紅）的推薦比品牌自賣自誇更具客觀性，容易贏得消費者的信賴。</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第9名</span>
+                <h4 class="font-bold text-xl">Amour Wood 愛沐家居</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">內容媒體/資訊型文章</div>
+                <div class="text-lg font-semibold text-blue-600">內容權威/指南導向</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.amourwood.com.tw/blog/furniture-recommend?srsltid=AfmBOoomFhr3cM3qF-Pw0uWNFVsOPLNRz2ERzs1_MT6Nykso1_cV_ezm" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.amourwood.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">與第3名TZUMii策略高度相似，定位為一篇極度詳盡的「家具品牌推薦」指南。內容涵蓋通路比較、5大挑選訣竅，並精選了19間家具品牌。策略核心是成為該議題的終極資訊來源，透過提供壓倒性的全面資訊來吸引並留住用戶，最後再將流量導向自家品牌。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流同樣採用「教學 -> 推薦」的模式。先從「哪裡買」和「怎麼挑」的宏觀問題入手，教育讀者，建立專業形象。在讀者獲得充分知識後，再呈現詳盡的品牌清單。CTA在文末非常明確：「家具店推薦「愛沐家居」｜高品質平價家具首選品牌」，直接進行品牌引導。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> <span class="text-gray-600">中等。文章以資訊整理為主，缺乏品牌自身或用戶的第一手經驗分享。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> <span class="text-gray-600">強。內容涵蓋通路、挑選訣竅、品牌推薦等多個層面，展現了對家具市場的廣泛了解。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> <span class="text-gray-600">強。與TZUMii一樣，憑藉內容的全面性，成功地在「家具推薦」這個主題上建立了內容權威。</span></div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> <span class="text-gray-600">良好。透過提供客觀、詳盡的資訊，幫助用戶解決問題，從而贏得用戶的信賴。</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方Meta標題未能有效傳達獨特價值，也未完全匹配「推薦」這一搜索意圖。與競爭者相比，在吸引力上處於劣勢。</div>
+          <div><strong>描述效能：</strong>品牌方描述資訊模糊，相比之下，競爭者直接用「懶人包」、「19大熱門清單」等關鍵詞回應了用戶尋求高效指引的核心需求。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">策略模式分類：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>價值導向型 (C1, C2, C5, C6):</strong> 直接在標題中亮出核心賣點，如「北歐設計」、「平價家具」、「進口沙發」、「工廠直營」。</li>
+                <li><strong>效率強調型 (C3, C9):</strong> 使用「懶人包」、「清單必知」等詞語，承諾為用戶節省時間，提供高效的解決方案。</li>
+                <li><strong>風格聚焦型 (C4, C7):</strong> 明確標示「日系風」、「韓系設計」，吸引特定審美偏好的用戶。</li>
+                <li><strong>社會證明型 (C2, C8):</strong> 利用「數萬網友好評」、「網紅推薦」建立信賴感。</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+
+                            
+
+                            <div class="success-box">
+    <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+    <div class="space-y-4">
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+        <ul class="space-y-2">
+          <li><strong>差異化角度：</strong>從功能性「推薦」轉向情感性「陪伴」。定位為「幫您打造溫暖和諧的家」的居家顧問，而非僅僅是家具銷售商。</li>
+          <li><strong>競爭優勢：</strong>利用「睦寓」的品牌名，建立「有溫度的家具」心智模型，與競爭者的「設計感」、「CP值」形成區隔。</li>
+          <li><strong>目標受眾：</strong>針對重視居家氛圍、生活品質，尋求情感慰藉的消費者。</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+        <ul class="space-y-2">
+          <li><strong>標題優化：</strong>「【睦寓傢飾】暖心家具推薦：為您的家，挑選一份恰到好處的溫暖」 (約30字，包含品牌、關鍵詞、情感價值)。</li>
+          <li><strong>描述優化：</strong>「正在尋找家具推薦嗎？睦寓傢飾精選一系列有溫度的實木家具與布藝沙發，教您如何佈置出和諧舒適的居家空間。探索我們的風格指南，找到專屬於您的溫暖角落。」 (約75字，回應需求、展示產品、引導探索)。</li>
+          <li><strong>執行優先級：</strong>高。Meta是點擊率的第一道關卡，優化成本低、見效快。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方目前缺乏一個能與C3、C9相抗衡的綜合性、權威性內容頁面。現有頁面可能偏向產品陳列，未能滿足用戶在「推薦」背後尋求指導、比較、學習的深度需求。</div>
+          <div><strong>板塊覆蓋：</strong>內容架構單一，無法同時滿足用戶對靈感(C1)、指南(C3/C9)和產品資訊(C2)的多層次需求。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">專業模塊缺口：</h5>
+            <div class="space-y-2 text-gray-600">
+                <div>品牌方顯然缺少C1的「設計師故事」和「用戶真實案例」模塊，也缺少C3/C9的「系統化選購指南」和「市場品牌橫評」模塊。</div>
+            </div>
+        </div>
+    </div>
+  </div>
+
+                            
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg mb-4 text-green-800"><strong>🚀 品牌方內容優化策略</strong></h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2"><strong>內容補強機會識別：</strong></h5>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>優先補強主題：</strong>最迫切需要建立一個「品牌哲學 + 選購指南 + 產品策展」三合一的支柱型頁面(Pillar Page)，成為用戶規劃溫馨家居的靈感來源與實用手冊。</li>
+                <li><strong>專業模塊建設：</strong>創建「打造溫暖空間的5大元素」指南，從材質、色彩、光線等感性角度切入，區別於功能性指南。</li>
+                <li><strong>深度內容機會：</strong>將產品按「情境」或「故事」進行推薦，例如「週末午後的閱讀角落」、「家人共享的晚餐時光」等主題。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2"><strong>差異化內容策略：</strong></h5>
+            <ul class="list-disc pl-5 space-y-2">
+                <li><strong>獨特角度：</strong>以「家，是心靈的歸宿」為主題，闡述「睦寓」的品牌哲學，建立情感共鳴。</li>
+                <li><strong>競爭優勢：</strong>強化E-E-A-T，發起「#我的睦寓角落」用戶故事徵集活動，分享專業保養知識，邀請設計師合作分享案例。</li>
+                <li><strong>執行路徑：</strong>短期建立支柱頁面，中期發佈支持性部落格文章，長期製作影片等多媒體內容，建立「溫暖家居」領域的思想領袖地位。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">首次購屋或租屋的年輕夫妻/情侶 (28-40歲)、舊屋翻新或汰換家具的家庭。對家具知識有限，容易感到資訊過載。</span>
+            </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">預算有限，對CP值要求高；時間寶貴，希望獲得高效、整合過的資訊。</span>
+            </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：選擇困難</strong>
+        <span class="text-gray-600">市場上品牌與款式過多，缺乏清晰的篩選標準，不知從何下手。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：風格焦慮</strong>
+        <span class="text-gray-600">害怕買回來的家具風格不搭，或無法營造出理想中的居家氛圍。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：空間限制</strong>
+        <span class="text-gray-600">擔心家具尺寸不合，或買了之後讓空間顯得擁擠、動線不佳。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：信任不足與缺乏想像</strong>
+        <span class="text-gray-600">對網路照片與實品質感的落差感到擔憂，且難以將單一產品想像到自家空間中的實際樣貌與效果。</span>
+      </div>
+    </div>
+    </div>
+
+                            
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>提供「風格指南」、「選購訣竅」等教育性內容，建立品牌作為「居家風格策展人」的專業形象。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>創建「情境式推薦」（如貓奴必看沙發），提供詳細產品比較與顧客實拍案例，強化產品解決方案的獨特性。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>提供清晰規格、透明政策、使用者評價與QA，並透過「滿意度保證」等方式消除用戶最後的購買疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>MOOYU不僅賣家具，更是提供完整「居家風格解決方案」的專家，幫助用戶輕鬆打造理想家。</div>
+          <div><strong>競爭優勢展現：</strong>競品多為產品列表，MOOYU提供的是整合性的「風格靈感」與「解決方案」，並透過「線上傢飾諮詢」服務提供個人化建議。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>大多數競品頁面是「產品目錄」，加劇了用戶的選擇困難；情境感薄弱，且缺乏個人化推薦機制。</div>
+          <div><strong>品牌突破機會：</strong>建立「風格靈感中心」，開發「線上空間配置工具」或提供「一對一線上諮詢服務」，提供高度個人化的推薦，建立強烈品牌連結。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">登陸頁標題直接命中「家具推薦」，並立即提供分類導航（依風格、空間、難題），快速分流用戶。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">以高品質情境圖與標題「還在煩惱家具怎麼選？讓睦寓成為你的居家風格指南」，在3秒內建立品牌顧問形象。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">進入風格策展頁面，以圖文並茂方式介紹風格，並直接關聯推薦的家具組合，而非單品。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立：</strong>
+          <span class="text-gray-600">在內容中置入「設計師專欄」或「顧客案例分享」區塊，增加權威性與真實感。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化：</strong>
+          <span class="text-gray-600">商品頁包含「3個理由告訴你為何該選它」的摘要、多角度情境影片、以及詳細的材質特寫。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除：</strong>
+          <span class="text-gray-600">提供清晰的尺寸標示圖、顧客評價與實拍照片、常見問答（如清潔方式、耐用度）。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計：</strong>
+          <span class="text-gray-600">主要CTA為「加入購物車」，次要CTA為「預約線上諮詢」或「加入願望清單」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化：</strong>
+          <span class="text-gray-600">結帳流程簡化，提供多元支付方式（如Line Pay、無卡分期），並明確標示預計到貨時間。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>當前SERP由兩大勢力主導：以MR. LIVING為首，依靠強大品牌力與用戶案例取勝的「品牌官網派」；以及以TZUMii為首，憑藉極致詳盡的懶人包內容取勝的「資訊指南派」。MOOYU目前排名第10，面臨雙重夾擊，但同時也存在明確的技術與內容優化空間，突破口在於結合兩者優勢，打造一篇具有品牌獨特情感視角的權威指南。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：Meta標籤及核心結構快速優化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修正關鍵詞錯位（傢俱→家具）、重複&lt;H1&gt;標籤、Meta吸引力不足等基礎性錯誤。這些是低成本、高回報的「必得分」。</div>
+        <div><strong>執行評估：</strong>難度：低 | 預期效果：排名提升3-5位 | 資源：少量技術與內容人力。</div>
+        <div><strong>優先級：</strong>極高 - 立即執行，為後續所有優化奠定基礎。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與專業性補強</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>將推薦品牌數量擴充至與競品相當（15家以上），並增加風格/預算分類、選購注意事項等模組，在內容全面性上追平甚至超越對手。</div>
+        <div><strong>執行評估：</strong>難度：中 | 預期效果：進入前5名 | 資源：內容團隊需投入較多研究與撰寫時間。</div>
+        <div><strong>優先級：</strong>高 - 解決內容競爭力不足的核心問題。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：使用者意圖精準滿足與差異化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>跳脫純粹的清單，轉而提供「有溫度的風格策展」。利用品牌「睦寓」的獨特視角，建立「設計師精選」單元，解決使用者深層的風格焦慮。</div>
+        <div><strong>執行評估：</strong>難度：中 | 預期效果：爭取前3名，建立品牌權威 | 資源：需品牌、設計與內容團隊協作。</div>
+        <div><strong>優先級：</strong>中 - 長期建立品牌護城河的關鍵策略。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>結合生活方式：</strong>溫暖 家具 推薦、舒適 家具 品牌、日式無印風 家具、療癒感 房間 佈置、寵物家庭 家具。</div>
+        <div><strong>結合品牌專業領域：</strong>實木 家具 推薦、布藝沙發 挑選、MIT 家具 工廠、耐用 家具 品牌。</div>
+        <div><strong>問題導向：</strong>小坪數 家具 推薦、如何挑選家具、客廳沙發 顏色 搭配、租屋族 家具。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從競品的「功能性」推薦，轉向「情感性」策展，強調「為您的家，挑選一份恰到好處的溫暖」。</div>
+        <div><strong>專業詞彙：</strong>使用「選物指南」、「風格策展」、「材質的觸感」、「色彩的溫度」等詞彙，建立專業且感性的品牌形象。</div>
+        <div><strong>品牌調性：</strong>整體內容應圍繞「睦寓」的核心價值——溫暖、和諧、陪伴，創造出獨一無二的品牌語氣。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>用戶旅程始於搜尋「家具推薦」，登陸我們的「情感化支柱頁面」。首屏以高品質情境圖與「風格策展」標題吸引用戶，並提供清晰的導覽（依風格、依空間）。用戶在瀏覽內容時，會被「MOOYU設計師精選」和「顧客真實案例」建立信任。對特定風格或產品產生興趣後，點擊CTA（如「探索此風格組合」、「查看設計師推薦款」）進入策展型商品頁。該頁面透過情境影片、多角度實拍與透明的規格/保固資訊，消除購買疑慮，最終引導至「加入購物車」或預約「線上傢飾諮詢」，完成從流量到潛在客戶的轉換。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>第一階段透過技術SEO修正與內容基礎補強（機會點A&B），快速進入SERP前五名。第二階段以獨家品牌視角的「風格策展」內容（機會點C）建立差異化，爭取前三名。</div>
+        <div><strong>競爭者超越路徑：</strong>在內容「廣度」上追平TZUMii（擴充品牌列表），在內容「溫度」與「深度」上超越所有競品（建立獨家選物指南與情感連結）。</div>
+        <div><strong>使用者價值最大化：</strong>從提供「資訊清單」升級為解決「風格焦慮」，成為使用者在家具決策旅程中最值得信賴的風格顧問。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將MOOYU睦寓從家具銷售商，定位為「居家風格策展顧問」，本篇文章即是其專業能力的最佳展現。</div>
+        <div><strong>差異化價值：</strong>提供競品所沒有的「有溫度的專業視角」，將品牌「溫暖、和諧」的核心價值轉化為對使用者有實際幫助的選物心法。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>3個月內進入前5名，6個月內穩定在前3名。</div>
+        <div><strong>流量增長目標：</strong>自然搜尋流量提升50%以上，頁面停留時間增加30%。</div>
+        <div><strong>轉換率優化：</strong>提升「預約線上諮詢」轉換率20%，建立高品質潛在客戶名單。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速突破（1-4週）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心任務：</strong>
+          <span class="text-gray-600">完成所有技術SEO修正，包括關鍵詞（傢俱→家具）、H1標籤修正、新增TOC目錄，並上線基礎優化後的內容。</span>
+        </div>
+         <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">目標：</strong>
+          <span class="text-gray-600">排名進入前7名，穩固首頁位置。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：競爭超越（1-3個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心任務：</strong>
+          <span class="text-gray-600">擴充品牌推薦列表至15家以上，新增專業選購指南模組，並製作易於理解的品牌比較表格。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">目標：</strong>
+          <span class="text-gray-600">排名進入前5名。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：領導地位（3-6個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心任務：</strong>
+          <span class="text-gray-600">建立「睦寓選物指南」等差異化內容單元，啟動「#我的睦寓角落」UGC活動，強化E-E-A-T信號。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">目標：</strong>
+          <span class="text-gray-600">穩定排名前3，並建立品牌在「溫暖風格家具」領域的權威形象。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <p>內容優化藍圖始於以情感化的價值主張（解決風格焦慮）吸引使用者，接著透過專業的「選購心法」建立信任。核心部分提供全面且結構化的「品牌推薦列表」滿足其搜尋需求，並立即以獨家的「睦寓選物指南」展現品牌差異化。隨後，利用「真實顧客案例」加深情感認同與社會認可。最後，透過專業FAQ消除疑慮，並以低門檻的「免費線上諮詢」作為主要轉換點，完成從流量到潛在客戶的完整旅程。</p>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>由資深家居顧問策劃內容：</strong>強調文章的專業性與實戰經驗，強化E-E-A-T。</div>
+        <div><strong>獨家「睦寓選物指南」單元：</strong>跳脫客觀列表，提供品牌獨有的主觀、專業、有溫度的選物點評。</div>
+        <div><strong>提供「有溫度的風格策展」視角：</strong>從情感需求出發，解決使用者深層的「風格焦慮」，而不只是提供資訊。</div>
+        <div><strong>整合「#我的睦寓角落」真實顧客案例：</strong>用UGC建立真實性與社群連結，強化信任感。</div>
+        <div><strong>提供實用選購心法與風格搭配指南：</strong>內容價值超越單純的品牌推薦，成為一份可長期參考的實用工具書。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在文章開頭和結尾明確標示作者為「MOOYU資深家居顧問團隊」。</div>
+        <div>創建一個視覺風格獨特的獨立章節，專門呈現「睦寓選物指南」的深度點評。</div>
+        <div>在內文中使用「風格策展」、「情感溫度」、「生活共鳴」等詞彙，貫穿品牌調性。</div>
+        <div>嵌入經過美化的顧客IG貼文或評論截圖，並加上品牌方的感謝與點評。</div>
+        <div>將「選購心法」製作成易於理解的資訊圖表或檢查清單，增加內容的分享價值。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <p>使用者的轉換路徑被設計為一個信任遞增的漏斗。初步透過解決痛點和全面資訊吸引流量（Awareness）。接著，藉由獨家專業觀點「睦寓選物指南」和真實UGC「#我的睦寓角落」建立深度信任與品牌偏好（Consideration）。最終，透過消除疑慮的FAQ和一個低風險、高價值的CTA「免費線上家配諮詢」，引導使用者採取行動，從讀者轉化為高意向的潛在客戶（Conversion）。</p>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <p>使用者體驗優化將從基礎做起：1) 全面修正錯詞（傢俱→家具）提升搜尋相關性。2) 確保清晰的標題層級（唯一&lt;h1&gt;，邏輯化的&lt;h2&gt;,&lt;h3&gt;）。3) 在文章開頭加入可點擊的「快速導航目錄」（TOC）改善長文閱讀體驗。4) 大量運用視覺化元素，如「品牌比較表」、「風格搭配懶人包」資訊圖表，將複雜資訊簡化。5) 確保全站RWD設計，在行動裝置上提供流暢的閱讀與互動體驗。</p>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
