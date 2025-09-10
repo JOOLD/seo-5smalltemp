@@ -1,0 +1,2039 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | n8n</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">熱點行銷 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「n8n」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">9</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站內容明確定位為一篇針對新手的 <strong>n8n 綜合性教學指南</strong>。從 H1 標題「【2025最新】n8n 是什麼？怎麼設定？完整自動化工具教學」和 Meta 描述即可看出，文章旨在一次性解答初學者對於 n8n 的核心疑問，包括其定義、設定方法、功能與應用。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容架構完整，涵蓋了從<strong>理論到實踐</strong>的完整學習路徑。文章不僅介紹了 n8n 的基礎知識、優勢，還包含了與 <strong>Zapier、Make</strong> 等主流工具的比較分析。核心特色在於提供了基於 <strong>Docker</strong> 的詳細安裝教學，並展示了四大實際應用場景（行銷、管理、客戶經營、客服），最後以常見問題作結，內容廣度與深度兼具。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對目標用戶提供了極高的教育價值和實用性。用戶可以透過這篇文章，從零開始了解 n8n，完成安裝，並獲得具體的<strong>自動化流程靈感</strong>。特別是對於有一定技術背景、希望透過 Docker 自行部署的用戶，這份指南提供了<strong>清晰、可執行的步驟</strong>，是入門 n8n 的絕佳起點。</p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+    <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+        <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+            <i class="fas fa-search text-red-600 mr-2"></i>部署方式的決策支援缺口
+        </h4>
+        <div class="space-y-3">
+            <div class="bg-white p-4 rounded border-l-2 border-red-300">
+                <strong class="text-red-700">缺少內容：</strong>
+                <span class="text-gray-600">文章僅詳細介紹了 <strong>Docker</strong> 一種安裝方式，忽略了對新手更友善的 <strong>n8n 官方雲端服務 (n8n Cloud)</strong> 和一鍵部署平台 (如 <strong>Zeabur</strong>) 的介紹與比較。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-red-300">
+                <strong class="text-red-700">用戶需求：</strong>
+                <span class="text-gray-600">許多初學者，特別是沒有技術背景的行銷人員或創業者，可能對 Docker 感到卻步。他們迫切需要了解不同部署方案的優缺點、成本和適用場景，以便選擇最適合自己的起步方式。缺少這部分內容，可能會直接勸退非技術背景的潛在用戶。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-red-300">
+                <strong class="text-red-700">建議補強：</strong>
+                <span class="text-gray-600">新增一個章節，以<strong>表格形式</strong>清晰對比「官方雲端」、「平台部署 (Zeabur)」、「Docker 自架」三種方式的<strong>技術門檻、預估費用、維護難度、資料自主性</strong>等關鍵指標，並提供明確的選擇建議。</span>
+            </div>
+        </div>
+    </div>
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+        <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+            <i class="fas fa-cogs text-orange-600 mr-2"></i>核心元件「節點」的深度教學缺口
+        </h4>
+        <div class="space-y-3">
+            <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+                <strong class="text-orange-700">缺少內容：</strong>
+                <span class="text-gray-600">文章直接進入了整合應用場景，但缺乏對 n8n 工作流中<strong>最核心的「常用節點 (Node)」</strong>的單獨介紹。例如，競爭者 C2 和 C8 都詳細講解了 <strong>Webhook、Schedule、IF、Set</strong> 等基礎節點的功能與設定方式。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+                <strong class="text-orange-700">用戶需求：</strong>
+                <span class="text-gray-600">用戶在看懂應用範例後，若想舉一反三打造自己的工作流，就必須理解這些基礎節點的運作原理。不了解這些基本功，用戶將難以獨立解決問題或進行客製化修改，學習曲線會變得非常陡峭。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+                <strong class="text-orange-700">建議補強：</strong>
+                <span class="text-gray-600">在「n8n 應用」章節前，增加一個「<strong>5 個必學的核心節點</strong>」教學區塊，用圖文方式逐一解釋每個節點的用途、設定參數和一個簡單的實例，為後續的複雜應用打下基礎。</span>
+            </div>
+        </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+        <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+            <i class="fas fa-file-download text-purple-600 mr-2"></i>可操作性的價值深化缺口
+        </h4>
+        <div class="space-y-3">
+            <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+                <strong class="text-purple-700">缺少內容：</strong>
+                <span class="text-gray-600">文章提供了很棒的應用範例，但僅止於概念和場景描述，缺少讓讀者可以<strong>直接使用的「工作流模板」</strong>。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+                <strong class="text-purple-700">用戶需求：</strong>
+                <span class="text-gray-600">新手在學習初期最需要的是成功體驗。如果能直接下載或複製一個現成的工作流模板，只需修改少量參數就能看到成果，將極大地增強他們的學習動機和信心。這比單純閱讀文字描述更具吸引力。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+                <strong class="text-purple-700">建議補強：</strong>
+                <span class="text-gray-600">為每個應用範例提供 <strong>JSON 格式的工作流代碼</strong>，並附上簡單的「<strong>一鍵匯入教學</strong>」。這會將文章從「教學指南」提升為「<strong>實戰資源包</strong>」，顯著提高內容的獨特性和用戶黏性。</span>
+            </div>
+        </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+            <i class="fas fa-project-diagram text-blue-600 mr-2"></i>介面與核心概念的視覺化指導缺口
+        </h4>
+        <div class="space-y-3">
+            <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+                <strong class="text-blue-700">缺少內容：</strong>
+                <span class="text-gray-600">缺乏對 <strong>n8n 操作介面</strong>的導覽和核心概念（如 <strong>Workflow、Node、Trigger、Action、Credentials</strong>）的系統性解釋。競爭者 C2、C5、C8 均有專門的章節圖文並茂地介紹介面的五大區域。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+                <strong class="text-blue-700">用戶需求：</strong>
+                <span class="text-gray-600">用戶在安裝完 n8n 後，第一眼看到的是陌生的操作介面。如果沒有一份清晰的介面地圖，他們會感到迷茫，不知道從何處開始。理解這些核心術語是後續所有操作的基礎。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+                <strong class="text-blue-700">建議補強：</strong>
+                <span class="text-gray-600">在安裝教學之後，立即加入「<strong>n8n 介面導覽與核心概念</strong>」章節。使用一張標示清晰的<strong>介面截圖</strong>，解釋各個區域的功能，並用列表方式定義關鍵術語，幫助用戶快速建立心智模型。</span>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站的基礎 SEO 設置相當完善。<strong>Meta Title</strong> 和 <strong>Description</strong> 精準地包含了「n8n 是什麼」、「n8n 教學」、「怎麼設定」等核心關鍵詞，與用戶搜尋意圖高度匹配。<strong>Open Graph 標籤</strong>（og:title, og:description, og:image）設定完整，有利於社群媒體分享時的預覽效果。具備 <strong>viewport</strong> 標籤，確保了在行動裝置上的基本瀏覽體驗。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">文章結構邏輯清晰，採用了 <strong>&lt;h1&gt; 至 &lt;h4&gt; 的多層次標題</strong>，有助於搜尋引擎理解內容的層級關係。內容從介紹、比較、安裝、應用到問答，流程順暢，符合用戶的學習認知路徑。<strong>關鍵字佈局自然</strong>，在各級標題和內文中均有體現，例如「n8n 教學」、「n8n 應用」等。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">文章末尾出現了與主題關聯性較低的 H3 標題，如「<strong>幸福企業！不用進辦公室有多爽？</strong>」和「<strong>想創業必看！...</strong>」。這些內容雖然可能是為了進行品牌宣傳，但它們<strong>稀釋了頁面的主題集中度</strong>，可能對 SEO 造成輕微的負面影響。建議將這些內容移至網站其他更相關的頁面（如公司介紹或職涯專區），或改為文章結尾處的一個小型作者/公司介紹區塊，而不是使用 H3 標題，以保持頁面主題的純粹性。</p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li>內容定位清晰，是一份優秀的 <strong>n8n 入門綜合指南</strong>，涵蓋了從定義到實踐的完整流程。</li>
+    <li>文章的核心優勢在於提供了<strong>詳細的 Docker 安裝教學</strong>和<strong>四大具體應用場景</strong>，實用性強。</li>
+    <li>最大的內容缺口是<strong>缺少對核心「節點 (Node)」的詳細拆解教學</strong>，以及未介紹對新手更友善的<strong>雲端部署方案</strong>，這可能限制了文章對非技術受眾的吸引力。</li>
+    <li>SEO 基礎和內容結構良好，但文章末尾的<strong>無關 H3 標題稀釋了主題相關性</strong>，是明顯的優化點。</li>
+    <li>文章在「教學」層面做得很好，但可以通過提供<strong>可匯入的工作流模板</strong>來深化「實用資源」的價值，從而超越競爭對手。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">2</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第9位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">8個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 n8n.io 距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前位於搜尋結果第一頁，具備良好基礎，但面臨來自官方網站、高深度教學文章的多重競爭壓力，有被擠出首頁的風險。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>熱點行銷</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><strong>標題策略</strong></td><td>`【2025最新】n8n 是什麼？怎麼設定？完整自動化工具教學`</td><td>強調「中文教學」、「新手入門」，並針對痛點（如「沒程式背景」）或具體內容（如「應用案例」）</td><td>融入使用者視角，強調「新手也能懂」並量化內容價值，例如：「n8n中文教學：新手入門指南（含安裝、介面與4大應用）」</td></tr><tr><td><strong>描述內容</strong></td><td>羅列文章包含的主題，功能性強。</td><td>強調「為新手量身打造」，並提及具體節點（如Webhook）或核心概念，引導使用者點擊。</td><td>開頭即鎖定目標受眾（如「專為行銷、營運人員設計的n8n新手指南」），並突出文章的獨特賣點（如「最完整的Docker安裝教學」）。</td></tr><tr><td><strong>關鍵詞密度</strong></td><td>核心詞`n8n`、`教學`、`是什麼`皆有覆蓋。</td><td>高頻出現「工作流」、「新手」、「介面」、「常用節點」、「應用」等相關語義詞。</td><td>在現有基礎上，增加「工作流自動化」、「節點設定」、「Webhook應用」等詞彙的自然融入。</td></tr><tr><td><strong>差異化機會</strong></td><td>提供了與Zapier/Make的比較，這是一個很好的差異點。</td><td>著重於「如何使用」，包括介面導覽、常用節點詳解。</td><td>將「與Zapier/Make的比較」這個優勢在Meta中更明確地展現，並在文章中擴展為一個獨立且深入的章節，吸引有比較需求的用戶。</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="p-6 border rounded-lg shadow-md">
+    <h3 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h3>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+        <li><strong>內容深度不足：</strong> 與排名第2、第8的競品相比，文章缺乏對n8n介面各區塊的詳細拆解說明，以及一個完整的「從零到一建立第一個工作流」的實作教學。這使得內容在實用性上打了折扣。</li>
+        <li><strong>使用者旅程不完整：</strong> 缺少了使用者在評估階段極為關心的「費用方案」與「部署方式比較」（如官方雲端 vs. Docker vs. Zeabur）。排名第8的競品對此有詳細論述，滿足了更廣泛的用戶需求。</li>
+    </ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="p-6 border rounded-lg shadow-md">
+    <h3 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h3>
+    <ul class="list-disc list-inside space-y-2 text-gray-700">
+        <li><strong>URL結構清晰：</strong> `.../n8n-guide/` 的URL結構簡潔明瞭，包含關鍵詞，有利於搜尋引擎理解頁面主題。</li>
+        <li><strong>核心意圖覆蓋：</strong> 文章準確捕捉了「n8n是什麼」和「n8n教學」的核心搜尋意圖，為排名奠定了良好基礎。</li>
+        <li><strong>差異化內容切入：</strong> 提供了與Zapier和Make的比較，這是許多用戶在選擇工具時的重要考量點，具備潛在的差異化優勢。</li>
+    </ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-300">
+<h5 class="font-semibold text-gray-700 mb-2">關鍵詞語義覆蓋分析</h5>
+<p class="text-gray-600">品牌頁面已覆蓋「n8n 是什麼」、「n8n 教學」、「n8n 應用」等核心關鍵詞。然而，與排名靠前的競爭者（如#2, #8）相比，在更具體的長尾關鍵詞上覆蓋不足，例如：「n8n 介面說明」、「n8n 常用節點」、「n8n 部署教學」、「n8n 費用」、「n8n Webhook」。這些詞彙代表了使用者從了解到實踐過程中的具體問題點，補充這些內容能顯著提升頁面的主題相關性和全面性。</p>
+</div>
+                                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-300">
+<h5 class="font-semibold text-gray-700 mb-2">內容深度與品質分析</h5>
+<p class="text-gray-600">目前的內容深度停留在「介紹型指南」，成功地回答了「What」和「Why」。然而，排名更高的競爭者提供了「實作型指南」，深入到「How」的層面。例如，競品#8不僅解釋了概念，還提供了詳細的費用方案分析、兩種主流部署方式教學、五大面板區域詳解，以及一個7步驟的實戰教學。我們的內容缺少了這些能讓使用者立即動手操作的深度細節，這是最大的內容差距。</p>
+</div>
+                        </div>
+
+                            <div class="p-6 border rounded-lg shadow-md bg-gray-50">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化與獨特價值主張</h4>
+  <p class="mb-4 text-gray-700">要超越現有競爭者，不僅要補齊內容缺口，更要提供他們所沒有的獨特價值。以下是三大差異化機會：</p>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 聚焦「非技術人員」視角</h5>
+      <ul class="list-disc list-inside space-y-2 text-gray-600">
+        <li><strong>痛點解決：</strong> 建立一個「常見錯誤排除」章節，整理新手最可能遇到的5-10個問題（如：憑證設定失敗、資料格式錯誤、迴圈邏輯不對），並提供圖文解決方案。</li>
+        <li><strong>案例場景化：</strong> 將現有的「應用範例」從功能導向（如：ChatGPT+Webhook）改為業務場景導向（如：「如何自動化你的社群貼文內容工廠」、「電商賣家必學的訂單處理自動化流程」），讓讀者更有代入感。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 強化「AI整合」的深度</h5>
+      <ul class="list-disc list-inside space-y-2 text-gray-600">
+        <li><strong>超越基礎整合：</strong> 競品多停留在「串接ChatGPT」，我們可以提供更進階的AI應用教學，例如「如何使用n8n建立一個能讀取公司內部文件的AI知識庫助理」。</li>
+        <li><strong>提供現成模板：</strong> 為文章中介紹的關鍵應用流程，提供可直接匯入n8n的JSON模板文件，讓讀者一鍵下載使用，創造極高的實用價值。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-300">
+<h5 class="font-semibold text-gray-700 mb-2">專業性與權威性對比</h5>
+<p class="text-gray-600">品牌（熱點行銷）作為一家行銷公司，在「行銷自動化」領域具備專業權威。然而，在「n8n」這個特定工具上，權威性可能不及：#1 n8n官方網站（最高權威）、#2 知名生產力KOL（個人品牌權威）、#4 GitHub（開發者社群權威）、#5 數位時代（科技媒體權威）。我們需要透過內容的專業深度來建立特定主題的權威性。</p>
+</div>
+                                <div class="bg-gray-50 p-4 rounded-lg border-l-4 border-gray-300">
+<h5 class="font-semibold text-gray-700 mb-2">可信度指標評估</h5>
+<p class="text-gray-600">目前頁面缺乏明顯的作者資訊、專業背景或使用者見證，信任指標有待加強。相比之下，競品#2（雷蒙三十）有清晰的作者介紹和社群連結，增加了內容的可信度。</p>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標：</h5>
+      <ul class="space-y-2">
+        <li>在文章開頭或結尾處，明確標示作者，並附上作者在自動化領域的簡歷或LinkedIn連結，展示其專業經驗（Experience &amp; Expertise）。</li>
+        <li>在介紹應用案例時，如果可能，引用或模擬真實的客戶回饋或數據（例如「此流程為我們節省了每週約5小時的人力」），增加真實性。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展權威內容：</h5>
+      <ul class="space-y-2">
+        <li>在作者簡介中強調「熱點行銷」作為代理商，實際運用n8n服務客戶的經驗，將公司權威轉移到文章上。</li>
+        <li>為文中提到的複雜工作流製作簡短的教學影片，嵌入文章中，提供多媒體內容，展示實際操作能力（Demonstrated Expertise）。</li>
+        <li>公開分享一些為客戶或公司內部打造的、已脫敏的成功工作流模板，作為讀者可下載的資源。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設：</h5>
+      <ul class="space-y-2">
+        <li>將此篇深度教學文章分享至台灣相關的技術、行銷或No-Code社群（如臉書社團、Discord），爭取自然的反向連結與討論。</li>
+        <li>鼓勵讀者在留言區分享他們使用n8n遇到的問題或成功案例，並積極回覆，建立一個活躍的交流社群，這本身就是一個強大的信任信號。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li><strong>增加頁面目錄：</strong> 在文章開頭立即添加一個可點擊的目錄（Table of Contents），讓使用者能快速跳轉至感興趣的章節。</li>
+        <li><strong>使用程式碼區塊：</strong> 在提到Docker指令或任何程式碼片段時，使用`&lt;pre&gt;&lt;code&gt;`標籤並搭配語法高亮，提升可讀性。</li>
+        <li><strong>優化比較表格：</strong> 將「n8n vs Zapier/Make」的內容以表格（`&lt;table&gt;`）形式呈現，讓優劣對比一目了然。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>增加互動元素：</strong> 在費用比較部分，可以設計一個簡易的計算器，讓使用者輸入預估的執行次數，大致估算各平台的費用。</li>
+        <li><strong>嵌入教學影片：</strong> 為「建立你的第一個工作流」部分錄製一個2-3分鐘的螢幕操作影片，嵌入文章中，輔助文字說明。</li>
+        <li><strong>提供資源下載：</strong> 將文中提到的工作流打包成JSON檔，提供「一鍵下載模板」按鈕，大幅提升文章的附加價值。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">3</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">n8n.io</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">官方網站</div>
+                <div class="text-lg font-semibold text-blue-600">產品權威</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://n8n.io/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">n8n.io</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">作為官方網站，其內容策略圍繞產品核心價值展開，強調AI與工作流自動化的結合。Meta標題直接定義其為「AI Workflow Automation Platform & Tools」，目標是吸引尋求官方、權威資訊的技術型用戶。內容結構以功能展示、案例研究和安全協作為主，旨在建立產品的專業形象和技術深度。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 narrative-analysis-list leading-relaxed">敘事流從宏觀價值（Plug AI into your data）到具體實現（Build multi-step agents），再到信任背書（Case Studies, Security），邏輯清晰。CTA設計明確，引導用戶「Get Started Free」或「Book a demo」，旨在將流量直接轉化為產品試用者或潛在客戶。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 透過豐富的案例研究和超過500個整合展示了廣泛的應用經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 內容深入技術細節，如自託管AI模型、API調用等，展現了極高的專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 作為產品的創造者，擁有無可爭議的最高權威。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 強調安全、性能與協作，並提供清晰的定價和文件，建立了高度的用戶信賴。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">雷蒙三十</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">個人專家博客</div>
+                <div class="text-lg font-semibold text-blue-600">新手教學</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://raymondhouch.com/lifehacker/digital-workflow/n8n-beginner-guide/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">raymondhouch.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此頁面是典型的專家教學內容，定位極其精準。Meta標題使用「【n8n 中文教學】新手入門」，直接命中初學者的搜尋意圖。內容策略是提供一個保姆級的入門指南，從破除「程式背景」的迷思開始，到詳細的介面功能說明、核心概念解釋，旨在成為中文市場新手的第一站。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 narrative-analysis-list leading-relaxed">敘事流採用「安撫-教學-深化-轉化」的經典模式。先用「我沒有程式背景...」來降低讀者焦慮，然後系統性地教授知識，最後通過「AI 自動化、n8n 系列教學文章」和「零基礎自動化入門課」等CTA，將免費流量引導至付費課程或更高價值的內容，商業閉環清晰。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 內容包含大量介面截圖和詳細的操作步驟，體現了作者豐富的親身實踐經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 作者信息明確（侯智薰 雷蒙），並建立了系列教學文章，展現了在該領域的深度耕耘。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 透過「20,000+人訂閱的雷蒙週報」和「上過課的同學心得評價」等社群證明，成功建立了個人品牌權威。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 網站結構專業，作者身份公開透明，並提供多種聯繫方式，建立了良好的讀者信任。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第8名</span>
+                <h4 class="font-bold text-xl">PressPlay</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">線上課程平台</div>
+                <div class="text-lg font-semibold text-blue-600">終極指南</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.pressplay.cc/project/2667A183130728C4AE30928EF3CFF4DD/articles/393F723DAA4DE5319C808018C6162F31?srsltid=AfmBOooxEFY7Tu7I0yRC7Zg3UoHqwGWadV75-aGPtqpjV6OkSMCF9-NU" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">pressplay.cc</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">這是一篇典型的支柱頁面（Pillar Page），旨在成為「n8n是什麼」這個主題的終極資源。其內容策略是追求極致的廣度與深度，覆蓋了從定義、工具比較、費用方案、安裝部署、介面教學、常用節點到9大應用案例的全部內容。目標是通過一篇超長文章，滿足用戶在該主題下的所有潛在問題，從而獲得搜尋引擎的高度評價。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 narrative-analysis-list leading-relaxed">敘事流極具結構性，採用「定義-比較-費用-安裝-實戰-案例」的邏輯，引導用戶從了解到精通。這種百科全書式的結構，讓用戶可以各取所需。最終的CTA指向「從零打造你的 AI Agent：n8n 入門與實戰課程」，實現了從免費內容到付費課程的無縫銜接，轉化路徑清晰。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 提供了9個具體且多樣化的應用範例，從活動報名到IG抽獎，展示了豐富的實踐經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 內容結構極其完整，從工具比較到部署教學，再到節點詳解，展現了高度的專業性和系統性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 文章發布在台灣知名的線上課程平台PressPlay上，藉由平台本身的品牌權威為內容背書。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 網站為專業的商業平台，HTTPS、清晰的頁面佈局和品牌信息，都為用戶提供了高度的信賴感。</div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方的Meta標題未能有效傳達其獨特價值，可能過於寬泛或與競爭者雷同，未能突出針對行銷領域的專業性。</div>
+          <div><strong>描述效能：</strong>描述內容雖然全面，但缺乏針對特定用戶痛點的吸引力，未能像頂級競爭者那樣精準地進行優化。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">競爭者Meta策略：</h5>
+        <div class="overflow-x-auto">
+          <table class="min-w-full bg-white border border-gray-200">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="px-4 py-2 border-b text-left">競爭者</th>
+                <th class="px-4 py-2 border-b text-left">Meta標題策略</th>
+                <th class="px-4 py-2 border-b text-left">目標用戶意圖</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="hover:bg-gray-50">
+                <td class="px-4 py-2 border-b"><strong>C1 (官方)</strong></td>
+                <td class="px-4 py-2 border-b">價值導向型：強調"AI Workflow Automation Platform & Tools"</td>
+                <td class="px-4 py-2 border-b">了解產品核心功能</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-4 py-2 border-b"><strong>C2 (專家)</strong></td>
+                <td class="px-4 py-2 border-b">教學導向型：使用"【n8n 中文教學】新手入門"</td>
+                <td class="px-4 py-2 border-b">尋找中文入門指南</td>
+              </tr>
+              <tr class="hover:bg-gray-50">
+                <td class="px-4 py-2 border-b"><strong>C8 (課程)</strong></td>
+                <td class="px-4 py-2 border-b">問題解決型："n8n是什麼？沒程式背景也能懂"</td>
+                <td class="px-4 py-2 border-b">尋找全面性的介紹與應用</td>
+              </tr>
+               <tr class="hover:bg-gray-50">
+                <td class="px-4 py-2 border-b"><strong>C6 (影音)</strong></td>
+                <td class="px-4 py-2 border-b">利益驅動型："學會 n8n 為你省下 80% 時間！"</td>
+                <td class="px-4 py-2 border-b">尋求快速、直觀的視頻學習</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300"><strong>官方權威型 (C1):</strong> 以「是什麼」為核心，強調產品的官方定義和核心價值（AI、彈性）。</div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300"><strong>新手教學型 (C2, C5, C8):</strong> 以「如何入門」為核心，使用「教學」、「新手」、「入門」、「是什麼」等關鍵詞，直接回應初學者的搜索意圖。</div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300"><strong>效率承諾型 (C6, C7):</strong> 以「能帶來什麼好處」為核心，使用「省下時間」、「解放雙手」等利益點吸引點擊。</div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>從「通用教學」轉向「專業領域應用」。B1應定位為行銷自動化專家，而非n8n入門老師。</li>
+        <li><strong>競爭優勢：</strong>強調「實戰案例」和「行銷模板」，這是競爭者無法輕易複製的資產。</li>
+        <li><strong>目標受眾：</strong>直接對話「行銷人」和「企業主」，而非所有對n8n感興趣的人。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong><code>n8n行銷自動化實戰：10個客戶開發與社群增粉的AI工作流模板</code>。此標題結合了「n8n」、「行銷自動化」、「實戰」、「AI工作流」、「模板」等高價值關鍵詞，並直接給出具體數字，吸引力強。</li>
+        <li><strong>描述優化：</strong><code>厭倦了重複的行銷瑣事？本篇提供可直接套用的n8n工作流模板，教你自動化處理SEO報告、社群貼文、廣告成效追蹤。專為行銷人設計，無需複雜程式背景，立即提升團隊效率。</code>。此描述以痛點開頭，提供具體解決方案（模板），並降低使用門檻。</li>
+        <li><strong>執行優先級：</strong><strong>高</strong>。Meta優化是成本最低、見效最快的SEO調整。預期可在1-2個月內顯著提升點擊率和排名。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方當前內容架構可能不夠全面或缺乏針對特定用戶旅程的邏輯性，與頭部競爭者相比，在結構化學習路徑上存在差距。</div>
+          <div><strong>板塊覆蓋：</strong>在「入門介紹」和「工具比較」方面有基礎覆蓋，但在「介面詳解」、「費用方案」、「實戰教學」等深度板塊存在明顯缺口。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者內容架構：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>C2 (專家教學流):</strong> 採用「問題-安撫-教學-深化-CTA」的敘事流，用戶跟隨感強，結構清晰。</div>
+          <div><strong>C8 (終極指南流):</strong> 採用「定義-比較-費用-安裝-實戰-案例」的支柱頁面結構，覆蓋用戶從了解到精通的所有問題，廣度與深度兼具。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">覆蓋廣度 vs. 操作深度：</h5>
+            <p class="text-gray-600">C8在覆蓋廣度上是市場領導者，而C2和C5在操作深度（如介面教學）上表現出色。品牌方目前兩者兼有不足。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">專業模塊缺口：</h5>
+            <p class="text-gray-600">所有中文競爭者都集中在「入門教學」。品牌方的最大機會在於提供「進階應用」與「特定領域整合」的專業模塊，例如：錯誤處理與日誌記錄 (Error Handling)、子流程與可重用模塊 (Sub-Workflows)、數據轉換與處理 (Data Transformation)、以及行銷API整合實戰 (Facebook, Google Ads)。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200"><strong>🚀 品牌方內容優化策略</strong></h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200"><strong>內容補強機會識別（建立支柱頁面）：</strong></h5>
+            <p>創建一篇題為<strong>「行銷人必學的n8n自動化工作流聖經」</strong>的支柱頁面，內容應包含：</p>
+            <ul class="space-y-2 list-disc pl-5">
+                <li><strong>行銷人為何需要n8n：</strong>直接點出痛點，如手動整理報表、跨平台發文、管理銷售線索等。</li>
+                <li><strong>核心行銷節點詳解：</strong>不僅介紹通用節點，重點講解HTTP Request, Spreadsheet, CRM, Social Media等行銷常用節點。</li>
+                <li><strong>真實行銷案例深度剖析：</strong>取代淺嘗輒止的案例列表，選擇2-3個B1的真實客戶案例進行深度拆解，包含背景、挑戰、解決方案（附上工作流截圖）和成效數據。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200"><strong>差異化內容策略（建立主題集群）：</strong></h5>
+            <p>圍繞支柱頁面，建立一系列支持性的「衛星文章」，每篇文章解決一個具體的行銷難題，並內部連結回支柱頁面：</p>
+            <ul class="space-y-2 list-disc pl-5">
+                <li><code>如何用n8n自動化產出Google Analytics週報並發送到Slack</code></li>
+                <li><code>n8n串接Facebook Lead Ads教學：讓潛在客戶名單自動寫入Google Sheets</code></li>
+                <li><code>一篇部落格文章，n8n自動改寫並發佈到Facebook, Instagram, LinkedIn</code></li>
+                <li><code>用n8n監控品牌關鍵詞，自動收集負面評論並發出預警</code></li>
+            </ul>
+            <p class="mt-2"><strong>策略核心：</strong>從「介紹工具」轉變為「提供解決方案」，每篇文章都是一個能直接為行銷人創造價值的實用工具。這將有效建立B1在「n8n行銷應用」領域的權威地位。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">技術行銷人員、行銷運營、成長駭客、數據分析師，以及尋求高效率與低成本解決方案的中小企業技術負責人。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">進階使用者，熟悉API、Webhook等概念，對現有SaaS自動化工具的價格或功能限制感到不滿。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">對預算敏感，重視客製化彈性與數據所有權，願意投入時間學習以換取長期效益。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：成本焦慮</strong>
+        <span class="text-gray-600">主流SaaS自動化工具的任務（Task）計價模式，在規模化後變得極其昂貴。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：彈性受限</strong>
+        <span class="text-gray-600">無法實現複雜的邏輯判斷（如迴圈、條件分支），或缺乏對特定利基應用的整合。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：數據主權</strong>
+        <span class="text-gray-600">敏感數據需要在公司內部網絡流轉，無法完全信任第三方雲端服務。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙1：技術門檻</strong>
+        <span class="text-gray-600">擔心自架設的複雜性、學習曲線陡峭以及後續的維護成本。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙2：支援不確定性</strong>
+        <span class="text-gray-600">開源專案的社群支援模式，相較於企業級SaaS的專屬客服，讓人感到不安。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙3：應用場景模糊</strong>
+        <span class="text-gray-600">缺乏針對「行銷領域」的實戰案例，難以評估其真實效益。</span>
+      </div>
+    </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>發布「n8n是什麼？給行銷人的白話指南」、「n8n vs. Zapier 終極比較」等文章，用行銷語言介紹 n8n 的價值。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>提供「10個行銷人必學的n8n自動化流程（附模板下載）」、「案例研究：我們如何用n8n提升30%線索品質」等實戰內容。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>創建「n8n自架設懶人包」、「熱點行銷 n8n 導入與維運服務方案」等頁面，消除技術障礙。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>提供針對台灣市場行銷常見情境（如LINE OA、本地電商平台）的 n8n 整合方案與教學。</div>
+          <div><strong>競爭優勢展現：</strong>提供經過驗證、可直接匯入使用的行銷工作流模板，並提供從流程規劃到後期維運的一站式顧問服務。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>大多數中文內容缺乏行銷視角、實戰案例匱乏、本地化整合教學稀缺。</div>
+          <div><strong>品牌突破機會：</strong>建立「n8n 行銷自動化知識庫」，成為此領域的權威內容來源，並推出「n8n 企業級代管服務」。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">使用者搜尋 "n8n"，找到「熱點行銷」的權威指南文章。頁面標題和摘要直接命中「n8n for Marketers」的核心意圖。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">用一張圖表清晰比較 n8n 與 Zapier 在行銷應用上的優劣，3秒內建立價值感。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">在文章中巧妙置入「下載行銷流程模板」的內容升級（Content Upgrade）誘因，引導用戶進行微轉換。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立：</strong>
+          <span class="text-gray-600">展示客戶Logo、成功案例數據，並註明文章由資深行銷技術顧問撰寫，建立專業信任。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化：</strong>
+          <span class="text-gray-600">在感謝頁面或後續的Email中，提供更進階的應用案例或線上研討會邀請，持續教育潛在客戶。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除：</strong>
+          <span class="text-gray-600">提供常見問題解答（FAQ），主動解答關於安全性、穩定性的疑慮，降低決策摩擦。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計：</strong>
+          <span class="text-gray-600">使用明確、低摩擦的行動召喚，如「預約15分鐘線上演示」或「免費流程健檢諮詢」，而非「立即購買」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化：</strong>
+          <span class="text-gray-600">諮詢表單欄位精簡，並提供多種聯繫方式（表單、LINE、電話），滿足不同用戶偏好。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>SERP競爭格局由官方權威網站、個人品牌專家和線上課程平台主導，內容多為面向初學者的通用教學。品牌方目前排名第9，處於追趕位置，最大機會在於利用自身行銷專業，開闢「n8n行銷實戰應用」的差異化賽道，避開與現有領導者的同質化競爭。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：Meta標籤及核心結構快速優化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>優化吸引力不足的Meta標籤，並增加頁面目錄等基礎UX元素，以最低成本快速提升CTR和使用者體驗。</div>
+        <div><strong>執行評估：</strong>難度：低；預期效果：排名+2-3位；資源：0.5人天。</div>
+        <div><strong>優先級：</strong>高 - 這是短期內最快見效的突破口，能為後續優化建立良好基礎。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與差異化定位補強</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>填補市場上「n8n行銷應用」的內容空白，增加競品缺乏的費用/部署分析、實戰教學等深度模組，建立專業形象。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：進入前5名；資源：5-7人天。</div>
+        <div><strong>優先級：</strong>高 - 這是超越競爭對手的核心策略，能顯著提升頁面價值與主題權威性。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：提供獨特價值建立競爭護城河</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>提供可直接使用的「工作流模板」和「常見錯誤排除」等獨佔性資源，從「提供資訊」升級為「提供解決方案」，建立長期競爭優勢。</div>
+        <div><strong>執行評估：</strong>難度：中-高；預期效果：爭取前3名；資源：10-15人天。</div>
+        <div><strong>優先級：</strong>中 - 這是鞏固領導地位的關鍵，應在中期策略取得成效後立即啟動。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>應用場景類：</strong>"n8n 報表自動化", "n8n 社群發文", "n8n CRM 同步", "n8n 電商訂單處理"。</div>
+        <div><strong>工具整合類：</strong>"n8n line notify", "n8n google sheets api", "n8n facebook lead ads", "n8n ga4 report"。</div>
+        <div><strong>問題導向類：</strong>"n8n 費用", "n8n docker 教學", "n8n webhook 觸發", "zapier 替代方案"。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「工具功能」轉向「行銷效益」，強調如何提升ROI、節省工時、優化客戶旅程。</div>
+        <div><strong>專業詞彙：</strong>融入「MarTech堆疊」、「用戶行為觸發」、「潛在客戶培育」、「歸因模型」等行銷專業術語，建立與通用教學的區隔。</div>
+        <div><strong>品牌調性：</strong>以「實戰顧問」的口吻，提供基於真實客戶經驗的建議與洞察，而非單純的技術文件翻譯。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🎯 轉換優化藍圖</h4>
+    <p class="text-gray-700">轉換優化藍圖的核心是「價值交換」。首先，透過一篇權威性的「n8n行銷自動化聖經」吸引高意圖流量。其次，在文中提供極具吸引力的「行銷工作流模板」作為內容升級誘因（Lead Magnet），引導使用者留下聯絡資訊。最後，透過後續的Email nurturing分享更深入的客戶案例，或直接在感謝頁面提供「15分鐘免費流程健檢」的CTA，將高意向的潛在客戶無縫引導至銷售漏斗，實現從流量到商業諮詢的閉環轉換。</p>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>從市場上氾濫的「通用入門教學」轉型為「行銷自動化實戰專家指南」，搶佔高價值利基市場。</div>
+        <div><strong>競爭者超越路徑：</strong>透過提供競品缺乏的「行銷案例」、「可下載模板」與「成本部署分析」建立內容護城河。</div>
+        <div><strong>使用者價值最大化：</strong>從回答「n8n是什麼」升級為解決「如何用n8n為我的行銷業務創造價值」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將「熱點行銷」定位為經驗豐富的「行銷自動化實戰顧問」，而非單純的內容創作者。</div>
+        <div><strong>差異化價值：</strong>提供基於真實客戶服務經驗的獨家洞察、解決方案與可直接應用的資源。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>3個月內進入SERP前5名，6個月內爭取前3名。</div>
+        <div><strong>流量增長目標：</strong>捕獲「n8n 行銷」、「n8n 應用」等高商業意圖的長尾關鍵詞流量，預期頁面流量提升超過100%。</div>
+        <div><strong>轉換率優化：</strong>透過模板下載每月獲取15+高質量Leads，並產生3-5個有效商業諮詢。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速突破 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心任務：</strong>
+          <span class="text-gray-600">透過優化Meta標籤與頁面結構，快速提升點擊率與使用者體驗，目標排名提升至第5-6位。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：競爭超越 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心任務：</strong>
+          <span class="text-gray-600">補強行銷實戰教學、案例、費用分析等深度內容，從「通用教學」轉型為「行銷專家指南」，目標進入前5名。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：領導地位 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心任務：</strong>
+          <span class="text-gray-600">提供獨家工作流模板、建立主題集群與常見錯誤排除指南，建立內容護城河，鞏固前3名地位並驅動商業轉換。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>已覆蓋「n8n是什麼」的核心意圖，並提供了Docker安裝教學和初步的應用場景。</div>
+          <div><strong>改善空間：</strong>內容深度不足，缺乏手把手實作教學、費用方案比較和核心節點介紹；差異化不足，未能突顯在「行銷領域」的專業性。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">關鍵詞整合策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>主詞布局：</strong>在各級標題和段落首句自然融入「n8n」、「n8n教學」、「行銷自動化」。</div>
+          <div><strong>長尾詞機會：</strong>在FAQ和案例章節自然包含「n8n 費用」、「n8n docker」、「n8n webhook」、「n8n 錯誤」等問題導向關鍵詞。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">內容重構策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>核心轉變：</strong>從「通用指南」重構為「行銷人實戰手冊」，所有範例和教學都圍繞行銷痛點展開。</div>
+          <div><strong>模組增加：</strong>新增「介面導覽」、「費用比較」、「手把手教學」、「模板下載」、「常見錯誤排除」等高價值模組。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>內容由資深行銷自動化顧問撰寫/審閱：</strong>強調內容的專業性與實戰性，而非理論教學。</div>
+        <div><strong>分享基於真實客戶需求的行銷工作流：</strong>提供具體、可行的行銷場景解決方案，而不只是抽象的功能介紹。</div>
+        <div><strong>提供可直接複製/下載的n8n工作流模板(JSON)：</strong>將內容從「資訊」升級為「即用工具」，提供獨佔價值。</div>
+        <div><strong>深度剖析經匿名化處理的客戶成功案例：</strong>用真實的數據和成果建立信任感與權威性，這是競爭者無法複製的。</div>
+        <div><strong>在Q&amp;A中提供針對行銷場景的常見錯誤排除指南：</strong>展現解決實際問題的專家能力，而不只是停留在基礎操作層面。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在文章開頭和結尾明確標示作者及其在MarTech領域的資深背景(E-E-A-T)。</div>
+        <div>將文章核心的「手把手教學」模組，設定為一個真實且高頻的行銷痛點（如FB廣告名單同步）。</div>
+        <div>開發一個簡單的表單提交後下載JSON檔案的功能，作為核心的Lead Magnet。</div>
+        <div>用「挑戰-解決方案-成果」的結構化方式，詳細撰寫1-2個客戶案例，並包含工作流的邏輯截圖。</div>
+        <div>建立一個專門的「常見錯誤排除」章節，收集並解答客戶在導入n8n時最常遇到的3-5個問題。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+        <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+        <h4 class="font-bold text-lg mb-4 text-green-800">第一步：價值吸引</h4>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <strong class="text-green-700">執行內容：</strong>
+            <span class="text-gray-600">透過高品質、差異化的「行銷實戰教學」內容吸引目標流量，建立專業信任。</span>
+        </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+        <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+        <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：線索捕獲</h4>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">執行內容：</strong>
+            <span class="text-gray-600">在內容價值最高點（如教學範例結束處），提供「工作流模板下載」作為內容升級誘因(Lead Magnet)，獲取潛在客戶Email。</span>
+        </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+        <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+        <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖篩選與轉換</h4>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">執行內容：</strong>
+            <span class="text-gray-600">在感謝頁面及後續 nurturing email 中，提供「30分鐘免費流程健檢」的無壓力CTA，篩選出高意向客戶，並將其無縫引導至銷售團隊進行一對一諮詢，完成從流量到商機的閉環。</span>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-gray-700 mb-2">可讀性優化</h5>
+        <ul class="list-disc pl-5 space-y-2 text-gray-600">
+            <li>在文章開頭增加可點擊的頁面目錄(&lt;h2&gt; Table of Contents)，方便用戶快速跳轉。</li>
+            <li>使用短段落、項目符號、粗體字來突出重點。</li>
+            <li>所有技術術語都會用平實的語言解釋，降低理解門檻。</li>
+        </ul>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-gray-700 mb-2">互動性與視覺化</h5>
+        <ul class="list-disc pl-5 space-y-2 text-gray-600">
+            <li>將複雜的方案比較用清晰的&lt;table&gt;呈現。</li>
+            <li>所有程式碼片段或JSON模板都將使用語法高亮的&lt;pre&gt;&lt;code&gt;標籤包裹。</li>
+            <li>核心操作步驟將輔以帶有註解的螢幕截圖，並考慮嵌入2-3分鐘的短影片教學。</li>
+            <li>確保所有表格、圖片在手機上都能清晰顯示，優化行動端適配。</li>
+        </ul>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
