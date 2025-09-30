@@ -1,0 +1,2034 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 掀床</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">邦新好掀床 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「掀床」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">5</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站明確定位為<strong>掀床</strong>的專業製造商與發明者，以「邦欣好掀床發明專利家」為核心，強調其在技術與製造上的領先地位。內容圍繞<strong>安全掀床</strong>、<strong>省力掀床</strong>及<strong>電動掀床</strong>等核心產品，並突顯<strong>台灣製造</strong>、<strong>客製化尺寸</strong>與專利技術，直接訴求對品質、安全與客製化有高度要求的消費者。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容涵蓋了產品類型（後掀式、側掀式）、製造優勢（機械手臂、合格建材）、核心技術（安全、省力、緩衝三機構）以及材質選擇（松木實木、日本檜木）。同時，網站也延伸至周邊產品如<strong>珪藻土床墊</strong>與床頭箱，提供了一站式的臥室收納解決方案。整體內容以<strong>產品特性和製造實力</strong>的展示為主，資訊密度高。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對用戶而言，此頁面提供了高度的<strong>信賴感與專業性</strong>。透過強調「發明專利家」與「台灣製造第一品牌」，有效建立了品牌權威。標題「女生也可輕鬆使用」直接解決了潛在用戶對於操作力氣的疑慮，而詳細的「訂製流程」與「預約看床」則為有明確購買意圖的用戶提供了<strong>清晰的行動路徑</strong>，整體價值在於展現產品的卓越品質與購買的可靠性。</p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>決策支援缺口：缺乏掀床選購指南
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">網站缺少一個全面的<strong>掀床選購指南</strong>，用以教育消費者如何根據房間大小、使用習慣、床墊類型來選擇合適的掀床。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">初次購買掀床的用戶充滿疑問，例如「側掀好還是後掀好？」、「氣壓棒磅數怎麼選？」、「我的房間適合哪種尺寸？」。他們需要專業建議來做出明智的決策。競爭者A+A家具便提供了完整的文章來解答這些疑問，成功吸引了處於研究階段的潛在客戶。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">建立一篇專門的教學文章或頁面，內容包含：<strong>後掀式 vs. 側掀式比較表</strong>、<strong>空間測量教學</strong>、<strong>氣壓棒磅數與床墊重量對應指南</strong>，以及<strong>不同材質（如實木、木心板）的優缺點分析</strong>。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-users text-orange-600 mr-2"></i>信任建立缺口：缺乏使用者見證與案例
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面中未能看到任何<strong>客戶評價、使用心得或實際安裝案例</strong>。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">雖然品牌方自稱為「第一品牌」，但現代消費者更信賴來自真實用戶的聲音。他們想知道「別人家裡裝起來長怎樣？」、「小坪數空間使用後效果如何？」，這些真實案例是促成購買的關鍵推力。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">增設「客戶實例」區塊，展示<strong>不同戶型（如套房、主臥室）的安裝照片或影片</strong>，並附上客戶的簡短心得回饋，例如「原本雜亂的換季衣物終於有地方放了！而且真的很好掀！」。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-tools text-purple-600 mr-2"></i>使用指導缺口：缺乏安全操作與保養說明
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">網站強調了「安全」機構，但缺少關於<strong>如何正確安全操作掀床</strong>以及<strong>日常保養維護</strong>的具體指引。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">許多用戶對掀床的安全性存有疑慮，擔心「會不會突然掉下來？」、「氣壓棒壞了怎麼辦？」。提供清晰的安全操作指南和簡易的保養建議，能有效消除用戶的恐懼，並體現品牌的專業與負責。競爭者A+A家具的Q&amp;A就涵蓋了延長壽命與氣壓棒的常見問題。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">新增一個「安全與保養」問答區塊，以圖文或短影片形式，說明<strong>安全卡榫的使用方法</strong>、<strong>開關掀床的注意事項</strong>（例如床上需有床墊）、以及<strong>定期檢查五金零件</strong>的簡單教學。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-ruler-combined text-blue-600 mr-2"></i>深度價值缺口：收納功能量化與應用情境
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">網站僅提到置物方便，但未將<strong>收納空間的價值具體化</strong>，例如收納容量有多大、可以存放哪些物品。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶想知道這個巨大的儲物空間究竟能解決什麼問題。他們腦中的問題是「能放得下29吋行李箱嗎？」、「可以收納幾床冬被？」。競爭者橘家床墊直接點出「450公升大容量收納空間」，這種量化的數據更能打動對收納有強烈需求的用戶。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">以視覺化方式呈現收納能力，例如製作一張資訊圖表，顯示一張標準雙人掀床約等於<strong>「3個大型衣櫃」或「5個29吋行李箱」</strong>的收納量。並提供<strong>收納情境示意圖</strong>，如收納換季棉被、行李箱、吸塵器等，激發用戶的購買想像。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站具備了非常良好的SEO技術基礎。<strong>Meta Title 和 Description</strong> 撰寫清晰，有效整合了目標關鍵詞與用戶痛點。<strong>Open Graph 標籤</strong>（og:title, og:description, og:image, og:video）設定完整，有利於社群分享時的預覽效果。此外，<strong>Canonical 標籤</strong>使用正確，避免了重複內容問題。偵測到網站由 <strong>WordPress</strong> 驅動，這為後續的SEO優化提供了極佳的擴展性。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">網頁標題（&lt;h1&gt;未明確顯示在outline中，但從meta title推斷主題明確）與各級標題（&lt;h2&gt;, &lt;h3&gt;）的運用，清晰地展示了產品的各項特點。關鍵字如「後掀式床架」、「側掀式床架」、「台灣製造」等都有在標題中佈局。整體架構讓用戶和搜尋引擎能快速理解頁面核心內容，即<strong>一個專業、技術導向的掀床品牌首頁</strong>。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">目前最大的問題在於<strong>資訊架構過於扁平化</strong>。多個&lt;h2&gt;標題如「台灣製造」、「台灣研發」、「合格建材」等，雖然都是優勢，但在結構上可以整合。建議將這些優勢點歸納在一個更具吸引力的父標題下，例如「<strong>&lt;h2&gt;我們對品質的堅持：從研發到製造，只給您最好的&lt;/h2&gt;</strong>」，然後再用&lt;h3&gt;去分述各點。此外，重複的產品描述&lt;h3&gt;區塊可以考慮使用更結構化的列表（&lt;ul&gt;）或表格呈現，以提升資訊的易讀性和層次感。</p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>獨特市場定位清晰：</strong>品牌方以「發明專利家」和「機械手臂製造」成功塑造了技術領先的專家形象，這是與通路型電商（如特力屋、H&amp;D）和一般家具店的最大區隔優勢。</li>
+    <li><strong>錯失教育型內容機會：</strong>與排名第7的競爭者相比，品牌方嚴重缺乏引導性的教育內容。當用戶還在「掀床好用嗎？」、「掀床怎麼選？」的階段時，品牌方幾乎無法觸及他們，這是一個巨大的流量缺口。</li>
+    <li><strong>技術SEO基礎穩固：</strong>網站的Meta標籤、OG標籤和Canonical等基礎設置非常完善，為內容擴展提供了絕佳的技術平台，只需專注於創建高品質內容即可。</li>
+    <li><strong>內容敘事有待優化：</strong>目前內容呈現方式如同產品規格書，羅列了大量優點，但缺乏將「功能」轉化為「用戶利益」的敘事。例如，「安全緩衝機構」應連結到「保護家人手指，避免夾傷意外」的實際場景。</li>
+    <li><strong>行動呼籲（CTA）單一：</strong>頁面主要的CTA是「預約看床」，這是一個高門檻的行動。對於尚在研究階段的用戶，缺乏如「下載選購指南」、「觀看操作影片」等低門檻的互動選項，難以培養潛在客戶。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第5位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">4個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 特力屋 距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">中</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前位於搜尋結果第一頁，這是非常有利的位置。前方有大型零售商和專業品牌，競爭環境多元，但多數競爭者在頁面內容和Meta標籤優化上存在明顯弱點，提供了充足的超越機會。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>邦新好掀床</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><strong>標題 Title</strong></td><td>過長，但USP清晰。關鍵詞未置頂。`女生也可輕鬆使用｜邦欣好掀床發明專利家【安全掀床/...`</td><td>普遍簡短或不完整。第2名僅有品牌名，第3名為單一產品名，缺乏吸引力。</td><td>將「掀床」前置，精煉USP，控制在30個中文字內，確保在SERP完整顯示。</td></tr><tr><td><strong>描述 Description</strong></td><td>內容豐富，闡述理念並有CTA。`我們對掀床&amp;床墊的理念...`</td><td>極度薄弱。第2、4名缺失，第3名內容無意義。僅第1名特力屋有通用描述。</td><td>將理念轉化為對使用者的直接好處，強調專利技術如何帶來「安全」與「省力」，解決用戶核心痛點。</td></tr><tr><td><strong>URL結構</strong></td><td>`www.bed.tw/` 極簡且具權威性，是所有競品中最佳的。</td><td>普遍不佳，包含產品ID、參數或非語義化目錄，不利於SEO。</td><td>繼續保持此優勢，無需變更。</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4><div class="space-y-2"><p><strong>Meta標題過長：</strong> 目前標題「女生也可輕鬆使用｜邦欣好掀床發明專利家【安全掀床/電動掀床/省力掀床/床頭片/客製化多種尺寸】」長度嚴重超標，導致在搜尋結果頁面無法完整顯示，最強的賣點被隱藏，點擊率可能因此受損。</p></div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4><div class="space-y-2"><p><strong>權威性URL：</strong> 網址 `bed.tw` 簡潔、易記，且與產品高度相關，是所有競爭者中最佳的URL結構，為品牌建立了良好的技術基礎和信任感。</p><p><strong>結構化內容：</strong> 頁面大綱（Outline）顯示出清晰的 `&lt;h2&gt;` 和 `&lt;h3&gt;` 標題層級，圍繞「台灣製造」、「專利技術」、「訂製流程」等主題組織內容，遠優於前方多數僅有產品列表的競爭者。</p></div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="card p-6"><h4 class="font-semibold text-gray-800 mb-3">關鍵詞語義覆蓋分析</h4><p>品牌頁面已成功覆蓋「安全掀床」、「省力掀床」、「客製化」等核心產品特性。然而，與市場搜尋意圖相比，存在明顯的語義覆蓋缺口。許多使用者會搜尋「掀床 缺點」、「掀床 PTT 推薦」、「掀床 危險」等評估性或尋求意見的詞組。目前頁面未能主動應對這些查詢，錯失了與潛在顧客建立信任的機會。建議新增內容區塊，直接解答這些用戶疑慮，並將其轉化為突顯品牌專利優勢的機會。</p></div>
+                                <div class="card p-6"><h4 class="font-semibold text-gray-800 mb-3">內容深度與品質分析</h4><p>品牌頁面的內容深度在「產品特性介紹」方面表現出色，清晰傳達了「台灣製造」、「專利機構」等核心賣點。然而，相較於排名第7、8的內容導向型競品，本頁在「使用者決策輔助」方面的深度不足。例如，缺乏對不同掀床類型（側掀 vs. 後掀）的客觀比較、選購時需注意的細節（如氣壓棒磅數選擇）、以及後續的保養維護知識。這使得頁面更像一本產品型錄，而非一個能完整解決使用者所有疑問的綜合指南。</p></div>
+                        </div>
+
+                            <div class="space-y-4"> <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化機會：從「製造商」轉型為「安全掀床專家」</h4> <p>品牌最大的資產是「發明專利家」的定位。應以此為核心，打造無可取代的內容護城河。</p> <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 強調「為特定族群設計」的同理心內容</h5> <ul class="list-disc list-inside space-y-2 pl-4"> <li><strong>內容主題：</strong>「為什麼市售掀床對女性不友善？邦欣的專利設計如何解決問題」。</li> <li><strong>執行方式：</strong>製作圖文並茂的比較文章或短影片，展示普通掀床的開啟困難度和潛在危險，對比自家產品的輕鬆省力。</li> </ul> <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 透明化「安全機制」的技術內容</h5> <ul class="list-disc list-inside space-y-2 pl-4"> <li><strong>內容主題：</strong>「掀床安全嗎？拆解邦欣安全、省力、緩衝三機構專利」。</li> <li><strong>執行方式：</strong>用3D動畫或實拍影片，詳細解釋專利機構的運作原理，將抽象的「安全」具象化，建立技術壁壘。</li> </ul></div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="card p-6"><h4 class="font-semibold text-gray-800 mb-3">專業性與權威性對比</h4><p>與排名第1的「特力屋」這類大型零售通路相比，品牌在廣泛的「家居」領域權威性較低。然而，在「掀床」這個垂直領域，品牌擁有「發明專利家」、「台灣製造」的專家形象，這是大型通路難以企及的深度權威。目前，這種專家權威尚未在頁面內容中被充分發揮。若能強化與專利、安全、研發相關的內容，品牌有潛力成為該細分領域的第一權威。</p></div>
+                                <div class="card p-6"><h4 class="font-semibold text-gray-800 mb-3">可信度指標評估</h4><p>品牌頁面已包含多個強效信任指標，例如「台灣製造」、「合格建材」、「台灣研發」，以及最重要的「發明專利家」身份。這些指標是建立消費者信心的基石。然而，這些指標的呈現方式較為零散。建議將這些元素整合在一個專門的「我們的承諾」或「為何選擇邦欣」的區塊，並附上相關專利證書或檢驗報告的縮圖，能大幅提升說服力。</p></div>
+                        </div>
+
+                            <div class="success-box"> <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4> <div class="space-y-4"> <div> <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標 (Trust)：</h5> <ul class="space-y-2"> <li><strong>展示專利證明：</strong>在「安全、省力、緩衝三機構」介紹旁，直接嵌入專利證書的清晰圖片，並標註專利號碼，將「專利家」身份具體化。</li> <li><strong>客戶真實評價：</strong>增設「使用者見證」區塊，引用Google商家檔案或社群平台上的客戶好評，特別是提及「安全」、「省力」、「女生好用」的評論。</li> </ul> </div> <div> <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展專業內容 (Expertise &amp; Authoritativeness)：</h5> <ul class="space-y-2"> <li><strong>創辦人/研發故事：</strong>增加一個「品牌故事」或「研發者日誌」的簡短區塊，說明發明這款掀床的初衷（例如為了解決家人的使用困擾），增加品牌的溫度與專業深度。</li> <li><strong>製作比較內容：</strong>發布一篇「邦欣專利掀床 vs. 市售傳統掀床」的深度比較文章或影片，從材質、結構、安全設計、使用壽命等角度進行分析，鞏固專家地位。</li> </ul> </div> <div> <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設 (Authoritativeness)：</h5> <ul class="space-y-2"> <li><strong>與KOL/部落客合作：</strong>邀請居家收納、裝潢設計領域的意見領袖開箱體驗，並將評測影片或文章連結放回官網，藉由第三方驗證提升權威性。</li> <li><strong>媒體報導區塊：</strong>若有任何媒體報導或採訪，務必在網站上建立「媒體報導」專區，展示品牌的外部認可。</li> </ul> </div> </div></div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box"> <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4> <div class="space-y-4"> <div> <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5> <ul class="space-y-2"> <li><strong>增加影片展示：</strong>在頁面首屏或核心功能介紹處，嵌入一個15-30秒的短影片，直接展示一位女性輕鬆開啟和關閉掀床的過程。視覺衝擊遠勝於文字描述。</li> <li><strong>規格比較表：</strong>為不同尺寸（單人、雙人）和類型（後掀、側掀）的掀床製作一個清晰的規格比較表，幫助用戶快速找到所需產品。</li> <li><strong>置頂預約按鈕：</strong>在頁面導航欄或以浮動按鈕形式，始終保持「預約現場體驗」的CTA可見，縮短用戶決策路徑。</li> </ul> </div> <div> <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5> <ul class="space-y-2"> <li><strong>互動式尺寸指南：</strong>開發一個簡單的工具，讓用戶輸入房間尺寸或床墊大小，系統能自動推薦合適的掀床款式與開啟方向（側掀/後掀）。</li> <li><strong>建立FAQ頁面：</strong>將所有用戶常見問題（如保固、運送、安裝、氣壓棒更換）整理成一個獨立的FAQ頁面，並在主頁上提供入口，減少客服壓力並提升用戶滿意度。</li> <li><strong>優化行動版體驗：</strong>確保所有內容區塊、按鈕和圖片在手機上都能完美顯示且易於點擊，特別是訂製流程和預約表單的填寫體驗。</li> </ul> </div> </div></div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">特力屋</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">大型電商/零售平台</div>
+                <div class="text-lg font-semibold text-blue-600">大眾市場</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.trplus.com.tw/TLW_Furniture/c/EC_20222734" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.trplus.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">特力屋作為大型零售平台，其核心策略是利用其強大的品牌知名度和網站權威性，提供一站式購足的便利性。頁面內容以產品列表為主，聚合多種品牌和價位的掀床，旨在滿足廣泛用戶的基礎搜索需求。其策略並非深度溝通單一產品，而是透過規模效應和品牌信任度來吸引和轉化流量。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用典型的電商產品羅列型敘事，用戶進入頁面後直接面對產品篩選器和列表，敘事路徑短而直接，旨在快速引導有明確購買意圖的用戶點擊產品。CTA設計以「加入購物車」和「立即購買」為主，缺乏教育或引導過程。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 經驗信號較弱，缺乏選購指南或使用者評論的深度整合。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 專業性低，頁面未提供掀床相關的專業知識或技術細節。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 極高，特力屋作為知名家居零售品牌，本身就是權威的象徵。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 極高，品牌信譽、完善的售後服務和金流系統提供了強大的信賴基礎。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">欣和床店</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">產品展示型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.shinhow.com.tw/tw/product/18" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.shinhow.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">欣和床店的頁面內容極其單薄，幾乎沒有進行任何內容策略佈局。頁面僅作為單一產品的展示頁，缺乏品牌故事、產品優勢說明或任何引導性內容。其市場定位模糊，主要依賴用戶直接搜尋品牌或產品型號，SEO競爭力非常弱，是品牌方最容易超越的目標之一。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">頁面缺乏敘事流，僅有產品圖片和規格選項。CTA為「請選擇規格與數量」，是純粹的電商功能，沒有任何行銷或說服的元素。這種結構無法吸引或教育處於研究階段的用戶。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 無法展現。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 極低，未提供任何專業資訊。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 低，品牌知名度有限。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 低，缺乏信任元素如客戶評價、保固說明等。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第3名</span>
+                <h4 class="font-bold text-xl">KIKY睡眠概念館</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">功能主導型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.kiky.com.tw/buy/main_products.php?pid=2858&amp;srsltid=AfmBOopzvEIBhxPIE43qrgikipy2ycNDeZFBq8ZaGOPqotVVmfPvjAmI" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.kiky.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">KIKY的策略是功能主導型，其Meta標題直接點出產品的核心賣點「省力浮昇氣壓棒」，旨在吸引對此功能有明確需求的用戶。然而，頁面內容本身同樣較為單薄，主要圍繞單一產品進行展示，缺乏更廣泛的選購資訊或品牌價值溝通。其SEO表現優於欣和床店，但仍有巨大的內容優化空間。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流聚焦於產品本身，從標題的賣點開始，引導用戶查看產品細節。CTA設計為購買流程的一部分，缺乏引導研究階段用戶的軟性CTA。整體結構適合轉化已有一定了解的用戶，但難以開發新客群。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 低，未分享使用者經驗或選購技巧。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 中等，在「氣壓棒」這一點上展現了專業性，但未擴展。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 中低，作為垂直品牌有一定權威，但知名度有限。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 中等，有完整的網站和購買流程，但缺乏額外的信任元素。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第4名</span>
+                <h4 class="font-bold text-xl">H&amp;D東稻家居</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">大型電商/零售平台</div>
+                <div class="text-lg font-semibold text-blue-600">品牌權威型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.hdlife.com.tw/Browsing/BedRoom/Bed/Bed1?srsltid=AfmBOor0Gq-vV6HQTnrfWIUdzBOFu5An3Rivlu9jDICFxLkTvxr0x34v" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.hdlife.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">與特力屋類似，H&amp;D東稻家居的策略是利用其「台灣國民家具品牌」的強大品牌效應。其Meta標題直接訴求品牌信任，吸引那些已經對品牌有認知度的用戶。頁面內容同樣是產品聚合頁，強調產品的多樣性和選擇的豐富性，但缺乏針對「掀床」這一品類的深度內容，為品牌方提供了內容差異化的機會。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用品牌權威型敘事，頁面設計和導航都圍繞著強化品牌形象展開。用戶的瀏覽路徑是基於對品牌的信任，進而瀏覽其提供的產品。CTA同樣是電商標準的購買引導，整個流程高效但缺乏情感和專業的溝通。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 低，未提供用戶導向的選購經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 低，缺乏產品專業知識。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 高，作為知名家具品牌，具有較高的市場權威。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 高，品牌聲譽和完整的購物保障提供了高信賴度。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第6名</span>
+                <h4 class="font-bold text-xl">hoi! 好好生活</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">大型電商/零售平台</div>
+                <div class="text-lg font-semibold text-blue-600">品類聚合型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.hoihome.tw/v2/official/SalePageCategory/318065?lang=zh-TW" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.hoihome.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">hoi! 的策略是品類聚合，其Meta標題和描述同時涵蓋了「掀床」和「收納床架」，旨在擴大關鍵詞的覆蓋範圍，吸引所有尋找床底收納解決方案的用戶。其頁面內容比其他電商平台稍豐富，描述中提到了不同風格和功能，試圖引導用戶，但整體仍停留在產品展示層面，專業深度不足。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流試圖通過情感化的文案（「陪你練習打造家的輪廓」）與用戶建立連結，然後展示不同風格的產品。這是一種比純粹羅列更進階的策略，但由於缺乏實質性的專業內容支撐，說服力有限。CTA是標準的電商引導。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 中低，文案試圖營造體驗感，但缺乏實際用戶經驗分享。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 低，未提供選購的專業建議。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 中等，作為一個新興的家居生活品牌，權威性正在建立中。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 中高，背靠大型集團，提供可靠的購物保障。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第7名</span>
+                <h4 class="font-bold text-xl">A+A 台中家具</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">內容媒體/區域品牌</div>
+                <div class="text-lg font-semibold text-blue-600">問題解決型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.aanewcasa.com/fold-up-bed/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.aanewcasa.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">A+A 台中家具是典型的內容行銷驅動型對手。其策略是創建一篇百科全書式的詳盡指南，解答用戶從「掀床是什麼」到「如何挑選」、「是否安全」等所有疑問。Meta標題直接以提問方式「掀床架危險嗎？」來命中用戶的核心痛點，吸引大量處於研究階段的流量。這是品牌方需要重點學習和超越的內容模式。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用經典的「問題-解決方案」敘事模型。文章結構從定義、優缺點、挑選指南到FAQ，邏輯清晰，層層遞進，旨在將一個完全不懂掀床的用戶，教育成一個準備購買的潛在客戶。其CTA較弱，主要為聯繫方式，銷售引導不明確，這是其弱點所在。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 高，文章以使用者視角出發，分享了豐富的選購經驗和技巧。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 高，內容涵蓋了材質、結構、安全等多方面的專業知識。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 中低，作為區域品牌，其權威性主要建立在內容的專業度上，而非品牌本身。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 中等，詳盡且客觀的內容能建立信任，但缺乏強有力的品牌背書。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第8名</span>
+                <h4 class="font-bold text-xl">橘家床墊</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">專業功能導向</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://oghome.com.tw/%E6%94%B6%E7%B4%8D%E6%8E%80%E5%BA%8A/?srsltid=AfmBOopu3joh9CJRpLusv2S4zvorIwIH-Mjoq_dlc-Ta3e5c1WpHXvNl" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">oghome.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">橘家床墊採用了精準的利基市場策略，以「貓抓皮收納掀床」為切入點，直接鎖定養寵物家庭這一特定客群。其頁面內容圍繞這一核心賣點展開，深入介紹其耐磨、抗刮、易清潔的特性，並輔以大容量收納、客製化等優勢。這種聚焦策略雖然受眾較窄，但轉化率極高，定位非常清晰。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用功效優先型敘事，先拋出「貓抓皮」這個核心賣點，解決特定用戶的痛點，然後再展開介紹容量、安全設計等其他優點。整個頁面銷售導向清晰，旨在快速說服目標客群並引導購買。CTA設計明確，指向產品規格和價格。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 中等，分享了養寵物家庭會遇到的具體問題，體現了對用戶經驗的理解。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 高，在「貓抓皮」這一細分領域展現了高度的專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 中等，作為床墊專業品牌，在床架領域也具備一定的權威。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 中高，清晰的產品介紹和品牌背景能建立信賴感。</div>
+            </div></div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方標題過長，但價值主張清晰。排名靠前的競爭者利用品牌效應（特力屋）或問題導向（A+A家具），品牌方需找到兼具關鍵詞與獨特價值的表達方式。</div>
+          <div><strong>描述效能：</strong>品牌方描述較好，但仍有優化空間。多數競爭者描述缺失或無效，為品牌方提供了巨大的超越機會。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">關鍵詞使用模式：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div>多數競爭者僅使用「掀床」等核心詞。C7和C8加入了「推薦」、「危險嗎」、「貓抓皮」等長尾詞，更貼近用戶意圖，值得品牌方借鑒。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">策略分類：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>品牌權威型 (C1, C4):</strong> 訴求品牌信任，轉化已有品牌認知度的用戶。</li>
+                <li><strong>品類聚合型 (C6):</strong> 擴大關鍵詞覆蓋，吸引尋找相關解決方案的用戶。</li>
+                <li><strong>問題解決型 (C7):</strong> 直接命中用戶疑慮，吸引研究階段的流量。</li>
+                <li><strong>功能主導型 (C3, C8):</strong> 強調核心賣點，吸引需求明確的用戶。</li>
+            </ul>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">E-E-A-T & 敘事流分析：</h5>
+             <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>大型平台 (C1, C4, C6):</strong> 高權威(A)與信賴(T)，但專業(E)薄弱。採用產品羅列型敘事，直接引導購買。</li>
+                <li><strong>內容媒體 (C7):</strong> 高經驗(E)與專業(E)，但權威(A)較弱。採用問題-解決方案型敘事，教育用戶。</li>
+                <li><strong>專業品牌 (C8):</strong> 在利基領域展現高專業(E)。採用功效優先型敘事，銷售導向清晰。</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>結合**問題解決型**與**功能主導型**策略。主打「安全」與「耐用」，直接回應消費者對掀床結構穩定性與使用壽命的核心關切。</li>
+        <li><strong>競爭優勢：</strong>強調「邦新」作為專業製造商的工藝背景，例如「20年老師傅手藝」、「獨家專利安全卡榫」，這是大型零售平台無法複製的信任背書。</li>
+        <li><strong>目標受眾：</strong>針對重視居家安全、希望一次性投資購買高品質家具的家庭用戶，特別是有孩童或長者的家庭。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>格式為 `【安全掀床推薦】邦新好掀床｜獨家專利安全鎖，十年保固更安心`。長度約30-35字，包含核心關鍵詞、差異化價值（安全專利）、信任承諾（十年保固），並加入情感訴求（安心）。</li>
+        <li><strong>描述優化：</strong>撰寫約70-80字的描述。範例：「還在擔心掀床不安全嗎？邦新好掀床，每一張都配備獨家專利防壓安全卡榫，採用德國進口氣壓棒與低甲醛環保板材。20年職人經驗打造，不僅給你超大收納空間，更守護全家人的安全。立即了解客製化方案。」</li>
+        <li><strong>執行優先級：</strong>**高**。Meta優化是成本最低、見效最快的SEO調整項目，能直接影響點閱率，是提升排名的第一步。</li>
+      </ul>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方作為專業品牌，其頁面內容深度是超越C1-C6等電商平台的關鍵。當前最大的威脅來自C7的詳盡指南和C8的精準賣點溝通。</div>
+          <div><strong>板塊覆蓋：</strong>品牌方應採用「百科全書型」架構，但將每個章節都與自身產品優勢深度結合，而非像C7一樣進行泛泛的市場教育。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者核心內容板塊：</h5>
+        <ul class="list-disc pl-5 space-y-2 text-gray-600">
+            <li><strong>產品列表型 (C1-C6):</strong> 僅有產品展示，缺乏教育性內容。</li>
+            <li><strong>百科全書型 (C7):</strong> 架構最完整，涵蓋定義、優缺點、挑選指南、FAQ等，是內容完整度的黃金標準。</li>
+            <li><strong>單品強銷型 (C8):</strong> 圍繞單一主題深入介紹，轉化意圖強。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">內容覆蓋深度比較：</h5>
+            <p class="text-gray-600">C7在「用戶常見問題」的覆蓋上最深。C8則在「產品功能細節」上最深。其他競爭者內容深度幾乎為零，為品牌方提供了巨大的內容機會。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">專業模塊缺口識別：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>技術規格透明化：</strong>普遍缺乏對氣壓棒磅數、板材甲醛等級等關鍵參數的說明。</li>
+                <li><strong>安全機制實證：</strong>缺乏安全裝置作動原理的影片或圖解。</li>
+                <li><strong>客製化服務流程：</strong>提到可客製，但未說明流程與限制。</li>
+                <li><strong>售後服務與保固：</strong>多數未在顯著位置說明保固範圍與年限。</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">內容補強機會識別：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>創建「掀床安全白皮書」章節：</strong>這是超越所有競爭者的核心機會。應包含專利安全鎖原理圖解、操作對比影片、氣壓棒選擇指南等。</li>
+                <li><strong>建立「掀床材質學」章節：</strong>詳細介紹使用的板材、五金及其優缺點、承重能力與防潮效果。</li>
+                <li><strong>增加「客戶案例」與「空間解決方案」：</strong>展示不同戶型使用掀床前後的收納空間對比圖，並引用客戶好評。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">差異化內容策略：</h5>
+            <p class="text-gray-600">品牌的敘事主軸應是「**我們不只賣掀床，我們提供一個安全、耐用、幫你放大空間的睡眠解決方案**」。每一段內容都應緊扣「安全」與「耐用」這兩大品牌基石，將抽象的「好」具象化為用戶能感知到的技術細節與安心承諾。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">居住在都會區的年輕夫妻、小家庭、租屋族或為長輩/小孩房添購傢俱的屋主。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">多為新手，對掀床的專業知識（如油壓棒磅數、床架結構）了解有限。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">預算有限，重視CP值；時間寶貴，偏好一站式解決方案（含運送、安裝）。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：安全焦慮</strong>
+        <span class="text-gray-600">最大的痛點。害怕油壓桿失效造成意外，尤其家中有小孩或長輩，這種恐懼感是決策的最大阻礙。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：資訊不對稱</strong>
+        <span class="text-gray-600">無法從產品照片判斷結構是否穩固、材質是否耐用，對各種專業術語感到困惑，難以進行有效比較。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：品質不確定性</strong>
+        <span class="text-gray-600">擔心網路購買的掀床實品質感不佳、很快出現異音，或操作起來非常費力，與預期不符。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：</strong>
+        <span class="text-gray-600">缺乏權威性的第三方認證或有力的安全證明，對安裝的複雜性與售後服務感到不安，難以在「價格」、「品質」與「安全性」三者之間取得信任的平衡點。</span>
+      </div>
+    </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>製作「掀床選購終極指南」、「掀床安全嗎？專家破解3大迷思」等教育性內容，將品牌定位為「安全掀床的知識權威」。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>提供詳盡的產品頁面，包含操作影片、安全鎖特寫、SGS認證、結構透視圖，將「安全」與「品質」具象化。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>提供清晰的價格、真實的客戶評價、明確的保固條款與安裝服務說明，消除最後的購買疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>主打「獨家專利防壓安全鎖」、「德國TÜV認證氣壓棒」與「床架主結構十年保固」，將安全與品質標準拉到業界頂尖。</div>
+          <div><strong>競爭優勢展現：</strong>當競品只談收納，我們主攻安全與耐用；當競品含糊其辭，我們展示專利與認證，建立可驗證的信任。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>競品普遍對「安全議題」溝通不足，缺乏視覺化證明；對「品質細節」展示缺乏，售後承諾模糊。</div>
+          <div><strong>品牌突破機會：</strong>製作業界最詳盡的「掀床安全白皮書」，或開發線上3D配置工具，並推出「到府安全健檢」等創新服務，建立絕對權威。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">Meta標題與描述直接突顯「安全專利」與「十年保固」，第一時間吸引關注安全性的用戶。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">不先談價格。首屏用高品質影片展示女性輕鬆操作，並放置SGS認證標章，快速建立「安心」的第一印象。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">內容依「安全機制 → 結構用料 → 收納展示 → 用戶案例 → 規格價格」的順序呈現，完全符合用戶的決策心理路徑。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立策略：</strong>
+          <span class="text-gray-600">穿插「設計師訪談」、「工廠製作流程」等幕後故事，提升品牌專業度與透明度。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化策略：</strong>
+          <span class="text-gray-600">提供「您家的掀床安全嗎？」的互動式測驗，強化用戶對安全議題的重視，並自然帶出品牌產品的優勢。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除策略：</strong>
+          <span class="text-gray-600">設置一個詳盡的FAQ區塊，主動回答所有潛在問題（清潔、噪音、承重、保固細節等）。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計策略：</strong>
+          <span class="text-gray-600">在頁面不同深度設置對應的CTA。上層是「觀看安全實測影片」，中層是「查看所有款式」，底層是「立即選購」或「預約門市體驗」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化策略：</strong>
+          <span class="text-gray-600">結帳流程簡化，並在結帳頁面再次顯示「含專業安裝」、「十年保固」等安心標語，降低購物車放棄率。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>掀床市場由兩類對手主導：大型零售商（如特力屋）擁有高網站權威但內容淺薄；專業品牌（如A+A、橘家）內容較深但各有側重。邦欣好掀床的獨特機會在於，結合自身「發明專利」的專家身份與深度內容策略，成為市場上兼具「品牌信賴感」與「專業解答能力」的領導者，從而超越所有類型的競爭者。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：Meta標籤及核心結構快速優化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修正過長的Meta標題、前置關鍵詞、新增關鍵的&lt;h1&gt;標籤。這些是成本極低但能快速提升搜尋引擎相關性判斷的基礎設施建設。</div>
+        <div><strong>執行評估：</strong>難度：低；預期效果：高（+1-2排名）；資源：0.5人天。</div>
+        <div><strong>優先級：</strong>極高 - 這是所有優化中ROI最高的項目，應立即執行。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與專業性補強</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>多數競品頁面僅為產品列表，缺乏決策輔助資訊。品牌可透過新增「選購指南」、「FAQ」、「材質解析」等內容，超越對手，成為用戶信賴的資訊來源。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：高（提升停留時間與轉換率）；資源：5-8人天。</div>
+        <div><strong>優先級：</strong>高 - 這是建立品牌專業形象、與大型零售商做出區隔的關鍵一步。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：以視覺化內容直擊「安全焦慮」痛點</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>用戶最大的購買障礙是對安全的恐懼。透過製作「安全鎖作動影片」、「輕鬆操作展示」等視覺內容，能比任何文字都更有效地化解疑慮，建立情感連結與信任。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：極高（建立品牌護城河）；資源：需要影片製作預算。</div>
+        <div><strong>優先級：</strong>高 - 這是將品牌獨特賣點轉化為不可撼動的競爭優勢的核心策略。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>安全導向：</strong>「安全掀床推薦」、「掀床安全鎖」、「兒童房掀床」、「防壓手掀床」。</div>
+        <div><strong>品質導向：</strong>「耐用掀床推薦」、「掀床保固」、「低甲醛掀床板材」、「德國氣壓棒掀床」。</div>
+        <div><strong>問題解決導向：</strong>「掀床 缺點 ptt」、「床墊太重 掀不起來」、「掀床氣壓棒更換教學」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「發明家」與「工匠」視角出發，溝通產品研發的初衷與對細節的堅持，而不僅僅是銷售。</div>
+        <div><strong>專業詞彙：</strong>主導「專利安全鎖」、「緩衝機制」、「F1級板材」、「TÜV認證氣壓棒」等具體技術詞彙的語義場，建立專業壁壘。</div>
+        <div><strong>品牌調性：</strong>強調「安心」、「守護」、「輕鬆」的感性價值，將產品與家庭安全、生活品質緊密連結。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>品牌的轉換優化路徑應遵循「安心優先」原則。首先，在頁面首屏透過影片和認證標章快速化解用戶最深的「安全焦慮」。接著，透過詳盡的專利技術圖解和材質說明建立「專業信任」。然後，展示多元的產品系列與清晰的價格，輔以真實的「客戶案例」作為社會證明。最後，提供超越業界的「十年保固」和便捷的「預約體驗」CTA，消除所有後顧之憂，促成最終轉換。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>透過技術SEO快速優化（機會A）與深度專業內容（機會B），迅速超越排名2-4位的競爭者。</div>
+        <div><strong>競爭者超越路徑：</strong>創建競爭者無法複製的「發明家視角」內容，將使用者最關心的「安全」議題與品牌獨家「專利技術」深度綁定，建立信任護城河。</div>
+        <div><strong>使用者價值最大化：</strong>不僅提供產品資訊，更成為解決「掀床安全焦慮」與「臥室收納難題」的終極指南，提供從選購、安裝到保養的全流程價值。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將「邦新好掀床」從單純的製造商，定位為「掀床安全發明家」與「值得信賴的臥室收納顧問」。</div>
+        <div><strong>差異化價值：</strong>提供市場上唯一由「發明家」背書的專業內容，將抽象的安全感轉化為具體的專利技術展示與超越業界的保固承諾。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>6個月內，「掀床」核心關鍵詞穩定進入前三名，「安全掀床」搶佔第一名。</div>
+        <div><strong>流量增長目標：</strong>自然搜尋流量年增長率超過30%，頁面平均停留時間超過3分鐘。</div>
+        <div><strong>轉換率優化：</strong>「預約體驗」的轉換率提升15%以上。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速優化（1-4週）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">Meta標籤與H1優化：</strong>
+          <span class="text-gray-600">完成Meta標籤、&lt;h1&gt;等技術SEO優化，實現快速排名提升。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容深化（1-3個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">內容缺口補強：</strong>
+          <span class="text-gray-600">上線深度內容模組，包括「專利技術詳解」、「材質學」、「選購指南」與影片，超越競爭對手。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：競爭超越（3-6個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">差異化內容：</strong>
+          <span class="text-gray-600">發布深度比較文章與互動工具，並透過KOL合作，確立行業領導地位。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>在產品特性、製造工藝和專利技術方面有深度介紹，建立了專業形象。</div>
+          <div><strong>改善空間：</strong>嚴重缺乏使用者導向的決策輔助內容，如選購指南、比較、FAQ和真實案例，導致與研究階段的用戶脫節。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">核心策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div>內容優化路徑將以「解決安全焦慮」為核心。首先，首屏用影片和專利標章建立「安全」第一印象。其次，透過深度方案比較和技術圖解，將邦新的「專利安全」具象化，建立專業信任。接著，用真實客戶案例和權威問答消除購買疑慮。最後，以超越業界的「十年保固」和便捷的「預約體驗」CTA，促成最終轉換。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>由掀床「發明專利家」設計/監製：</strong>強調內容的最高權威性與原創性，這是任何競爭對手無法模仿的E-E-A-T優勢。</div>
+        <div><strong>詳細圖解「專利安全鎖」作動原理：</strong>將最關鍵的安全賣點視覺化，直接回應使用者最深層的恐懼，建立技術壁壘。</div>
+        <div><strong>提供透明化的材質與「德國TÜV認證氣壓棒」規格：</strong>對比競品的含糊其辭，邦新用透明和權威認證建立信任感。</div>
+        <div><strong>分享具備「安全、省力、收納」主題的真實客戶案例：</strong>用真實故事佐證產品價值，讓使用者產生代入感。</div>
+        <div><strong>在Q&amp;A中直接回應PTT負評，提供發明家級的專業解答：</strong>展現自信與專業，將潛在危機轉化為品牌優勢的絕佳機會。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在作者簡介或頁面顯著位置標示「本文由邦新創辦人/專利發明家 [姓名] 監製」。</div>
+        <div>製作3D動畫或清晰的GIF圖，展示安全鎖在床板下降時如何自動鎖定。</div>
+        <div>製作詳細的規格比較表，列出邦新與市售品的板材等級、五金厚度、氣壓棒認證等差異。</div>
+        <div>為每個案例製作獨立的圖文故事卡片，並引用客戶最關鍵的一句推薦語。</div>
+        <div>FAQ區塊的每個回答都以「作為發明家，我們的看法是...」或類似的權威口吻開頭。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">吸引注意 (Awareness)</h4>
+      <p class="text-gray-600">以「掀床危險」切入，用首屏影片展示「安全省力」的解決方案。</p>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">建立興趣 (Interest)</h4>
+      <p class="text-gray-600">透過專利圖解和方案比較，讓用戶認識到邦新的獨特優勢。</p>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">培養慾望 (Desire)</h4>
+      <p class="text-gray-600">展示真實客戶案例，讓用戶想像擁有邦新掀床後的美好生活。</p>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">引導行動 (Action)</h4>
+      <p class="text-gray-600">提供清晰的「預約體驗」CTA，並以「十年保固」消除最後的購買疑慮。</p>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">導航清晰</h4>
+        <p class="text-gray-600">使用頁內錨點連結的快速導航目錄，讓用戶快速跳轉至感興趣的章節。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">視覺化溝通</h4>
+        <p class="text-gray-600">大量使用高品質圖片、圖解、GIF動圖和嵌入式影片，取代冗長的文字說明。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">互動性設計</h4>
+        <p class="text-gray-600">開發「氣壓棒磅數計算機」等實用小工具，增加用戶停留時間和參與感。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">信任強化</h4>
+        <p class="text-gray-600">在頁面各處策略性地放置專利證書、SGS認證、客戶好評等信任徽章。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg col-span-2">
+        <h4 class="font-semibold text-gray-800 mb-2">行動裝置優先</h4>
+        <p class="text-gray-600">確保所有內容和互動元素在手機上都能完美呈現和操作。</p>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
