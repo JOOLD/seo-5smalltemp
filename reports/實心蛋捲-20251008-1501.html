@@ -1,0 +1,1993 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 實心蛋捲</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">實心蛋捲 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「蛋卷禮盒」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">4</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站明確定位為<strong>實心蛋捲</strong>品牌的官方銷售頁面，核心是推廣各式<strong>蛋卷禮盒</strong>。內容以「一份真心實意的惦記」為情感訴求，並透過強調「<strong>台中十大伴手禮</strong>」及「<strong>金口碑獎</strong>」等榮譽，塑造其高品質、值得信賴的伴手禮形象。頁面內容緊扣送禮場景，如<strong>中秋禮盒</strong>、<strong>彌月禮盒</strong>、<strong>過年禮盒</strong>及<strong>ESG企業送禮</strong>，直接命中具備高商業意圖的用戶需求。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容架構以產品分類為主，涵蓋了<strong>多元的產品線</strong>。從品牌聯名（如立頓、小小兵）到特定節慶（中秋）與人生重要時刻（彌月），再到不同產品形式（實心蛋捲、粹蛋捲），為不同需求的消費者提供了豐富的選擇。每個產品都標示了清晰的品名、組合內容與價格，<strong>資訊結構完整且直觀</strong>，方便使用者快速瀏覽與比較。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">此頁面對目標用戶的核心價值在於<strong>提供一個清晰、全面的官方購買渠道</strong>。用戶可以一站式了解所有禮盒選項、最新聯名款及不同場合的推薦組合。透過分類導航，用戶能快速鎖定目標，<strong>節省了搜尋和決策的時間</strong>。此外，特殊的聯名商品（如立頓奶茶、小小兵）創造了獨特性和吸引力，滿足了追求新意與客製化送禮需求的消費者。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>決策支援缺口：缺乏送禮情境指南
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">網站缺少一個「送禮指南」或「選購助理」的內容區塊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">面對眾多禮盒選項，用戶常會感到困惑：「送給長輩該選哪款？」、「企業客戶送禮，預算500元內有什麼推薦？」、「彌月禮盒的『單層』和『雙層』差別在哪？」。他們需要根據收禮對象、預算、場合等條件篩選出最合適的產品，而目前頁面僅提供產品陳列，缺乏引導。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">增加一個互動式或表格型的<strong>送禮指南</strong>。例如，以「送禮對象」（長輩、同事、朋友）、「預算範圍」（$500以下、$500-$1000等）、「送禮場合」（節慶、商務、彌月）為分類，推薦對應的<strong>蛋卷禮盒</strong>組合。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-lightbulb text-orange-600 mr-2"></i>信任建立缺口：產品特色與製作過程不明
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面未詳細說明「實心蛋捲」的獨特之處、原料來源或製作工藝。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">在高端伴手禮市場，消費者越來越重視產品的用料與品質。競爭者如「鬍子國王」會強調使用「AOP認證手工奶油」、「日本細緻麵粉」等頂級原料來建立價值感。您的用戶同樣想知道，是什麼讓您的蛋捲值得作為一份「真心實意的惦記」？是嚴選的雞蛋、天然奶油，還是獨特的烘烤技術？</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">新增一個「<strong>我們的堅持</strong>」或「<strong>美味的秘密</strong>」區塊。使用高品質圖片或短影片，展示<strong>原料特寫</strong>（如產地直送的雞蛋、進口奶油）、<strong>獨家工法</strong>（飽滿內餡的填充過程），並文字說明品牌對食安與品質的承諾。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-users text-purple-600 mr-2"></i>社會認同缺口：缺乏顧客見證與口碑
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面完全沒有顧客評價、媒體報導或合作夥伴的推薦。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">購買禮盒是用於人際關係的重要投資，用戶在下單前會尋求社會認同（Social Proof）來降低決策風險。他們想看到其他顧客的真實反饋，例如「公司送禮客戶很喜歡」、「彌月禮盒包裝精美又有質感」，這些真實的聲音遠比品牌自述更有說服力。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">建立一個「<strong>顧客好評</strong>」或「<strong>真心推薦</strong>」專區，嵌入Google評論、社群媒體上的好評截圖，或邀請企業客戶分享他們選擇實心蛋捲作為<strong>企業禮盒</strong>的成功案例。這能有效提升新訪客的信任感。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-info-circle text-blue-600 mr-2"></i>深度價值缺口：品牌故事與理念的缺失
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">缺少關於「實心蛋捲」品牌創立的故事、理念或「金口碑獎」背後的意義。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">當產品質量相近時，能打動人心的品牌故事是建立情感連結、提升品牌忠誠度的關鍵。競爭者「青鳥旅行」以「品嚐蛋捲的100種可能」作為號召，傳遞探索與創新的精神。用戶會好奇，為什麼品牌取名「實心」？得獎的「金口碑獎」對品牌來說代表了什麼樣的肯定？</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">在頁面中簡短地闡述<strong>品牌故事</strong>。例如，一段關於創辦人為何堅持製作「包覆著飽滿餡料」蛋捲的初心，或分享榮獲「<strong>台中十大伴手禮</strong>」獎項時的喜悅與對顧客的感謝。這能讓品牌形象更立體，而不只是一個商品列表。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站的SEO基礎設置相當完善。<strong>Meta Title、Description 和 Keywords 標籤</strong>都已配置，且與「蛋卷禮盒」及各類送禮場景高度相關。<strong>Open Graph 標籤</strong>（如 og:title, og:description, og:image）設定完整，有利於社群媒體分享時的預覽效果。同時，具備<strong>行動裝置優化</strong>（viewport, apple-mobile-web-app-capable），確保在手機上的瀏覽體驗。從技術特徵（如 `img.cloudimg.in` 的圖片路徑）推斷，網站可能由<strong>Shopline</strong>等主流開店平台提供支持，這類平台通常有良好的SEO底層架構。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">頁面採用了清晰的<strong>階層式標題（&lt;H1&gt; 至 &lt;H6&gt;）</strong>來組織內容，將不同系列的禮盒（如立頓聯名、小小兵聯名、中秋禮盒）歸類在各自的<strong>&lt;H2&gt;</strong>標題下，結構邏輯分明，有助於搜尋引擎理解頁面主題。關鍵詞如「蛋捲」、「禮盒」、「中秋」、「彌月」等自然地分佈在各級標題中，<strong>關鍵詞佈局合理</strong>。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">存在一些可優化的技術細節。首先，<strong>&lt;H1&gt; 與 &lt;H3&gt; 標籤內容完全重複</strong>，這在語意上是多餘的，建議將 &lt;H3&gt; 內容修改或移除，確保 &lt;H1&gt; 的獨一性。其次，多個 &lt;H2&gt; 標題中出現了「<strong>2026過年禮盒推薦</strong>」等未來年份，這種做法可能讓用戶感到困惑且對SEO的長期效益不大，建議改為「<strong>過年禮盒推薦</strong>」等更具時效彈性的文字。最後，雖然產品分類清晰，但頁面內容過長，可考慮加入<strong>錨點連結</strong>或<strong>篩選功能</strong>，提升用戶在頁面內的導航效率。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>市場定位清晰，關鍵詞覆蓋精準：</strong> 網站成功將「實心蛋捲」與「中秋」、「彌月」、「企業送禮」等高價值送禮場景連結，並透過「台中十大伴手禮」及「金口碑獎」的權威背書，建立了高品質伴手禮的市場形象。</li>
+    <li><strong>內容呈現為純產品目錄，缺乏情感與信任連結：</strong> 網站核心問題在於內容過於交易導向，缺少品牌故事、製作理念、顧客口碑等建立信任與情感連結的元素，與競爭者相比，品牌溫度感較低。</li>
+    <li><strong>錯失引導用戶決策的機會：</strong> 面對豐富的產品線，網站未能提供有效的選購指南或情境推薦，無法幫助用戶在「選擇困難」中快速找到最佳方案，存在決策支援內容的巨大缺口。</li>
+    <li><strong>技術SEO基礎良好但細節待優化：</strong> 網站具備優秀的技術SEO底層，但在標題標籤的應用（H1/H3重複）和內容時效性表述（使用未來年份）上存在可立即改善的空間。</li>
+    <li><strong>產品線多元且具獨特性：</strong> 透過與「立頓」、「小小兵」等知名IP的聯名合作，創造了市場差異化和話題性，這是品牌相較於傳統蛋捲禮盒的一大競爭優勢。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">2</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第4位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">3個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 青鳥旅行 距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">品牌目前位於搜尋結果首頁，具備良好的基礎，但距離頭部品牌仍有明顯差距。當前位置不穩固，因為Meta資訊和頁面結構存在明顯的優化空間，容易被後方對手超越，但也意味著透過精準優化能快速提升排名。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>實心蛋捲</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td class="font-semibold p-2 border">指標</td><td class="font-semibold p-2 border">品牌方現狀 (實心蛋捲)</td><td class="font-semibold p-2 border">競爭者普遍表現 (Top 3)</td><td class="font-semibold p-2 border">改善建議</td></tr>
+<tr><td class="p-2 border">標題 Title</td><td class="p-2 border">過長、關鍵詞堆砌感重，未包含「蛋捲禮盒」完全匹配詞。</td><td class="p-2 border">精簡有力，多數將「蛋捲禮盒」或品牌詞置於前方，並結合價值主張（如：質感首選）。</td><td class="p-2 border">縮短至60字元內，將「實心蛋捲禮盒」置前，結合「金口碑獎」等核心優勢。</td></tr>
+<tr><td class="p-2 border">描述 Description</td><td class="p-2 border">未包含「蛋捲禮盒」關鍵詞，重點分散於多個節慶，缺乏行動呼籲。</td><td class="p-2 border">清晰傳達品牌特色或禮盒內容，部分包含名人推薦等社會證明，引導點擊。</td><td class="p-2 border">前1-2句即點出為「蛋捲禮盒」，強調「爆漿內餡」特色，並以「立即選購」等CTA結尾。</td></tr>
+<tr><td class="p-2 border">關鍵詞 Keywords</td><td class="p-2 border">涵蓋多種禮盒場景，但通用詞較少。</td><td class="p-2 border">包含「伴手禮」、「企業送禮」、「手工蛋捲」等高相關性通用詞。</td><td class="p-2 border">雖此標籤權重低，但可補全如「人氣蛋捲」、「台中必買」等語義相關詞。</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">
+<h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>&lt;h1&gt; 標籤濫用：</strong> 頁面最重要的 &lt;h1&gt; 標籤內容與冗長的 &lt;title&gt; 標籤完全相同，這嚴重違反了SEO最佳實踐。&lt;h1&gt; 應該是頁面上獨一無二、簡潔且高度概括內容的主標題，目前的形式對搜尋引擎傳遞了混亂且低品質的信號。</li>
+  <li><strong>URL結構為根目錄：</strong> 使用首頁 (`/`) 競爭一個特定的產品類別關鍵詞，這會導致頁面主題不夠集中。排名第2的競爭者使用 `/products/` 路徑的專門頁面，其相關性更高。長期來看，為「蛋捲禮盒」建立專門的分類頁面會是更優的策略。</li>
+</ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage">
+<h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>完整的標題層級結構：</strong> 頁面具備從 &lt;h2&gt; 到 &lt;h6&gt; 的清晰層級，顯示了良好的內容組織架構。這有助於搜尋引擎理解不同產品類別（如聯名、中秋禮盒）之間的關係，是未來進行內容擴充的良好基礎。</li>
+  <li><strong>網站技術配置健全：</strong> Meta中包含 `google-site-verification` 和 `msvalidate.01` 等驗證標籤，表明網站已進行基本的搜尋引擎管理員工具設置，有利於網站的索引和監控。</li>
+  <li><strong>行動裝置友善：</strong> Meta中包含 `viewport` 及 `apple-mobile-web-app-capable` 等標籤，顯示網站對行動裝置進行了優化，這在行動優先索引的時代是至關重要的排名因素。</li>
+</ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-300">
+    <h5 class="font-semibold text-blue-700 mb-2">關鍵詞語義覆蓋分析</h5>
+    <p class="text-gray-700">品牌方應增加「手工蛋捲」、「企業送禮」、「伴手禮推薦」等高價值詞組，並圍繞「濃郁內餡」、「酥脆口感」等描述性詞語擴充內容。利用「台中十大伴手禮」、「真心實意的惦記」等獨有語義資產，建立品牌記憶點。</p>
+</div>
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-300">
+    <h5 class="font-semibold text-green-700 mb-2">內容深度與品質分析</h5>
+    <p class="text-gray-700">品牌方擁有詳細的頁面大綱和清晰的產品分類，內容組織深度足夠。然而，頁面呈現為長列表，缺乏「為何選擇我們」、「顧客好評」等能提升內容深度和使用者停留時間的模組。應考慮建立專門的分類頁，提供更豐富的導購內容。</p>
+</div>
+                        </div>
+
+                            <div class="success-box">
+    <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 內容差異化機會</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">差異化內容策略：</h5>
+            <ul class="space-y-2">
+                <li><strong>建立「為何選擇實心蛋捲」專區：</strong>利用圖文、影片展示蛋捲橫切面，直觀呈現餡料飽滿度，與「市售空心蛋捲」形成視覺對比。</li>
+                <li><strong>增加「實心食材故事」模塊：</strong>詳細介紹核心原料來源，強調「真材實料」的承諾。</li>
+                <li><strong>創建「禮盒選購指南」：</strong>根據不同送禮對象和預算，推薦合適的禮盒組合，扮演送禮顧問角色。</li>
+                <li><strong>整合「顧客真實開箱」：</strong>利用UGC（用戶生成內容）建立信任感，體現E-E-A-T中的Experience。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-300">
+    <h5 class="font-semibold text-blue-700 mb-2">專業性與權威性對比</h5>
+    <p class="text-gray-700">品牌方在權威性(Authority)方面表現最強，透過在關鍵位置（H1, Meta）反覆強調「台中十大伴手禮-首獎、金口碑獎」，建立了極具說服力的第三方認證。然而，在專業性(Expertise)方面展現較弱，未深入介紹製作工藝或原料選擇標準，與強調頂級原料的「鬍子國王」相比，專業論述有待加強。</p>
+</div>
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-300">
+    <h5 class="font-semibold text-green-700 mb-2">可信度指標評估</h5>
+    <p class="text-gray-700">網站具備電商標準功能（訂單查詢、購物說明）和網站驗證碼，提供了基礎的信賴(Trust)元素。但頁面缺乏更深度的信任信號，如用戶評論、媒體報導、詳細的公司資訊或退換貨政策，導致社會認同(Social Proof)不足，新用戶的信任建立過程較慢。</p>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標 (Trust)：</h5>
+      <ul class="space-y-2">
+        <li><strong>突顯獲獎紀錄：</strong> 將「台中十大伴手禮-首獎」、「金口碑獎」等獎項以視覺化徽章的形式呈現在頁面頂部或每個禮盒旁，而不僅是文字。</li>
+        <li><strong>展示顧客評價：</strong> 整合具體的顧客好評或星級評分模組，增加社會證明。引用來自Google商家檔案或Facebook的真實評論。</li>
+        <li><strong>透明化產品資訊：</strong> 清晰標示每款禮盒的成分、營養資訊及過敏原，提升消費者信任感。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展專業內容 (Expertise &amp; Authoritativeness)：</h5>
+      <ul class="space-y-2">
+        <li><strong>創辦人/品牌故事：</strong> 新增一個區塊介紹「實心蛋捲」的品牌理念，例如「一份真心實意的惦記」背後的故事，建立情感連結。</li>
+        <li><strong>製作工藝揭秘：</strong> 透過圖文或短影片展示蛋捲的製作過程，強調用料的講究與「實心」的獨特工法，展現專業性。</li>
+        <li><strong>企業合作案例：</strong> 如果有與知名企業合作的案例，可以Logo牆或簡短案例分享的形式展示，大幅提升企業客戶的信賴感。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">體驗證明 (Experience)：</h5>
+      <ul class="space-y-2">
+        <li><strong>媒體報導與開箱分享：</strong> 彙整媒體報導、知名部落客或KOL的開箱文連結或引述，證明產品已獲得市場的真實體驗與肯定。</li>
+        <li><strong>引導用戶生成內容 (UGC)：</strong> 舉辦社群活動，鼓勵顧客分享開箱照或送禮故事，並將精選內容展示在頁面上。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li><strong>增加篩選功能：</strong> 在產品列表頂部增加簡單的篩選器，如「依價格範圍」、「依口味（肉鬆、花生）」、「依場合（彌月、企業）」，幫助用戶快速找到目標商品。</li>
+        <li><strong>價格標示清晰化：</strong> 將原價與特價用不同顏色和大小標示，讓優惠資訊一目了然，刺激購買慾望。</li>
+        <li><strong>行動呼籲按鈕優化：</strong> 將「加入購物車」或「立即選購」的按鈕設計得更醒目，確保在頁面滾動時用戶能輕易找到。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>建立專門的禮盒分類頁：</strong> 重新設計一個「蛋捲禮盒」專頁，採用更美觀的網格佈局而非單純的垂直列表，提升視覺吸引力。</li>
+        <li><strong>互動式禮盒推薦工具：</strong> 開發一個簡單的問答式工具（例如：「您的送禮對象是誰？」、「您的預算多少？」），引導使用者找到最適合的禮盒，提升轉換率。</li>
+        <li><strong>優化產品圖片：</strong> 提供多角度、高解析度的產品照片，包含禮盒外觀、蛋捲實體、內餡特寫以及搭配提袋的情境照，提升購物體驗。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">3</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">青鳥旅行</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">情感價值&amp;精緻送禮</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.bluebirdtravel.com.tw/?srsltid=AfmBOooPmRId96GihPdsE7xGU7Xn6iAtcop8EbaDpVa_PcgCywIk8XjE" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.bluebirdtravel.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">以「情感價值與精緻送禮」為核心定位，透過名人代言（楊謹華）、權威獎項（金口碑獎）和充滿感性的文案，成功塑造了高端、富含情感的伴手禮形象。其策略不僅是銷售蛋捲，更是提供一種傳遞真摯心意的解決方案，精準打動了重視送禮儀式感的消費者。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流圍繞「祝福」與「相聚」展開，文案如「隨極光綻放，傳遞真心祝福」，將產品與美好時刻連結。CTA隱含在品牌故事中，鼓勵消費者購買一份有意義的禮物，而不僅是商品。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 透過感性文案喚起用戶美好的送禮與收禮經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 展現了在品牌形象塑造與情感營銷上的高度專業。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 「金口碑獎」和名人代言是其權威性的強力支柱。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 獎項、名人及精緻的品牌形象共同建立了高度的消費者信賴。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">海邊走走</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">明星伴手禮&amp;經典口味</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.hiwalk.co/products/higift?srsltid=AfmBOoof6Q_1f0GG9yTmIivoN8v3QWLTi5HFB6qoRygK5VCiKqXwi7XB" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.hiwalk.co</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位於「明星伴手禮與經典口味」，直接訴求市場主流偏好。策略上強調「台港名人指定」，利用名人效應快速建立品牌知名度與信賴感。產品線聚焦於肉鬆、花生等大眾接受度高的經典口味，主攻尋求安全、知名選擇的廣大消費群體，策略清晰且高效。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事直接，以「綜合蛋捲禮盒包含全系列商品，讓您一口氣全部買足」為核心，強調產品的全面性與購買的便利性。CTA明確，引導用戶購買這款受名人青睞的熱銷組合。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 訴諸消費者對經典口味（肉鬆、花生）的熟悉與喜愛經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 在經典口味的調配與製作上展現專業。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 「台港名人指定」是其最核心的權威背書。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 名人效應為品牌帶來了強大的市場信賴感。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第3名</span>
+                <h4 class="font-bold text-xl">六月初一</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">獨特產品形態</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.june1.com.tw/?srsltid=AfmBOoqtE6_Uz-nsACG0MluzdGD3c9H72kxRN-9upWl-haveaAsTkv8X" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.june1.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">以「獨特產品形態」為核心競爭力，其「8結蛋捲」在全球範圍內具有唯一性，這成為了品牌最強大的護城河。策略上，將產品創新與地域榮譽（台中十大伴手禮）相結合，成功地在競爭激烈的市場中開闢了一個獨特的利基市場，吸引了追求新奇與差異化的消費者。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事圍繞「有層次的幸福味道」和「全球唯一8字型蛋捲」展開，強調產品的獨特性和帶來的美好感受。CTA是邀請消費者體驗這份獨一無二的美味，成為「伴手禮專家」。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 提供獨特的「8字型」食用體驗，創造記憶點。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 在研發和量產獨特形態蛋捲方面擁有絕對的專業壁壘。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 「台中十大伴手禮」的榮譽為其提供了地方性的權威認證。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 產品的獨特性和地方獎項建立了消費者的信任。</div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方標題過長且未聚焦核心關鍵詞，而競爭者C1、C3、C5的標題則精準地結合了獎項、獨特賣點或價值主張，更具吸引力。</div>
+          <div><strong>描述效能：</strong>品牌方描述較為平鋪直敘，而領先的競爭者則在描述中融入了社會證明（名人推薦）或清晰的價值傳遞（頂級食材），更能激發點擊慾望。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">價值導向型 (C1, C5)：</h5>
+            <p class="text-gray-600">強調獲獎、頂級食材、精緻質感，直接提升品牌價值感與用戶期望。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">特點聚焦型 (C3, C8)：</h5>
+            <p class="text-gray-600">突出獨一無二的產品形態（8結）或核心賣點（有餡），建立清晰的市場區隔。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">權威背書型 (C1, C2)：</h5>
+            <p class="text-gray-600">利用獎項、名人推薦等第三方證明來快速建立信任感。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">場景應用型 (C1, C3)：</h5>
+            <p class="text-gray-600">明確點出「伴手禮」、「企業送禮」等使用場景，直接命中高意圖用戶的搜尋需求。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>將「實心」從一個名詞轉化為一個承諾。強調「餡料飽滿度」、「真材實料」、「拒絕空心」，直接回應消費者對市售有餡蛋捲可能餡料不足的擔憂。</li>
+        <li><strong>競爭優勢：</strong>相較於C1的情感訴求和C5的奢華定位，B1可以主打「誠實、有料、高CP值」的務實路線，吸引更廣泛的家庭及企業客戶。</li>
+        <li><strong>目標受眾：</strong>針對追求「物有所值」、重視食材本身、送禮希望對方感受到滿滿誠意的消費者。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong><code>實心蛋捲｜每一口都是爆漿內餡！年度回購率第一蛋捲禮盒推薦</code>。這個標題直接點出品牌名和核心賣點（爆漿內餡），並用「回購率第一」建立社會認同，長度適中，關鍵詞突出。</li>
+        <li><strong>描述優化：</strong><code>還在找真材實料的蛋捲禮盒？【實心蛋捲】堅持使用天然奶油與在地食材，打造業界最高70%內餡佔比！拒絕空心、口口扎實飽滿。超過千則五星好評，是您企業送禮、年節伴手禮最「實心」的選擇。</code>。此描述以問題開頭，提出解決方案，量化優勢（70%內餡），建立信任（千則好評），並覆蓋多個場景關鍵詞。</li>
+        <li><strong>執行優先級：</strong><strong class="text-red-500">高</strong>。Meta優化是成本最低、見效最快的SEO調整，應立即實施。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方擁有詳細的H標籤結構，產品分類清晰，內容組織深度足夠。</div>
+          <div><strong>板塊覆蓋：</strong>主要為電商產品列表，缺乏品牌故事、製作工藝等深度內容板塊。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者普遍表現：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>多數競爭者頁面結構簡單，依賴品牌形象而非內容深度。C5雖提供詳細規格，但H標籤使用混亂，不利於SEO。</div>
+          <div><strong>市場空白：</strong>市場普遍缺乏結構化、深度的「蛋卷禮盒」綜合性登陸頁，這為品牌方創造了內容權威性的機會。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">內容覆蓋深度比較：</h5>
+            <p class="text-gray-600">C5（鬍子國王）在原料透明度上表現最佳，提及「AOP認證奶油」等，體現了專業性。其他競爭者較少深入探討食材來源、製作工藝等深度內容，為品牌方留下了差異化空間。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">專業模塊缺口識別：</h5>
+            <p class="text-gray-600">市場普遍缺乏「製作工藝揭秘」、「食材溯源故事」、「不同口味比較指南」、「禮盒搭配哲學」等能體現專業並幫助用戶決策的內容模塊。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-green-600 mb-4 pb-1 border-b-2 border-green-200">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-blue-700 mb-2">內容補強機會識別：</h5>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>建立「為何選擇實心蛋捲」專區：</strong>利用圖文或影片，展示蛋捲橫切面，直觀呈現餡料的飽滿度，與「市售空心蛋捲」形成強烈對比。</li>
+                <li><strong>增加「實心食材故事」模塊：</strong>詳細介紹核心原料的來源，如花生、肉鬆的產地與挑選標準，強化「真材實料」的承諾。</li>
+                <li><strong>創建「禮盒選購指南」：</strong>根據不同送禮對象（長輩、朋友、客戶）和預算，推薦合適的禮盒組合，解決用戶選擇困難。</li>
+                <li><strong>整合「顧客真實開箱」：</strong>嵌入用戶在社交媒體上的好評與開箱照片，利用UGC建立信任感（E-E-A-T中的Experience）。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-purple-700 mb-2">差異化內容策略：</h5>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>核心敘事：</strong>品牌內容核心應始終圍繞「**誠實**」與「**飽滿**」。</li>
+                <li><strong>獨特角度：</strong>發布一篇名為「蛋捲的『實心』之路：我們如何克服空洞」的博客文章，講述研發故事，這不僅能體現專業（Expertise），更能引發用戶情感共鳴，建立品牌信任（Trustworthiness）。</li>
+                <li><strong>執行路徑：</strong>創建一個專門針對「蛋卷禮盒」的綜合性登陸頁（Landing Page），而非單純的商品列表頁，以建立內容權威性。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">公司福委會成員、行政採購人員、業務人員，以及有送禮需求的年輕家庭或個人 (28-45歲)。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">進階的網路購物者，熟悉比價與搜尋評論，但對蛋卷品牌差異可能不是專家。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">時間有限，追求高效率決策；預算範圍中高，重視CP值與禮品所傳達的品味。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：選擇疲勞</strong>
+        <span class="text-gray-600">市場上蛋卷品牌眾多，包裝與訴求相似，難以快速辨識差異與優劣。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：價值判斷困難</strong>
+        <span class="text-gray-600">擔心禮盒價格與內容物價值不符，或包裝過度、內容空洞，顯得不夠有誠意。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：採購流程繁瑣</strong>
+        <span class="text-gray-600">特別是企業採購，常面臨詢價、索取樣品、客製化等複雜流程，耗費大量溝通成本。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">品牌熟悉度：</strong>
+        <span class="text-gray-600">對「實心蛋捲」品牌不熟悉，擔心新品牌踩雷。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">產品體驗未知：</strong>
+        <span class="text-gray-600">無法從圖片判斷「實心」的口感與傳統蛋卷的具體差異。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">信任感不足：</strong>
+        <span class="text-gray-600">缺乏足夠的第三方評價或媒體報導來建立信任感。</span>
+      </div>
+    </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>用戶已認知到送禮需求，策略重點在於直接切入比較，用「實心」的獨特性攔截處於考慮階段的用戶。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>透過視覺化差異（橫切面圖）、場景化推薦（商務、節慶）和社會認同（顧客好評），強化「實心=真材實料=高價值感」的品牌聯想。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>提供透明的產品資訊、便捷的服務說明（運費、出貨時間）和FAQ，消除用戶最後的猶豫，讓購買流程極致順暢。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>提供感官衝擊的「實心」體驗、高CP值的體面贈禮，以及高效專業的企業服務。</div>
+          <div><strong>競爭優勢展現：</strong>設立「為何選擇實心蛋捲？」專區，以圖表對比空心與實心的差異；並推出「企業用戶專區」，提供遠超競品的線上採購體驗。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>多數競品價值溝通模糊，企業採購體驗不佳，且資訊分散，決策路徑冗長。</div>
+          <div><strong>品牌突破機會：</strong>建立「送禮指南」專區，成為用戶的「送禮顧問」；打造業界頂尖的「企業採購線上體驗」；提供小量客製化服務，滿足個人化需求。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">搜尋結果的標題與描述直接突出「實心蛋捲，每一口都真材實料」、「企業送禮首選」，精準吸引目標用戶點擊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">登陸頁首屏以高品質影片或動態圖，展示蛋捲被剝開、內餡滿溢的瞬間，標題直擊痛點：「送膩了空心蛋卷？試試真正有料的『實心蛋捲』」。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">設計清晰的視覺動線，依序為「實心特色 → 依送禮場合推薦 → 消費者好評 → 企業成功案例 → 立即選購」，引導用戶逐步深入。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立機制：</strong>
+          <span class="text-gray-600">在頁面側邊或底部放置「安心保證」圖標（如：SGS檢驗合格、嚴選原料等），增強用戶的信任感。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化：</strong>
+          <span class="text-gray-600">點擊任一禮盒，詳情頁再次以多角度照片和影片強化「實心」特色，並搭配送禮情境文案，激發購買慾望。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除：</strong>
+          <span class="text-gray-600">提供即時客服（Chatbot或真人），快速回答庫存、運送等問題，掃除用戶的決策障礙。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計：</strong>
+          <span class="text-gray-600">「立即選購」、「加入購物車」按鈕色彩突出。為企業用戶提供更明確的「索取企業方案」或「預約專人聯繫」CTA。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化：</strong>
+          <span class="text-gray-600">簡化結帳流程，支援多元支付方式（LINE Pay, Apple Pay）。企業表單設計清晰易懂，提交後立即給予確認回饋。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>「蛋卷禮盒」市場由知名品牌主導，競爭激烈。品牌方「實心蛋捲」排名第4，最大機會點在於利用其「實心=誠意」的獨特價值主張，攻擊競品溝通模糊與用戶擔心「禮盒空虛」的痛點。透過修正當前明顯的技術SEO缺陷，並圍繞「實心」構建差異化內容，有望快速突破重圍。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：技術SEO快速優化 (Quick Wins)</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修正當前頁面錯誤的Meta標籤和混亂的&lt;h1&gt;標籤。這是影響排名的最基礎且最關鍵的因素，修復成本極低，效益極高。</div>
+        <div><strong>執行評估：</strong>難度：低 | 預期效果：排名提升1-2位 | 資源：SEO/開發 0.5人天</div>
+        <div><strong>優先級：</strong><strong class="text-red-600">極高</strong> - 這是所有優化工作的基礎，應立即執行。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與差異化建設</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>利用「實心」的獨特賣點，創建「為何選我們」、「送禮指南」等深度內容模組，以高品質視覺內容建立信任感，解決用戶「選擇疲勞」的痛點，超越僅有商品列表的競爭對手。</div>
+        <div><strong>執行評估：</strong>難度：中 | 預期效果：穩定前3名，提升轉換率 | 資源：內容/設計/文案</div>
+        <div><strong>優先級：</strong><strong class="text-orange-500">高</strong> - 建立品牌護城河、實現長期競爭優勢的關鍵。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：精準滿足企業採購意圖</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>競品普遍忽略了企業採購的用戶體驗。建立一個專業、透明的「企業採購」專區，提供案例、流程說明與便捷的聯繫方式，能有效捕獲這部分高價值流量。</div>
+        <div><strong>執行評估：</strong>難度：中 | 預期效果：開拓B2B市場，提升客單價 | 資源：UX/開發/業務</div>
+        <div><strong>優先級：</strong><strong class="text-yellow-500">中</strong> - 在基礎優化後，這是實現業務增長的重要引擎。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>結合產品特性：</strong>`爆漿蛋捲禮盒`、`餡料多的蛋捲推薦`、`厚蛋捲禮盒`、`不空心蛋捲`</div>
+        <div><strong>結合送禮場景：</strong>`企業送禮 蛋捲`、`客戶拜訪 伴手禮`、`台中十大伴手禮 蛋捲`、`高級感蛋捲禮盒`</div>
+        <div><strong>問題導向：</strong>`蛋捲禮盒哪個牌子料最實在`、`送長輩的蛋捲禮盒`、`辦公室團購蛋捲`</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「有餡」升級為「滿餡」、「爆餡」，強調「拒絕空氣感」的誠實態度，將「實心」與「誠意」深度綁定。</div>
+        <div><strong>專業詞彙：</strong>在內容中引入「70%黃金內餡比例」、「雙層酥脆餅皮工法」等詞彙，建立專業形象。</div>
+        <div><strong>品牌調性：</strong>文案風格圍繞「真心實意」、「扎實」、「口口滿足」，與競品的情感或奢華路線做出區隔。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>轉換路徑始於SERP上以「實心」、「爆漿」的Meta文案吸引點擊。進入頁面後，首屏以強烈視覺衝擊力的「蛋捲橫切面」留住用戶。頁面動線設計為：<strong>視覺衝擊（我是誰）→ 價值主張（為何選我）→ 場景匹配（送禮指南）→ 社會證明（顧客好評）→ 行動呼籲（立即選購/企業方案）</strong>。透過清晰的B2C與B2B分流CTA，並簡化結帳流程與表單，最終將「對實心的好奇」高效轉化為「對誠意的購買」。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>透過修正技術SEO缺陷，並建立一個以「實心=誠意」為核心的權威性登陸頁，快速超越排名第3的對手。</div>
+        <div><strong>競爭者超越路徑：</strong>攻擊競品在「價值感」溝通上的模糊地帶，用視覺化的內容（橫切面對比）和深度內容（送禮指南）建立差異化，從商品列表頁升級為送禮解決方案顧問。</div>
+        <div><strong>使用者價值最大化：</strong>解決用戶對「禮盒空虛」的擔憂和「選擇困難」的痛點，提供從個人送到企業的一站式、高信任度的購買體驗。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將「實心蛋捲」定位為「蛋捲禮盒界的送禮顧問」與「真材實料的代名詞」。</div>
+        <div><strong>差異化價值：</strong>唯一主打「拒絕空氣感」，將產品物理特性（實心）與送禮情感價值（誠意）深度綁定的品牌。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>第一階段（1個月內）進入前3名，第二階段（3個月內）穩定前2，長期目標挑戰第1。</div>
+        <div><strong>流量增長目標：</strong>3個月內自然搜尋流量提升50%。</div>
+        <div><strong>轉換率優化：</strong>B2C轉換率提升15%，B2B詢價量提升30%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：技術優化快速突破（1-4週）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心任務：</strong>
+          <span class="text-gray-600">修正Meta標籤與H1標籤，解決最基礎的SEO問題，快速超越排名第3的對手「六月初一」。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容差異化競爭超越（1-3個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心任務：</strong>
+          <span class="text-gray-600">建立「送禮指南」、「顧客見證」等深度內容模組，強化品牌價值，挑戰排名第2的「海邊走走」。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：權威地位建立（3-6個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心任務：</strong>
+          <span class="text-gray-600">打造專屬的「蛋卷禮盒」分類頁，並建立專業的「企業採購」專區，全面優化用戶體驗，爭取榜首位置。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>產品分類清晰，具備良好的內容組織基礎。</div>
+          <div><strong>改善空間：</strong>內容過於交易導向，缺乏品牌故事、製作理念、顧客口碑等建立信任與情感連結的元素。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">內容動線優化策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>執行策略：</strong>內容動線應遵循AIDA模型：以「送膩了空心蛋捲嗎？」的痛點吸引**注意(Attention)**，用「爆漿橫切面」視覺化內容激發**興趣(Interest)**，透過「為何選我們」和「送禮指南」建立**慾望(Desire)**，最後以清晰的「立即選購」和「企業方案」按鈕促成**行動(Action)**。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>視覺化「實心」衝擊力：</strong>首屏展示蛋捲橫切面對比圖，秒殺傳統空心蛋捲。</div>
+        <div><strong>量化「真材實料」：</strong>明確溝通「70%黃金內餡比例」，將抽象價值具體化。</div>
+        <div><strong>打造「送禮顧問」角色：</strong>提供基於場景和對象的送禮指南，解決用戶選擇困難。</div>
+        <div><strong>攻佔「企業採購」心智：</strong>建立專業B2B採購專區，提供競品沒有的流暢體驗。</div>
+        <div><strong>綁定「誠意」情感價值：</strong>文案全面圍繞「實心=真心」，將產品優勢升級為情感共鳴。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>拍攝一組高品質的產品橫切面圖與影片，作為頁面核心視覺素材。</div>
+        <div>在產品描述和「為何選我們」模組中，將「70%」作為核心溝通數字。</div>
+        <div>設計一個互動式或圖文並茂的「送禮指南」內容模組。</div>
+        <div>創建一個獨立的「企業採購」頁面，包含流程、案例和專屬表單。</div>
+        <div>全頁文案審核，確保品牌調性（扎實、誠意、滿足）的統一性。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+        <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+        <h4 class="font-bold text-lg mb-4 text-green-800">B2C 個人用戶路徑</h4>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <p class="text-gray-600">通過「人氣禮盒推薦」和「依場合/預算篩選」功能，快速引導用戶至目標產品詳情頁。在產品頁，優化「加入購物車」按鈕的視覺效果，並簡化結帳流程，提供多種支付方式，以降低購物車放棄率。</p>
+        </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+        <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+        <h4 class="font-bold text-lg mb-4 text-blue-800">B2B 企業用戶路徑</h4>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <p class="text-gray-600">在頁面導航欄、首屏及頁尾等多處設置清晰的「企業採購」入口，將高價值流量引導至專屬採購頁面。該頁面提供成功案例、服務流程說明，並以「索取樣品/報價」的表單作為主要轉換點，捕獲高質量的潛在客戶。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-gray-800 mb-2">1. 視覺引導</h5>
+        <p class="text-gray-600">使用高品質圖片和影片，特別是蛋捲橫切面對比圖，作為頁面視覺核心，強力引導用戶視線，在3秒內傳達「實心」的核心價值。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-gray-800 mb-2">2. 降低決策成本</h5>
+        <p class="text-gray-600">提供「依價格/口味/場合」的篩選器和清晰的產品比較表，幫助用戶在眾多選項中快速做出決策，避免因選擇困難而流失。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-gray-800 mb-2">3. 移動端優先</h5>
+        <p class="text-gray-600">確保所有內容模組、篩選器和CTA按鈕在手機螢幕上都能完美呈現且易於點擊，優化行動裝置用戶的購物流程。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-gray-800 mb-2">4. 提升頁面速度</h5>
+        <p class="text-gray-600">優化所有高清圖片的大小，確保頁面在3秒內加載完成。快速的加載速度是留住用戶、降低跳出率的關鍵因素。</p>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
