@@ -1,0 +1,2118 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | ONF</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">ONF SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「植物燈」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">9</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">貴司網站的「植物燈」頁面目前定位為一個純粹的<strong>產品集合頁（Collection Page）</strong>。從頁面標題與描述皆為「植物燈具」可見，其核心目標是直接展示商品，滿足已有明確購買意圖、且可能已認識 ONF 品牌的用戶需求。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容涵蓋極為單一，完全聚焦於商品陳列。根據數據分析，頁面缺乏結構化的文字內容（Outline為空），這表示除了產品本身，<strong>幾乎沒有提供任何教育性、引導性或比較性的資訊</strong>。這使得頁面難以滿足處於研究、比較階段的潛在客戶。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對於已經決定購買 ONF 產品的忠實顧客，此頁面提供了直接的瀏覽與選購路徑。然而，對於廣大的新用戶，頁面價值較低，因為它<strong>未能解答初學者關於「為何需要植物燈」、「如何挑選」以及「如何使用」等關鍵問題</strong>，這也是目前排名無法進入前段班的核心原因。</p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>基礎知識與原理缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">缺乏關於「植物燈是什麼」、「運作原理」、「為何需要」以及「與一般燈具的差異」等基礎教育內容。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">新手用戶在搜尋「植物燈」時，首要意圖是了解其功能與必要性。他們想知道這筆投資是否值得，以及它如何幫助室內植物生長。排名第一的 Dancelight 和第六的 UPRtek 都提供了詳盡的原理說明，成功捕捉了這批資訊導向的流量。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">在頁面上方新增一個圖文並茂的區塊，用簡潔的語言解釋<strong>全光譜、PPFD值</strong>等核心概念，建立品牌的專業形象。</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-list-check text-orange-600 mr-2"></i>選購指南與決策支援缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面未提供任何幫助用戶決策的選購指南，例如如何根據<strong>植物種類（觀葉、多肉）、空間大小、預算</strong>等因素來挑選合適的燈具。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶在了解基本原理後，下一步就是「我該買哪一款？」他們需要具體的標準來評估選項。競爭者 Succuland (排名#7) 直接以「7款植物燈推薦」為標題，並針對不同情境（小空間、書桌）推薦，這對用戶極具吸引力。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">設計一個「<strong>ONF植物燈選購指南</strong>」的互動模組或比較表格，讓用戶能依據自身需求快速找到最適合的產品型號，並說明各型號的設計理念與適用場景。</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-question-circle text-purple-600 mr-2"></i>使用教學與常見問答(FAQ)缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">缺乏關於植物燈的實際使用指導，例如「<strong>安裝方式」、「照射距離多遠」、「每天要開多久</strong>」等用戶最關心的實務問題。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶擔心買了之後不會用，或用錯了反而傷害植物。提供清晰的使用指南能消除他們的購買疑慮。排名第一的 Dancelight 設有專門的 Q&amp;A 區塊，而 YouTube 影片更是直接解答了這些痛點，顯示出這類內容的高度需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">建立一個詳細的「<strong>常見問答 FAQ</strong>」區塊，並可嵌入簡短的教學影片，解答用戶從安裝到日常使用的所有疑問，提升購買信心。</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-images text-blue-600 mr-2"></i>應用情境與案例展示缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">缺少展示 ONF 植物燈在真實居家或辦公環境中的<strong>應用範例（Use Case）</strong>或用戶案例分享。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">ONF 的產品以其卓越的工業設計聞名（甚至被 Succuland 特別推薦），用戶不僅僅是為了功能，也為了美學而購買。他們需要看到產品如何融入空間、提升質感。單純的商品圖無法滿足這種情境想像的需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">新增一個「<strong>生活美學</strong>」或「<strong>用戶分享</strong>」的區塊，展示高品質的用戶投稿照片或KOL合作案例，突顯 ONF 產品不僅是植物燈，更是提升空間格調的設計單品。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">頁面具備基礎的 SEO 技術設定，如 <strong>Canonical 標籤</strong>、<strong>Open Graph 標籤</strong>用於社群分享，以及針對行動裝置的 <strong>Viewport 設定</strong>。從網址結構 (`/pages/`) 和原始碼中的 `csrf-token` 等特徵判斷，網站應是使用 <strong>Shopline</strong> 平台架設，其技術體質普遍良好。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">這是目前頁面最嚴重的技術問題。頁面內容結構極度缺乏，<strong>缺少一個清晰的 &lt;h1&gt; 主標題，也完全沒有使用 &lt;h2&gt;、&lt;h3&gt; 等標籤來組織內容層次</strong>。這讓搜尋引擎難以理解頁面的核心主題與內容架構，是導致排名不佳的關鍵技術因素。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">最迫切的改善建議是<strong>重寫 Meta 標籤</strong>。目前的標題「植物燈具」和描述「植物燈具」資訊量為零，無法吸引用戶點擊。應修改為更具吸引力的文案，如「<strong>ONF 植物燈推薦｜結合設計美學與專業光譜，打造室內綠意生活</strong>」。更重要的是，必須在頁面中加入豐富的文字內容，並使用完整的標題層級（&lt;h1&gt; 至 &lt;h3&gt;）進行結構化佈局，以符合 SEO 最佳實踐。</strong></p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li>目前頁面定位為純產品列表，無法與排名靠前、內容豐富的「指南型」頁面競爭。</li>
+    <li>最大的內容缺口在於<strong>缺乏基礎知識、選購指南和使用教學</strong>，無法滿足搜尋用戶的資訊需求。</li>
+    <li>Meta 標籤（標題與描述）過於簡略，嚴重影響搜尋結果頁的點閱率（CTR）。</li>
+    <li>頁面完全沒有使用標題標籤（&lt;h1&gt;, &lt;h2&gt;）來組織內容，這是<strong>最關鍵的結構性 SEO 缺陷</strong>。</li>
+    <li>競爭對手網站（Succuland）已在推薦 ONF 產品，證明品牌具有良好的市場口碑與設計優勢，但此優勢未在官方頁面中有效傳達。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">2</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第9位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">8個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 dancelight.com.tw 距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前位於搜尋結果第一頁的末端，這是一個充滿機會的位置。當前頁面存在根本性的SEO缺失，特別是在內容結構與深度方面，一旦補強，排名有極大的上升潛力。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>ONF</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+  <td class="px-4 py-2 border-b">標題策略</td>
+  <td class="px-4 py-2 border-b">「植物燈具」，過於簡潔，資訊量不足。</td>
+  <td class="px-4 py-2 border-b">結合問題（有用嗎？）、解決方案（推薦、一次看）與關鍵詞（原理、優缺點）。</td>
+  <td class="px-4 py-2 border-b">擴充為包含「推薦」、「選購指南」和品牌獨特賣點（如：設計美學、專業光譜）的完整標題。</td>
+</tr>
+<tr>
+  <td class="px-4 py-2 border-b">描述內容</td>
+  <td class="px-4 py-2 border-b">「植物燈具」，與標題重複，無附加價值。</td>
+  <td class="px-4 py-2 border-b">摘要文章內容，解答用戶初步疑問，提供購買理由與引導。</td>
+  <td class="px-4 py-2 border-b">撰寫一段約150字的描述，強調ONF植物燈如何解決室內光照不足問題，並提升居家質感，最後附上CTA。</td>
+</tr>
+<tr>
+  <td class="px-4 py-2 border-b">關鍵詞覆蓋</td>
+  <td class="px-4 py-2 border-b">僅覆蓋核心詞「植物燈具」。</td>
+  <td class="px-4 py-2 border-b">廣泛覆蓋「植物生長燈」、「全光譜」、「多肉」、「推薦」等高相關性詞彙。</td>
+  <td class="px-4 py-2 border-b">自然地將「植物生長燈」、「室內植物」、「多肉燈」等詞彙融入標題與描述。</td>
+</tr>
+<tr>
+  <td class="px-4 py-2 border-b">獨特賣點 (USP)</td>
+  <td class="px-4 py-2 border-b">無</td>
+  <td class="px-4 py-2 border-b">排名第7的Succuland強調「工業設計」，排名第1的舞光強調「知識普及」。</td>
+  <td class="px-4 py-2 border-b">在Meta中明確標示ONF的「設計師品牌」、「專業光譜技術」或「提升生活美學」等高端定位。</td>
+</tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">
+<h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+<div class="space-y-2">
+  <p><strong>1. 結構性內容缺失 (Thin Content):</strong> 品牌頁面最嚴重的問題是缺乏實質內容。從 `outline` 數據為空可以推斷，此頁面沒有使用 <code>&lt;h1&gt;</code>、<code>&lt;h2&gt;</code> 等標題標籤來組織資訊，導致搜尋引擎難以理解其內容深度和上下文。這是一個純粹的商品展示頁，而非一個能滿足用戶完整搜尋意圖的綜合性登陸頁。</p>
+  <p><strong>2. Meta 資料優化不足:</strong> Meta 標題與描述僅為「植物燈具」，極大地浪費了向用戶和搜尋引擎傳達頁面價值的機會。缺乏吸引力、未能觸及用戶痛點，點閱率 (CTR) 可能偏低。</p>
+  <p><strong>3. 內部連結與主題叢集缺失:</strong> 作為一個核心產品頁面，它應該成為相關主題（如特定植物養護、室內設計）的中心點，但目前看來是一個孤立的頁面。</p>
+</div>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage">
+<h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+<div class="space-y-2">
+  <p><strong>1. 簡潔且語義化的 URL:</strong> <code>/pages/plant-light</code> 這個 URL 結構清晰、易於理解，並且直接包含了英文關鍵詞，對 SEO 是一個正面信號。</p>
+  <p><strong>2. 品牌域名權威:</strong> ONF 作為一個在植物燈領域有知名度的品牌，其主域名 <code>onf.com.tw</code> 本身就帶有一定的權威性。這也是為什麼在頁面內容極其單薄的情況下，依然能維持在第一頁排名的主要原因。</p>
+  <p><strong>3. 頁面加載速度與行動裝置體驗 (可能):</strong> 品牌官網通常在網站性能和使用者體驗上有較好的基礎，這點是超越內容農場或老舊網站的潛在優勢。</p>
+</div>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-semibold text-gray-800 mb-2">關鍵詞語義覆蓋分析</h4>
+<p>品牌頁面目前在關鍵詞覆蓋上呈現「窄而深」的狀態，但深度不足。僅集中火力在「植物燈」和「植物燈具」上，卻完全忽略了更廣泛的語義相關詞彙，導致錯失大量流量機會。
+<br><br>
+<strong>錯失的關鍵詞類別：</strong>
+</p><ul class="list-disc list-inside mt-2 space-y-1">
+  <li><strong>同義詞與替代詞：</strong> 植物生長燈、補光燈、多肉燈。</li>
+  <li><strong>意圖型關鍵詞：</strong> 植物燈推薦、植物燈選購、植物燈有用嗎、植物燈原理。</li>
+  <li><strong>規格與技術詞：</strong> 全光譜、LED、PPFD、瓦數 (e.g., 15W, 25W)、E27、T8。</li>
+  <li><strong>應用場景詞：</strong> 觀葉植物、多肉植物、室內植物、辦公室植物。</li>
+</ul>
+</div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-semibold text-gray-800 mb-2">內容深度與品質分析</h4>
+<p>目前的內容深度接近於零。一個成功的產品集合頁面不僅僅是商品的陳列，它應該是一個解決方案的提供者。
+<br><br>
+<strong>與競品的深度差距：</strong>
+</p><ul class="list-disc list-inside mt-2 space-y-1">
+  <li><strong>知識廣度：</strong> 排名第1的舞光（dancelight）提供了從基礎定義到進階應用的完整知識體系。我方頁面完全沒有提供任何教育性內容。</li>
+  <li><strong>選購引導：</strong> 排名第7的有肉（succuland）以策展人角度推薦7款產品，並解釋其適用場景。我方頁面缺乏引導，讓用戶在產品列表中迷失。</li>
+  <li><strong>問題解決：</strong> 排名第1和第6的頁面都有詳細的Q&amp;A環節，主動解決了用戶的潛在疑慮。我方頁面是被動等待用戶自行尋找答案。</li>
+</ul>
+</div>
+                        </div>
+
+                            <div class="p-4 border border-blue-200 rounded-lg bg-blue-50">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 內容差異化機會：從「賣產品」到「提供生活方案」</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 強調「設計美學」與「空間融合」</h5>
+      <p class="space-y-2">多數競品強調功能性，ONF最大的優勢是工業設計。內容應圍繞「植物燈不只是工具，更是家飾」這一核心理念展開。可以創建一個「風格搭配指南」模組，展示ONF植物燈如何融入北歐風、現代簡約、工業風等不同室內設計風格中。</p>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 深入解析「獨家光譜技術」</h5>
+      <p class="space-y-2">與其籠統地說「全光譜」，不如用更具體、更視覺化的方式解釋ONF的ColorFull LED技術如何還原真實太陽光，不僅對植物好，更能讓植物的色澤看起來更鮮豔、更真實，提升觀賞價值。可以放上光譜圖對比，增加專業感。</p>
+    </div>
+    <div>
+      <h5 class="font-semibold text-indigo-600 mb-2 pb-1 border-b-2 border-indigo-200">3. 策展式「植物 x 燈具」推薦</h5>
+      <p class="space-y-2">創建「植人精選組合」區塊。例如：「給鹿角蕨愛好者：推薦 Halo 吊燈」、「給多肉收藏家：推薦 Flat One 桌燈」。將產品與特定的植物愛好者社群連結，創造更強的代入感與購買動機。</p>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-semibold text-gray-800 mb-2">專業性與權威性對比</h4>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>電商平台 (momo, PChome):</strong> 擁有最高的域名權威 (Domain Authority)，但主題權威 (Topical Authority) 較分散。它們的優勢是海量商品和用戶評論。</li>
+  <li><strong>內容網站 (dancelight, succuland):</strong> 在「植物」或「照明」領域建立了強大的主題權威。它們通過提供深度、專業的內容來贏得Google的信任。</li>
+  <li><strong>品牌方 (ONF):</strong> 在「植物燈品牌」這個細分領域有權威性，但在更廣泛的「植物養護」、「室內照明」主題上較弱。目前的頁面未能有效展示其專業性。</li>
+</ul>
+</div>
+                                <div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-semibold text-gray-800 mb-2">可信度指標評估</h4>
+<p>目前頁面可能僅有品牌Logo和產品圖片，信任指標較為薄弱。要提升排名，必須增加以下元素：
+</p><ul class="list-disc list-inside mt-2 space-y-1">
+  <li><strong>用戶評價/見證：</strong> 引用KOL或真實用戶的使用心得與照片。</li>
+  <li><strong>清晰的規格數據：</strong> 提供PPFD、色溫、演色性(CRI)等專業數據。</li>
+  <li><strong>保固與售後服務說明：</strong> 明確標示產品保固期限與聯絡方式。</li>
+  <li><strong>媒體報導或獲獎紀錄：</strong> 如果有設計獎項或媒體推薦，應在頁面顯著位置展示。</li>
+</ul>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化體驗 (Experience) 與專業 (Expertise)：</h5>
+      <ul class="space-y-2">
+        <li><strong>展示真實使用案例：</strong> 在頁面中嵌入一個「用戶實證」區塊，展示由真實用戶（或合作KOL）提供的、使用ONF燈具前後的植物生長對比圖。</li>
+        <li><strong>標明研發故事：</strong> 新增一個段落介紹ONF光譜技術的研發團隊或理念，彰顯品牌背後的專業知識。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">建立權威性 (Authoritativeness)：</h5>
+      <ul class="space-y-2">
+        <li><strong>發布技術白皮書：</strong> 撰寫一篇關於「ColorFull LED」光譜技術的詳細文章或可下載的PDF，並從植物燈頁面連結過去，證明技術實力。</li>
+        <li><strong>合作夥伴連結：</strong> 如果有與知名植物店、設計師或學術機構合作，應在頁面上展示其Logo或推薦語。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">提升信任度 (Trustworthiness)：</h5>
+      <ul class="space-y-2">
+        <li><strong>透明化產品資訊：</strong> 提供完整的產品規格表，包括耗電量、PPFD圖、建議照射距離等，減少用戶的不確定性。</li>
+        <li><strong>整合用戶生成內容 (UGC)：</strong> 嵌入Instagram上帶有#ONF植物燈標籤的精選用戶照片，增加真實性與社群證明。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li><strong>增加導航錨點連結：</strong> 在頁面頂部增加一個快速導航欄，連結到「選購指南」、「桌燈系列」、「吊燈系列」、「常見問答」等頁內區塊。</li>
+        <li><strong>產品標籤化：</strong> 在每個產品圖下方加上清晰的標籤，如「多肉推薦」、「大範圍照明」、「APP控制」，幫助用戶快速篩選。</li>
+        <li><strong>視覺化照射範圍：</strong> 為主要產品提供一張簡單的圖示，標明其建議的照射高度與光照覆蓋直徑。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>開發互動式選擇工具：</strong> 製作一個「幫我挑選植物燈」的小工具，讓用戶回答幾個問題（如：你的植物是什麼？想放哪裡？），系統自動推薦最適合的ONF燈款。</li>
+        <li><strong>建立產品比較矩陣：</strong> 提供一個詳細的比較表格，讓用戶可以並列比較不同型號ONF植物燈的規格、功能、價格與適用場景。</li>
+        <li><strong>整合影片內容：</strong> 為每款主力產品嵌入一個簡短的介紹影片，展示其外觀細節、使用方式與實際光照效果。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">3</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">舞光 LED</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">知識型內容</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.dancelight.com.tw/tw/news/knowledge_036" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">dancelight.com.tw</a>
+        </p>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位為「新手導師」，通過一篇極其詳盡的知識型文章，全面解答了初學者對植物燈的所有疑問。從基礎定義、優缺點分析，到安裝教學和常見問答，構建了一個完整的用戶學習路徑，成功捕獲了大量處於資訊搜尋階段的流量，建立了強大的主題權威性。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用典型的「問題-解決方案」敘事結構，邏輯清晰，引導性強。先用「植物燈有用嗎？」引發共鳴，再系統性地提供解答，最後自然地導入自家產品推薦。CTA設計巧妙，在知識傳遞中植入購買引導，轉換路徑順暢。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience:</strong> 內容結構完整，但缺乏第一手實測數據或用戶案例，經驗性較弱。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise:</strong> 內容全面且結構化，展現了對植物燈主題的深刻理解，專業性強。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority:</strong> 作為照明品牌官網，發布此類知識內容具有天然的權威性。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust:</strong> 網站提供了清晰的品牌資訊和產品細節，建立了良好的信賴基礎。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">momo購物網</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">電商平台</div>
+                <div class="text-lg font-semibold text-blue-600">商品聚合頁</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.momoshop.com.tw/search/searchShop.jsp?keyword=%E6%A4%8D%E7%89%A9%E7%94%9F%E9%95%B7%E7%87%88" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">momoshop.com.tw</a>
+        </p>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">作為大型電商平台，其策略核心是「海量選擇」與「交易便利」。頁面直接展示搜索結果，滿足有明確購買意圖的用戶。通過品牌篩選、價格排序和促銷標籤，極大化地提升了購物效率。Meta標題中的「好評推薦」和「2025年10月」字樣，有效提升了時效性和點擊意願。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流極為直接：搜索 > 瀏覽 > 比較 > 購買。頁面結構以商品網格為主，輔以篩選器。每個商品都是一個強烈的CTA，引導用戶點擊進入詳情頁。整個頁面為交易而生，沒有多餘的資訊干擾。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience:</strong> 頁面聚合了大量用戶評價和銷售數據，提供了豐富的間接使用經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise:</strong> 專業性體現在商品分類和規格篩選的細緻程度上。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority:</strong> momo作為台灣頂級電商平台，擁有極高的域名權威。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust:</strong> 完善的購物流程、金流、物流和退貨政策，建立了強大的用戶信賴感。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第3名</span>
+                <h4 class="font-bold text-xl">瑪約 MAYOL</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">產品導向</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.mayol.com.tw/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">mayol.com.tw</a>
+        </p>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位於專注植物生長燈的垂直品牌。首頁直接展示其主力產品系列，強調「全光譜」、「高效能」等功能性賣點。品牌故事中提到對環保的關注，試圖建立情感連結。內容策略聚焦於產品本身，旨在吸引對特定功能（如多肉專用）有需求的用戶。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流為典型的品牌官網首頁，從主打產品、品牌理念到產品列表。CTA清晰，引導用戶查看產品詳情或直接購買。整體結構以展示產品和建立品牌形象為核心。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience:</strong> 缺乏用戶案例或實測分享，經驗信號較弱。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise:</strong> 專注於植物燈領域，產品線清晰，展現了垂直領域的專業性。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority:</strong> 作為品牌方，是其產品資訊的權威來源。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust:</strong> 網站設計專業，提供完整的聯絡資訊和購物流程，信賴度良好。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第7名</span>
+                <h4 class="font-bold text-xl">有肉 SUCCULAND</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">內容媒體</div>
+                <div class="text-lg font-semibold text-blue-600">生活風格策展</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://succuland.com.tw/brands-project/best-grow-light/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">succuland.com.tw</a>
+        </p>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位為「生活策展人」，精準抓住了市場上對「美感」與「設計感」的需求。文章以「7款植物燈推薦」的清單體形式，直接為用戶提供篩選後的優質選項，其中就包括了ONF。內容強調「工業設計」與「室內氣氛」，與ONF的目標客群高度重疊，是重要的潛在競爭者與合作夥伴。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用「清單式推薦」敘事流，先給出結論（7款推薦），再補充說明（為何需要、購買須知），滿足追求效率與品味的用戶。CTA是隱性的，通過建立美學認同感，引導用戶對推薦的品牌產生興趣並自行搜索。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience:</strong> 以策展人角度分享選品經驗，展現了對市場產品的熟悉度和獨到見解。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise:</strong> 在多肉植物和生活美學領域有深厚積累，專業性體現在其選品標準和美學觀點上。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority:</strong> 作為知名的植物生活品牌，其推薦內容在目標社群中具有很高的權威性。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust:</strong> 網站設計精美，內容原創性高，長期經營積累了粉絲的信賴。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第10名</span>
+                <h4 class="font-bold text-xl">YouTube - R榮</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">影音媒體</div>
+                <div class="text-lg font-semibold text-blue-600">KOL經驗分享</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4">
+            <a href="https://www.youtube.com/watch?v=uUhEdvQucwI" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">youtube.com</a>
+        </p>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位為「實踐分享者」，通過影片形式分享個人使用多款植物燈的真實經驗。標題「價格高真的比較好用？」直接命中用戶核心痛點，內容圍繞燈距、照射時長等實際操作問題展開，極具實用性。這種基於個人品牌的內容，對粉絲具有極強的說服力和黏著度。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用個人化的Q&amp;A敘事流，以對話和實測的方式解答觀眾疑問。影片的敘事節奏和視覺呈現都圍繞創作者的個人風格。CTA通常是引導觀眾訂閱頻道、按讚，或在資訊欄查看產品連結，依賴影響力進行軟性導購。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience:</strong> 核心價值所在，內容完全基於創作者的第一手使用經驗，真實性極高。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise:</strong> 雖然非學術專業，但在植物養護實踐領域展現出豐富的經驗和技巧，是實踐型專家。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority:</strong> 在其粉絲社群中擁有高度權威性，其推薦對購買決策影響巨大。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust:</strong> 長期經營與粉絲建立的信任關係是其最寶貴的資產。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>ONF的Meta標題和描述目前未能有效傳達其核心價值，或未能匹配廣泛的用戶搜索意圖。與排名靠前的競爭者相比，在關鍵詞覆蓋廣度和用戶意圖匹配上存在顯著差距。</div>
+          <div><strong>描述效能：</strong>描述內容同樣缺乏吸引力與資訊量，無法在SERP上有效爭取點擊。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">價值導向型 (C1):</h5>
+            <p class="text-gray-600"><code>植物燈有用嗎？...推薦＋哪裡買？...原理與優缺點一次看</code> - 透過提問直接命中用戶核心疑慮，並承諾提供完整解決方案，全面覆蓋資訊型搜索意圖。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">效率強調型 (C2, C4):</h5>
+            <p class="text-gray-600"><code>植物生長燈 - momo購物網 - 好評推薦</code> - 結構清晰，直接點明產品、平台和價值，強烈吸引交易型用戶。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">品質保證型 (C7):</h5>
+            <p class="text-gray-600"><code>7 款植物燈推薦！洗練的工業設計點亮室內氣氛</code> - 強調「工業設計」，精準吸引重視美學的用戶，與ONF的目標用戶高度重疊。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">經驗驅動型 (C10):</h5>
+            <p class="text-gray-600"><code>價格高真的比較好用？我推薦這幾款！...【植物燈經驗分享】</code> - 利用KOL的個人經驗建立信任，標題充滿對話感和真實性。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>將「設計美學」與「專業光譜」結合。不僅是燈，更是提升空間質感的藝術品，同時滿足植物最苛刻的生長需求。</li>
+        <li><strong>競爭優勢：</strong>強調ONF獨有的「高演色性(Ra&gt;95)類太陽光譜」與「國際設計大獎認證」，這是大眾品牌無法比擬的優勢。</li>
+        <li><strong>目標受眾：</strong>訴求對象為「室內設計師」、「專業植物玩家」及「生活美學家」。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>`ONF植物燈推薦：兼具設計美學與專業光譜，打造您的室內綠洲 | 挑選指南`。此標題融合品牌、價值主張（設計、專業）、用戶利益（綠洲）及行動呼籲（挑選指南），長度與關鍵詞密度適中。</li>
+        <li><strong>描述優化：</strong>`厭倦了醜陋的功能性植物燈？ONF為您提供榮獲國際設計大獎的植物燈，以博物館級高演色性光譜，完美呈現植物最真實的色彩，促進健康生長。探索我們的桌燈、吊燈系列，找到最適合您空間的燈具。`</li>
+        <li><strong>執行優先級：</strong>高。Meta優化是提升點擊率最直接、成本最低的方式，應立即執行。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>ONF的內容可能集中於單品介紹，缺乏一個如C1或C6那樣全面性的知識中心頁面，導致無法滿足用戶的資訊型搜尋意圖。</div>
+          <div><strong>板塊覆蓋：</strong>在基礎科普、橫向比較、應用場景展示和數據支持等核心板塊存在嚴重缺口。</div>
+        </div>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者敘事流分析：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>新手導師型 (C1):</strong> 採用「問題-解決方案」敘事流，完整引導新手從認知到決策的全過程。</div>
+          <div><strong>技術專家型 (C6):</strong> 結構嚴謹，專為尋求深度技術解析的用戶設計，建立極高的專業度。</div>
+          <div><strong>生活策展人型 (C7):</strong> 採用「清單式推薦」敘事流，滿足追求效率與品味的用戶。</div>
+          <div><strong>實踐分享者型 (C10):</strong> 基於個人經驗的Q&amp;A敘事流，展現極強的「第一手經驗」。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="warning-box">
+  <h4 class="font-semibold text-yellow-800 mb-4 pb-1 border-b-2 border-yellow-300">🎯 品牌方內容補強與差異化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容補強機會識別（建立信任基礎）：</h5>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>創建「植物燈終極指南」頁面：</strong>整合C1的廣度與C6的深度，但用更精緻、更易讀的方式呈現。包含`植物光學基礎`、`為何選擇全光譜`、`ONF專利光譜技術解析`、`常見植物PPFD需求表`等模塊。</li>
+        <li><strong>建立「應用案例/靈感」板塊：</strong>展示由專業攝影師拍攝的、ONF植物燈在不同室內設計風格中的應用照片與影片，強化「美學」標籤。可與室內設計師或植物KOL合作。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">差異化內容策略（建立品牌護城河）：</h5>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>發布「設計師訪談」或「研發故事」：</strong>深入介紹產品背後的設計理念與技術挑戰，傳達品牌價值，建立情感連接。這是電商平台和低價品牌無法複製的內容。</li>
+        <li><strong>推出「珍稀植物養護專欄」：</strong>針對使用高端植物燈的用戶通常養護的植物類型（如高級觀葉植物、塊根植物），提供精準的養護指南，將ONF定位為「專業玩家的首選」。</li>
+        <li><strong>製作「數據對比報告」：</strong>用視覺化圖表清晰展示ONF燈具在光譜連續性、演色性(CRI)、PPFD均勻度等方面與市面普通植物燈的壓倒性優勢，將專業度轉化為用戶可感知的購買理由。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+                            
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">品味生活追求者、室內設計愛好者、資深植物玩家、水族造景師。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">新手到進階 (新手注重易用與美觀，進階玩家看重光譜與效能)。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">預算中高，願意為設計、品質與效果支付溢價。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：美學衝突</strong>
+        <span class="text-gray-600">市面上多數植物燈外型工業化、廉價感重，破壞精心佈置的室內風格。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：資訊焦慮</strong>
+        <span class="text-gray-600">技術規格過於複雜，難以理解，害怕買錯產品浪費錢又傷害植物。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：效果不確定性</strong>
+        <span class="text-gray-600">擔心高價購買的植物燈效果不如預期，或光色詭異 (如紫紅光) 影響居住氛圍。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：價格合理性</strong>
+        <span class="text-gray-600">為何ONF的產品比其他品牌貴？其價值是否對得起價格？需要充分的理由來支持購買決策。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">次要障礙：真實案例缺乏</strong>
+        <span class="text-gray-600">需要看到更多在真實居家環境中的使用案例，而不只是商業攝影。</span>
+      </div>
+    </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>發表高品質文章或影片，主題如「拯救你的室內植物：缺光症狀與解決方案」，將ONF定位為「植物光照與空間美學的專家」。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>打造詳盡的產品頁，用視覺化圖表解釋光譜優勢，展示不同居家風格的實景應用圖庫，強調「設計美學」與「專業光譜」的結合。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>提供透明的保固政策、詳細的安裝指南影片、使用者評價與KOL推薦，消除最後的購買疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>我們不只製造植物燈，我們創造能融入頂級室內設計的燈光藝術品。獨家ColorFull LED技術，還原植物與環境最真實、飽和的色彩。</div>
+          <div><strong>競爭優勢展現：</strong>網站應充滿高品質的實景應用照片，提供比競品更深入、但更易懂的光學知識科普，並積極展示來自設計師、KOL與真實用戶的高品質分享。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>多數競品忽視美學需求、缺乏真實使用者情境、過度技術化溝通。</div>
+          <div><strong>品牌突破機會：</strong>創建「風格植栽」內容單元，成為該領域的意見領袖；開發AR功能預覽燈具效果；提供線上光照規劃諮詢服務。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">登陸頁標題直接回應「美學」與「專業」兩大核心需求，例如：「ONF - 為珍愛植物與品味空間而生的高演色植物燈」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">以一張高品質的居家情境大圖，展示ONF燈具如何作為視覺焦點，並搭配一句點出核心價值的標語。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">先展示設計美學與實景應用，吸引用戶興趣；接著用簡潔的圖文說明核心技術優勢；最後是詳細規格與使用者見證。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立策略：</strong>
+          <span class="text-gray-600">在頁面中嵌入媒體報導 Logo、設計獎項標章 (如 Red Dot, iF)、專家背書。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化策略：</strong>
+          <span class="text-gray-600">提供互動式工具，例如「依據你的植物與空間大小，推薦最適合的ONF燈具」，將抽象需求轉化為具體產品建議。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除策略：</strong>
+          <span class="text-gray-600">設置詳盡的FAQ區塊，主動回答關於價格、效果、安裝、保固等潛在問題。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計策略：</strong>
+          <span class="text-gray-600">各區塊使用目的明確的CTA。例如，技術介紹區塊後是「探索全系列產品」，案例分享區塊後是「選購同款燈具」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化策略：</strong>
+          <span class="text-gray-600">簡化結帳流程，提供多元支付方式，並給予清晰的運送時間預估。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>當前SERP由三股勢力構成：以C1(舞光)為首的知識普及內容、以C2/C4(momo/PChome)為代表的電商平台，以及以C7(有肉)為代表的生活風格媒體。ONF的頁面目前因內容嚴重匱乏，未能有效滿足任何一種主流搜尋意圖，導致排名落後。然而，這也意味著市場上存在一個明顯的缺口：沒有任何一個競爭者能完美結合「頂級設計美學」與「專業級光照效能」，這正是ONF最大的突破口。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：技術SEO與頁面內容基礎建設</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修正當前頁面「內容貧乏」、Meta標籤無效、缺乏&lt;h1&gt;/&lt;h2&gt;標籤等致命缺陷。這是最低成本、最快見效的優化。</div>
+        <div><strong>執行評估：</strong>難度：低；預期效果：高(排名+3-5位)；資源：少量人力。</div>
+        <div><strong>優先級：</strong>極高 - 所有後續優化的基礎。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容差異化，搶佔「美學+專業」心智</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>創建「選購指南」、「應用靈感」、「技術解析」等模組，填補市場上缺乏兼具設計感與專業度內容的空白，建立品牌護城河。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：高(進入前5)；資源：內容團隊、設計與攝影預算。</div>
+        <div><strong>優先級：</strong>高 - 確立品牌獨特競爭優勢的關鍵。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：建立信任， оправдайте高價定位</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>整合FAQ、設計獎項、專家背書、用戶評價(UGC)等多維度信任指標，消除用戶對高價位的疑慮，提升轉換率。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：中高(提升轉換率、穩固排名)；資源：行銷與社群運營。</div>
+        <div><strong>優先級：</strong>中 - 在建立基礎內容後，用於提升商業價值的關鍵一步。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>結合生活方式：</strong>`設計感 植物燈`, `客廳 植物燈 推薦`, `書桌 植物燈 美學`, `北歐風 植物燈`。</div>
+        <div><strong>結合品牌專業領域：</strong>`高演色性 植物燈`, `全光譜LED 植物燈`, `博物館級光照 植物燈`。</div>
+        <div><strong>問題導向與特定植物：</strong>`不會頻閃的植物燈`, `塊根植物專用燈`, `鹿角蕨 燈具推薦`。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「植物照明工具」轉向「室內光影藝術品」，強調光線品質對空間氛圍與植物觀賞性的提升。</div>
+        <div><strong>專業詞彙轉譯：</strong>將PPFD、CRI等術語，轉譯為「植物吃得飽的光」、「讓植物顏色更鮮豔的光」等用戶利益語言。</div>
+        <div><strong>品牌調性：</strong>建立精緻、專業、充滿設計感的語言風格，與大眾化或純技術導向的競品形成鮮明對比。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>轉換優化藍圖應遵循「始於美學，信於專業，終於信任」的路徑。1. <strong>吸引(Attract)：</strong> 用高品質的居家情境圖抓住用戶眼球，傳達「這不只是一盞燈，更是一件家飾」。2. <strong>教育(Educate)：</strong> 透過視覺化圖表和簡潔文案，將ONF的獨家光譜技術轉化為「還原真實色彩、促進健康生長」的用戶價值， оправдайте其高價位。3. <strong>引導(Guide)：</strong> 利用「選購指南」和互動工具，幫助用戶在多款產品中找到最適合自己的解決方案，消除選擇困難。4. <strong>說服(Convince)：</strong> 展示國際設計大獎、KOL推薦和真實用戶案例，建立不可動搖的信任感，促成最終購買決策。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>第一階段，快速修復技術性SEO缺陷（Meta, &lt;h1&gt;）與補充基礎內容，目標是短期內排名躍升至前6。第二階段，構建以「美學+專業」為核心的差異化深度內容，挑戰前3。</div>
+        <div><strong>競爭者超越路徑：</strong>以更卓越的設計感和更透明的專業技術指標，全面超越C7(有肉)的生活風格定位；以更具美學價值和更貼近高端用戶情境的內容，從C1(舞光)的基礎科普市場中開闢高端利基。</div>
+        <div><strong>使用者價值最大化：</strong>提供一份從「為什麼買」到「買哪款」再到「如何用好」的一站式權威指南，不僅解決用戶的功能需求，更滿足其對生活美學的追求。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將ONF定位為「室內光影藝術家」與「植物光照科學家」的結合體，是市場上唯一無需在效能與美學之間妥協的頂級選擇。</div>
+        <div><strong>差異化價值：</strong>提供競爭者所缺乏的「設計師級選購指南」、「視覺化光譜解析」與「國際獎項信任背書」，完美填補市場空白。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>3個月內穩定進入SERP前5名，6個月內挑戰前3名。</div>
+        <div><strong>流量增長目標：</strong>自然搜尋流量提升80%以上，頁面平均停留時間增加50%。</div>
+        <div><strong>轉換率優化：</strong>通過建立信任和提供清晰指引，將「加入購物車」的轉換率提升15%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：基礎建設與快速突破 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心任務：</strong>
+          <span class="text-gray-600">完成技術SEO優化（Meta, &lt;h1&gt;, &lt;h2&gt;），上線引言、核心價值主張及基礎FAQ，目標排名進入前6，扭轉內容貧乏的局面。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容差異化與競爭超越 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心任務：</strong>
+          <span class="text-gray-600">上線完整的「選購指南」、「光譜解密」及「風格靈感」模組，確立「美學+專業」的獨特定位，目標排名進入前4。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：權威建立與領導地位 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心任務：</strong>
+          <span class="text-gray-600">整合國際設計獎項、KOL合作案例，並開始佈局部落格主題叢集，建立不可動搖的行業權威性，爭取行業前3的領導地位。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>品牌本身在「設計美學」與「高端品質」上擁有強大潛力。</div>
+          <div><strong>改善空間：</strong>目前頁面內容極度貧乏，未能將品牌優勢轉化為SEO競爭力，在知識性、引導性、信任感建立上全面落後於競爭者。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">優化路徑：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div>內容將遵循「始於美學，信於專業，終於信任」的優化路徑。首先，用頂級的視覺設計與情境圖吸引用戶，建立「這是一件藝術品」的第一印象。其次，透過深入淺出的技術解析（如CRI對比圖）與選購指南，教育用戶為何ONF值得高價，建立專業信任。最後，展示大量的社會證明（國際獎項、設計師推薦、真實用戶UGC），消除購買疑慮，促成最終轉換。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>1. 國際獲獎的工業設計美學：</strong>強調燈具本身即是傢俱，是空間的點睛之筆，而不僅是附屬品。</div>
+        <div><strong>2. 獨家ColorFull LED專業光譜技術：</strong>將複雜的PPFD、CRI等參數轉化為「還原真實色彩」、「促進健康生長」等用戶可感知的核心利益。</div>
+        <div><strong>3. 高品質工藝與材質：</strong>突出航太級鋁合金、一體成型等製作工藝，將其與高端電子產品的質感類比，合理化價格。</div>
+        <div><strong>4. 強大的社會證明與社群基礎：</strong>整合國際設計大獎、國內外設計師/KOL推薦、以及活躍的真實用戶UGC，構建立體信任矩陣。</div>
+        <div><strong>5. 提供完整的「植感生活解決方案」：</strong>內容從選燈、安裝、使用到空間搭配，提供一站式指導，塑造專業顧問形象。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>通過建立「設計獎項」榮譽牆和「設計師訪談」模組來實現。</div>
+        <div>通過創建「光譜解密」互動圖表，用視覺化對比呈現高演色性優勢。</div>
+        <div>在產品介紹中加入製作工藝的短影片或特寫圖片。</div>
+        <div>創建一個名為「風格靈感」的嵌入式Instagram牆，展示真實用戶美圖。</div>
+        <div>設計一個名為「ONF 選購指南」的清晰圖文流程或互動工具。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 轉換路徑設計策略</h4>
+    <p class="text-gray-700 mb-4">轉換路徑設計將圍繞「消除高價疑慮」展開。軟性CTA（如「探索光譜的秘密」、「查看設計師案例」）用於引導用戶深度閱讀，建立產品價值認知。硬性CTA（「立即選購」、「尋找您附近的經銷商」）則放置在用戶充分理解產品價值並獲得足夠信任（如看完FAQ和用戶案例）後的關鍵節點。整個頁面是一個從建立美學認同到專業認可，最終達成購買信任的完整說服流程。</p>
+    <div class="space-y-4">
+        <div class="flex items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-4">1</div>
+            <div>
+                <h5 class="font-semibold text-green-700">吸引 (Attention)</h5>
+                <p class="text-gray-600">用美學高品質圖片吸引用戶，建立品牌第一印象。</p>
+            </div>
+        </div>
+        <div class="flex items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-4">2</div>
+            <div>
+                <h5 class="font-semibold text-green-700">興趣 (Interest)</h5>
+                <p class="text-gray-600">用專業知識和技術解析引發用戶興趣。</p>
+            </div>
+        </div>
+        <div class="flex items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-4">3</div>
+            <div>
+                <h5 class="font-semibold text-green-700">慾望 (Desire)</h5>
+                <p class="text-gray-600">用選購指南和真實案例激發用戶的擁有慾望。</p>
+            </div>
+        </div>
+        <div class="flex items-start">
+            <div class="flex-shrink-0 w-8 h-8 bg-green-500 text-white rounded-full flex items-center justify-center font-bold mr-4">4</div>
+            <div>
+                <h5 class="font-semibold text-green-700">行動 (Action)</h5>
+                <p class="text-gray-600">用清晰的CTA和信任保障促成最終購買行動。</p>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-blue-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-blue-700 mb-2">視覺化</h5>
+        <p class="text-gray-600">大量使用高品質、專業拍攝的情境圖、產品細節圖與教學短影片，取代冗長的文字描述，打造沉浸式視覺體驗。</p>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-blue-700 mb-2">互動性</h5>
+        <p class="text-gray-600">引入比較表格、可點擊的用戶案例、未來規劃互動式選購工具，提升用戶參與感和頁面停留時間。</p>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-blue-700 mb-2">結構化</h5>
+        <p class="text-gray-600">採用清晰的&lt;h1&gt;-&lt;h3&gt;標題層級、可折疊的FAQ區塊、快速導航目錄，讓用戶能快速找到所需資訊。</p>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-blue-700 mb-2">行動端適配</h5>
+        <p class="text-gray-600">所有視覺元素和文字佈局需確保在手機上有極佳的閱讀體驗，CTA按鈕易於點擊。</p>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
