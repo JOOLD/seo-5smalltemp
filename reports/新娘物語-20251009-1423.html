@@ -1,0 +1,2030 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 新娘物語</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">新娘物語 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「新北婚宴會館」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">5</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站內容精準鎖定<strong>「小桌數婚宴」</strong>與<strong>「百人內小型婚禮」</strong>的利基市場。文章明確以台北與新北地區為範疇，為尋求精緻、溫馨婚禮的新人提供了一個高度相關的場地清單，有效區隔了尋找大型婚宴會館的用戶，定位十分清晰。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容以<strong>條列式名錄 (Directory)</strong> 的方式呈現，涵蓋了台北與新北地區適合小型婚宴的飯店、會館及特色餐廳。每個場地均提供名稱、官網/社群連結、電話和地址，資訊結構完整。然而，內容廣度雖足，但<strong>缺乏深度介紹</strong>，多數場地僅提供基礎聯絡資訊。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對於目標明確、想舉辦小型婚禮的新人，此頁面提供了<strong>極高的探索價值</strong>，能快速彙整出初步的口袋名單，省去大量搜尋時間。文章將台北與新北分開羅列，幫助用戶依據地理位置快速篩選，是其<strong>核心實用優勢</strong>。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>決策支援缺口：缺少關鍵決策資訊
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">絕大多數場地未提供<strong>起桌價</strong>、<strong>容納桌數/人數</strong>、<strong>低消限制</strong>與<strong>廳房特色</strong>等關鍵資訊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">新人在籌備婚禮時，預算是首要考量。缺少價格和容納人數等資訊，用戶無法進行初步篩選，必須逐一點擊官網或致電詢問，增加了決策流程的摩擦力。競爭者 GoWedding (排名第2) 將「起桌價」明確列出，大幅提升了其實用性。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">為每個場地補充「桌價區間」、「建議容納人數」及「場地風格」標籤（如：戶外證婚、高空景觀、溫馨家宴），讓用戶能一目了然地比較。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-balance-scale text-orange-600 mr-2"></i>比較意圖缺口：缺乏系統性比較工具
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">文章為純粹的列表，缺少一個總結性的<strong>比較表格</strong>或<strong>分類索引</strong>。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">搜尋「新北婚宴會館」的用戶，其核心意圖是「比較」與「選擇」。一個清晰的表格能幫助他們快速依據「預算」、「交通便利性（捷運站）」、「風格」等維度進行交叉比對，目前用戶只能在心中自行整理，體驗不佳。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">在文章開頭或結尾新增一個<strong>「新北小桌數婚宴場地快速比較表」</strong>，欄位包含：場地名稱、行政區、桌價範圍、最大容納人數、交通（鄰近捷運站）、特色標籤。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-users text-purple-600 mr-2"></i>信任建立缺口：缺乏真實經驗分享
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">內容完全是官方資訊的整理，缺少<strong>新人評價、實際案例照片</strong>或<strong>編輯點評</strong>等第三方視角的佐證。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">婚禮是人生大事，新人非常依賴過來人的經驗分享來建立信任感。競爭者 GoWedding 巧妙地加入了「Google新人好評」，直接引用真實評論，極大地增強了內容的說服力與可信度。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">為每個場地精選1-2則具代表性的網路評論，或加入「編輯點評」欄位，以專業媒體的角度分析其優缺點，提升內容的 E-E-A-T 信號。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-book-open text-blue-600 mr-2"></i>使用指導缺口：未提供挑選指南
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">文章直接進入場地列表，缺少一個引導性的<strong>「挑選婚宴會館注意事項」</strong>或<strong>「Checklist」</strong>。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">許多首次籌備婚禮的新人並不清楚該從何著手。他們需要的不仅是場地列表，更需要如何挑選的專業建議。競爭者豪鼎飯店(排名第8)專門撰寫了挑選指南，這能有效建立專業形象並吸引處於資訊蒐集初期的潛在客戶。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">在 H1 下方新增一段內容，提供挑選小桌數場地的<strong>三大考量點</strong>：1. 預算與桌價計算方式；2. 場地氛圍與婚禮風格的匹配；3. 交通與賓客便利性。這能讓文章更具教育價值。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站的基礎SEO設置相當完善。Meta 標籤如 <strong>Title</strong> 和 <strong>Description</strong> 精準地鎖定了「小桌數婚宴」與「小型婚禮」的用戶。<strong>Open Graph 標籤</strong>（og:title, og:description, og:image）設定完整，有利於社群分享時的預覽效果。具備 <strong>Canonical 標籤</strong>，避免了內容重複問題。網站基於 <strong>WordPress</strong> 平台，具有良好的擴充性與SEO基礎。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">文章結構清晰，使用 <strong>&lt;H1&gt;、&lt;H2&gt;、&lt;H3&gt;</strong> 標籤將內容劃分為「台北」和「新北」兩大區塊，再細分至各個場館，邏輯分明，便於用戶快速跳轉至感興趣的章節。關鍵詞「新北」、「婚宴」、「小桌數」在標題和內文中均有自然佈局，符合搜尋意圖。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">主要問題在於<strong>內容策略與關鍵詞目標的些微脫節</strong>。頁面雖排名在「新北婚宴會館」，但其內容核心卻是「小桌數」。建議：1. <strong>強化主題相關性</strong>：在目前頁面擴充內容，增加不同規模（中、大型）或不同風格（戶外、特色）的婚宴會館，使其更全面地滿足「新北婚宴會館」的搜尋意圖。2. <strong>URL優化</strong>：目前的URL含有中文且過長，未來新文章建議使用更簡潔的英文或拼音作為slug。3. <strong>結構化資料</strong>：文章內容非常適合導入 <strong>LocalBusiness</strong> 或 <strong>EventVenue</strong> 的 Schema 標記，可提供地址、電話等資訊給搜尋引擎，有機會獲得更豐富的搜尋結果樣式（Rich Snippets）。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>內容定位精準：</strong>文章在「小桌數婚宴」這個利基市場中具有強大競爭力，成功吸引了特定需求的用戶群。</li><li><strong>決策資訊嚴重缺失：</strong>缺乏價格、容納人數等關鍵資訊，是與排名靠前競爭者最大的差距，直接影響用戶的決策效率。</li><li><strong>缺乏信任元素：</strong>內容中沒有任何形式的用戶評價或真實案例分享，降低了內容的說服力和可信度。</li><li><strong>搜尋意圖覆蓋不足：</strong>內容過於專注「小桌數」，未能完全滿足搜尋「新北婚宴會館」的廣泛用戶需求，存在內容廣度缺口。</li><li><strong>行動呼籲(CTA)運用不足：</strong>僅有兩家廠商有明確的「立即詢問」連結，錯失了引導用戶採取下一步行動的機會。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第5位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">4個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 WeddingDay 好婚專欄 距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前位於搜尋結果第一頁，具備良好的基礎，但與領導者 WeddingDay 好婚專欄 有 4 個名次的差距。核心問題在於頁面主題（小桌數）與廣泛搜尋意圖（全面場地列表）不匹配，導致相關性分數受限。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>新娘物語</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+    <td class="border p-2 font-semibold">標題策略</td>
+    <td class="border p-2">過度聚焦「小桌數」，且包含「台北」，主題分散。</td>
+    <td class="border p-2">強調「數量 (40+)」、「推薦」、「價格」、「總整理」，覆蓋廣泛意圖。</td>
+    <td class="border p-2">應改為全面性標題，如「新北婚宴會館推薦｜30+場地價格、專案總整理」。</td>
+  </tr>
+  <tr>
+    <td class="border p-2 font-semibold">描述內容</td>
+    <td class="border p-2">同樣強調「小桌數」、「100人內」，未能吸引廣大受眾。</td>
+    <td class="border p-2">列舉熱門場地，提及「價格」、「專案內容」，提供豐富資訊預覽。</td>
+    <td class="border p-2">應納入多種婚禮類型（飯店、戶外）、行政區及關鍵決策點（價格、評價）。</td>
+  </tr>
+    <tr>
+    <td class="border p-2 font-semibold">關鍵詞密度</td>
+    <td class="border p-2">「小桌數」密度高，但「新北婚宴會館」核心詞密度可能不足。</td>
+    <td class="border p-2">自然地將「新北婚宴」、「婚禮場地」、「飯店」等詞彙融入。</td>
+    <td class="border p-2">在擴充內容後，自然地提升核心關鍵詞與相關語義詞的出現頻率。</td>
+  </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">
+  <h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+  <div class="space-y-2">
+    <p><strong>1. URL 與內容主題不匹配：</strong> 品牌URL為 `.../台北新北小桌數婚禮宴客場地/`。這個URL存在三個嚴重問題：</p>
+    <ul class="list-disc list-inside pl-4">
+      <li><b>主題稀釋：</b>同時包含「台北」和「新北」，降低了對「新北」的專注度。</li>
+      <li><b>意圖錯位：</b>包含「小桌數」，與廣泛的「婚宴會館」搜尋意圖不符。</li>
+      <li><b>過於冗長：</b>URL結構較長，不如競爭者2的 `.../新北婚宴場地推薦/` 來得精準有力。</li>
+    </ul>
+    <p>這個根本性的錯位是限制排名攀升的最大技術瓶頸，它直接向搜尋引擎傳達了「這是一個關於台北和新北小桌數婚禮的頁面」，而非「新北婚宴會館的權威指南」。</p>
+  </div>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage">
+  <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+  <div class="space-y-2">
+    <p><strong>1. 健全的 Meta 結構：</strong> 頁面具備完整的 `canonical` 標籤、`og:tags` (開放社交關係圖譜標籤) 以及 `twitter:card`，確保了在社群分享時的呈現效果，並避免了重複內容問題。</p>
+    <p><strong>2. 結構化標籤運用：</strong> 具備 `article:published_time` 和 `article:modified_time` 等文章相關的結構化資料，有助於搜尋引擎理解內容的時效性。</p>
+    <p><strong>3. 網站平台穩定：</strong> 網站基於 WordPress 建立，整體技術架構成熟穩定，響應式設計良好 (`viewport` 設定正確)，為內容優化提供了堅實的基礎。</p>
+  </div>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">🔍 關鍵詞覆蓋與搜尋意圖分析</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">當前覆蓋缺口：</h5>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>廣泛意圖詞：</strong> 頁面過度集中於「小桌數」、「小型婚禮」，但對「推薦」、「懶人包」、「總整理」、「排行榜」等滿足資訊尋求階段的廣泛意圖詞覆蓋不足。</li>
+        <li><strong>決策輔助詞：</strong> 嚴重缺乏使用者在比較階段會搜尋的詞彙，例如「價格」、「專案」、「菜單」、「交通」、「容納人數」、「風格」（如：戶外、美式、中式）。</li>
+        <li><strong>地理區域詞：</strong> 雖然目標是新北，但內容中對具體行政區（如「板橋 婚宴」、「新莊 婚宴」）的強調和分類不足，錯失了長尾關鍵詞的機會。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">搜尋意圖滿足度評估：</h5>
+      <p>對於搜尋「新北婚宴會館」的使用者，其核心意圖是「探索與比較」。他們希望在一個頁面中看到盡可能多的選項，並能根據自己的需求（預算、地點、風格）進行快速篩選。</p>
+      <p class="mt-2">品牌頁面目前僅滿足了其中一個非常小的子意圖——「尋找新北的小型婚宴場地」。對於絕大多數處於探索階段的使用者來說，這個頁面的吸引力遠低於提供全面列表的競爭者。這就是排名無法突破的根本原因。</p>
+    </div>
+  </div>
+</div>
+                                <div class="bg-green-50 p-4 rounded-lg">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 內容差異化與超越機會</h4>
+  <div class="space-y-4">
+    <p>僅僅模仿競爭者製作長篇列表是不夠的，必須提供獨特價值才能實現超越。以下是三大差異化機會：</p>
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 資訊結構化與可用性：</h5>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>可篩選的比較表格：</strong> 創建一個包含場館名稱、行政區、起桌價、最大桌數、風格標籤的HTML表格，並加入簡單的JavaScript篩選或排序功能。這將提供遠超競爭對手的用戶體驗。</li>
+        <li><strong>視覺化地圖：</strong> 嵌入一個Google Map，標示出所有推薦的婚宴會館位置，讓使用者可以根據地理位置直觀地選擇。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 內容深度與獨特性：</h5>
+      <ul class="list-disc list-inside space-y-2">
+        <li><strong>獨家探店視角：</strong> 選擇3-5家特色場地進行深度報導，包含實地拍攝的高清照片、優缺點分析、甚至是對婚宴經理的簡短採訪。這能建立獨一無二的內容資產。</li>
+        <li><strong>主題式策展：</strong> 不要只按地區分類，創建如「新北Top 5戶外證婚場地」、「小資新人必看！CP值最高的新北婚宴會館」、「擁有絕美新娘房的婚宴場地精選」等特色主題，吸引不同需求的讀者。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                            
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-blue-800 mb-2">E-E-A-T 現狀分析</h4>
+                                    <p class="text-blue-700">品牌方「新娘物語」在婚禮媒體領域具有長期的品牌積累，這為其提供了良好的權威性(A)和專業性(E)基礎。網站的資訊來源清晰，展現了信賴度(T)。然而，當前頁面內容多為資訊整理，未能充分展示第一手的經驗(E)，這是與競爭者相比可以強化的部分。</p>
+                                </div>
+                                <div class="bg-green-50 p-4 rounded-lg">
+                                    <h4 class="font-semibold text-green-800 mb-2">信任指標評估</h4>
+                                    <p class="text-green-700">網站提供了每個場地的官方聯繫方式，資訊透明。作者署名清晰，增加了內容的責任感。但缺少第三方評價或真實案例，使得信任感建立不夠立體，用戶需要跳轉到其他平台進行驗證。</p>
+                                </div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標 (Trust)：</h5>
+      <ul class="space-y-2">
+        <li><strong>明確標示作者資訊：</strong> 在文章開頭或結尾處建立一個作者簡介區塊，例如「由資深婚禮顧問 Zora 撰寫」，並附上作者簡歷，展示其在婚禮產業的專業經驗。</li>
+        <li><strong>引用真實新人評價：</strong> 系統性地為每個場地附上來自Google Maps、WeddingDay、veryWed等平台的真實新人評價截圖或引文，並註明來源，增加內容的客觀性與可信度。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">展示專業與經驗 (Expertise &amp; Experience)：</h5>
+      <ul class="space-y-2">
+        <li><strong>新增「專家視角」點評：</strong> 在介紹每個場地時，加入一個「編輯點評」或「顧問小提示」的區塊，用專業角度分析該場地的優缺點（如：動線規劃、燈光效果、菜色特色）。</li>
+        <li><strong>建立「婚禮籌備」內容樞紐：</strong> 從本文鏈接到站內其他相關的專業文章，如「婚禮流程全攻略」、「如何挑選婚攝」等，將此頁面打造成一個內容中心，展示網站的全面專業性。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設 (Authoritativeness)：</h5>
+      <ul class="space-y-2">
+        <li><strong>爭取場地反向連結：</strong> 當文章內容足夠優質時，可主動聯繫被推薦的婚宴會館，告知他們已被收錄在優質指南中，並建議他們在官網的「媒體報導」或「合作夥伴」區塊放上文章連結。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li><strong>新增頁內導航（錨點連結）：</strong>在文章開頭建立一個可點擊的目錄，連結到各個行政區或主題分類，讓使用者能快速跳轉至感興趣的部分。</li>
+        <li><strong>設計資訊卡片範本：</strong>將每個場地的介紹統一為視覺化的「資訊卡片」，包含場地照片、名稱、地區、起桌價、最大桌數等關鍵資訊，讓使用者能快速掃描比較。</li>
+        <li><strong>置頂導覽列/返回頂部按鈕：</strong>對於這種長篇內容，提供一個置頂的篩選列或「返回頂部」按鈕，能極大改善瀏覽體驗。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>開發互動式篩選器：</strong>讓使用者可以根據「預算」、「桌數」、「地區」、「風格」等條件勾選，動態篩選出符合需求的場地列表。</li>
+        <li><strong>建立「我的收藏」功能：</strong>允許使用者將感興趣的場地加入收藏清單，方便後續比較和決策，增加使用者回訪率。</li>
+        <li><strong>優化行動裝置閱讀體驗：</strong>確保資訊卡片在手機螢幕上不會過於擁擠，圖片載入速度快，點擊操作（如查看電話、官網）直接觸發相應功能。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">WeddingDay 好婚專欄</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">垂直媒體</div>
+                <div class="text-lg font-semibold text-blue-600">廣度覆蓋型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.weddingday.com.tw/blog/archives/27361" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">weddingday.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用「大而全」的策略，通過羅列超過40家場地，旨在成為用戶初步探索的入口。其核心價值在於提供海量選項，如同婚宴場地的黃頁，滿足用戶快速建立候選名單的需求。Meta標題用「40+」和「價格一覽」的數字和效率承諾來吸引點擊。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流為扁平式清單結構，從H1直接跳轉至H3場地列表，缺乏引導和分類，用戶容易在長列表中迷失。CTA較弱，主要為引導至相關廠商或推薦文章，缺乏直接的轉化導向。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience:</strong> 內容由小編撰寫，缺乏第一手經驗的深度。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise:</strong> 作為婚禮媒體，在資訊整理方面展現專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority:</strong> 平台本身具有一定的行業權威性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust:</strong> 資訊來源清晰，但缺乏第三方評價，信賴度中等。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">GoWedding婚禮掏心話</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">垂直媒體</div>
+                <div class="text-lg font-semibold text-blue-600">深度策展型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://gowedding.tw/%E6%96%B0%E5%8C%97%E5%A9%9A%E5%AE%B4%E5%A0%B4%E5%9C%B0%E6%8E%A8%E8%96%A6/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">gowedding.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位為「專業顧問」，不僅羅列場地，更進行了詳細的分類（星級酒店、婚宴會館、小型家宴等）。為每個場地提供詳細介紹、價格、新人好評，試圖成為解決方案提供者。Meta標題強調「從價位到風格一手掌握」，給予用戶價值承諾。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用「教育導向+解決方案」的敘事流，先教育用戶婚禮類型，再按主題推薦。結構清晰，引導性強。文中穿插「領取限時優惠」等CTA，轉化導向明確，意圖強烈。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience:</strong> 巧妙地整合「Google新人好評」，借用第三方經驗來彌補自身不足。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise:</strong> 內容分類和深度介紹展現了高度的行業專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority:</strong> 作為新娘物語旗下媒體，繼承了主品牌的權威性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust:</strong> 資訊詳盡，並引用真實評價，建立了很高的信賴感。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第8名</span>
+                <h4 class="font-bold text-xl">豪鼎飯店婚宴會館</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">垂直專家型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.how-dine.com.tw/news/wedding-banquet-top6" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">how-dine.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用問題導向的內容策略，先通過「挑選婚宴會館注意事項」建立專業形象和信任感，然後再順勢介紹自家飯店的六大特色與三大風格廳房。此策略旨在吸引處於研究初期、尋求專業建議的用戶，並將他們直接轉化為潛在客戶。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流為典型的「問題-解決方案」銷售漏斗。從用戶痛點（如何挑選）入手，展示專業（注意事項），提供解決方案（自家特色），最後以情感召喚（歡迎回家）和聯絡資訊作結，引導用戶進行諮詢，銷售導向非常強烈。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience:</strong> 內容直接來自品牌方，充分展現了其在婚宴服務領域的第一手經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise:</strong> 提供的「注意事項」和對自家服務的詳細闡述，體現了高度的專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority:</strong> 作為知名婚宴品牌，其官網發布的內容具有該領域的權威性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust:</strong> 官網本身即是信賴的基礎，所有資訊均為官方承諾。</div>
+            </div></div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方Meta標題可能較為通用，如「新北婚宴會館推薦」，缺乏獨特性和點擊動機，未能有效傳達頁面的核心價值。</div>
+          <div><strong>描述效能：</strong>描述可能同樣未能突出差異化優勢，無法在搜尋結果頁面中脫穎而出，吸引用戶點擊。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">價值導向型 (C2 GoWedding)：</h5>
+            <p class="text-gray-600">承諾為用戶解決問題，提供全面的掌控感，例如「從價位到風格一手掌握」。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">效率強調型 (C1 WeddingDay)：</h5>
+            <p class="text-gray-600">通過具體數字（40+）和關鍵資訊（價格一覽）來吸引尋求效率的用戶。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">品質保證型 (C8 豪鼎飯店)：</h5>
+            <p class="text-gray-600">在標題中加入「最搶手」、「精選」等詞彙，暗示內容的品質和權威性。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>放棄成為純粹的列表，轉型為「專業婚禮編輯的策展指南」。利用「新娘物語」的品牌背書，提供帶有觀點和篩選標準的內容。</li>
+        <li><strong>競爭優勢：</strong>強調「編輯嚴選」、「獨家評鑑」、「新人避雷清單」，這些是C1/C2等資訊聚合平台難以提供的「專家視角」。</li>
+        <li><strong>目標受眾：</strong>吸引那些不僅想看「有什麼」，更想知道「哪個好」、「怎麼選」的用戶。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong><code>【新娘物語評鑑】2025新北婚宴會館終極指南｜編輯嚴選TOP15 &amp; 簽約避雷清單</code> <br> (分析：注入品牌權威、年份、價值主張(終極指南)、專家視角(編輯嚴選)、解決痛點(避雷清單))</li>
+        <li><strong>描述優化：</strong><code>還在為挑選新北婚宴會館煩惱？新娘物語婚禮編輯團隊實地走訪，為你精選15家從戶外證婚到豪華宴會廳的夢幻場地。獨家提供各場地優缺點分析、預算規劃表與簽約注意事項，助你輕鬆找到命定婚宴會館。</code> <br> (分析：提出問題、強調專業(編輯團隊)、展示內容獨特性(優缺點分析)、提供實用工具(預算規劃表)，並以明確的CTA結尾)</li>
+        <li><strong>執行優先級：</strong>高。Meta是提升點擊率、獲取流量的第一關，投入成本低，見效快。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>當前內容架構可能類似於C1的扁平式清單，但完整度不足，且缺乏C2的分類邏輯與C8的專業引導，導致用戶體驗和專業性均有待提升。</div>
+          <div><strong>板塊覆蓋：</strong>可能缺失了「挑選標準/決策框架」、「用戶真實反饋」、「橫向比較工具」和「實用工具/清單」等關鍵專業模塊。</div>
+        </div>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者架構模式：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>扁平式清單 (C1)：</strong>直接羅列場地，優點是直接，缺點是缺乏導航性。</div>
+          <div><strong>分類式指南 (C2)：</strong>先教育用戶，再按主題推薦，結構清晰，引導性強。</div>
+          <div><strong>問題導向型 (C8)：</strong>先提出用戶痛點，建立專業形象，再提供解決方案，銷售導向強。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+     <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">內容覆蓋深度：</h5>
+            <p class="text-gray-600">C2在單一場地的介紹深度上最佳，整合了官方資訊和第三方評價（Google好評）。C1廣度最佳，但深度不足。品牌方目前兩者皆有提升空間。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">內容補強機會識別：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                <li><strong>建立決策框架：</strong>在文章開頭增加「如何挑選你的命定婚宴會館？」章節，提供預算、桌數、風格等篩選標準。</li>
+                <li><strong>標準化場地介紹模塊：</strong>為每個場地建立統一介紹結構，包含編輯點評、場地速覽、亮點特色、注意事項和新人評價。</li>
+                <li><strong>增加實用工具：</strong>提供可下載的「新北婚宴場地比較總表 (Excel)」或「場勘日注意事項Checklist」。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">差異化內容策略：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                <li><strong>主題式策展：</strong>創建主題式清單，如「新北Top 5戶外證婚場地」、「小資新人CP值首選」，捕獲更精準的長尾流量。</li>
+                <li><strong>E-E-A-T強化：</strong>明確標示作者為「新娘物語資深婚禮編輯」，大量引用新人評價，並提供客觀的優缺點分析，以贏得用戶信任。</li>
+                <li><strong>執行路徑：</strong>短期內補強內容深度與廣度，中期引入主題策展，長期建立權威性。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">準新人（尤其準新娘為主導者），年齡約28-35歲，數位原生代，習慣透過網路搜集大量資訊進行決策。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">新手。多數人是第一次籌備婚禮，對流程與細節感到焦慮與陌生。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">時間有限（多為上班族）、預算固定，希望在有限資源內找到CP值最高的選擇。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：資訊過載與破碎</strong>
+        <span class="text-gray-600">網路資訊太多太雜，各家官網、部落格、社群平台資訊不一，難以整合比較。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：價格不透明</strong>
+        <span class="text-gray-600">許多場館不直接標明起桌價或詳細方案，需要逐一私訊或電洽，耗時且效率低。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：比較標準不一</strong>
+        <span class="text-gray-600">各家方案的贈送項目與附加條款不同，難以進行「蘋果對蘋果」的公平比較。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：</strong>
+        <span class="text-gray-600">害怕做出錯誤的決定，訂下一個會讓自己或長輩後悔的場地。擔心照片與實際情況有落差，或服務品質不如預期。</span>
+      </div>
+        </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>提供「如何挑選新北婚宴場地」等指南性文章，建立品牌作為專家的第一印象，成為新人的「婚禮顧問」。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>打造具備「強力篩選器」的整合頁面，提供結構化資訊，並透過「編輯實勘」等單元提供獨家洞察，升級為「決策輔助工具」。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>提供已篩選場館的「深度比較」內容和「真實婚禮」案例，並附上「預約場勘Checklist」，消除最後的決策疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>從「終極決策工具」、「編輯嚴選的第三方視角」、「從資訊到社群的完整生態」三個層面，提供超越競品的信任感與實用性。</div>
+          <div><strong>競爭優勢展現：</strong>直接在頁面頂部宣告價值，視覺化呈現比較表格，並強調資訊的即時性，解決用戶核心痛點。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>多數競品缺乏有效的比較工具、資訊更新不及時、觀點單一且主觀，存在明顯的體驗空白點。</div>
+          <div><strong>品牌突破機會：</strong>開發「婚宴會館PK」互動工具、建立會員制的「口袋名單」功能、提供「新娘物語專屬預約」服務，創造獨家價值。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">標題直接命中「新北婚宴會館推薦」，並強調「最齊全」、「價格、方案、評價總整理」，快速吸引點擊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">不說廢話，立即呈現核心價值——強大的「篩選器」工具（地區、預算、桌數、風格），讓用戶在3秒內理解頁面的高效實用性。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">每個場館以結構化卡片呈現，包含關鍵資訊（起桌價、最大桌數、一句話特色），並穿插「編輯推薦」或「人氣首選」等標章，引導用戶注意力。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立機制：</strong>
+          <span class="text-gray-600">在場館詳情頁提供官方未透露的「編輯點評」或「注意事項」，並整合真實的「學姊評價」區塊，強化品牌獨家價值與可信度。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化手段：</strong>
+          <span class="text-gray-600">提供「收藏此場地」功能，鼓勵用戶建立自己的口袋名單，增加網站黏著度與回訪率。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除內容：</strong>
+          <span class="text-gray-600">提供可下載的「預約場勘Checklist」，幫助新人實地考察時能問對問題，消除最後的決策疑慮。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA 設計：</strong>
+          <span class="text-gray-600">提供多層次的CTA。主要CTA：「索取最新專案」；次要CTA：「收藏此場地」、「查看官網」。CTA文案應具體，如「免費索取2024下半年專案」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化：</strong>
+          <span class="text-gray-600">索取專案的表單盡可能簡化，並告知用戶填寫後預計多久會收到回覆，降低等待的焦慮感。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>目前的競爭格局由兩類對手主導：一是以WeddingDay (C1)、GoWedding (C2) 為首的「廣度/深度型」婚禮資訊平台，它們試圖成為資訊入口；二是以彭園 (C4)、豪鼎 (C8) 等品牌官網為代表的「垂直專家型」場地，它們直接攔截高意圖流量。品牌方「新娘物語」目前定位模糊，需利用品牌權威，整合兩者優勢，成為「權威策展型」的市場領導者。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：基礎SEO與內容策略校準</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>解決頁面主題（小桌數）與使用者廣泛意圖（全面列表）的根本性錯位。透過優化URL、Meta標籤和頁面結構，迅速提升頁面相關性分數。</div>
+        <div><strong>執行評估：</strong>難度低，預期效果高（排名+2-3位），資源需求少。</div>
+        <div><strong>優先級：</strong>極高 - 這是解決當前排名瓶頸、成本效益最高的切入點。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與差異化價值塑造</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>超越競爭者僅羅列資訊的模式，注入「新娘物語」的品牌權威，提供獨家的「編輯點評」、「優缺點分析」等專家觀點，建立內容護城河。</div>
+        <div><strong>執行評估：</strong>難度中，預期效果高（穩固前三），需投入內容人力。</div>
+        <div><strong>優先級：</strong>高 - 這是從「資訊整理者」轉變為「意見領袖」的關鍵一步。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：使用者體驗與決策效率革新</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>開發互動式篩選器與比較工具，解決使用者「資訊過載、比較困難」的核心痛點，將頁面從靜態文章升級為高效決策工具。</div>
+        <div><strong>執行評估：</strong>難度高，預期效果極高（鞏固榜首），需技術開發資源。</div>
+        <div><strong>優先級：</strong>中 - 這是建立長期領導地位的戰略性投資。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>風格 + 地區：</strong> `新北 戶外證婚場地`、`板橋 美式婚禮`、`新莊 挑高宴會廳`</div>
+        <div><strong>需求 + 地區：</strong> `新店 交通方便 婚宴`、`三重 有停車場 婚宴會館`、`林口 飯店婚宴`</div>
+        <div><strong>問題導向：</strong> `新北婚宴一桌多少錢`、`訂婚宴會館注意事項`、`高CP值新北婚宴推薦`</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從單純的「推薦」轉向「評鑑」、「實測」、「指南」，強調專業第三方視角。</div>
+        <div><strong>專業詞彙：</strong>使用「動線規劃」、「廳房格局」、「菜色特色」、「簽約避雷」等更深入的詞彙，展現專業度。</div>
+        <div><strong>品牌調性：</strong>注入「新娘物語編輯嚴選」的語義，將品牌與權威、信賴等概念緊密綁定。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🎯 轉換優化藍圖</h4>
+    <p class="text-gray-700">我們的轉換優化藍圖旨在打造一個無縫的「決策輔助旅程」。首先，在頁面頂部以「互動式篩選器」立即滿足用戶的效率需求，取代無盡的滾動瀏覽。其次，透過標準化的「資訊卡片」和「收藏」功能，鼓勵用戶建立個人化的候選清單。最後，在每個場館介紹中，提供明確、高意圖的CTA，如「免費索取最新方案」或「預約場勘」，取代模糊的「聯絡我們」，從而精準捕捉用戶從考慮到行動的關鍵轉變，最大化潛在客戶的獲取效率。</p>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>第一階段，校準內容主題與基礎SEO，解決「搜尋意圖不匹配」問題，快速進入前三。第二階段，以「C1廣度+C2深度+品牌權威」的策略，建立內容護城河。</div>
+        <div><strong>競爭者超越路徑：</strong>模仿競品標準化的資訊結構，但注入無法複製的「新娘物語編輯點評」、「優缺點分析」及「簽約避雷清單」等獨家專家觀點，實現價值超越。</div>
+        <div><strong>使用者價值最大化：</strong>從靜態的資訊列表，升級為幫助新人高效決策的「權威評鑑指南」與「互動篩選工具」，成為使用者尋找場地的終點站。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>從「資訊聚合者」轉型為「權威策展人」與「值得信賴的婚禮專家」。</div>
+        <div><strong>差異化價值：</strong>提供競爭者所沒有的「專家觀點」、「實測經驗」與「決策輔助工具」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>第一階段 (1-4週) 進入前3名；第二、三階段 (1-6個月) 爭取並穩固第1名。</div>
+        <div><strong>流量增長目標：</strong>自然搜尋流量月增長率達15%以上，並開始獲取大量長尾關鍵詞流量。</div>
+        <div><strong>轉換率優化：</strong>頁面平均停留時間提升至5分鐘以上，並透過CTA有效收集潛在客戶名單。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速突破（1-4週）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心任務：</strong>
+          <span class="text-gray-600">基礎SEO校準，優化Meta標籤、調整頁面結構、聚焦「新北」主題，快速解決搜尋意圖不匹配的問題。</span>
+        </div>
+         <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">目標：</strong>
+          <span class="text-gray-600">排名提升至前三。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：競爭超越（1-3個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心任務：</strong>
+          <span class="text-gray-600">內容深度與差異化建設，將場地擴充至30家以上，建立包含「編輯點評」的標準資訊卡片，並策劃主題式內容。</span>
+        </div>
+         <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">目標：</strong>
+          <span class="text-gray-600">穩固前二名，挑戰榜首。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：領導地位（3-6個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心任務：</strong>
+          <span class="text-gray-600">使用者體驗革新，開發互動式篩選器與比較工具，並製作多媒體內容（如Vlog），建立技術與內容護城河。</span>
+        </div>
+         <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">目標：</strong>
+          <span class="text-gray-600">鞏固榜首地位，成為該關鍵詞的終極答案頁面。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>在「小桌數婚宴」利基市場有清晰定位，品牌權威性高。</div>
+          <div><strong>改善空間：</strong>內容廣度不足，缺乏關鍵決策資訊（價格、桌數），缺少第三方信任元素（評價），未能滿足廣泛搜尋意圖。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">核心策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>結構化：</strong>將所有場地資訊統一為標準化的「資訊卡片」，包含價格、桌數等關鍵數據，解決資訊混亂問題。</div>
+          <div><strong>品牌化：</strong>在每張卡片中強制嵌入「新娘物語編輯點評」模組，將品牌權威注入內容的最小單元。</div>
+          <div><strong>工具化：</strong>長遠目標是將此頁面從一篇「文章」進化成一個帶有篩選和比較功能的「應用工具」。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>內容由資深婚禮編輯團隊撰寫/評鑑：</strong>強調內容的專業性與可信度，區別於一般資訊聚合平台。</div>
+        <div><strong>提供獨家的「編輯點評」與「優缺點分析」：</strong>為每個場地提供競爭者沒有的深度洞察，幫助新人看見官網背後的真相。</div>
+        <div><strong>分享基於20年行業經驗的「簽約避雷清單」：</strong>提供超乎預期的實用價值，建立讀者對品牌的深度信任。</div>
+        <div><strong>整合新人社群的真實評價精選：</strong>結合UGC內容，增加內容的客觀性與說服力。</div>
+        <div><strong>在Q&A中提供具體、貼近新人需求的專家解答：</strong>展現品牌對目標客群需求的深刻理解。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在文章開頭和結尾設置「作者/編輯團隊介紹」區塊，附上資歷說明。</div>
+        <div>設計統一視覺風格的「編輯點評」模組，嵌入每個場地的介紹卡片中。</div>
+        <div>將「簽約避雷清單」製作成獨立、易於閱讀的圖文區塊，或提供PDF下載。</div>
+        <div>在場地介紹中加入「新人怎麼說」的引言區塊，並註明來源。</div>
+        <div>確保FAQ的回答口吻專業、有同理心，並適時引用品牌觀點。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+        <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">1</div>
+        <div class="ml-12">
+            <h4 class="font-bold text-lg mb-2 text-blue-800">第一層：建立初步信任</h4>
+            <p class="text-gray-700">透過提供全面的資訊和獨家點評，吸引使用者長時間停留，建立對品牌專業性的初步信任。</p>
+        </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+        <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">2</div>
+        <div class="ml-12">
+            <h4 class="font-bold text-lg mb-2 text-green-800">第二層：深化互動 (軟性CTA)</h4>
+            <p class="text-gray-700">在內容中提供「延伸閱讀」和可下載的「實用工具(如比較表)」，作為軟性CTA，鼓勵用戶與品牌進行更深度的互動，提升黏著度。</p>
+        </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+        <div class="absolute -left-3 top-1/2 -translate-y-1/2 w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-white text-xl font-bold shadow-lg">3</div>
+        <div class="ml-12">
+            <h4 class="font-bold text-lg mb-2 text-purple-800">第三層：引導轉換 (硬性CTA)</h4>
+            <p class="text-gray-700">在文章結尾，針對已建立高度信任感的使用者，提供明確的硬性CTA，如「免費預約專家諮詢」，引導高意圖潛在客戶進入銷售漏斗。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+        <h4 class="font-semibold text-green-800 mb-2">短期策略 (立即執行)</h4>
+        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+            <li><strong>錨點連結目錄：</strong>在文章開頭建立快速導航目錄，讓用戶能快速跳轉。</li>
+            <li><strong>資訊卡片化：</strong>將每個場地資訊設計成視覺化的卡片，優化手機瀏覽體驗。</li>
+            <li><strong>返回頂部按鈕：</strong>為長篇文章增加「返回頂部」按鈕，改善瀏覽便利性。</li>
+        </ul>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-semibold text-blue-800 mb-2">中長期策略 (規劃開發)</h4>
+        <ul class="list-disc pl-5 space-y-2 text-gray-700">
+            <li><strong>互動式篩選器：</strong>開發依地區、預算、風格篩選場地的功能。</li>
+            <li><strong>收藏與比較：</strong>建立「我的收藏」及「場地PK」比較工具，提升決策效率。</li>
+            <li><strong>地圖視圖整合：</strong>嵌入Google Map，讓用戶能從地理位置直觀選擇。</li>
+        </ul>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
