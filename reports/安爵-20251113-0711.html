@@ -1,0 +1,2153 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 印章戒</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">安爵 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「印章戒」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">1</div>
+                    <p class="text-blue-200 text-sm">表現優異</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站明確定位為<strong>客製化印章戒</strong>的專業銷售頁面，核心為「Argent安爵銀飾工房」的商品系列。從 Meta 描述和標題中的「篆刻銀戒」、「簽名戒指」、「客製化簽名戒」等關鍵詞，可以看出其專注於將傳統印章功能與現代飾品結合，滿足用戶對個性化、實用性飾品的需求。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容廣度主要體現在<strong>產品樣式的多樣性</strong>上，提供了圓形、橢圓形、方形等多種戒面形狀，以及細版、寬版、特寬版等多種尺寸選擇。此外，產品標題中提及了多種應用場景，如<strong>冠軍戒、畢業紀念戒、封蠟戒</strong>等，有效擴展了內容的相關性，吸引了不同需求的潛在客戶。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">頁面對用戶的核心價值在於提供一個<strong>清晰、直接的產品選購平台</strong>。用戶可以快速瀏覽不同款式的印章戒，了解價格範圍，並透過「可加購刻字」的選項滿足其<strong>高度客製化</strong>的需求。925純銀材質與手工製作的強調，也為追求品質的用戶提供了明確的價值主張。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-4">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>缺乏選購指南與教育性內容
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">缺少關於如何選擇適合自己的印章戒的指南，例如不同戒面形狀（圓形、方形、橢圓形）的象徵意義、適合的場合，或是篆刻字體的建議。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">初次購買者可能不清楚各種款式的差異，他們需要專業建議來幫助決策。競爭者如 Harper's Bazaar (8) 提供了文章介紹圖章戒指的文化與挑選方式，滿足了用戶的資訊需求，而品牌方頁面直接進入商品列表，流失了這部分還在研究階段的潛在客戶。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">在商品列表前增加一個「印章戒選購指南」區塊，用圖文方式介紹<strong>不同戒型的風格差異</strong>、<strong>適合篆刻的字數建議</strong>，以及<strong>不同場合的搭配技巧</strong>。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-4">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-users text-orange-600 mr-2"></i>缺少客戶案例與社會認同
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面上完全沒有展示過往的客製化成品、客戶實戴照片或用戶評價。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">對於客製化商品，消費者極度依賴真實案例來評估品質與設計感，並從中尋找靈感。看到別人成功的訂製經驗能大幅降低他們的購買疑慮。競爭者 EDJ (9) 就設有「案例作品」與「顧客評價」專區，有效地建立了信任感。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">建立一個名為「<strong>靈感作品集</strong>」或「<strong>顧客實戴分享</strong>」的區塊，展示不同風格的客製化成品照片（需徵得客戶同意），並附上簡短的設計故事或客戶回饋，這能有效提升產品的吸引力與信賴度。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-4">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-ruler-combined text-purple-600 mr-2"></i>客製化流程不透明
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面僅提及「可加購刻字」，但缺乏對<strong>客製化流程、所需時間、圖案限制、溝通方式</strong>的詳細說明。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶在訂製前會有許多疑問，例如「我可以刻自己的簽名嗎？」、「製作需要多久？」、「圖案的複雜度有影響嗎？」。不透明的流程會讓用戶猶豫不決。提供清晰的步驟能消除不確定性，引導用戶順利下單。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">新增「<strong>客製化流程三步驟</strong>」圖解說明：1. 選擇戒款並下單 → 2. 提供圖文並與設計師溝通 → 3. 確認設計圖稿並開始製作。同時附上預計工時與常見問題（FAQ）連結。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-4">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-shield-alt text-blue-600 mr-2"></i>缺少材質保養與售後服務說明
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面中未提及 925 純銀的保養方式、產品保固或售後維修服務等資訊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">銀飾需要保養，用戶會關心如何維持戒指的光澤，以及如果未來需要維修或修改尺寸該怎麼辦。提供這些資訊不僅能展現品牌的專業與負責，更是建立長期客戶關係的關鍵。競爭者 EDJ (9) 就強調「永久保固與保養服務」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">在頁面底部或側邊欄加入「<strong>銀飾保養小撇步</strong>」與「<strong>安心售後服務</strong>」的簡短說明，並連結至詳細頁面，內容包含免費擦銀布、尺寸修改政策、終身保養服務等，以增加消費者的購買信心。</span>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站的基礎 SEO 設置相當完整。<strong>Meta Title 和 Description</strong> 均有配置，且緊扣「印章戒指訂製」的核心主題。<strong>Open Graph 標籤</strong>（og:title, og:description, og:image 等）齊全，有利於社群媒體分享時的呈現效果。同時，具備 <strong>RWD (響應式網頁設計)</strong> 的 viewport 設定，確保在行動裝置上有良好的瀏覽體驗。從其 URL 結構和頁面元素來看，網站可能是基於如 <strong>Shopline</strong> 等電商平台搭建，這通常意味著基礎技術架構穩定。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">頁面採用了清晰的層級結構。<strong>&lt;h1&gt; 標籤</strong>「印章戒系列」準確定義了頁面主題。各項商品使用 <strong>&lt;h4&gt; 標籤</strong>作為標題，邏輯清晰，有助於搜尋引擎理解頁面內容為商品集合頁。商品命名非常出色，包含了核心關鍵詞「印章戒」、材質「純銀戒指」、規格及多種應用場景，對SEO有正面幫助。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">最主要的技術問題在於 <strong>&lt;h2&gt; 標籤的濫用</strong>。目前的 &lt;h2&gt; 是一長串由逗號分隔的關鍵詞，這種作法被稱為「關鍵詞填充 (Keyword Stuffing)」，對使用者體驗不佳，且可能被搜尋引擎視為過度優化的負面信號。建議將此 &lt;h2&gt; 修改為一句通順且具描述性的句子，例如：「<strong>探索多款手工客製化印章銀戒，打造你的專屬簽名</strong>」，自然地融入1-2個核心關鍵詞即可。另外，Meta Title 中的「印商戒指」應為錯字，需更正為「<strong>印章戒指</strong>」，以確保核心關鍵詞的準確性。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>產品定位清晰，款式多樣：</strong>品牌在「客製化純銀印章戒」市場有明確的定位，提供多樣化的戒面形狀與尺寸，是其核心競爭優勢。</li>
+    <li><strong>SEO基礎穩固，但細節待優化：</strong>Meta 標籤和 OG 標籤等基礎設置完善，但 &lt;h2&gt; 標籤的關鍵詞填充是明顯的技術缺陷，應立即修正。</li>
+    <li><strong>內容嚴重偏向交易，缺乏引導：</strong>整個頁面為商品目錄，完全缺少教育性、引導性和建立信任的內容，難以轉化仍在考慮階段的潛在客戶。</li>
+    <li><strong>社會認同與案例展示缺失：</strong>相較於競爭對手，頁面缺乏客戶評價、客製化成品案例等社會認同元素，這是在客製化市場建立信任感的關鍵短板。</li>
+    <li><strong>客製化流程不夠透明：</strong>對於核心服務「客製化」，頁面沒有提供清晰的流程說明，可能導致用戶因不確定性而放棄購買。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-excellent p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第1位</div>
+                                <div class="text-sm opacity-90">表現優異</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">0個位置</div>
+                                <div class="text-xs text-gray-600">與第1名距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">品牌目前位居搜尋結果榜首，此為極具價值的數位資產。然而，SERP環境競爭激烈，包含大型電商、國際精品與內容網站，任何微小的錯誤都可能導致排名下滑。當務之急是修正現有問題並建立防禦護城河。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>安爵</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+    <td class="px-4 py-2 border font-semibold text-left">Meta 標題</td>
+    <td class="px-4 py-2 border text-red-600">印<strong class="font-bold">商</strong>戒指訂製｜篆刻簽名銀戒設計-安爵銀飾工房 (有致命錯字)</td>
+    <td class="px-4 py-2 border">印章戒指 ，小眾質感品牌 - Pinkoi (簡潔、包含品牌、點出特色)</td>
+    <td class="px-4 py-2 border">立即修正錯字。建議改為：「【印章戒訂製】925純銀篆刻戒指｜手工設計 Signet Ring - 安爵銀飾工房」</td>
+  </tr>
+  <tr>
+    <td class="px-4 py-2 border font-semibold text-left">Meta 描述</td>
+    <td class="px-4 py-2 border">強調「獨家篆刻」、「925純銀」、「商務簽約」、「手工製作」，專業性強。</td>
+    <td class="px-4 py-2 border">強調「多樣性」(萬種戒指)、「優惠」(免運、折抵)，吸引價格敏感與尋求多樣選擇的用戶。</td>
+    <td class="px-4 py-2 border">保留專業定位，增加信任感與急迫性，如：「安爵工房專注手工篆刻印章戒，從商務簽約到個人收藏，皆由台灣職人精雕。立即訂製您的925純銀簽名戒，展現不凡品味。」</td>
+  </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">
+  <h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+  <ul class="list-disc list-inside space-y-2">
+    <li><strong>H2標籤濫用：</strong> 頁面唯一的 &lt;h2&gt; 標籤內容為一長串關鍵詞，這違反了Google的最佳實踐，可能被視為關鍵詞填充(Keyword Stuffing)，對頁面結構化和語義理解造成負面影響。</li>
+    <li><strong>URL結構不佳：</strong> URL `/category/177204` 缺乏描述性，對SEO和使用者體驗均不友好。理想的URL應包含關鍵詞，如 `/category/signet-rings`。雖然修改高排名頁面的URL風險較大，但這是個明顯的技術劣勢。</li>
+  </ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage">
+  <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+  <ul class="list-disc list-inside space-y-2">
+    <li><strong>頁面類型精準：</strong> 品牌頁面是一個高度聚焦的「產品分類頁」，而非Pinkoi的「搜尋結果頁」，這使得頁面主題更集中，更能滿足有明確購買意圖的使用者。</li>
+    <li><strong>網站主題權威：</strong> Argent安爵銀飾工房是一個專注於銀飾的品牌網站，相較於Pinkoi、蝦皮等綜合性平台，在「銀飾」、「客製化珠寶」等主題上擁有更高的主題權威(Topical Authority)。</li>
+    <li><strong>清晰的產品結構：</strong> 每個產品都使用 &lt;h4&gt; 標題，結構層次分明，有助於搜尋引擎理解頁面上的產品實體。</li>
+  </ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="warning-box">
+    <h4 class="font-semibold text-yellow-600 mb-2 pb-1 border-b-2 border-yellow-200">🔍 關鍵詞覆蓋缺口分析</h4>
+    <ul class="list-disc list-inside space-y-2">
+      <li><strong>英文詞彙缺失：</strong> 排名第2的Pinkoi大量使用 `signet ring`，而品牌方頁面完全沒有使用。這是一個重大的覆蓋缺口，錯失了習慣中英夾雜或直接使用英文搜尋的潛在客戶。</li>
+      <li><strong>同義詞擴展不足：</strong> 頁面聚焦於「印章戒」和「篆刻」，但對於「圖章戒指」、「封蠟戒」、「火漆戒」等語義相近的詞彙提及較少。Harper's Bazaar的文章就使用了「圖章戒指」，證明了其搜尋價值。</li>
+      <li><strong>使用者意圖詞彙：</strong> 缺乏圍繞「推薦」、「品牌」、「價格」、「男」等修飾詞的內容佈局，使品牌難以捕獲處於研究階段的流量。</li>
+    </ul>
+  </div>
+                                <div class="insight-box">
+    <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">📝 內容深度與廣度分析</h4>
+    <p class="mb-2">品牌頁面在<strong>產品廣度</strong>上表現良好，提供了多種形狀和寬度的印章戒。然而，在<strong>內容深度</strong>上嚴重不足。</p>
+    <ul class="list-disc list-inside space-y-2">
+      <li><strong>品牌方：</strong> 內容深度幾乎為零，僅有產品列表。使用者無法從頁面獲得購買決策所需的輔助資訊。</li>
+      <li><strong>競爭者 (Harper's Bazaar)：</strong> 提供10款產品推薦、選購訣竅、品牌故事等深度內容，滿足了使用者的資訊需求，因此即使是內容頁面也能獲得高排名。</li>
+      <li><strong>結論：</strong> 品牌方最大的弱點是內容深度，這也是最容易被競爭對手攻擊的環節。增加教育性、引導性內容是鞏固排名的核心策略。</li>
+    </ul>
+  </div>
+                        </div>
+
+                            <div class="success-box">
+    <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 內容差異化與價值提升機會</h4>
+    <div class="space-y-4">
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化「客製化」專業形象</h5>
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>互動式預覽工具：</strong> 提供一個簡易的線上工具，讓使用者可以輸入文字、選擇字體，即時預覽篆刻在戒指上的效果。</li>
+          <li><strong>展示真實案例：</strong> 建立一個「客戶作品集」區塊，展示已完成的客製化印章戒照片（經客戶同意），並附上簡短的設計故事，增加真實性與信任感。</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">注入「工藝與傳承」價值</h5>
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>工藝流程介紹：</strong> 以圖文或短影片形式，簡介一枚印章戒從銀塊到成品的製作過程，突顯「手工打造」的價值，這是大型平台無法比擬的。</li>
+          <li><strong>印章戒的文化意涵：</strong> 撰寫關於Signet Ring歷史、象徵意義的內容，將產品從單純的飾品提升至具有文化底蘊的個人象徵。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="no-data-placeholder"><p>此關鍵詞類型不適用於此分析。</p></div>
+                                <div class="no-data-placeholder"><p>此關鍵詞類型不適用於此分析。</p></div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化專業經驗 (Experience &amp; Expertise)：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>創辦人/工匠介紹：</strong>在頁面加入一個簡短的區塊介紹安爵的創辦人或主要工匠，及其在銀飾製作領域的資歷與理念，建立人格化連結。</li>
+        <li><strong>展示客戶評價：</strong>整合顧客的正面評價與回饋，特別是那些提到客製化體驗與成品品質的評論。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">提升權威性 (Authoritativeness)：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>企業合作案例：</strong>如果曾為企業或團體製作過紀念戒指，可設立「合作夥伴」區塊，展示其Logo，作為強力的權威背書。</li>
+        <li><strong>媒體報導或獎項：</strong>若曾獲任何媒體報導或設計獎項，應在頁面顯著位置展示。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">建立信任感 (Trustworthiness)：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>明確的售後服務：</strong>清晰標示產品材質保證（如925純銀）、保固期限、修改與保養政策。</li>
+        <li><strong>安全的付款標示：</strong>展示支援的付款方式圖標（如SSL憑證、信用卡、LINE Pay），提升交易安全感。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>增加篩選器：</strong>目前只有產品列表，使用者無法快速找到想要的款式。應增加按「形狀」(圓形/方形/橢圓)、「寬度」(細版/寬版) 篩選的功能。</li>
+        <li><strong>價格標示清晰化：</strong>價格 `$3,000 ~ 3,800` 區間應更明確解釋，例如滑鼠懸停時提示「價格因刻字複雜度而異」。</li>
+        <li><strong>行動號召(CTA)按鈕：</strong>每個產品下方除了價格，應有更明確的CTA按鈕，如「查看詳情」或「立即客製」。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>產品比較功能：</strong>允許使用者勾選2-3款戒指進行並排比較，幫助他們做出最終決定。</li>
+        <li><strong>360度產品視圖：</strong>為主力產品提供360度旋轉視圖，讓使用者能從各個角度觀察戒指的細節與厚度。</li>
+        <li><strong>整合客戶實戴照片：</strong>在產品頁面中加入一個區塊，展示顧客佩戴該款戒指的真實照片，增加購買信心。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">Pinkoi</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">電商平台</div>
+                <div class="text-lg font-semibold text-blue-600">設計師商品聚合</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.pinkoi.com/search?q=%E5%8D%B0%E7%AB%A0%E6%88%92%E6%8C%87" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.pinkoi.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">Pinkoi 的核心策略是利用其龐大的設計師社群和商品庫，提供壓倒性的選擇廣度。頁面本質是搜尋結果，專為尋求多樣性、小眾設計和客製化選項的用戶打造。Meta資訊強調「小眾質感」、「萬種選擇」和「免運優惠」，精準吸引追求獨特風格與性價比的用戶，其目標是成為用戶尋找設計商品的終點站。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流為典型的「產品羅列型」，結構由篩選器和商品列表構成，用戶體驗核心是「瀏覽」與「發現」。這種網格布局有利於快速掃描大量商品，但缺乏深度引導。主要的CTA是隱性的，即點擊進入單一商品頁面，整個頁面都在鼓勵用戶探索而非深入了解單一品牌。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 極高。平台展示了海量的商品與設計師，並累積了大量用戶評價，證明其在聚合與銷售設計商品方面擁有豐富經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 中等。平台的專業在於電商運營，而非珠寶工藝本身。專業性體現在其社群中的各個獨立設計師。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 高。作為亞洲領先的設計商品平台，Pinkoi在設計師社群和消費者心中已建立起強大的權威地位。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 高。信任建立在平台信譽、安全的金流系統、透明的用戶評價機制和客戶服務之上。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第3名</span>
+                <h4 class="font-bold text-xl">Molasses</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">高端精品</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.molasses.com.tw/product-page/18k-sun-moon-star-%E5%8D%B0%E7%AB%A0%E6%88%92-%E5%AE%A2%E8%A8%82%E8%A3%BD%E4%BD%9C%E6%AC%BE" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.molasses.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">Molasses 採用單一產品頁面(PDP)策略，聚焦於一款高單價的「18K Sun, Moon & Star 印章戒」。內容圍繞該產品的設計理念（集全宇宙之能量）、材質細節（18K真金、鑽石）和精緻包裝展開，旨在塑造高端、獨特的品牌形象。此策略目標是吸引尋求品牌價值和特定設計美學的高消費力客群。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流非常直接，是標準的產品介紹頁面。從高品質的產品圖片開始，接著是富有詩意的設計描述，然後是規格列表。CTA明確，為「加入購物車」，整個頁面為直接轉化而設計。這種結構對於已被品牌吸引的用戶非常有效。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 中等。頁面展示了對單一高端產品的設計與製作經驗，但缺乏廣泛的產品線或客戶案例來證明更全面的經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 高。詳細標示了18K金、鑽石克拉數等專業規格，並提供商品購買保證書，展現了其在貴金屬珠寶領域的專業性。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 中等。作為獨立設計師品牌，其權威性主要建立在獨特的設計風格和產品質感上，而非市場佔有率。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 高。提供精緻禮盒、購買保證書、保養須知等完整配套服務，並有清晰的價格標示，建立了良好的交易信任感。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第4名</span>
+                <h4 class="font-bold text-xl">OAKROOM</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">頂級古董精品</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://oakroom.com.tw/products/p-j-co-sterling-1960s-tiffany-14k-%E5%A4%A7%E5%9E%8B%E5%8D%B0%E7%AB%A0%E6%88%92%E6%8C%87-%E9%A0%90%E8%B3%BC%E9%99%90%E5%AE%9A?srsltid=AfmBOooyLVCBFmBKhogA62NpK3kaKBbl7y6WxkdcKwkdhhggsRZf6zq0" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">oakroom.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">OAKROOM 的策略是「故事價值型」，專注於銷售具有歷史意義的古董珠寶。其頁面核心是圍繞一枚1960年代的Tiffany印章戒，詳細描述其來源、原主人的故事、重量與材質，強調其稀有性與收藏價值。此策略完全鎖定對古董珠寶有深入了解、追求獨一無二故事性的頂級收藏家客群。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流以產品故事為核心，引導用戶沉浸在其歷史價值中。從產品名稱的「1960s Tiffany」開始，到描述中的「原買家故事」，每一步都在建立情感連結與稀有價值感。CTA為「加入購物車」，但高昂的價格暗示了這更像是一個展示頁面，實際交易可能需要更多線下溝通。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 高。詳盡的產品故事和背景描述，展現了其在古董珠寶鑑定與收藏領域的豐富經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 極高。對產品的年代、材質、重量、來源都有精確的描述，體現了其在古董珠寶領域的深度專業知識。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 高。能夠經手並銷售Tiffany的古董作品，本身就是一種權威性的證明。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 極高。對於高價古董商品，詳盡且可追溯的故事是建立信任的基石。其專業描述和清晰的實體店鋪資訊，為消費者提供了強大的信任保障。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第5名</span>
+                <h4 class="font-bold text-xl">ART64</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">專業客製化</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.art64.co/products/%E7%AF%86%E5%88%BB%E5%8D%B0%E7%AB%A0%E9%8A%80%E6%88%92%E5%B0%8F%E6%AC%BE?srsltid=AfmBOorCnk0_j3NRLpmAC0T_JAWIv7A_iD49XrFrGMBrDuPMU38ZZ8Ds" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.art64.co</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">ART64 的策略是「功能導向型」，極度強調印章戒的實用性與客製化細節。Meta描述直接點出「可作為私章、銀行開戶印鑑使用」，鎖定有明確功能性需求的用戶。內容圍繞產品的厚實感、舒適性（內側通風空間）和雷射雕刻技術展開，旨在建立一個專業、可靠、注重細節的品牌形象。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流是標準的產品頁面，但重點突出功能性賣點。從產品圖到描述，都在強調「份量感」、「舒適性」和「實用性」。CTA為「加入購物車」，整個頁面設計清晰，旨在快速解答用戶對產品功能和品質的疑問，並促成購買。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 高。從考量長時間配戴的「通風空間」設計，可以看出品牌在戒指製作上擁有豐富的實踐經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 高。明確提出使用「雷射雕刻技術」，並解釋其「牢固不易磨損」的優點，展現了技術專業性。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 中等。作為專業品牌，在客製化銀飾領域有一定權威，但品牌知名度可能不及大型平台或奢侈品牌。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 高。清晰的產品描述、材質說明以及實用的功能性承諾（可當印鑑），為用戶提供了強大的信任基礎。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第6名</span>
+                <h4 class="font-bold text-xl">Dior</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">國際奢侈品牌</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.dior.com/zh_tw/fashion/products/R1006HOMST_D990" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.dior.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">Dior 的策略是「品牌價值導向型」。頁面內容極簡，重點突出品牌標誌性元素（Dior Oblique 主題圖案、CD Icon 標誌）和產品的雋永設計感。描述中充滿「典雅」、「現代感」、「雋永之作」等詞彙，旨在強化品牌的高端定位。其目標客群是品牌忠誠者，購買的是Dior的品牌符號，而非客製化服務。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流圍繞品牌美學展開，從精緻的產品圖到簡潔的描述，都在傳達一種奢華感。頁面結構清晰，包含描述、尺寸、服務等標準模塊。CTA為「聯絡與查詢店內庫存」，暗示了這類高價商品更傾向於引導至線下體驗與購買，線上頁面主要起展示和建立渴望的作用。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 極高。作為世界頂級奢侈品牌，Dior在高級珠寶設計與製作方面擁有數十年的深厚經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 極高。從設計、材質（100% 純銀）到製造地（德國製造），都體現了其無可挑剔的專業標準。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 頂級。Dior本身就是時尚界的權威，其品牌名即是權威的代名詞。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 頂級。全球性的品牌聲譽、完善的售後服務（免費送貨及退換）和實體店網絡，為消費者提供了最高級別的信任保障。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第7名</span>
+                <h4 class="font-bold text-xl">蝦皮購物</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">電商平台</div>
+                <div class="text-lg font-semibold text-blue-600">大眾化綜合</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://shopee.tw/search?keyword=%E6%88%92%E6%8C%87%E5%8D%B0%E7%AB%A0" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">shopee.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">蝦皮的策略是典型的大眾市場聚合，以價格和銷量為主要競爭點。頁面為登入頁，顯示其SEO策略可能存在問題，或是將流量引導至需要登入才能查看的搜尋結果頁。其核心是提供一個包羅萬象的平台，用戶可以在上面找到從低價到中價位的各種商品，主要吸引對價格敏感、尋求快速交易的消費者。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">由於直接跳轉至登入頁，無法分析其具體的內容敘事。但可以推斷其結構與Pinkoi類似，為商品列表形式，強調銷量、折扣和用戶評價。CTA會是「立即購買」或「加入購物車」，旨在縮短決策路徑，促進衝動消費。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 極高。作為東南亞最大的電商平台之一，其在處理海量商品交易和用戶互動方面經驗豐富。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 低。平台本身不具備珠寶專業性，專業性依賴於平台上的無數個體賣家，品質參差不齊。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 極高。在電商領域，蝦皮是家喻戶曉的權威品牌。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 中等。雖然平台提供支付保障（蝦皮承諾），但用戶對個體賣家的信任度不一，需要依賴銷量和評價來判斷，存在購買風險。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第8名</span>
+                <h4 class="font-bold text-xl">Harper's BAZAAR</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">內容媒體</div>
+                <div class="text-lg font-semibold text-blue-600">時尚權威</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.harpersbazaar.com/tw/luxury/jewelryandwatch/g35300012/signet-ring/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.harpersbazaar.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">Harper's BAZAAR 的策略是「內容引導型」，旨在影響用戶購買決策的上游。文章以「古董珠寶控必收」為切入點，提供「精選10款圖章戒指推薦」，滿足用戶在搜尋初期的資訊搜集與決策輔助需求。其目標是成為風格靈感的來源和權威的選品顧問，在用戶心中建立品味標竿，並將流量導向其推薦的合作品牌。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流為「教育推薦型」。文章以「怎麼選」開頭，建立專業形象，然後引出「推薦清單」，每個推薦都附有品牌介紹和購買連結。這種編輯式佈局圖文並茂，閱讀體驗佳。CTA是引導至各個推薦品牌的購買頁面，其核心商業模式是流量導出和內容變現。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 高。作為資深時尚媒體，其編輯團隊在挑選和評論時尚單品方面擁有豐富經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 極高。文章內容展現了對珠寶趨勢、品牌背景和風格搭配的深度專業知識。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 頂級。Harper's BAZAAR是全球知名的時尚權威媒體，其推薦本身就具有極高的權威性。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 高。讀者對其媒體品牌有長期信任，相信其推薦是經過專業挑選的，從而降低了對推薦品牌的疑慮。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第9名</span>
+                <h4 class="font-bold text-xl">EDJ SILVER ACCESSORY SHOP</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">專業客製化</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.edj.tw/products/signetring001512?srsltid=AfmBOopmT5pjXTI-NYxakSyZVaWvqrT5ihlzxbg9gs9YdcmhpIGeYn9w" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.edj.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">EDJ 的策略是「轉化漏斗型」，其頁面結構極具說服力，旨在引導有高度購買意圖的用戶完成轉化。內容從產品描述、設計流程、案例作品到顧客評價，層層遞進，系統性地建立信任感和專業形象。強調「職人手作」、「永久保固」，直接對標尋求高品質、高保障服務的用戶，是品牌方的直接且強大的競爭者。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流極其嚴謹，堪稱典範。從「是什麼」（商品描述）到「如何做」（設計流程三步驟：預覽字體、設計圖稿、製作完成），再到「為何信賴」（案例作品、顧客評價），每一步都為推動用戶決策服務。CTA清晰，引導用戶購買或諮詢，整個頁面是一個高效的銷售漏斗。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 極高。頁面上的「案例作品」和「顧客評價」是其豐富實踐經驗的最有力證明。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 高。清晰的設計流程、材質說明和注意事項，展現了其在客製化銀飾領域的專業性。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 中高。通過系統性地展示專業流程和客戶成功案例，在客製化領域建立了強大的權威感。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 極高。透明的流程、大量的真實案例、客戶評價以及「永久保固」的承諾，共同構建了極高的信任度。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方能排名第一，表示其Meta已有效滿足主要搜索意圖。然而，競爭者的策略揭示了可進一步優化的空間，以鞏固並擴大優勢。</div>
+          <div><strong>描述效能：</strong>品牌方的描述專業性強，但相較於競爭者，在吸引力與價值主張上仍有提升空間。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">策略模式：</h5>
+            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                <li><strong>價值導向型 (Pinkoi):</strong> 強調「小眾質感」、「萬種選擇」、「免運優惠」，吸引尋求多樣性與性價比的用戶。</li>
+                <li><strong>效率強調型 (ART64 & EDJ):</strong> 直接點出「客製化」、「訂製」、「刻字」，鎖定有明確需求的用戶。</li>
+                <li><strong>品牌/稀有性導向型 (OAKROOM & Dior):</strong> 利用「Tiffany」、「Dior」等強勢品牌詞或「1960s」等稀有性標籤吸引特定客群。</li>
+                <li><strong>內容引導型 (Harper's BAZAAR):</strong> 使用「精選10款」、「推薦」、「必收」等詞彙，滿足用戶的資訊搜集與決策輔助需求。</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>從「客製化」深化為「<strong>工藝傳承</strong>」或「<strong>個人故事的載體</strong>」。強調的不只是刻字，而是背後的情感與匠心。</li>
+        <li><strong>競爭優勢：</strong>突出「<strong>台灣在地設計/製作</strong>」、「<strong>終身保養服務</strong>」等C1(Pinkoi)上眾多設計師難以統一提供的品牌級承諾。</li>
+        <li><strong>目標受眾：</strong>訴求尋找的不只是一件飾品，而是具有紀念意義、可傳承信物的深度用戶。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>在核心關鍵詞「印章戒」基礎上，加入情感與信任狀語。例如：「【安爵印章戒】職人手工訂製，承載你的專屬故事｜終身保固」。</li>
+        <li><strong>描述優化：</strong>前段即點明獨特價值，中段包含相關關鍵詞（如：純銀、客製化、男戒），末段加入強信任度的行動呼籲(CTA)。例如：「安爵印章戒，不僅是飾品，更是您個人故事的雋永印記。從設計諮詢到職人手工雕琢，我們為您打造獨一無二的純銀印章戒指。立即訂製，享專屬設計師服務與終身保養承諾。」</li>
+        <li><strong>執行優先級：</strong>高。此為鞏固排名、提升品牌形象的低成本高效益操作。</li>
+    </ul>
+      </div>
+    </div>
+    </div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者內容架構模式：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>產品羅列型敘事 (Pinkoi):</strong> 結構為篩選器+商品列表，用戶體驗核心是「瀏覽」與「發現」。內容廣度極大但單品深度不足。</div>
+          <div><strong>轉化漏斗型敘事 (EDJ):</strong> 結構嚴謹，從「是什麼」到「如何做」，再到「為何信賴」，每一步都為推動用戶決策服務，E-E-A-T表現極強。</div>
+          <div><strong>教育推薦型敘事 (Harper's BAZAAR):</strong> 以「怎麼選」開頭，引出「推薦清單」，滿足用戶從認知到考慮的階段。</div>
+          <div><strong>故事價值型敘事 (OAKROOM):</strong> 內容核心是產品背後的故事，建立情感連結與稀有價值。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">品牌方內容缺口：</h5>
+            <p class="text-gray-600">品牌方作為專業品牌，最大的內容缺口在於未能像EDJ一樣系統性地展示其專業流程與客戶成功案例，也未能像Harper's BAZAAR一樣提供超越產品本身的行業知識，導致頁面過於單薄，難以建立深度信任。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-green-600 mb-4 pb-1 border-b-2 border-green-200">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容補強機會識別 (學習EDJ)：</h5>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>優先補強主題：</strong>在現有頁面中，結構化地加入「安爵的印章戒訂製流程」、「客戶實例與故事分享」、「為何選擇安爵？」等信任模塊。</li>
+                <li><strong>專業模塊建設：</strong>以圖文並茂的方式，清晰展示從諮詢到成品的每一步，建立專業與信賴感。</li>
+                <li><strong>深度內容機會：</strong>展示不同風格的客訂成品，並附上簡短的客戶故事，這是比單純評價更能打動人心的內容。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">差異化內容策略 (學習Harper's BAZAAR)：</h5>
+            <ul class="list-disc list-inside space-y-2">
+                <li><strong>獨特角度：</strong>創建獨立的內容區塊或部落格文章，主題涵蓋「印章戒指的歷史意義」、「不同金屬材質的保養技巧」、「如何測量戒圍」等。</li>
+                <li><strong>競爭優勢：</strong>透過提供超越產品的專業知識，捕獲更多上層搜尋流量，並鞏固品牌方的專家地位，建立內容護城河。</li>
+                <li><strong>執行路徑：</strong>短期內先在產品頁面增加信任模塊，中長期規劃並發布權威指南文章。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">追求獨特風格的專業人士、希望建立家族傳承的家庭成員、為重要里程碑（如畢業、成年、晉升）尋找紀念品的個人或贈禮者。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">對珠寶訂製多為新手或稍有了解，不具備專業設計知識，但對個人風格有強烈主見。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">預算範圍廣，願意為獨特性與工藝支付溢價；時間上，願意為訂製等待數週。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：從抽象到具象的困難</strong>
+        <span class="text-gray-600">用戶心中有模糊的想法（例如：想要一個代表「守護」的圖案），但不知道如何將其轉化為專業、美觀的戒指設計。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：對未知流程的恐懼</strong>
+        <span class="text-gray-600">擔心訂製流程複雜、溝通成本高，或最終成品與想像有落差且無法修改。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：品質與信任的不確定性</strong>
+        <span class="text-gray-600">無法確定線上看到的圖片是否真實反映了品牌的工藝水準，擔心材質不純、細節粗糙。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：</strong>
+        <span class="text-gray-600">價格不透明、缺乏足夠的真實客訂案例來證明品牌能力、擔心溝通過程不順暢。</span>
+      </div>
+        </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>提供權威性的指南文章或影片，題為「如何設計你的第一枚印章戒」，涵蓋風格、材質、圖案選擇等，成為用戶的靈感來源。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>建立專門的「訂製流程」頁面，用視覺化方式降低用戶的理解門檻。每個案例都應像一個小型專案故事，而不只是商品圖片。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>設計一個互動式的初步估價工具，或提供非常明確的聯絡方式以獲取報價。將客戶好評整合到產品頁面中，利用社會認同消除最後疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>強調「一對一設計師諮詢服務」，將用戶的抽象想法轉化為專業設計圖。提供設計圖、3D模擬圖甚至蠟雕模型的預覽確認環節，賦予用戶共同創作的體驗。</div>
+          <div><strong>競爭優勢展現：</strong>別人展示產品，安爵展示「故事與過程」。別人提供選項，安爵提供「共同創作的體驗」。別人標榜品質，安爵用「看得見的工藝細節」證明品質。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>多數競品直接展示商品，但沒有引導一個「完全沒概念」的用戶如何開始他的設計之旅。流程描述過於簡化或不透明，案例展示缺乏故事性。</div>
+          <div><strong>品牌突破機會：</strong>創建「印章戒設計指南」專區，成為內容權威。開發互動式線上體驗，增加客製化樂趣。將「設計諮詢」包裝成核心服務，而非僅是售前客服。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">登陸頁面的 &lt;h1&gt; 標題直接命中關鍵詞「客製化印章戒｜將您的故事戴在手上」，快速響應用戶意圖。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">前3秒內立即展示3-4張風格迥異且極具質感的客製化成品圖，旁邊是強而有力的CTA：「預約免費設計諮詢」，建立核心價值認知。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">用戶向下滾動時，依序呈現「安爵的獨特之處」（一對一諮詢、流程透明），接著是「精選客製案例」，然後是視覺化的「訂製流程四步驟」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立機制：</strong>
+          <span class="text-gray-600">在案例展示中嵌入客戶的引言式好評（例如："設計師完美實現了我的家族徽章..."），利用社會認同建立信任。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化策略：</strong>
+          <span class="text-gray-600">提供一個「材質與工藝」區塊，用高清圖文解釋不同金屬的特性與安爵的精工細節，強化專業價值。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除機制：</strong>
+          <span class="text-gray-600">設置一個簡潔的FAQ區塊，回答「費用怎麼算？」、「要等多久？」、「我可以提供自己的圖嗎？」等核心問題，消除用戶疑慮。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA 設計策略：</strong>
+          <span class="text-gray-600">頁面中段的CTA是「了解訂製完整流程」，頁面底部的最終CTA則是「立即開始訂製」，引導用戶填寫一個極簡化的諮詢表單。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化方案：</strong>
+          <span class="text-gray-600">諮詢表單只需姓名、聯絡方式、初步想法，並註明「我們將在24小時內與您聯繫」，以降低用戶填寫的心理門檻。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>品牌(安爵)雖位居榜首，但地位極不穩固。SERP由大型平台(Pinkoi)、高端精品(Dior)、專業客製品牌(EDJ)及權威媒體(Harper's Bazaar)構成，任何一方的策略調整都可能帶來衝擊。品牌目前最大的風險是自身存在的致命技術錯誤與內容深度的嚴重匱乏，這使其領導地位極易受到攻擊。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：技術性SEO基礎修補與強化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修正Meta標題中的致命錯字("印商")、移除濫用的H2標籤，並整合高價值的英文關鍵詞"Signet Ring"。</div>
+        <div><strong>執行評估：</strong>難度低，效果極高（風險防禦），資源需求少。</div>
+        <div><strong>優先級：</strong>極高 - 這是避免排名崩盤的基礎保險。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與E-E-A-T護城河建立</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>模仿競品C8的轉化漏斗結構，在頁面中增加「訂製流程」、「客戶案例」、「品牌承諾」等模組，以彌補當前內容深度為零的巨大劣勢。</div>
+        <div><strong>執行評估：</strong>難度中，效果高（提升信任與轉換），資源需求中等。</div>
+        <div><strong>優先級：</strong>高 - 這是從「商品列表」進化為「品牌體驗」的關鍵一步。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：從「銷售頁面」轉型為「價值體驗旅程」</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>針對使用者「將想法具象化」的核心痛點，提供教育性內容（如設計指南）、優化敘事結構、並將CTA導向「設計諮詢」，成為專業顧問而非僅是賣家。</div>
+        <div><strong>執行評估：</strong>難度中，效果極高（提升品牌定位與UX），資源需求中等。</div>
+        <div><strong>優先級：</strong>高 - 這是建立長期競爭優勢與品牌忠誠度的核心。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>高意圖功能型：</strong>「可以當印章用的戒指」、「純銀篆刻戒指 台北」、「客製化家徽戒指」。</div>
+        <div><strong>情感與場合型：</strong>「有紀念意義的戒指」、「畢業禮物 男 戒指」、「家族傳承信物訂製」。</div>
+        <div><strong>問題導向型：</strong>「如何設計自己的戒指」、「印章戒 價格」、「訂製戒指要多久」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「客製化」深化為「<strong>故事的載體</strong>」與「<strong>工藝的傳承</strong>」，強調每個戒指的情感價值。</div>
+        <div><strong>專業詞彙：</strong>整合「Signet Ring」、「圖章戒指」、「封蠟戒」等同義詞，並圍繞「手工篆刻」、「925純銀」、「職人精神」建立專業語義集群。</div>
+        <div><strong>品牌調性：</strong>建立「顧問式」溝通語氣，強調「一對一設計諮詢」、「共同創作體驗」，而非單純的產品銷售。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>品牌方的轉換優化藍圖核心是<strong>降低不確定性，提升參與感</strong>。路徑應設計為：1. <strong>靈感觸發</strong> (首屏展示風格多樣的頂級案例，激發想像)。2. <strong>信任建立</strong> (透過視覺化的「訂製流程」和帶有故事的「客戶案例」消除使用者對未知流程的恐懼)。3. <strong>專業釋疑</strong> (提供「材質工藝」說明和FAQ，回答價格、工期等核心問題)。4. <strong>低門檻行動</strong> (以清晰的「預約免費設計諮詢」作為主要CTA，將使用者從被動瀏覽者轉化為主動參與者，順利導入銷售漏斗)。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>從一個不穩固的#1，透過建立深度的E-E-A-T內容護城河，成為搜尋引擎與使用者心中「印章戒」主題下不可動搖的權威首選。</div>
+        <div><strong>競爭者超越路徑：</strong>將頁面從單向的「商品銷售列表」轉型為雙向溝通的「顧問式體驗旅程」，直擊競品（如EDJ, Pinkoi）未能深入解決的用戶核心痛點：對客製化流程的未知與恐懼。</div>
+        <div><strong>使用者價值最大化：</strong>提供從激發靈感、理解流程、建立信任到安心決策的完整價值鏈，成為使用者在訂製印章戒過程中的唯一資訊終點站。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將「安爵」從一個銀飾品牌，塑造成為「<strong>個人故事的轉譯者與工藝傳承的實踐家</strong>」。</div>
+        <div><strong>差異化價值：</strong>提供競爭對手無法輕易複製的「<strong>一對一設計諮詢體驗</strong>」和充滿情感溫度的「<strong>客戶真實故事集</strong>」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>鞏固「印章戒」#1排名，並讓「Signet Ring」、「客製化戒指」等高價值相關詞進入前三名。</div>
+        <div><strong>流量增長目標：</strong>透過長尾關鍵詞佈局，提升總體自然搜尋流量15-20%。</div>
+        <div><strong>轉換率優化：</strong>頁面停留時間提升50%以上，「預約免費設計諮詢」的轉換率提升30%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：基礎鞏固與風險排除 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">Meta標籤優化：</strong>
+          <span class="text-gray-600">立即修正Meta標題中的致命錯字("印商"改為"印章")，並根據策略優化標題與描述，融入價值主張。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">頁面結構修正：</strong>
+          <span class="text-gray-600">移除濫用的H2關鍵詞堆砌標籤，替換為有意義的引導性標題，並整合核心英文關鍵詞"Signet Ring"。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容護城河建設 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心信任模組植入：</strong>
+          <span class="text-gray-600">在頁面中新增「安爵訂製流程」、「客戶實例分享」、「品牌承諾」三大內容區塊，大幅提升內容深度與E-E-A-T信號。</span>
+        </div>
+         <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">視覺化證明：</strong>
+          <span class="text-gray-600">為新增的模組配備高品質的圖片與工藝流程短片，將抽象的專業具象化。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：權威地位與體驗領導 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">價值體驗旅程重構：</strong>
+          <span class="text-gray-600">將頁面重構成完整的「顧問式銷售漏斗」結構，從靈感到決策全程引導用戶。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">內容集群建立：</strong>
+          <span class="text-gray-600">建立支持性的部落格內容集群，發布「印章戒設計指南」等權威文章，捕獲上層流量，將安爵打造成該領域的思想領袖。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>產品列表清晰，款式多樣，能滿足有明確購買目標的用戶。</div>
+          <div><strong>改善空間：</strong>內容深度為零，缺乏引導、教育和建立信任的元素，無法有效轉化處於考慮階段的用戶，也難以抵禦提供深度內容的競爭者。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">顧問式銷售漏斗結構：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>頂部 (總)：</strong>以強烈的價值主張和靈感案例牆吸引用戶，解決「我想要什麼」的問題。</div>
+          <div><strong>中部 (分)：</strong>在展示產品列表的同時，穿插「訂製流程詳解」、「客戶故事」、「方案比較」等信任模組，解決「我為什麼要信任你」和「你如何幫我實現」的問題。</div>
+          <div><strong>底部 (總)：</strong>以詳盡的FAQ消除最後疑慮，並提供一個低門檻、高價值的CTA——「預約免費設計諮詢」，順暢地將用戶引導至銷售流程，解決「下一步該怎麼做」的問題。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>展示真實的職人精神與手工篆刻工藝：</strong>強調每一刀的情感與溫度，與機器的冰冷形成對比，建立工藝權威性。</div>
+        <div><strong>詳細介紹一對一「故事轉化設計」流程：</strong>將服務從「客製化」提升到「共同創作」，解決使用者不知如何開始的核心痛點。</div>
+        <div><strong>分享帶有情感溫度的客戶真實訂製故事：</strong>用真實案例建立社會認同，其說服力遠超普通產品評價。</div>
+        <div><strong>突出終身免費保養的品牌承諾：</strong>將一次性交易轉化為長期信任關係，消除使用者對售後的顧慮。</div>
+        <div><strong>在Q&A中提供顧問級的專業解答：</strong>不僅回答問題，更在回答中體現品牌價值與專業度。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在頁面中嵌入職人工作時的短影片或高品質照片，並附上職人簡介。</div>
+        <div>以圖文流程圖形式，清晰呈現從「故事傾聽」到「設計草圖」再到「成品」的每一步。</div>
+        <div>為每個客戶案例製作專屬區塊，包含「客戶挑戰」、「安爵解決方案」和「客戶感言」。</div>
+        <div>在頁面顯著位置設置「品牌承諾」圖標或區塊，清晰列出服務保障。</div>
+        <div>FAQ的回答口吻應為專業顧問，而非客服，例如在解釋價格時，重點溝通其背後的工藝價值。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+                                <h4 class="font-bold text-lg mb-4 text-green-800">🎯 轉換路徑設計策略</h4>
+                                <p class="text-gray-700">轉換路徑設計的核心是「<strong>降低決策門檻，建立情感連結</strong>」。路徑為：</p>
+                                <ol class="list-decimal list-inside mt-4 space-y-2">
+                                    <li><strong class="text-green-700">視覺吸引：</strong>首屏以高品質、風格多樣的靈感案例抓住用戶眼球。</li>
+                                    <li><strong class="text-green-700">理性說服：</strong>透過詳盡、透明的訂製流程圖與方案比較，建立專業信任。</li>
+                                    <li><strong class="text-green-700">情感共鳴：</strong>分享客戶真實的訂製故事，與用戶建立情感上的連結。</li>
+                                    <li><strong class="text-green-700">信任背書：</strong>清晰展示品牌承諾（如終身保養）與專業的FAQ，消除最後的購買疑慮。</li>
+                                    <li><strong class="text-green-700">無壓力轉換：</strong>最終引導至「預約15分鐘免費設計諮詢」的低風險CTA，此路徑逐步瓦解使用者的不確定性與恐懼，將其從潛在客戶順利轉化為高意向度的諮詢者。</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+                                <h4 class="font-bold text-lg mb-4 text-blue-800">📘 使用者體驗優化指南</h4>
+                                <p class="text-gray-700">使用者體驗優化的重點是「<strong>導航清晰化</strong>」與「<strong>內容視覺化</strong>」。實施方案包括：</p>
+                                <ul class="list-disc list-inside mt-4 space-y-2">
+                                    <li><strong>頁內快速導航：</strong>在頁面頂部增加錨點連結，方便用戶快速跳轉至「訂製流程」、「客戶案例」等關心的區塊。</li>
+                                    <li><strong>內容視覺化：</strong>大量使用高品質的產品圖、流程圖示和案例照片，將抽象的服務具象化，提升頁面吸引力。</li>
+                                    <li><strong>互動性設計：</strong>關鍵模組（如訂製流程、客戶案例）採用更具互動性的設計，如輪播(Carousel)或手風琴(Accordion)效果，避免頁面過長。</li>
+                                    <li><strong>CTA優化：</strong>確保所有CTA按鈕在視覺上統一且突出，文案清晰有力（例如「開始您的訂製之旅」），引導使用者完成下一步操作。</li>
+                                    <li><strong>行動端體驗：</strong>全面優化行動端瀏覽體驗，確保文字、圖片和按鈕的佈局合理，加載速度快，點擊區域足夠大。</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
