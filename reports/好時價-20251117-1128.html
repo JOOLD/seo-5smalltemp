@@ -1,0 +1,2039 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 好時價</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">好時價 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「房屋估價」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">5</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站明確定位為一個<strong>AI驅動的線上房屋估價平台</strong>。核心價值主張是透過結合<strong>實價登錄</strong>、空間與不動產大數據，運用<strong>AI自動估價模型</strong>，為用戶提供「公正、客觀的估價服務」。其「一址估價」功能是關鍵特色，旨在降低使用門檻，讓不清楚房屋細節的用戶也能快速獲得行情參考。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容架構以數據工具為核心，涵蓋了<strong>房屋估價</strong>、<strong>實價登錄查詢</strong>、<strong>社區查詢</strong>、<strong>房價指數</strong>及<strong>房貸試算</strong>等多個面向。這表明網站不僅僅是一個單一功能的估價工具，而是一個試圖提供全方位房地產數據服務的資訊平台。特別是納入「清華安富房價指數」，顯著提升了內容的專業性與權威性。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對用戶的核心價值在於提供<strong>即時、便捷且低門檻的房價查詢服務</strong>。透過「註冊會員即享免費5次估價」的誘因，有效吸引潛在用戶。網站幫助用戶在買賣房屋前快速掌握市場行情，彌補了傳統銀行估價流程慢、資訊不透明的缺點， empowering 用戶做出更明智的決策。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+    <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+        <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+            <i class="fas fa-search text-red-600 mr-2"></i>決策支援流程缺口
+        </h4>
+        <div class="space-y-3">
+            <div class="bg-white p-4 rounded border-l-2 border-red-300">
+                <strong class="text-red-700">缺少內容：</strong>
+                <span class="text-gray-600">缺少將「房屋估價」結果與後續買賣、貸款流程串連的引導性內容。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-red-300">
+                <strong class="text-red-700">用戶需求：</strong>
+                <span class="text-gray-600">用戶獲得估價後，下一步通常是思考「我能買多少錢的房子？」、「這個價格銀行能貸多少？」或「我該如何出價？」。排名第一的中國信託直接以「現在的你在哪一步？」引導用戶，提供從預算評估到貸款方案的完整決策路徑，而您的網站則在提供估價數字後便終止了引導。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-red-300">
+                <strong class="text-red-700">建議補強：</strong>
+                <span class="text-gray-600">在估價結果頁面新增「下一步」區塊，內容可包含：1. <strong>可貸額度初估</strong>（連結房貸試算工具）。2. <strong>買賣議價策略</strong>文章。3. <strong>購屋/售屋流程圖</strong>解說。</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+        <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+            <i class="fas fa-balance-scale text-orange-600 mr-2"></i>估價方法比較與釋疑缺口
+        </h4>
+        <div class="space-y-3">
+            <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+                <strong class="text-orange-700">缺少內容：</strong>
+                <span class="text-gray-600">缺乏對不同估價方式（如 AI 估價、銀行估價、仲介估價、實價登錄）差異的解釋與比較內容。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+                <strong class="text-orange-700">用戶需求：</strong>
+                <span class="text-gray-600">用戶對於「為什麼 AI 估價的價格跟銀行說的不一樣？」或「這個估價可信嗎？」等問題感到困惑。中國信託以「房屋總價≠銀行估價」的標題直接點出此痛點，您的網站雖然強調「公正客觀」，但未能主動解釋其估價模型的優勢與限制，難以建立深度信任。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+                <strong class="text-orange-700">建議補強：</strong>
+                <span class="text-gray-600">建立一篇專門的知識性文章或 FAQ 頁面，以圖表或表格形式比較<strong>不同估價管道的優缺點</strong>、<strong>影響估價的關鍵因素</strong>，並說明自家 AI 模型的原理與數據來源，提升專業透明度。</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+        <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+            <i class="fas fa-users text-purple-600 mr-2"></i>不同用戶情境內容缺口
+        </h4>
+        <div class="space-y-3">
+            <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+                <strong class="text-purple-700">缺少內容：</strong>
+                <span class="text-gray-600">缺乏針對不同用戶身份（首購族、換屋族、賣家、投資客）的定製化內容。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+                <strong class="text-purple-700">用戶需求：</strong>
+                <span class="text-gray-600">賣家關心的是「如何賣到好價錢」，而首購族則想知道「如何避免買貴」。競爭對手如信義房屋的頁面標題直接鎖定「賣房/賣屋/售屋」，內容也圍繞賣家需求。您的網站內容較為中性，未能針對特定族群的痛點提供精準的資訊，導致用戶黏著度較低。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+                <strong class="text-purple-700">建議補強：</strong>
+                <span class="text-gray-600">建立內容中心或部落格，發布針對<strong>「首購族看房指南」</strong>、<strong>「屋主售屋估價技巧」</strong>、<strong>「房屋轉增貸評估」</strong>等不同情境的文章，並在文中適時引導用戶使用網站的相關工具。</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+            <i class="fas fa-chart-line text-blue-600 mr-2"></i>數據解讀與應用指導缺口
+        </h4>
+        <div class="space-y-3">
+            <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+                <strong class="text-blue-700">缺少內容：</strong>
+                <span class="text-gray-600">提供了房價指數、漲跌趨勢等數據，但缺少如何解讀這些數據並應用於實際決策的教學內容。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+                <strong class="text-blue-700">用戶需求：</strong>
+                <span class="text-gray-600">一般用戶看到「房價指數上漲 1.5%」這樣的數據時，可能不明白這對他們買賣房屋的具體影響。他們需要更淺顯的解讀，例如「這代表現在是賣房的好時機嗎？」或「我的社區漲幅跟大盤比起來如何？」。</span>
+            </div>
+            <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+                <strong class="text-blue-700">建議補強：</strong>
+                <span class="text-gray-600">為「房價指數」、「全台價量變動趨勢」等數據圖表增加<strong>「專家解讀」</strong>或<strong>「數據洞察」</strong>欄位，用白話文解釋數據背後的意義，並提供實際的<strong>案例分析</strong>，展示如何利用這些資訊來判斷進場或出場時機。</span>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站具備了良好的 SEO 基礎。<strong>Meta Description</strong> 撰寫清晰，直接點出「輸入地址立即估價」的核心功能與「免費5次」的誘因，有效吸引點擊。同時，配置了 <strong>Canonical 標籤</strong>和 <strong>Google Site Verification</strong>，確保了搜尋引擎的正確索引。<strong>響應式設計（Viewport）</strong>也已配置，確保了行動裝置的瀏覽體驗。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">從 Outline 分析，頁面主要內容層級較為扁平，多數重要功能（如實價登錄、社區查詢）僅使用 <strong>&lt;h3&gt; 標籤</strong>，且缺乏一個統整性的 <strong>&lt;h1&gt; 標籤</strong>來定義頁面核心主題。雖然有 &lt;h2&gt;「全台價量變動趨勢」，但整體結構更像一個功能入口的集合，而非一篇圍繞「房屋估價」主題深度展開的頁面，這可能影響搜尋引擎對頁面主題權重的判斷。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">主要問題在於 <strong>Meta Title 資訊缺失</strong>（根據提供資料），這是 SEO 中最關鍵的元素之一。應立即補上一個包含目標關鍵詞「房屋估價」和品牌名稱的標題，例如：「<strong>【AI房屋估價】輸入地址秒算房價｜好時價 House+</strong>」。此外，建議重新規劃頁面標題層級（H-tags），設立一個明確的 &lt;h1&gt;，並將各功能區塊用 &lt;h2&gt; 組織起來，形成更清晰的<strong>資訊架構</strong>，有助於提升 SEO 表現。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>技術優勢明確，但價值延伸不足：</strong> 網站以「AI估價」和「一址估價」建立起獨特的技術護城河，但在引導用戶將估價結果應用於實際的買、賣、貸決策流程上存在明顯斷層，遠不如銀行競爭對手所提供的「一站式」決策支援。</li><li><strong>內容專業有餘，用戶引導不足：</strong> 雖然提供了房價指數等專業數據，但缺乏對數據的淺白解讀和應用教學，使用戶難以將抽象數據轉化為具體行動，限制了內容的實用價值。</li><li><strong>頁面結構功能導向，不利於SEO：</strong> 網站首頁的標題結構（H-tags）零散，缺乏圍繞核心主題「房屋估價」的敘事邏輯與層次感，更像一個工具導航頁，這對爭取廣泛的資訊型搜尋流量較為不利。</li><li><strong>錯失建立深度信任的機會：</strong> 網站未能詳細闡述其 AI 模型的獨特性、數據來源的權威性，以及與其他估價方式的差異，這使得「公正、客觀」的口號略顯空泛，錯失了透過透明度建立專業信任的機會。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">2</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第5位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">4個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 中國信託 距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前位於搜尋結果第一頁，位置穩固但前方皆為高權威性的金融機構，超越需要精準的技術與內容優化。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>好時價</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td class="font-semibold p-2 border">指標</td><td class="font-semibold p-2 border">品牌方 (House+)</td><td class="font-semibold p-2 border">競爭者普遍表現</td><td class="font-semibold p-2 border">改善建議</td></tr>
+<tr><td class="p-2 border">標題 &lt;title&gt;</td><td class="p-2 border bg-red-100">完全缺失</td><td class="p-2 border">包含「房屋估價」相關詞及品牌名，如「中國信託...房屋估價」、「智能房屋價值試算 - 玉山銀行」。</td><td class="p-2 border bg-yellow-100">立即建立一個包含核心關鍵詞、USP和品牌名的標題。例如：「【AI房屋估價】免費線上估價，秒懂房價行情 - 好時價House+」。</td></tr>
+<tr><td class="p-2 border">描述 &lt;meta&gt;</td><td class="p-2 border bg-green-100">非常出色，包含USP (AI模型, 一址估價) 和明確CTA。</td><td class="p-2 border">品質不一。中信簡潔，富邦詳細，玉山過於簡短。</td><td class="p-2 border">微調以匹配新標題，保持現有優勢。</td></tr>
+<tr><td class="p-2 border">關鍵詞覆蓋</td><td class="p-2 border bg-red-100">因標題缺失，核心關鍵詞覆蓋嚴重不足。</td><td class="p-2 border">普遍覆蓋「房屋估價」、「房價行情」、「實價登錄」、「房貸」等相關詞組。</td><td class="p-2 border bg-yellow-100">在新標題和頁面內容中策略性地融入「房價查詢」、「價值試算」等高相關性詞。</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue"><h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+<ul class="list-disc list-inside space-y-2 text-gray-700">
+  <li><strong class="text-red-700">嚴重：缺少 &lt;title&gt; 標籤</strong> - 這是頁面SEO最基本的元素，它的缺失極大地限制了搜索引擎對頁面主題的理解，是導致排名無法提升的首要原因。</li>
+  <li><strong class="text-red-700">嚴重：缺少 &lt;h1&gt; 標籤</strong> - 頁面沒有定義主要標題，無法向搜索引擎和用戶清晰傳達頁面的核心內容，削弱了主題相關性。</li>
+  <li><strong class="text-gray-800">中度：非語義化的標題結構</strong> - 現有的 &lt;h2&gt;、&lt;h3&gt; 標籤像是網站導航而非內容大綱（如 SERVICES, NEWS），未能有效組織頁面主題層次。</li>
+</ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage"><h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+<ul class="list-disc list-inside space-y-2 text-gray-700">
+  <li><strong class="text-green-700">簡潔的根網域 URL</strong> - `https://www.houseplus.com.tw/` 是一個乾淨、權威的URL，有利於品牌識別與權重累積，優於競爭者冗長的目錄結構。</li>
+  <li><strong class="text-green-700">行動裝置友善</strong> - Viewport設置確保了頁面在行動裝置上的良好顯示體驗，符合Google的行動優先索引原則。</li>
+  <li><strong class="text-gray-800">已設置 Canonical 標籤</strong> - `https://www.houseplus.com.tw/` 的規範標籤能有效避免重複內容問題，集中頁面權重。</li>
+</ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-6 rounded-lg"><h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">關鍵詞覆蓋與語義分析</h4>
+<p class="text-gray-700 mb-2">品牌頁面在關鍵詞覆蓋上存在明顯的「頭重腳輕」問題：</p>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>頭部 (Title/H1) 缺失：</strong> 最重要的標題區域完全沒有覆蓋目標關鍵詞「房屋估價」。</li>
+  <li><strong>身體 (Body/Meta Desc) 良好：</strong> Meta描述中包含了「估價」、「實價登錄」、「房價」、「買賣行情」等核心及相關詞彙。</li>
+  <li><strong>機會點：</strong> 前方競爭者使用了「房價地圖」、「價值試算」、「房價行情查詢」等同義詞和相關詞組。品牌應擴展關鍵詞策略，在優化後的頁面結構中自然融入這些詞彙，以捕捉更廣泛的搜索意圖。</li>
+</ul>
+</div>
+                                <div class="bg-blue-50 p-6 rounded-lg"><h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容深度與使用者旅程對比</h4>
+<p class="text-gray-700 mb-2">品牌頁面與排名第一的競爭者在內容深度上存在巨大差距：</p>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>品牌方 (House+)：</strong> 提供了一個「單點工具」。用戶到達頁面，使用工具，然後離開。內容結構未能引導用戶進行下一步探索或解決其深層次問題。</li>
+  <li><strong>競爭者 (中國信託)：</strong> 提供了一個「完整解決方案」。頁面預判了用戶在估價前、中、後可能遇到的所有問題（預算、議價、貸款），並提供相應的工具和資訊。這種全面的內容深度顯著增加了頁面的停留時間和對用戶的價值，是其排名穩居第一的關鍵。</li>
+  <li><strong>改善路徑：</strong> 品牌需要從「工具提供者」升級為「問題解決者」。圍繞「房屋估價」這一核心，擴展內容，涵蓋估價的意義、如何解讀估價報告、以及估價後的財務規劃建議等。</li>
+</ul>
+</div>
+                        </div>
+
+                            <div class="bg-blue-50 p-6 rounded-lg"><h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化機會</h4>
+<div class="space-y-4">
+  <div>
+    <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">🎯 強調公正性與數據驅動</h5>
+    <p class="text-gray-700">與以「房貸」為最終目的的銀行不同，品牌可以定位為「公正客觀的第三方估價平台」。</p>
+    <ul class="list-disc list-inside space-y-2 pl-4">
+      <li>創建內容：「銀行估價 vs. AI估價：哪個更貼近市價？」</li>
+      <li>突出「清華安富房價指數」的學術權威性。</li>
+    </ul>
+  </div>
+  <div>
+    <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">🚀 提供深度數據洞察</h5>
+    <p class="text-gray-700">利用現有數據優勢，提供超越單點估價的價值。</p>
+    <ul class="list-disc list-inside space-y-2 pl-4">
+      <li>在估價結果頁面，顯示該區域的「歷史房價走勢」和「未來房價指數預測」。</li>
+      <li>提供「相似房屋成交案例」對比，增加估價結果的可信度。</li>
+    </ul>
+  </div>
+</div>
+</div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-6 rounded-lg"><h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">權威性 (E-E-A-T) 對比</h4>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>競爭者 (銀行)：</strong> 擁有天然的金融領域權威性 (Authority) 和信任度 (Trustworthiness)。用戶普遍認為銀行的估價與貸款直接相關，因此具有很高的可信度。</li>
+  <li><strong>品牌方 (House+)：</strong> 權威性來自於其專業性 (Expertise) 和數據來源。與「清華大學」合作的「清華安富房價指數」是建立權威性的核心資產。品牌需要在頁面上更顯著地展示這一合作關係，並解釋其數據模型的科學性，以彌補非金融機構在用戶心中的信任差距。</li>
+</ul>
+</div>
+                                <div class="bg-blue-50 p-6 rounded-lg"><h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">信任指標評估</h4>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>品牌方現有指標：</strong> 「清華安富房價指數」是目前最強的信任指標。</li>
+  <li><strong>可增強的指標：</strong>
+    <ul>
+      <li><strong>媒體報導：</strong> 如果有媒體報導過好時價或其房價指數，應在頁面展示Logo牆。</li>
+      <li><strong>合作夥伴：</strong> 展示與房仲、建商或其他金融機構的合作關係。</li>
+      <li><strong>用戶見證：</strong> 增加「用戶成功案例」或「滿意度評價」。</li>
+      <li><strong>數據透明度：</strong> 簡單說明估價模型的原理及數據來源，增加透明度以提升信任。</li>
+    </ul>
+  </li>
+</ul>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標：</h5>
+      <ul class="space-y-2">
+        <li>在估價工具旁顯著位置標示「採用清華安富房價指數模型」，並提供連結至詳細說明頁面。</li>
+        <li>引用具體數據，如「已為超過 XX 萬用戶提供免費估價服務」。</li>
+        <li>增加「關於我們」頁面連結，詳細介紹團隊的專業背景與使命。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展權威內容：</h5>
+      <ul class="space-y-2">
+        <li>創建「房價指數報告」專區，定期發布市場分析，成為數據權威來源。</li>
+        <li>撰寫部落格文章，解釋影響房屋估價的各種因素（如樓層、屋齡、交通）。</li>
+        <li>分享匿名化的成功案例，例如「某用戶如何利用我們的估價報告成功議價」。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設：</h5>
+      <ul class="space-y-2">
+        <li>將房價指數報告投稿至財經或房地產相關新聞媒體，爭取外部連結與曝光。</li>
+        <li>鼓勵用戶在社群媒體或論壇分享使用心得，並引導流量回到網站。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li>將地址輸入框置於頁面首屏最顯眼的位置，減少用戶尋找時間。</li>
+        <li>簡化估價流程，初始估價僅需「地址」，其他詳細資訊（如坪數、房型）作為「優化估價」的選項。</li>
+        <li>在用戶等待估價結果時，顯示有趣的房市小知識或數據，降低等待焦慮。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li>開發互動式地圖估價功能，讓用戶可以直接點擊地圖上的建物進行估價，提升趣味性。</li>
+        <li>提供可儲存或分享的估價報告PDF，方便用戶線下使用或與他人討論。</li>
+        <li>根據用戶估價的物件，提供個人化的房貸方案推薦或相關文章，創造更深入的互動。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">3</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">中國信託銀行</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">金融機構</div>
+                <div class="text-lg font-semibold text-blue-600">貸款導向型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.ctbcbank.com/content/dam/minisite/long/loan/ctbc-mortgage/index.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.ctbcbank.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">策略全面且深入，是市場中的內容標竿。頁面構建了一個完整的「買房決策漏斗」，從預算評估、價格談判、房屋估價到最終的貸款方案，全程引導用戶。這不僅是一個工具頁，更是一個以內容為核心的完整解決方案登陸頁，旨在捕獲並轉化處於購屋旅程中各個階段的潛在客戶。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用「引導式買家旅程」的敘事流。以「現在的你在哪一步？」這個問題開篇，通過解決用戶在買房各階段的痛點（如不確定預算、怎麼談價格），自然地將用戶引導至其房貸產品，實現了從資訊提供到商業轉換的無縫銜接。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 透過模擬買房者的決策路徑，展現了對購屋流程的深刻理解和豐富經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 極高。通過解答貸款落差、銀行估價方式等複雜問題，成功建立了金融領域的專業形象。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 權威性主要來自其強大的銀行品牌背書，是金融行業的領導者之一。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 作為大型金融機構，其品牌本身就代表了高度的信賴度，用戶對其提供的金融工具和建議有天然的信任感。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">玉山銀行</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">金融機構</div>
+                <div class="text-lg font-semibold text-blue-600">效率強調型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.esunbank.com/zh-tw/personal/loan/tools/info/e-houseprice" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.esunbank.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用極簡工具型策略，頁面設計高度聚焦於「智能房屋價值試算」工具本身。幾乎沒有任何輔助性或引導性內容，目標是讓用戶以最快速度完成估價操作。這種策略吸引追求效率的用戶，但可能無法滿足希望了解更多背景資訊的用戶需求，導致頁面停留時間較短。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流為「直達工具」，用戶進入頁面後，核心目標就是使用試算器。頁面下方提供了信貸、轉增貸等其他試算服務的連結，試圖在用戶完成主要任務後進行交叉銷售，但缺乏從估價到貸款的自然過渡引導。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 頁面未能有效展現其在房貸領域的經驗，僅提供工具。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 專業性體現在工具的「智能」上，但缺乏內容支撐，專業形象不夠立體。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 權威性完全依賴於「玉山銀行」的品牌，頁面本身未建立獨立的內容權威。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 用戶的信賴感源於對玉山銀行品牌的信任，而非頁面內容本身。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第8名</span>
+                <h4 class="font-bold text-xl">內政部實價查詢網</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">政府門戶</div>
+                <div class="text-lg font-semibold text-blue-600">數據提供型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://lvr.land.moi.gov.tw/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">lvr.land.moi.gov.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">作為官方數據源，其策略是「權威公示」。不進行任何市場分析或價值判斷，僅提供最原始、最全面的不動產交易數據。它的核心價值在於數據的官方性和不可替代性，是所有商業估價服務的基礎。然而，其用戶體驗較差，篩選條件複雜，對普通用戶不夠友好，專業門檻較高。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流是純粹的「數據查詢」。用戶需要帶著明確的查詢目標（特定地址或區域）來使用網站。網站不提供任何引導或建議，僅作為一個被動的數據庫供用戶檢索。沒有商業性的CTA，其目標是履行政府資訊公開的職責。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 不適用。它不分享經驗，而是提供數據本身。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 專業性體現在數據的完整性和官方定義上。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 無可匹敵。作為「內政部」的官方網站，其權威性是市場最高級別。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 極高。用戶對其數據的真實性和準確性有絕對的信任。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第9名</span>
+                <h4 class="font-bold text-xl">信義房屋</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">房地產中介</div>
+                <div class="text-lg font-semibold text-blue-600">賣方服務型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.sinyi.com.tw/sell/mytrade" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.sinyi.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">策略高度聚焦於「賣方服務」。其Meta標題和描述明確使用「賣房/賣屋/售屋」，精準鎖定有出售房產需求的用戶群體。內容圍繞幫助賣家掌握房價行情、了解房子價值展開，最終目標是獲取屋主的售屋委託。估價服務是其獲取銷售線索（Leads）的重要工具，因此可能存在策略性報價以吸引委託。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流是「從行情到委託」。引導用戶查詢物件行情，通過大數據比對類似房屋的售價，建立專業感，最終的CTA旨在引導用戶聯繫信義房屋的經紀人進行更精準的估價和委託銷售。整個流程設計緊密圍繞其核心商業目標。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 經驗豐富，體現在對交易市場的洞察和對賣家需求的理解上。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 專業性來自其龐大的房產交易數據庫和經紀人網絡，能夠提供貼近市場的行情分析。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 作為台灣龍頭房仲品牌，在房地產交易領域具有高度權威性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 品牌信譽良好，但用戶可能會意識到其估價帶有商業立場，這可能影響其絕對的客觀信賴度。</div>
+            </div></div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方排名第5，表明其Meta標題與描述在點擊率(CTR)和相關性上不及前四名。主要原因是缺少一個明確的、包含關鍵詞的&lt;title&gt;標籤，這是一個致命的技術缺陷。</div>
+          <div><strong>描述效能：</strong>描述內容本身具有吸引力，但因缺乏標題引導，整體效果大打折扣。競爭者C1-C4的Meta直接與其強大的品牌背書結合，天然具備高點擊率潛力，而C8則憑藉「內政部」的權威性取勝。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">價值導向型 (C1, C3, C6)：</h5>
+            <p class="text-gray-600">標題與描述清晰地結合了「房貸」、「可貸額度」、「實價登錄」等多重價值，直接滿足用戶估價背後的深層需求（了解能貸多少錢）。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">效率強調型 (C2, C4)：</h5>
+            <p class="text-gray-600">使用「智能」、「秒估」等詞彙，強調估價過程的快速與便捷，吸引追求效率的用戶。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">權威公示型 (C8)：</h5>
+            <p class="text-gray-600">標題直白地標明「內政部」、「不動產交易實價查詢」，不帶任何行銷色彩，以官方身份吸引尋求最原始、最可信數據的用戶。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">目標用戶聚焦型 (C9)：</h5>
+            <p class="text-gray-600">明確使用「賣房/賣屋/售屋」，精準鎖定有出售房產需求的用戶群體。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>主打「AI 智慧估價」與「數據洞察」。從單純提供數字，升級為提供決策依據。強調模型的客觀性與科學性，區別於銀行的保守估價和房仲的立場估價。</li>
+        <li><strong>競爭優勢：</strong>B1 的優勢是「第三方中立性」。Meta 中應體現「不推銷房貸，只提供最客觀的房屋價值分析」。</li>
+        <li><strong>目標受眾：</strong>針對需要精準、客觀數據進行買賣決策、資產評估的用戶，而非僅僅想知道能貸多少錢的用戶。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>格式建議為：「【AI房屋估價】最準的線上房價查詢與行情分析 - 好時價」。結合「AI」、「最準」建立技術信任感，涵蓋核心關鍵詞「房屋估價」、「房價查詢」，並延伸至「行情分析」體現深度。長度控制在30個中文字內。</li>
+        <li><strong>描述優化：</strong>「還在用銀行或房仲的估價？好時價提供中立客觀的AI房屋估價，整合全台實價登錄數據與市場趨勢。輸入地址，3秒獲得完整房價分析報告，助您做出最佳買賣決策。」— 直接點出競爭者立場問題，強化自身中立性，並以「完整分析報告」作為鉤子，CTA清晰。</li>
+        <li><strong>執行優先級：</strong>高。Meta 優化是成本最低、見效最快的 SEO 調整，能直接影響 SERP 點擊率，是提升排名的第一步。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方頁面結構扁平，以功能導向為主，缺乏圍繞使用者旅程的敘事引導，難以留存尋找深度資訊的用戶。</div>
+          <div><strong>板塊覆蓋：</strong>提供了多樣的數據工具，但在如何解讀與應用這些數據方面存在內容缺口。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者策略模式：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>C1 (中信) - 全面深入型：</strong>構建了完整的「買房決策漏斗」，從預算、談價到貸款，內容完整度極高。</div>
+          <div><strong>C2, C4, C7 - 極簡工具型：</strong>頁面僅提供估價工具，內容深度嚴重不足。</div>
+          <div><strong>C6 (兆豐) - 功能導覽型：</strong>清晰列出各項功能，但缺乏引導性。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">專業模塊缺口識別：</h5>
+            <p class="text-gray-600">市場上（除C1外）普遍缺失對估價方法論的解釋、影響房價的詳細因素分析、估價報告的解讀指南，以及不同估價來源的比較。這為品牌方提供了建立專業內容護城河的絕佳機會。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">內容補強機會識別：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>建立「估價知識庫」板塊：</strong>創建專區或在工具頁下方擴展內容，詳細解釋估價方法、影響因素、報告解讀等專業主題。</li>
+                <li><strong>增加「我們的AI模型」說明：</strong>以透明、易懂的方式解釋 B1 的估價模型如何運作，使用了哪些數據，以建立技術信任。</li>
+                <li><strong>提供「區域房市分析報告」：</strong>定期發布針對不同行政區的房價趨勢分析，將品牌從「點查詢工具」提升為「面分析平台」。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">差異化內容策略：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>獨特角度：</strong>品牌方的內容敘事不應是「買房辦貸款」，而應是「**數據驅動的房產決策**」。內容核心是賦予用戶解讀數據、看懂市場的能力。</li>
+                <li><strong>競爭優勢：</strong>創作如「如何利用房屋估價報告，在出價時多省50萬？」、「揭秘！影響你家房價的5個隱藏因素」等高價值文章，並與估價工具頁面相互連結，打造內容生態。</li>
+                <li><strong>執行路徑：</strong>短期內補強核心頁面的FAQ，中期建立知識庫，長期發布數據報告，逐步建立內容權威。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">主要為**屋主** (考慮出售或轉貸)、**準買家** (評估出價合理性)及**房產投資者** (資產組合管理)。他們通常是房產交易的**新手**，但又是最終的**決策者**。</span>
+            </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">搜尋情境：</strong>
+        <span class="text-gray-600">在面臨換屋、資金周轉等重大生活決策時進行搜尋。初始查詢可能在手機上，但詳細分析會在桌面端完成。動機是為了**比較和驗證**心中已有的價值認知。</span>
+            </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：資訊不透明與不信任感</strong>
+        <span class="text-gray-600">擔心房仲報價為促成交易而失真，也懷疑銀行為控制風險而估價保守，渴望一個客觀中立的第三方數據。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：數據解讀困難</strong>
+        <span class="text-gray-600">即使看了實價登錄，也無法準確判斷自身房屋的條件（樓層、座向、屋況）應如何加減價。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：對結果的茫然</strong>
+        <span class="text-gray-600">得到一個估價數字後，不知道這個數字的意義，以及下一步該如何運用它來達成自己的目標。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：對估價準確性的疑慮</strong>
+        <span class="text-gray-600">「這個網站的估價可信嗎？它憑什麼這樣估？」是使用者心中最大的疑問，需要透過透明化的模型說明和權威背書來化解。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">次要障礙：擔心個資外洩與後續推銷</strong>
+        <span class="text-gray-600">害怕輸入地址後會接到無數推銷電話，或被強迫使用後續服務。</span>
+      </div>
+        </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>提供權威性的知識內容（如估價方法比較、影響因素分析），建立「數據專家」的權威形象。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>以互動式估價工具為核心，並在結果頁清晰展示估價依據、周邊案例與趨勢圖，強調數據的客觀性與透明度。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>提供「下一步行動指南」，從「估價工具」轉變為「決策夥伴」，消除用戶最後的行動疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>定位為客觀、不受任何交易立場影響的第三方數據平台，成為用戶在面對房仲與銀行時最可信賴的數據後盾。</div>
+          <div><strong>競爭優勢展現：</strong>我們的模型更貼近市場行情，估價完全基於大數據，客觀中立，並提供更深度的數據洞察與視覺化分析。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>競品多數只給數字，缺乏「為什麼」的解釋；停留在提供數字，缺乏「下一步」的引導；商業目的性過強，降低了信任感。</div>
+          <div><strong>品牌突破機會：</strong>透過建立「房屋估價知識中心」、提供業界最透明的估價報告體驗、打造中立的「下一步」服務生態系，全面超越競爭者。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">採用「首屏即估價」策略。頁面核心是一個極簡的地址輸入框，配上一句強而有力的價值主張：「輸入地址，立即獲得AI驅動的房屋估價報告」，最大化降低使用門檻。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">在3秒內讓用戶明白：①這裡可以免費估價 ②過程簡單快速 ③結果是數據驅動且客觀中立的。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">估價報告以總價為核心，但立刻透過可視化圖表（如價格區間、歷史趨勢）與周邊案例地圖，引導用戶向下探索細節，滿足其「知其所以然」的需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立機制：</strong>
+          <span class="text-gray-600">在報告頁明確標示「數據來源：內政部實價登錄」、「已比對 X 萬筆相似交易」，並提供方法論的簡要說明連結，提升估價結果的可信度。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化與用戶轉化：</strong>
+          <span class="text-gray-600">提供「房價變動通知」訂閱功能，將一次性用戶轉化為長期用戶，建立持續互動的關係。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除策略：</strong>
+          <span class="text-gray-600">設置清晰的FAQ區塊，主動回答「這個估價能用於貸款嗎？」、「跟房仲的報價有落差怎麼辦？」等用戶在決策前最關心的潛在問題。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">分層次CTA設計：</strong>
+          <span class="text-gray-600">提供不同層次的行動呼籲。主要CTA是「下載完整報告PDF」（低門檻、高價值），次要CTA可以是「與合作房仲聯繫」或「了解轉貸方案」（高意圖、商業導向）。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化細節：</strong>
+          <span class="text-gray-600">所有需要用戶提供聯絡方式的CTA，都必須清楚說明「為何需要」以及「後續會發生什麼」，以透明化流程降低用戶的未知恐懼與轉換阻力。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            SERP由高權威的金融機構主導，它們享有天然的品牌信任，但普遍存在頁面技術缺陷和內容深度不足的問題。品牌方的核心機會在於，利用技術優化的「快」和內容體驗的「深」，結合「第三方中立」的獨特定位，攻擊競爭者在「信任」之外的所有弱點。
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：Meta標籤及核心結構快速優化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修正頁面完全缺失 &lt;title&gt; 和 &lt;h1&gt; 標籤的致命缺陷，並將標題層級語義化，這是成本最低、見效最快的排名提升手段。</div>
+        <div><strong>執行評估：</strong>難度：低 / 預期效果：高 (排名提升2-4位) / 資源：開發人力0.5天</div>
+        <div><strong>優先級：</strong>極高 - 立即執行的基礎建設，能解鎖頁面被嚴重壓抑的排名潛力。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與專業性補強</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>多數競品僅提供工具而無解釋。透過新增FAQ、模型說明等內容，滿足用戶「知其然，更要知其所以然」的需求，並凸顯品牌中立、專業的差異化優勢。</div>
+        <div><strong>執行評估：</strong>難度：中 / 預期效果：高 (穩定進入前3) / 資源：內容團隊2-3週</div>
+        <div><strong>優先級：</strong>高 - 建立用戶信任和主題權威性的關鍵，是從「工具」升級為「顧問」的第一步。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：以數據可視化重塑用戶體驗</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>將單一估價數字升級為包含地圖、趨勢圖的互動式報告，提供遠超競品的體驗價值，並透過「下載報告」等CTA引導用戶深度轉換。</div>
+        <div><strong>執行評估：</strong>難度：高 / 預期效果：極高 (爭取第1) / 資源：UX/開發團隊1-2個月</div>
+        <div><strong>優先級：</strong>中 - 建立長期競爭壁壘的戰略性投資，能有效提升品牌忠誠度與口碑傳播。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>問題導向型：</strong>「線上房屋估價準嗎？」、「銀行如何評估房屋價值？」、「房屋估價需要什麼資料？」</div>
+        <div><strong>物件導向型：</strong>「老公寓 房屋估價」、「透天厝 價值試算」、「小坪數套房 行情查詢」</div>
+        <div><strong>地區導向型：</strong>「台北市大安區 房價查詢」、「新北市板橋區 房屋估價」</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「貸款額度」轉向「資產健康度評估」，強調中立決策輔助。</div>
+        <div><strong>專業詞彙：</strong>圍繞「AI估價模型」、「數據洞察」、「市場趨勢分析」、「不動產價值評估」建立專業語義護城河。</div>
+        <div><strong>品牌調性：</strong>使用「客觀」、「中立」、「透明」、「數據驅動」等修飾詞，強化品牌在用戶心中的獨特定位。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            轉換路徑的優化核心是從「一次性工具」轉變為「長期決策夥伴」。第一步，將主要CTA從模糊的「聯絡我們」改為具體的價值交換——「下載完整PDF報告」，以非侵入性方式獲取高意圖用戶。第二步，引入「訂閱房價變動通知」功能，將一次性訪客轉化為長期用戶。第三步，在報告頁面提供清晰的「下一步指南」，根據用戶是買方或賣方，引導至相關的知識內容或合作夥伴服務，無縫銜接用戶旅程，最大化生命週期價值。
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>透過修正致命的技術SEO缺陷（&lt;title&gt;,&lt;h1&gt;）實現快速排名躍升，並以「內容深度」和「中立性」攻擊高權威競爭者（銀行）的內容短板。</div>
+        <div><strong>競爭者超越路徑：</strong>將頁面從單純的「估價工具」升級為「決策輔助平台」，提供數據可視化與下一步指南，建立銀行因業務導向而難以複製的數據體驗護城河。</div>
+        <div><strong>使用者價值最大化：</strong>核心任務是解答使用者在得到估價數字後的兩大核心疑問：「為什麼是這個價錢？」以及「接下來我該怎麼做？」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將「好時價」定位為市場上唯一客觀、中立、數據驅動的第三方房屋價值顧問，而非僅僅一個查詢工具。</div>
+        <div><strong>差異化價值：</strong>提供銀行（貸款導向）和房仲（交易導向）所無法給予的「無偏見的數據洞察」與「個人化的決策支持」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>第一階段（1個月內）透過技術優化與內容補強，排名進入前三。第三階段（6個月內）透過體驗創新，爭取排名第一。</div>
+        <div><strong>流量增長目標：</strong>預期自然搜尋流量在三個月內提升30%，長尾關鍵詞覆蓋率翻倍。</div>
+        <div><strong>轉換率優化：</strong>將核心轉換目標從「估價」提升至「下載報告」與「訂閱通知」，目標轉換率提升15%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：技術修正與基礎內容 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">執行目標：</strong>
+          <span class="text-gray-600">修正&lt;title&gt;、&lt;h1&gt;標籤，新增核心FAQ區塊，快速提升2-3個名次，解鎖排名潛力。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容差異化與信任建立 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">執行目標：</strong>
+          <span class="text-gray-600">上線「銀行 vs. 好時價」比較內容、AI模型運作說明，強化中立專業形象，穩定排名前三。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：體驗護城河與權威塑造 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">執行目標：</strong>
+          <span class="text-gray-600">推出互動式數據報告（地圖、圖表）、發布基於自有數據的市場洞察，建立不可撼動的行業領導地位，爭取榜首。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>以「AI估價」和「清華安富房價指數」為核心，建立了強大的技術與數據專業性基礎。</div>
+          <div><strong>改善空間：</strong>內容呈現方式過於工具化，缺乏引導使用者將數據轉化為決策的敘事流程與輔助內容。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">信任堆疊策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>技術信任：</strong>透過FAQ和模型說明解答基礎疑慮。</div>
+          <div><strong>中立信任：</strong>透過與銀行估價的客觀比較，強化品牌定位。</div>
+          <div><strong>專業權威：</strong>透過數據可視化報告和市場洞察，建立行業領導地位，引導用戶從一次性查詢者轉變為長期訂閱者。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>1. 強調採用「清華安富房價指數」的學術權威性：</strong>這是與商業競品最本質的區隔，代表客觀與嚴謹。</div>
+        <div><strong>2. 透明化AI估價模型運作原理：</strong>直接回應使用者對「黑盒子」的不信任感，建立技術信任。</div>
+        <div><strong>3. 提供超越數字的「互動式數據報告」（趨勢圖、地圖）：</strong>將冰冷的數字轉化為有意義的洞察，創造體驗代差。</div>
+        <div><strong>4. 明確定位為「中立第三方」，與銀行、房仲區隔：</strong>在內容中反覆強調此定位，搶佔使用者心智。</div>
+        <div><strong>5. 提供清晰的「下一步行動指南」：</strong>解決使用者獲得估價後的茫然感，將品牌從工具提升為顧問。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>權威性標示：</strong>在頁面顯著位置放置「清華安富房價指數」Logo與介紹連結。</div>
+        <div><strong>模型說明區塊：</strong>創建一個專門的&lt;h2&gt;內容區塊，用圖文並茂的方式解釋模型如何運作。</div>
+        <div><strong>報告升級：</strong>在估價結果頁面嵌入互動式圖表與地圖模組（長期規劃）。</div>
+        <div><strong>內容定調：</strong>在比較分析、FAQ等章節，使用「客觀」、「中立」、「無涉利益」等詞彙強化品牌調性。</div>
+        <div><strong>決策支持內容：</strong>在估價報告下方或新頁面創建「下一步指南」模組，根據使用者身份提供建議。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🚀 轉換路徑升級策略</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded-lg border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">主要CTA (行動呼籲)：</h5>
+            <p class="text-gray-600">將核心轉換目標從單純的「線上估價」升級為「<strong>下載完整PDF報告</strong>」。這是一個高價值的交換，能有效篩選出高意圖用戶，並以非侵入性的方式獲取其聯繫方式，便於後續的再行銷與關係培養。</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">次要CTA (關係建立)：</h5>
+            <p class="text-gray-600">引入「<strong>訂閱房價變動通知</strong>」功能。這個CTA的門檻較低，能將大量一次性訪客轉化為長期用戶，建立持續的溝通渠道，並在用戶的決策週期中持續展現品牌價值。</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">最終引導 (價值延伸)：</h5>
+            <p class="text-gray-600">在估價報告中，根據用戶可能的身份（買方/賣方），提供清晰的「<strong>下一步指南</strong>」。這不僅能無縫銜接使用者旅程，解決他們的茫然感，更能將品牌從工具提升為顧問，最大化用戶的生命週期價值。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">💡 使用者體驗優化指南</h4>
+    <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-4 rounded-lg border-l-2 border-blue-300">
+            <h5 class="font-semibold text-blue-700 mb-2">降低認知負荷</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>首屏即估價：</strong>將地址輸入框置於頁面最顯眼、無需滾動即可看到的位置，最大程度簡化操作流程。</li>
+                <li><strong>漸進式揭露：</strong>初始估價僅需最核心的「地址」資訊，其他如坪數、屋齡等作為「優化估價精準度」的選項，避免一次性展示過多欄位嚇跑用戶。</li>
+            </ul>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-blue-300">
+            <h5 class="font-semibold text-blue-700 mb-2">提升價值感知</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                <li><strong>數據可視化：</strong>將枯燥的估價數字轉化為直觀易懂的可視化圖表（歷史趨勢）與周邊案例地圖，讓使用者能真正「看懂」數據背後的意義。</li>
+                <li><strong>提供決策支持：</strong>提供清晰的CTA與下一步建議，避免使用者在獲得結果後感到茫然，確保使用者旅程的完整性與價值感。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
