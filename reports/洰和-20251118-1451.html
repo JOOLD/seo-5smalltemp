@@ -1,0 +1,2010 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 洰和</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">洰和 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「洰和」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">7</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站內容核心定位為 <strong>MESh+ (洰和)</strong> 的官方介紹頁面。從標題「關於 MEShPlus：發展理念及進程」與 H1 標籤「關於 MESh+」來看，頁面旨在傳達公司的基本資訊、核心理念與發展歷程，同時也包含了人才招募的區塊，試圖滿足對公司有初步興趣的訪客（包含潛在客戶與求職者）的資訊需求。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">目前內容的涵蓋面向極為<strong>精簡且表層</strong>。根據提供的架構，頁面僅由「關於我們」和「徵才」兩個大標題組成。雖然標題暗示了會涵蓋「發展理念」與「進程」，但實際結構中並未見到支撐這些主題的詳細內容，顯示出內容<strong>深度嚴重不足</strong>，資訊量非常有限。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對用戶而言，此頁面的核心價值在於<strong>確認官方身份</strong>。用戶可以知道這是 MESh+ 的官方網站，並了解公司有徵才需求。然而，由於缺乏實質性的公司介紹、服務項目、團隊文化等深度資訊，頁面<strong>無法有效建立信任感、展現專業性</strong>，也未能滿足潛在客戶或求職者深入了解的需求，用戶價值偏低。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>信任建立缺口：公司核心資訊缺失
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">缺乏關於公司的<strong>創立故事、發展歷程、經營理念、核心價值觀</strong>與<strong>團隊介紹</strong>。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">當用戶搜尋「洰和」時，首要目的是驗證這家公司的真實性與專業性。他們想知道公司的背景、由誰領導、以及企業文化是否值得信賴。目前頁面過於空泛，無法建立起潛在客戶或求職者的基本信任感，而競爭者資訊頁面（如 twincn、LinkedIn）反而提供了更多這類背景資料。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">增設「<strong>我們的故事</strong>」、「<strong>經營團隊</strong>」及「<strong>企業文化</strong>」等章節，透過圖文並茂的方式，具體呈現公司的獨特之處與人文面貌。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-cogs text-orange-600 mr-2"></i>決策支援缺口：服務與專業領域模糊
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">完全沒有提及公司的<strong>主要服務項目、核心技術（如 SKYLENS 數據平台）、解決方案</strong>或<strong>成功案例</strong>。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">潛在客戶需要明確了解洰和數據能為他們解決什麼問題。競爭者 LinkedIn 頁面與 Vocus 上的新聞稿都清楚點出其「電信數據」、「敏捷化行銷平台」的專業，反觀官方「關於」頁面卻對此隻字未提，這會讓潛在客戶感到困惑並流失商機。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">新增「<strong>核心服務</strong>」或「<strong>解決方案</strong>」區塊，簡要介紹主要業務，並連結至更詳細的服務頁面。同時，加入「<strong>客戶案例</strong>」或「<strong>合作夥伴</strong>」的 Logo牆，能有效提升專業形象。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-users text-purple-600 mr-2"></i>人才吸引缺口：徵才資訊空洞
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">除了「MESh+ 徵才」一個標題外，缺乏任何關於<strong>公司福利、工作環境、團隊生活、職涯發展</strong>的具體描述。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">求職者在搜尋公司時，極度關心工作氛圍與福利待遇。競爭者頁面如「面試趣」和「比薪水」正好滿足了這部分資訊需求。品牌官網若無法提供具吸引力的資訊，將難以在人才市場中競爭，也無法主動塑造雇主品牌形象。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">將「徵才」區塊擴展為一個更豐富的「<strong>加入我們</strong>」章節，內容可包含<strong>辦公室照片、團隊活動錦集、員工福利列表</strong>，並提供明確的職缺連結。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-bullhorn text-blue-600 mr-2"></i>權威展現缺口：缺乏外部佐證與最新動態
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面中沒有任何<strong>媒體報導、合作夥伴新聞稿、產業認證</strong>或<strong>公司最新消息</strong>的區塊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶希望看到客觀的第三方資訊來佐證公司的實力與市場地位。例如，與「先勢博報堂」合作的新聞稿（Competitor 10）就是一個絕佳的權威性證明，但這些重要資訊卻未被整合到官網中，導致官網的說服力遠低於其他平台。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">建立一個「<strong>媒體報導</strong>」或「<strong>最新動態</strong>」區塊，定期更新公司相關新聞、合作案或產業活動，將外部的正面聲量導回官網，集中建立權威形象。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">目前的 SEO 技術設置非常基礎。頁面擁有一個 <strong>meta title</strong>，但缺乏關鍵的 <strong>meta description</strong>，這會導致搜尋結果頁 (SERP) 上的摘要由 Google 自動生成，無法精準傳達頁面核心價值。此外，資料中未顯示 Open Graph 等社群分享標籤的設定，這會影響在社群媒體上分享時的呈現效果。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">內容結構過於扁平，僅使用 <strong>&lt;H1&gt; 和 &lt;H2&gt; 標籤</strong>，缺乏層次感。這不僅讓內容顯得單薄，也對搜尋引擎理解頁面主題的深度造成阻礙。標題「發展理念及進程」所承諾的內容，在標籤結構中完全沒有體現，造成<strong>文不對題</strong>的問題，對使用者體驗和 SEO 都是負面的。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">首要任務是<strong>將公司中文名稱「洰和」加入 meta title</strong>，例如修改為：「關於 MESh+ 洰和數據｜發展理念、數據服務與人才招募」。其次，需撰寫一段約 80-120 字、包含核心關鍵字的 meta description。最關鍵的是，必須根據擴充後的內容，<strong>重新規劃 &lt;H2&gt;、&lt;H3&gt; 標籤結構</strong>，使其能清晰反映公司的服務、文化與價值，以符合搜尋意圖並提升頁面權重。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>內容嚴重不足：</strong>目前的「關於我們」頁面資訊極度匱乏，幾乎是一個空白頁面，無法傳達任何有價值的公司資訊，是排名不佳的核心原因。</li><li><strong>品牌關鍵字失焦：</strong>頁面標題與內容忽略了公司的正式中文名稱「洰和」，導致在搜尋此關鍵字時，權威性完全讓給了第三方資訊平台（如徵才網站、公司登記網站）。</li><li><strong>官方資訊落後於第三方：</strong>無論是公司服務介紹（LinkedIn）還是重要合作（Vocus），最有價值的資訊都出現在外部網站而非官網，顯示出品牌數位資產管理存在巨大缺口。</li><li><strong>未能滿足任何核心搜尋意圖：</strong>無論是想了解服務的潛在客戶，還是評估工作環境的求職者，都無法在此頁面獲得滿意的答案，導致高跳出率與低互動。</li><li><strong>錯失建立 E-E-A-T 的機會：</strong>頁面完全沒有呈現任何能體現經驗、專業、權威與信賴的內容元素，是 SEO 策略上的重大失誤。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第7位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">5個位置</div>
+                                <div class="text-xs text-gray-600">與第1名距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">中</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">品牌頁面已在搜尋結果第一頁，但位置落後於多家第三方資訊平台。這意味著基礎權威性存在，但因頁面內容與關鍵詞策略嚴重失誤，導致搜尋引擎將其他網站的相關性排在官方網站之前，存在巨大的、可快速實現的優化空間。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>洰和</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td><strong>標題 Title</strong></td><td>`關於 MEShPlus：發展理念及進程` (完全缺少「洰和」)</td><td>精準包含「洰和股份有限公司」，並結合「面試心得」、「薪水情報」、「公司資料」等高意圖詞彙。</td><td>修改為：`關於洰和 (MESh+)｜台灣領先的數據行銷專家｜人才招募`</td></tr><tr><td><strong>描述 Description</strong></td><td>未提供</td><td>提供具體資訊，如薪水範圍、面試職位、公司統編等，直接滿足使用者查詢需求。</td><td>新增描述：`認識台灣頂尖的數據行銷公司—洰和數據 (MESh+)。我們利用電信數據，為品牌提供精準的消費者洞察與行銷解決方案。正在尋找數據企劃、前端工程師等職位？立即探索洰和的企業文化與職涯機會。`</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4><ul class="list-disc list-inside space-y-2"><li><strong class="text-red-700">關鍵詞完全缺失：</strong> 頁面的 `&lt;title&gt;` 和 `&lt;h1&gt;` 標籤這兩個最關鍵的排名信號中，完全沒有包含中文關鍵詞「洰和」。這是導致排名不佳的根本原因，對於品牌關鍵詞搜尋而言是極其嚴重的SEO基礎失誤。</li><li><strong class="text-red-700">內容結構過於單薄：</strong> 頁面僅有 `&lt;h1&gt;` 和 `&lt;h2&gt;` 兩個標題，缺乏內容深度和層次感。這使得頁面無法滿足用戶對公司的多方面資訊需求（如歷史、團隊、文化等），在內容完整性上遠遜於競爭者。</li><li><strong class="text-red-700">缺乏結構化資料：</strong> 頁面沒有使用如 `Organization` 或 `JobPosting` 等 Schema.org 結構化資料標記，錯失了在搜尋結果中以更豐富形式（如公司標誌、職缺列表）呈現的機會。</li></ul>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4><ul class="list-disc list-inside space-y-2"><li><strong class="text-green-700">官方網站權威性：</strong> 作為官方網站，`meshplus.com.tw` 在Google眼中是關於「洰和」最權威的資訊來源。一旦修正了關鍵詞和內容問題，排名有潛力迅速躍升。</li><li><strong class="text-green-700">簡潔的URL結構：</strong> 品牌頁面的URL `/about` 語義清晰、簡潔易懂，相比競爭者使用ID或複雜參數的URL，更受搜尋引擎青睞，這是一個穩固的基礎優勢。</li></ul>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-white p-4 rounded-lg shadow-sm"><h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">關鍵詞覆蓋分析</h4><p>當前頁面在關鍵詞覆蓋上存在嚴重缺口，主要體現在：</p><ul class="list-disc list-inside space-y-2"><li><strong>核心品牌詞缺失：</strong> 完全遺漏了「洰和」及「洰和股份有限公司」。</li><li><strong>相關意圖詞缺失：</strong> 競爭者頁面覆蓋了大量與求職和公司背景調查相關的詞彙，如「面試心得」、「薪水情報」、「公司評價」、「職缺」、「統編」、「代表人」。品牌官網雖不需完全複製，但應涵蓋「人才招募」、「職涯發展」、「企業文化」、「數據解決方案」、「合作夥伴」等官方角度的對應詞彙。</li></ul></div>
+                                <div class="bg-white p-4 rounded-lg shadow-sm"><h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容深度分析</h4><p>品牌頁面的內容深度嚴重不足。目前僅有兩個標題，提供的資訊量極少。與之對比：</p><ul class="list-disc list-inside space-y-2"><li><strong>競爭者3 (面試趣):</strong> 提供了評價、薪資、面試心得等多維度內容，深度滿足求職者需求。</li><li><strong>競爭者4 (twincn.com):</strong> 提供了基本資料、董監事、公司歷程、商標等多達20個以上的資訊區塊，內容極其詳盡。</li><li><strong>競爭者9 (LinkedIn):</strong> 提供了公司簡介、IT服務、地點、員工資訊等結構化內容。</li></ul><p>品牌的「關於我們」頁面應成為所有這些資訊的官方整合版本，提供比任何第三方都更準確、更深入的內容。</p></div>
+                        </div>
+
+                            <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">🚀 內容差異化機會</h4><p>品牌官網的最大優勢在於能提供無法被複製的「第一手」和「帶有情感」的內容，以區別於競爭者冰冷的數據列表：</p><div class="space-y-4 mt-4"><h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 品牌故事與文化</h5><ul class="list-disc list-inside space-y-2"><li><strong>創辦人故事：</strong> 分享創辦「洰和」的初心與願景，建立品牌的情感連結。</li><li><strong>視覺化企業文化：</strong> 使用團隊活動照片、影片，或員工引言，具體展示公司文化，而不只是空泛的文字描述。</li><li><strong>里程碑時間軸：</strong> 以互動式時間軸展示公司的成長歷程與重要成就。</li></ul></div><div class="space-y-4 mt-4"><h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 專業深度與願景</h5><ul class="list-disc list-inside space-y-2"><li><strong>核心技術解析：</strong> 深入淺出地介紹SKYLENS數據平台的核心優勢，建立專業形象。</li><li><strong>未來展望：</strong> 分享公司對數據行銷行業未來的看法與佈局，展現領導地位。</li><li><strong>客戶見證/案例研究：</strong> 展示與知名品牌的合作案例，這是第三方平台無法提供的有力證明。</li></ul></div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="no-data-placeholder">
+    <div class="flex items-center mb-3">
+        <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+        <h4 class="font-semibold">數據分析進行中</h4>
+    </div>
+    <p class="mb-4">專業性與權威性對比分析數據不足，正在收集中。</p>
+    
+    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+        <h5 class="font-semibold text-blue-800 mb-2">建議補強數據：</h5>
+        <ul class="text-blue-700 text-sm">
+            <li>• 品牌方內容的作者資訊與專業背景。</li>
+            <li>• 引用外部權威來源或研究數據的情況。</li>
+            <li>• 媒體報導與行業提及的數量與質量。</li>
+        </ul>
+    </div>
+    
+    <div class="bg-green-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-green-800 mb-2">現階段可執行策略：</h5>
+        <p class="text-green-700 text-sm">基於現有數據，建議立即在網站上新增「核心團隊」介紹，並整合已知的媒體報導（如Vocus），快速建立基礎的專業性與權威性信號。</p>
+    </div>
+</div>
+                                <div class="no-data-placeholder">
+    <div class="flex items-center mb-3">
+        <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+        <h4 class="font-semibold">數據分析進行中</h4>
+    </div>
+    <p class="mb-4">可信度指標評估數據不足，正在收集中。</p>
+    
+    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+        <h5 class="font-semibold text-blue-800 mb-2">建議補強數據：</h5>
+        <ul class="text-blue-700 text-sm">
+            <li>• 網站安全協議（HTTPS）使用情況。</li>
+            <li>• 隱私政策與聯絡資訊的清晰度。</li>
+            <li>• 客戶評價與第三方認證的展示。</li>
+        </ul>
+    </div>
+    
+    <div class="bg-green-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-green-800 mb-2">現階段可執行策略：</h5>
+        <p class="text-green-700 text-sm">建議立即在網站頁尾或聯絡頁面，清晰地列出公司全名、統編、地址和聯絡電話，這是建立基本信任感最快速有效的方法。</p>
+    </div>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標 (Trust)：</h5>
+      <ul class="space-y-2">
+        <li><strong>明確列出公司資訊：</strong> 在頁尾或專門區塊提供完整公司名稱「洰和股份有限公司」、統編、地址、聯絡電話，與 twincn.com 的公開資料保持一致，建立官方可信度。</li>
+        <li><strong>展示合作夥伴Logo牆：</strong> 將知名客戶或合作夥伴（如先勢博報堂）的Logo展示出來，是強力的社會認可信號。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">彰顯專業經驗 (Experience &amp; Expertise)：</h5>
+      <ul class="space-y-2">
+        <li><strong>建立核心團隊介紹區塊：</strong> 附上主要成員（如Managing Director、Data Marketing Director）的照片、簡歷和LinkedIn連結，將公司的專業能力人格化。</li>
+        <li><strong>發布產業白皮書或洞察報告：</strong> 定期發布關於數據行銷的專業文章或報告，並在「關於我們」頁面提供連結，彰顯行業專家地位。</li>
+        <li><strong>引用媒體報導：</strong> 建立一個「媒體報導」區塊，收錄像 Vocus 等平台的正面報導，利用第三方背書提升權威。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設 (Authoritativeness)：</h5>
+      <ul class="space-y-2">
+        <li><strong>同步更新外部平台資訊：</strong> 確保 LinkedIn、104、Facebook等平台的公司簡介與官網同步，並都連結回「關於我們」頁面，形成權威信號的閉環。</li>
+        <li><strong>鼓勵員工更新LinkedIn：</strong> 鼓勵員工將「洰和股份有限公司」添加到個人LinkedIn檔案，增加公司的網路能見度與關聯性。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li><strong>新增頁內導覽：</strong> 在頁面頂部增加一個錨點連結目錄（如：關於我們、核心團隊、加入我們），讓用戶可以快速跳轉到感興趣的區塊。</li>
+        <li><strong>增加視覺元素：</strong> 加入高品質的辦公環境照片或團隊合照，打破純文字的單調感，提升頁面的親和力。</li>
+        <li><strong>明確的行動呼籲 (CTA)：</strong> 在「徵才」區塊，放置一個非常醒目的按鈕，例如「查看所有職缺」，引導用戶進行下一步操作。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>嵌入公司介紹影片：</strong> 製作一段1-2分鐘的短片，介紹公司文化與願景，能更生動地傳達品牌價值。</li>
+        <li><strong>互動式公司歷程時間軸：</strong> 將公司的發展歷程做成一個可滾動或點擊的互動式時間軸，增加用戶的停留時間與參與感。</li>
+        <li><strong>優化行動裝置瀏覽體驗：</strong> 確保所有新增的內容模組在手機上都能完美呈現，字體大小、按鈕間距等都符合行動裝置的使用習慣。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">104人力銀行</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">求職平台</div>
+                <div class="text-lg font-semibold text-blue-600">綜合型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.104.com.tw/company/10u43a6g" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.104.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">作為台灣領先的求職入口網站，104透過聚合「洰和」的職缺列表和公司基本資料，直接滿足了求職者最核心的資訊需求。其內容策略圍繞著提供詳盡的職位描述、公司福利和應徵管道，旨在成為求職者尋找工作機會的首選平台。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 平台匯集了大量求職者的應徵記錄與互動數據。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 在人力資源與招募領域擁有極高的專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 是台灣求職市場最具權威性的網站之一，擁有極高的域名權重。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 作為知名品牌，在求職者和企業主中都建立了高度的信賴感。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第3名</span>
+                <h4 class="font-bold text-xl">面試趣</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">求職資訊平台</div>
+                <div class="text-lg font-semibold text-blue-600">UGC社群</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://interview.tw/c/5r9F" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">interview.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">面試趣專注於使用者生成內容(UGC)，其核心價值在於提供真實、第一手的面試經驗和薪資情報。Meta標題直接點名「面試心得」，精準鎖定處於考慮和決策階段的求職者，透過社群的力量建立了一個關於「洰和」雇主形象的外部視角。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 內容完全基於求職者的真實經驗分享，是其最強大的E-E-A-T信號。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 平台本身在「面試情報」這個垂直領域具備專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 在求職者社群中具有高度權威性，是查閱面試資訊的首選之一。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 信賴感建立在平台的匿名保護和龐大的用戶貢獻基礎上。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第4名</span>
+                <h4 class="font-bold text-xl">台灣公司網</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">商業資料庫</div>
+                <div class="text-lg font-semibold text-blue-600">數據型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.twincn.com/item.aspx?no=80185021" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.twincn.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此網站滿足了用戶進行背景調查的意圖。它提供客觀、結構化的公司登記資料，如統一編號、代表人、地址和公司歷程。內容策略是成為一個快速、可靠的企業資訊查證工具，其頁面充滿了事實性數據，滿足了用戶對「硬資料」的需求。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 經驗體現在數據的整理與呈現上。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 在企業工商資料查詢方面具備高度專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 權威性來自其數據來源於政府的公開資料。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 由於資訊客觀且可查證，用戶對其信賴度高。</div>
+            </div></div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第9名</span>
+                <h4 class="font-bold text-xl">LinkedIn</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">專業社交平台</div>
+                <div class="text-lg font-semibold text-blue-600">品牌形象</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://tw.linkedin.com/company/meshplus" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">tw.linkedin.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">LinkedIn為「洰和」塑造了一個專業的B2B品牌形象。其內容策略是透過「關於我們」、「員工」等區塊，清晰地傳達公司的業務範疇、價值主張和團隊專業性。Meta描述中強調的「數據行銷」、「消費者樣貌」、「競品商情追蹤」等關鍵詞，精準地吸引了潛在客戶和合作夥伴的注意。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list"><div class="space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 透過員工的個人檔案展示了團隊的集體經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 公司自我介紹和員工的專業背景共同構建了其在數據行銷領域的專業形象。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 作為全球領先的專業社交平台，LinkedIn本身的高權威性賦予了其上的公司頁面一定的權重。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 平台機制的透明度（如員工實名制）有助於建立商業信賴感。</div>
+            </div></div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方雖排名第一，但其Meta表現需要與整個SERP的上下文進行比較。競爭者從不同角度定義了「洰和」，例如面試趣將其與「面試」、「薪水」強烈關聯，LinkedIn則定位為「數據」公司。品牌方的Meta必須確立其核心身份，以應對這些被動標籤。</div>
+          <div><strong>描述效能：</strong>品牌方未提供Meta描述，而競爭者則提供了具體的價值主張，如薪資情報、公司統編或專業能力介紹，直接吸引了不同意圖的用戶。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">策略模式：</h5>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+                <li><strong>求職導向型 (面試趣, 比薪水):</strong> 強調「面試心得」、「薪水情報」、「評價」，直接吸引求職者點擊。</li>
+                <li><strong>數據事實型 (台灣公司網):</strong> 提供客觀、結構化的公司註冊資訊，滿足用戶的快速查證需求。</li>
+                <li><strong>專業形象型 (LinkedIn):</strong> 使用中英雙語品牌名，並在描述中強調其在數據行銷領域的專業能力與價值主張。</li>
+                <li><strong>事件驅動型 (Vocus):</strong> 透過報導具體的合作案例，展示其市場活動力和行業地位。</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>從「我們是誰」提升至「我們為何存在，為客戶創造何種價值」。超越單純的公司介紹，傳遞使命與願景。</li>
+        <li><strong>競爭優勢：</strong>成為所有關於 B1 資訊的「真相來源 (Source of Truth)」，整合求職、商務、技術等多維度資訊。</li>
+        <li><strong>目標受眾：</strong>在 Meta 中同時兼顧潛在客戶（強調解決方案）、求職者（強調文化與機會）和合作夥伴（強調創新與實力）。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>建議格式 `洰和 (MESh+) 官方網站｜領先的數據行銷解決方案專家`。這不僅包含了品牌關鍵詞和英文名，還明確了業務定位和權威性。</li>
+        <li><strong>描述優化：</strong>一段話概括核心業務、服務對象和品牌使命。例如：「洰和數據 (MESh+) 運用電信級數據，為品牌提供精準的消費者洞察與敏捷化行銷平台。探索我們的解決方案、加入我們的團隊，或了解最新產業動態。」這段描述整合了商務、求職和資訊意圖。</li>
+        <li><strong>執行優先級：</strong>高。優化官網首頁的 Meta 是鞏固品牌第一印象的關鍵，可立即執行。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方官網的內容架構極度單薄，未能系統性地回應市場對其核心疑問，如公司文化、業務細節等。</div>
+          <div><strong>板塊覆蓋：</strong>目前僅有名義上的「關於我們」和「徵才」板塊，缺乏實質內容支撐，而競爭者則在求職、工商數據、專業形象等板塊提供了豐富資訊。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者內容架構模式：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>求職社群 (面試趣):</strong> 結構圍繞「公司評價」、「面試心得」、「薪水」，內容由用戶生成，反映潛在員工關注重點。</div>
+          <div><strong>商業資料庫 (台灣公司網):</strong> 結構是標準化的資料庫格式：「基本資料」、「董監事」、「公司歷程」，內容客觀但缺乏溫度。</div>
+          <div><strong>專業平台 (LinkedIn):</strong> 結構包含「關於我們」、「服務」、「員工」，提供專業但簡潔的商業快照。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">專業模塊缺口識別：</h5>
+            <p class="text-gray-600">品牌方的主要內容缺口在於未能將分散在各處的品牌敘事（如Vocus上的合作新聞、LinkedIn上的專業介紹）整合為一個統一、有力的品牌故事。特別是缺乏展現第一手經驗（如客戶案例、員工故事）和深度專業知識（如技術白皮書、產業洞察）的內容模塊，導致官網的專業性與權威性遠遜於其應有水平。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-3">
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">內容補強機會識別：</h5>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+                <li><strong>優先補強主題：</strong>創建「關於洰和」專區，整合公司創辦故事、企業文化與發展歷程，將冰冷的數據轉化為有溫度的品牌故事。</li>
+                <li><strong>專業模塊建設：</strong>建立「新聞與洞察」板塊，收錄媒體報導並主動發布產業觀點，建立思想領導力。</li>
+                <li><strong>深度內容機會：</strong>深化「解決方案」頁面，提供客戶成功案例、線上Demo或白皮書下載，將抽象服務轉化為具體客戶價值。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">差異化內容策略：</h5>
+            <ul class="list-disc list-inside text-gray-600 space-y-1">
+                <li><strong>獨特角度：</strong>打造「人才招募」專頁，發布「員工一日」Vlog或文章，用透明和真誠對抗第三方平台的匿名評價，塑造卓越的雇主品牌。</li>
+                <li><strong>競爭優勢：</strong>將官網打造成「資訊中心」，主動出擊定義品牌故事，系統性地回應所有市場疑問，並提供比任何第三方平台更深入、更官方的視角。</li>
+                <li><strong>執行路徑：</strong>短期內建立核心頁面框架；中期填充豐富內容（員工故事、客戶案例）；長期常態化發布高品質內容，鞏固行業權威。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">注重生活品質與美學的消費者、品味追求者、中高收入的專業人士 (30-50歲)。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">對於所在領域有一定認知，屬於進階使用者。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">決策影響力：</strong>
+        <span class="text-gray-600">通常是個人消費的決策者，重視品牌價值勝於單純的價格比較。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：資訊不透明</strong>
+        <span class="text-gray-600">擔心品牌僅有美好的形象，但缺乏對產品材質、成分來源、工藝細節的實質說明。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：價值不確定</strong>
+        <span class="text-gray-600">無法確定品牌的定價是否合理，需要足夠的資訊來判斷其「價值」而非僅僅是「價格」。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：體驗途徑不明</strong>
+        <span class="text-gray-600">不知道除了線上購買外，是否有實體空間可以感受產品的質地、氣味或氛圍。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：信任感不足</strong>
+        <span class="text-gray-600">對於一個新興或小眾品牌，缺乏足夠的社會認同（如：使用者評價、媒體背書）會讓用戶猶豫。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">次要障礙：想像與現實的落差</strong>
+        <span class="text-gray-600">擔心線上看到的精美圖片與實際收到的產品有差距。</span>
+      </div>
+    </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (品牌初探)：</strong>透過精準的 `&lt;title&gt;` 和 `&lt;meta&gt;` 描述，直接定義「洰和是什麼」。建立一個視覺和內容上都極具吸引力的「關於我們」頁面，深入闡述品牌哲學與堅持。</div>
+          <div><strong>考慮階段 (價值評估)：</strong>提供詳盡的產品/服務頁面，包含高品質情境圖、規格、成分/材質來源、設計理念。建立一個「使用者見證」或「媒體報導」專區，將抽象的「質感」具象化。</div>
+          <div><strong>決策階段 (行動確認)：</strong>提供清晰的購買流程、透明的價格、運送政策、退換貨保證。展示實體店櫃或體驗點的詳細資訊，並透過「常見問答(FAQ)」主動消除用戶最後的疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>不僅是產品，更是提供一種「洰和式」的生活美學與心靈平靜的解決方案。</div>
+          <div><strong>競爭優勢展現：</strong>當競品只展示產品時，我們同時滿足用戶對品牌精神層面的探索欲；透過主動揭露資訊與展示社會認同，比競品更快消除用戶的陌生感與疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>許多品牌官網像產品目錄，缺乏品牌靈魂；評價和報導散落各處，官網未能有效整合；線上體驗平淡，無法激發擁有慾。</div>
+          <div><strong>品牌突破機會：</strong>打造標竿級的「品牌故事」頁面；建立「品牌誌」(Journal/Blog)提升為內容中心；提供線上個人化諮詢服務，創造附加價值。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">用戶點擊進入的頁面（首頁或品牌專頁）必須在第一時間透過主視覺和標語回答「我是誰，我為你提供什麼價值」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">一個簡潔、有力的價值主張，搭配高品質的代表性產品或情境圖，並提供「探索系列產品」和「了解品牌故事」兩個主要入口。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">敘事性的內容編排，引導用戶從品牌理念，自然過渡到體現這些理念的產品。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立策略：</strong>
+          <span class="text-gray-600">在產品頁面中嵌入精選的使用者評價或匠人/設計師的話，強化專業與真實性。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化策略：</strong>
+          <span class="text-gray-600">提供360度視圖、使用影片或詳細的圖文說明，讓用戶在線上也能最大化地「體驗」產品。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除策略：</strong>
+          <span class="text-gray-600">在頁面側邊或下方提供即時客服入口（Chatbot或真人），解答個性化問題。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計策略：</strong>
+          <span class="text-gray-600">購買按鈕使用高對比度顏色，文案清晰有力（如「安心結帳」）。「尋找店櫃」的CTA則引導至帶有地圖和交通資訊的專頁。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化策略：</strong>
+          <span class="text-gray-600">簡化結帳流程，支援多種支付方式，減少註冊步驟，降低最後關卡的放棄率。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>當前搜尋結果頁由高權威的第三方平台（徵才、工商資訊）主導，它們從單一維度定義了「洰和」。品牌官網因基礎SEO嚴重失誤而排名落後，導致品牌敘事權旁落。核心挑戰並非與高權威網站直接對抗，而是透過成為最全面、最權威的資訊來源，重奪品牌定義權。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：基礎技術SEO快速修正</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修正頁面 &lt;title&gt; 與 &lt;h1&gt; 標籤完全缺少中文品牌「洰和」的致命錯誤，這是導致排名不佳的根本原因。</div>
+        <div><strong>執行評估：</strong>難度：低；預期效果：排名提升4-6位；資源：0.5人天。</div>
+        <div><strong>優先級：</strong>極高 - 這是成本最低、見效最快的關鍵行動。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與廣度擴充，重奪品牌敘事權</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>擴充當前單薄的頁面內容，增加公司沿革、核心團隊、企業文化等模組，提供比競爭者更完整、更權威的官方資訊。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：穩固排名前3；資源：5-8人天。</div>
+        <div><strong>優先級：</strong>高 - 建立品牌信任感與專業形象的基礎。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：針對核心使用者意圖，打造專屬內容中心</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>創建獨立的「人才招募」與「成功案例」頁面，精準滿足求職者與潛在客戶的核心需求，將流量轉化為實際價值。</div>
+        <div><strong>執行評估：</strong>難度：中；預期效果：爭取第1名並提升轉換；資源：專案制。</div>
+        <div><strong>優先級：</strong>中 - 在穩固排名後，實現商業目標最大化的關鍵策略。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>雇主品牌類：</strong>「洰和 徵才」、「洰和 面試心得」、「洰和 公司文化」、「洰和 薪資福利」。</div>
+        <div><strong>商業能力類：</strong>「洰和數據 評價」、「MESh+ SKYLENS 應用案例」、「洰和 數據行銷解決方案」。</div>
+        <div><strong>企業資訊類：</strong>「洰和股份有限公司 統編」、「洰和 創辦人」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「我們是誰」提升至「我們如何透過數據解決客戶的商業挑戰」，強調價值創造而非僅是公司介紹。</div>
+        <div><strong>專業詞彙：</strong>圍繞「電信數據」、「消費者洞察」、「敏捷化行銷平台」等核心技術詞彙建立內容，彰顯專業壁壘。</div>
+        <div><strong>品牌調性：</strong>用「官方視角」發布員工故事與客戶案例，以真實、有溫度的內容，對抗第三方平台的匿名、碎片化資訊。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>我們的轉換優化藍圖是建立一個「一站式品牌資訊中心」。首先，透過優化後的「關於我們」頁面作為流量樞紐，清晰地設置導向「人才招募」和「解決方案」的行動呼籲(CTA)。接著，在這些專屬頁面中，為不同用戶（求職者、潛在客戶）提供最直接的轉換路徑：前者是清晰的職缺列表與「立即應徵」按鈕；後者則是引人注目的「預約諮詢」或「下載案例」表單，從而實現對不同意圖流量的精準轉化。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>首先，通過修正&lt;title&gt;和&lt;h1&gt;等基礎技術SEO失誤，快速提升排名至前三；接著，透過大幅擴充內容深度，成為關於「洰和」最權威的資訊來源，穩固排名第一。</div>
+        <div><strong>競爭者超越路徑：</strong>提供官方、第一手、有溫度的多維度資訊（品牌故事、團隊介紹、企業文化、解決方案），全面超越徵才平台、工商名錄等僅提供單一、冰冷數據的競爭對手，重奪品牌敘事權。</div>
+        <div><strong>使用者價值最大化：</strong>打造一個「一站式品牌資訊中心」，在單一頁面內同時滿足潛在客戶和求職者兩大核心用戶群體的資訊需求，並提供清晰的下一步行動指引。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將「關於我們」頁面定位為品牌的官方樞紐(Brand Hub)，是所有關於「洰和」資訊的最終真相來源(Source of Truth)。</div>
+        <div><strong>差異化價值：</strong>相對於競爭者的碎片化、非官方資訊，我們提供完整、權威、且帶有品牌情感與溫度的深度內容。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>第一階段（1-4週）排名從第7提升至前3；第二階段（1-3個月）穩固排名第1。</div>
+        <div><strong>流量增長目標：</strong>品牌關鍵詞的自然搜尋流量提升50%以上，頁面停留時間增加50%。</div>
+        <div><strong>轉換率優化：</strong>有效引導流量至「人才招募」與「解決方案」專頁，提升履歷投遞與商業諮詢的數量。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：基礎修正與快速排名提升 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心行動：</strong>
+          <span class="text-gray-600">修正&lt;title&gt;、&lt;h1&gt;等標籤，將品牌關鍵詞「洰和」置入，解決根本性SEO問題。</span>
+        </div>
+         <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">目標：</strong>
+          <span class="text-gray-600">排名躍升至前三。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容擴充與權威建立 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心行動：</strong>
+          <span class="text-gray-600">將「關於我們」頁面擴充為品牌資訊中心，增加公司沿革、核心團隊、企業文化等模組，重奪品牌敘事權。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">目標：</strong>
+          <span class="text-gray-600">穩固排名第一。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：意圖全面覆蓋與領導地位鞏固 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心行動：</strong>
+          <span class="text-gray-600">建立獨立的「人才招募」與「成功案例」專頁，精準滿足使用者意圖，將流量轉化為商業價值。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">目標：</strong>
+          <span class="text-gray-600">成為所有「洰和」相關查詢的最終答案。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>擁有官方網站的先天權威性，是資訊的最終來源。</div>
+          <div><strong>改善空間：</strong>內容極度單薄，缺乏深度，且未包含核心品牌關鍵詞，無法滿足任何核心用戶意圖。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">關鍵詞整合策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>主詞布局：</strong>將全新設計的「關於我們」頁面作為流量樞紐，在&lt;h1&gt;、&lt;h2&gt;及段落首句自然融入「洰和」。</div>
+          <div><strong>長尾詞機會：</strong>頁面內容將策略性地劃分為服務「潛在客戶」和「求職者」的區塊，並在各區塊設置強烈的行動呼籲(CTA)，引導至包含長尾關鍵詞（如「洰和 徵才」）的專屬頁面。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>官方第一手品牌故事：</strong>發布由官方定義的公司沿革、創辦人理念與核心價值，對抗第三方平台的片面解讀。</div>
+        <div><strong>展現團隊專業實力：</strong>詳細介紹核心團隊成員的背景與專業，建立「人」的信任，這是工商名錄無法提供的。</div>
+        <div><strong>塑造有溫度的雇主品牌：</strong>透過真實的辦公環境照片與團隊活動分享，主動呈現積極的企業文化，平衡求職平台上匿名的、可能負面的評價。</div>
+        <div><strong>深度詮釋商業價值：</strong>不僅僅是列出服務項目，而是透過精選案例摘要，具體展示洰和如何為客戶創造實際商業價值。</div>
+        <div><strong>提供官方權威資訊：</strong>清晰列出公司統編、地址等核心工商資訊，與權威數據源保持一致，確立官網作為最終資訊來源的地位。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在「我們的故事」章節中，以時間軸和創辦人專欄形式呈現。</div>
+        <div>建立「核心團隊介紹」模組，包含成員照片、簡歷和專業領域。</div>
+        <div>在「加入我們」章節中，創建「團隊生活」圖庫或嵌入短片。</div>
+        <div>建立「客戶成功案例精選」模組，並連結到完整的案例研究頁面。</div>
+        <div>在頁尾或「聯繫我們」區塊，建立一個包含所有官方工商資訊的標準化區塊。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 一個入口，雙軌分流</h4>
+    <div class="space-y-4">
+        <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg">1</div>
+            <div>
+                <h5 class="font-semibold text-green-900">入口：權威的「關於我們」頁面</h5>
+                <p class="text-gray-700">使用者透過搜尋「洰和」進入這個經過全面優化的品牌資訊中心，作為所有意圖的統一入口。</p>
+            </div>
+        </div>
+        <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">2A</div>
+            <div>
+                <h5 class="font-semibold text-blue-900">分流A (潛在客戶)：商業價值路徑</h5>
+                <p class="text-gray-700">頁面中的「核心服務」與「成功案例」區塊，將透過明確的CTA（如「預約諮詢」），將潛在客戶引導至專門的聯繫表單或解決方案頁面。</p>
+            </div>
+        </div>
+        <div class="flex items-start space-x-4">
+            <div class="flex-shrink-0 w-10 h-10 bg-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">2B</div>
+            <div>
+                <h5 class="font-semibold text-purple-900">分流B (求職者)：職涯機會路徑</h5>
+                <p class="text-gray-700">頁面中的「企業文化」與「熱門職缺」區塊，將透過清晰的CTA（如「查看所有職缺」），將求職者引導至詳細的人才招募頁面。</p>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-blue-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-blue-800 mb-2">可讀性與導航</h5>
+        <p class="text-gray-700">為提升長頁面的使用者體驗，將在頁面頂部設置一個「快速導航目錄」，允許用戶點擊錨點連結快速跳轉至感興趣的章節（如「加入我們」）。</p>
+    </div>
+    <div class="bg-green-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-green-800 mb-2">視覺吸引力</h5>
+        <p class="text-gray-700">內容將大量使用高品質的真實照片（團隊、辦公室）取代圖庫素材，增加頁面的真實感與吸引力。</p>
+    </div>
+    <div class="bg-purple-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-purple-800 mb-2">行動呼籲 (CTA)</h5>
+        <p class="text-gray-700">所有CTA按鈕將採用高對比度設計，確保在各種設備上都清晰可見，易於點擊。</p>
+    </div>
+    <div class="bg-orange-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-orange-800 mb-2">行動端適配</h5>
+        <p class="text-gray-700">確保在手機上圖片、文字、按鈕都易於瀏覽和點擊，特別是導航目錄和CTA按鈕的響應式設計。</p>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
