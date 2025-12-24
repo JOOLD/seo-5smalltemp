@@ -1,0 +1,2059 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | YOUBI</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">YOUBI SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「YOUBI」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">5</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">此頁面是一個目標明確的<strong>產品銷售頁面</strong>，專注於介紹「<strong>【Youbi】便攜式嬰兒床中床 寶寶睡窩</strong>」。內容完全圍繞產品本身，旨在透過詳細的功能描述，直接驅動購買決策，屬於銷售漏斗底層的轉化型內容。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容深度集中在產品功能層面，詳細闡述了<strong>遮罩蚊帳、緩坡設計、便攜性、可拆洗、防塵蟎材質</strong>等核心賣點。Meta description 中充分展示了產品解決父母痛點的能力（如防溢奶、抗光線干擾），但在頁面主體結構上，缺乏對這些優勢的深入論述和情境化展示。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對於已有購買意圖的消費者，此頁面提供了<strong>清晰、具體的產品規格與特色</strong>，能有效回答「這個產品有什麼功能？」的問題。其核心價值在於資訊的直接性與完整性，幫助用戶快速完成購買前的最終確認。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>決策支援資訊缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">缺乏新手父母最關心的基礎問答內容，例如「床中床真的需要嗎？」、「寶寶可以用到多大？」、「如何清洗與保養？」等。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">許多父母在購買前充滿疑慮，他們不僅想了解產品功能，更想知道這個產品是否為「必需品」，以及如何解決他們育兒中的實際困擾。您的 meta keywords 欄位已顯示您了解這些問題（如：嬰兒床中床需要嗎、床中床可以睡多久），但頁面內並未提供解答。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">在商品介紹下方新增一個「<strong>新手爸媽問答集 (FAQ)</strong>」區塊，直接回答這些核心疑慮，能有效降低用戶的決策門檻，提升轉化率。</span>
+        </div>
+    </div>
+</div><div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-user-shield text-orange-600 mr-2"></i>信任建立與社會認同缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面中完全沒有<strong>使用者評價、開箱心得、專家推薦或安全認證</strong>的資訊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">嬰兒用品的安全性與實用性是父母最重視的。他們極度依賴其他使用者的真實回饋（Social Proof）來建立信任感。相較於廠商的單方面描述，他們更相信「過來人」的經驗分享。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">嵌入<strong>顧客評論區塊</strong>，或引用KOL、部落客的<strong>圖文並茂開箱心得</strong>。若產品有任何國際安全認證（如SGS），務必將標章清晰展示出來。</span>
+        </div>
+    </div>
+</div><div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-balance-scale text-purple-600 mr-2"></i>比較意圖內容缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">您的 meta keywords 已明確指出用戶會比較 <strong>Youbi</strong> 與 <strong>doomoo、Farska</strong> 等品牌，但頁面中未提供任何比較資訊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">處於比較階段的用戶，希望在一个頁面內就能快速了解各品牌間的差異，包括尺寸、材質、特殊功能（如緩坡設計）、價格等。若您的網站無法滿足此需求，用戶將會跳轉至其他評論網站或電商平台，導致流量流失。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">製作一個清晰的「<strong>規格比較表</strong>」，將 Youbi 床中床與 1-2 個主要競品的關鍵規格進行對比，並突顯 Youbi 的獨特優勢（如附贈蚊帳、杜邦材質等）。</span>
+        </div>
+    </div>
+</div><div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-image text-blue-600 mr-2"></i>使用情境展示缺口
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">雖然描述中提到「便攜式」、「戶外使用」，但缺乏實際的<strong>情境照片或影片</strong>來展示這些優點。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">父母們想具體看到產品如何融入日常生活，例如：如何輕鬆摺疊收納？放在汽車後車廂佔多大空間？在公園草地上使用的樣子？視覺化的內容遠比純文字描述更具說服力。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">增加一個「<strong>生活情境廊</strong>」區塊，展示產品在不同場景（臥室大床、客廳沙發、戶外野餐）下的使用照片。若能提供一個 30 秒的<strong>摺疊收納短影片</strong>，效果會更好。</span>
+        </div>
+    </div>
+</div>
+    </div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">頁面的基礎 SEO 設定相當不錯。<strong>Meta Title 和 Description</strong> 完整且包含核心關鍵詞。<strong>Open Graph 標籤</strong>（og:title, og:description, og:image）設定齊全，有利於社群分享時的呈現效果。`og:type` 正確設定為 `og:product`，有助於社群平台識別其為商品。此外，根據圖片 CDN 網址 (`cdn1.cybassets.com`) 和 URL 結構，可判斷網站應是使用 <strong>Cyberbiz</strong> 開店平台建置。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">關鍵字佈局合理，`&lt;h1&gt;` 標題直接命中「Youbi 床中床」，有效傳達頁面主題。Meta Keywords 欄位雖然對現代 Google SEO 影響甚微，但其內容顯示了您對用戶搜尋意圖有深入的了解，這份關鍵詞列表是未來創造新內容的絕佳藍圖。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">當前頁面的<strong>標題層級結構（Heading Hierarchy）存在嚴重問題</strong>。在 `&lt;h1&gt;` 之後直接跳到 `&lt;h4&gt;` 和 `&lt;h5&gt;`，且出現了多次重複的 `&lt;h5&gt;` 標題（如：商品介紹、規格說明）。這不符合語意化結構，對搜尋引擎理解頁面內容層次造成困擾。建議調整為更邏輯化的結構，例如：`&lt;h1&gt;` (產品名稱) → `&lt;h2&gt;` (商品特色) → `&lt;h2&gt;` (詳細規格) → `&lt;h2&gt;` (運送與付款)。<strong>修正標題層級</strong>是首要的技術優化任務。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li>您的團隊對用戶搜尋意圖有極佳的掌握（體現在 meta keywords），但這份洞察<strong>未能轉化為實際的頁面內容</strong>，是目前最大的策略缺口。</li><li>頁面定位為純產品銷售頁，雖能服務已有購買意圖的客戶，卻<strong>錯失了吸引和教育潛在客戶</strong>（例如搜尋「床中床推薦」的用戶）的機會。</li><li>技術上，<strong>標題層級（H-tag）結構混亂</strong>是當前最需修正的問題，這會影響 SEO 爬取效率與頁面權重分配。</li><li>競爭環境分析顯示，除了各大電商平台，還存在名稱相似但領域完全無關的網站（youbi520.com），這意味著建立清晰的「<strong>Youbi 嬰兒用品</strong>」品牌形象至關重要。</li><li>頁面<strong>缺乏信任元素（使用者評價、安全認證）</strong>，這在嬰幼兒產品領域是極大的劣勢，直接影響消費者的購買信心。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">2</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第5位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">4個位置</div>
+                                <div class="text-xs text-gray-600">與第1名距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">中</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前位於搜尋結果第一頁，具備良好基礎，但因頁面主題過於狹窄，被內容更廣泛的大型電商平台超越。排名第4的競爭者主題不符，顯示SERP存在優化空間，超越潛力巨大。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>YOUBI</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr><td class="font-semibold p-2 border text-left">標題 (Title)</td><td class="p-2 border text-left">【Youbi】便攜式嬰兒床中床 寶寶睡窩(贈蚊帳) (過於具體)</td><td class="p-2 border text-left">品牌 + 產品類別 + 平台 + 推薦詞 (如: Youbi 嬰兒手推車 - momo購物網 - 好評推薦)</td><td class="p-2 border text-left">擴大主題，改為「【Youbi】嬰兒床與手推車系列 - mibobebe好評推薦」，涵蓋品牌與多品類。</td></tr>
+<tr><td class="font-semibold p-2 border text-left">描述 (Description)</td><td class="p-2 border text-left">詳細介紹單一產品「床中床」的特性。</td><td class="p-2 border text-left">通用平台介紹或廣泛的品類優惠描述。</td><td class="p-2 border text-left">聚焦Youbi品牌，提及床中床、手推車等多樣產品，並加入「官方授權」、「安心選購」等信任詞彙。</td></tr>
+<tr><td class="font-semibold p-2 border text-left">關鍵詞 (Keywords)</td><td class="p-2 border text-left">豐富，但高度集中於「床中床」相關長尾詞。</td><td class="p-2 border text-left">涵蓋較廣的產品類別，如「Youbi 嬰兒手推車」、「Youbi 便攜式床中床」。</td><td class="p-2 border text-left">在現有基礎上， bổ sung thêm các từ khóa như 「Youbi 手推車」、「Youbi 嬰兒床」，擴大語義相關性。</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">
+<h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>URL結構不佳：</strong>目前的URL <code>/products/c02</code> 缺乏描述性，對SEO和使用者均不友好。競爭者如Yahoo的URL包含完整產品名稱，更具優勢。</li>
+  <li><strong>潛在的協議不一致：</strong>Meta資訊中 `og:url` 使用了 `http://` 而非安全的 `https://`。雖然瀏覽器通常會自動修正，但這代表後端設定可能存在不一致，應予統一。</li>
+</ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage">
+<h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>結構化數據清晰：</strong>頁面正確使用了 `og:type` 為 `og:product`，向搜尋引擎清晰傳達了頁面類型，有助於在特定搜索場景（如購物）中獲得更好的展示。</li>
+  <li><strong>豐富的關鍵詞標籤：</strong>雖然有關鍵詞標籤已不是排名主要因素的說法，但品牌頁面詳盡的 `keywords` 標籤提供了清晰的頁面主題線索，對於理解頁面內容仍有輔助作用。</li>
+</ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">關鍵詞覆蓋與搜尋意圖分析</h4>
+  <p class="mb-4">品牌頁面目前完美覆蓋了「Youbi 床中床」的<strong>精準商業意圖</strong>，但在回應「Youbi」這個<strong>廣泛品牌意圖</strong>方面存在巨大缺口。用戶搜索品牌詞時，期望看到的是一個品牌入口，能瀏覽該品牌下的多種產品。目前頁面只提供了一個「出口」，即單一產品。</p>
+  <p>競爭對手momo、ETMall的頁面雖然是通用的搜尋列表，卻恰好滿足了用戶「瀏覽多種Youbi產品」的需求，因此排名更高。<strong>策略核心應是從「單點產品頁」思維轉向「品牌微型中心頁」思維。</strong></p>
+</div>
+                                <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+  <h4 class="font-semibold text-green-600 mb-4 pb-1 border-b-2 border-green-200">內容深度與廣度分析</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-700 mb-2">內容深度 (Depth)</h5>
+      <p>在「床中床」這個單點上，內容深度足夠。產品介紹、規格說明完整，這是優勢。</p>
+    </div>
+    <div>
+      <h5 class="font-semibold text-red-700 mb-2">內容廣度 (Breadth)</h5>
+      <p>內容廣度嚴重不足，完全沒有觸及Youbi品牌下的其他產品線，如手推車、成長型嬰兒床等。這導致頁面無法滿足廣泛的品牌搜索意圖，是排名落後於大型電商平台的核心原因。</p>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化機會：從「賣產品」到「經營品牌」</h4>
+  <p class="mb-4">大型電商平台贏在「廣度」和「權威」，但內容通常是模板化的。我們的機會在於提供電商平台無法給予的「深度」和「情感連結」。</p>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 建立品牌故事區塊</h5>
+      <ul class="space-y-2 pl-4">
+        <li><strong>做什麼：</strong>新增一個小區塊，簡要介紹Youbi的品牌理念、設計哲學或創辦故事。</li>
+        <li><strong>為什麼：</strong>這能將頁面從一個單純的商品列表提升為品牌資訊站，建立情感聯繫，是momo等平台不會做的。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 打造「場景式導購」內容</h5>
+      <ul class="space-y-2 pl-4">
+        <li><strong>做什麼：</strong>除了產品規格，增加「適合什麼樣的爸媽？」、「解決您的這些煩惱」等場景化內容，例如：「寶寶半夜哭鬧？床中床給您安心同床的解決方案」。</li>
+        <li><strong>為什麼：</strong>直接回應家長們的痛點，比冰冷的規格列表更能觸動人心，提升轉換率和頁面停留時間。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="no-data-placeholder">
+    <div class="flex items-center mb-3">
+        <i class="fas fa-chart-line text-blue-500 mr-2"></i>
+        <h4 class="font-semibold">數據分析進行中</h4>
+    </div>
+    <p class="mb-4">此部分需要更詳細的品牌方背景資料以進行深入的權威性對比分析。</p>
+    
+    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+        <h5 class="font-semibold text-blue-800 mb-2">建議補強數據：</h5>
+        <ul class="text-blue-700 text-sm text-left">
+            <li>• 品牌方是否有實體店面或合作的權威通路。</li>
+            <li>• 是否有獲得任何設計獎項或業界認證。</li>
+            <li>• 品牌媒體曝光或專家推薦的相關資料。</li>
+        </ul>
+    </div>
+    
+    <div class="bg-green-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-green-800 mb-2">現階段可執行策略：</h5>
+        <p class="text-green-700 text-sm text-left">基於現有數據，建議立即執行下方「E-E-A-T 強化與權威建立機會」中的策略，透過展示安全認證、用戶評價等方式快速建立基礎信任感。</p>
+    </div>
+</div>
+                                <div class="no-data-placeholder">
+    <div class="flex items-center mb-3">
+        <i class="fas fa-check-circle text-blue-500 mr-2"></i>
+        <h4 class="font-semibold">數據分析進行中</h4>
+    </div>
+    <p class="mb-4">缺乏詳細的品牌方信任指標數據，如客戶服務滿意度、退換貨政策清晰度等。</p>
+    
+    <div class="bg-blue-50 p-4 rounded-lg mb-4">
+        <h5 class="font-semibold text-blue-800 mb-2">建議補強數據：</h5>
+        <ul class="text-blue-700 text-sm text-left">
+            <li>• 網站是否提供清晰的聯絡方式與公司資訊。</li>
+            <li>• 退換貨政策的具體條款與流程。</li>
+            <li>• 是否有第三方支付或加密連線(SSL)等安全保障。</li>
+        </ul>
+    </div>
+    
+    <div class="bg-green-50 p-4 rounded-lg">
+        <h5 class="font-semibold text-green-800 mb-2">現階段可執行策略：</h5>
+        <p class="text-green-700 text-sm text-left">請參考下方的「E-E-A-T 強化與權威建立機會」建議，在頁面中清晰標示「官方授權經銷商」、「正品保證」等標識，並提供完整的客服與政策資訊，以快速提升頁面的可信度。</p>
+    </div>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標 (Trust)：</h5>
+      <ul class="space-y-2">
+        <li>在頁面顯著位置加入「官方授權經銷商」、「正品保證」等標識，直接消除用戶對貨源的疑慮。</li>
+        <li>清晰標示退換貨政策、運送方式和客服聯絡資訊，降低購買門檻。</li>
+        <li>引用或展示相關的產品安全認證（如SGS檢測），將其視覺化為圖標。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">展示專業經驗 (Experience &amp; Expertise)：</h5>
+      <ul class="space-y-2">
+        <li>新增「用戶開箱實拍」區塊，利用真實的用戶體驗（Experience）來佐證產品質量。</li>
+        <li>創建一個「編輯精選」或「育兒顧問推薦」的標籤，即使是虛擬的，也能增加專業感（Expertise）。</li>
+        <li>加入詳細的「清潔與保養指南」，展示對產品的深度了解，超越競爭對手僅列出規格的層次。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">建立權威性 (Authoritativeness)：</h5>
+      <ul class="space-y-2">
+        <li>積極收集並展示用戶對此產品的正面評價，並標示購買者的基本資訊（如 "陳媽媽 來自台北"），增加真實性。</li>
+        <li>如果可能，與育兒領域的KOL或部落客合作，獲取他們的反向連結或推薦語，並在頁面中引用。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2">
+        <li><strong>改善標題層級：</strong>立即將 `&lt;H1&gt;` 用於品牌，`&lt;H2&gt;` 用於產品，讓用戶第一時間理解頁面結構，並非只有單一產品。</li>
+        <li><strong>增加內部連結錨點：</strong>在頁面頂部增加「商品介紹 | 規格說明 | 更多推薦」等錨點連結，讓用戶可以快速跳轉至感興趣的區塊，尤其在移動端體驗更佳。</li>
+        <li><strong>優化圖片品質：</strong>確保產品圖片高清、可放大，並提供多角度視圖，彌補線上購物無法觸摸的缺點。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>產品比較功能：</strong>在「更多Youbi商品」區塊，提供一個簡易的比較功能（例如比較床中床與成長型嬰兒床的規格），幫助用戶決策。</li>
+        <li><strong>引入影片內容：</strong>嵌入產品的開箱、安裝或使用場景的短影片，能大幅提升頁面停留時間和轉換率。</li>
+        <li><strong>打造品牌專頁：</strong>如長期策略所述，建立一個體驗流暢、資訊豐富的Youbi品牌中心頁，是根本性提升用戶體驗和SEO排名的最佳方案。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">3</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">momo購物網 (嬰兒手推車)</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">電商平台</div>
+                <div class="text-lg font-semibold text-blue-600">大型零售通路</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.momoshop.com.tw/search/Youbi%20%E5%AC%B0%E5%85%92%E6%89%8B%E6%8E%A8%E8%BB%8A?srsltid=AfmBOootB1CdC9YZTQXaFSZvLHrG6rXHtV9nNgcJIhcQ9ajCuQrCqbDr" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.momoshop.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">作為市場領導者，momo採用「效率強調型」策略，其Meta標題直接使用「好評推薦」、「2025年12月」等詞彙，旨在快速吸引並轉化具有明確購買意圖的用戶。頁面內容圍繞商品列表、篩選功能和促銷資訊，為用戶提供一站式的購物體驗，其核心優勢在於巨大的平台流量、用戶信任和高效的物流服務。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 平台提供大量用戶評價和銷售數據，為其他消費者提供了豐富的間接使用經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 專業性較弱，平台本身是銷售渠道而非產品專家，對YOUBI品牌的介紹僅限於規格。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 極高。momo作為台灣頂級電商平台，其品牌本身就是權威的象徵。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 極高。完善的金流、物流、退換貨機制和品牌信譽，為消費者提供了強大的購物保障。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第4名</span>
+                <h4 class="font-bold text-xl">Youbi的小宇宙</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">個人品牌</div>
+                <div class="text-lg font-semibold text-green-600">身心靈療癒</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://youbi520.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">youbi520.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此網站是品牌語義模糊的主要來源，其業務與嬰幼兒產品完全無關。內容採用典型的「教育導向敘事流」，從哲學問題（活著，就要站C位）引導至核心服務（希塔療癒）。它的存在對品牌方構成威脅，因為它稀釋了「YOUBI」在搜索引擎中的品牌專一性，可能導致潛在客戶的混淆和流失。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 網站內容暗示了創辦者在身心靈領域的個人經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 在其自身領域（療癒、自我覺醒）展現了專業性，但與嬰幼兒產品無關。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 權威性來自於創辦者的個人品牌，而非機構或行業認證。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 信賴感建立在用戶對其個人理念的認同上。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第7名</span>
+                <h4 class="font-bold text-xl">蝦皮購物</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">電商平台</div>
+                <div class="text-lg font-semibold text-blue-600">C2C/B2C混合</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://shopee.tw/Youbi%E8%BC%95%E5%B7%A7%E7%99%BB%E6%A9%9FX%E7%A3%81%E5%90%B8%E6%89%A3%E5%AC%B0%E5%85%92%E6%8E%A8%E8%BB%8A-%E5%8F%AF%E7%99%BB%E6%A9%9F-%E8%B2%B7%E4%B8%80%E8%B4%88%E4%B8%83-%E7%8F%BE%E8%B2%A8-%E9%AB%98%E6%99%AF%E8%A7%80%E5%AC%B0%E5%85%92%E6%8E%A8%E8%BB%8A-%E5%95%86%E6%AA%A2%E5%90%88%E6%A0%BC-%E8%BC%95%E9%87%8F%E6%8E%A8%E8%BB%8A-%E5%AF%B6%E5%AF%B6%E8%BC%95%E4%BE%BF%E6%89%8B%E6%8E%A8%E8%BB%8A-i.2384356.21294446" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">shopee.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">蝦皮的定位偏向多元賣家和價格競爭。然而，當前排名頁面存在嚴重的技術性SEO失誤，其Meta標題和描述均為通用的「登入頁面」內容，完全沒有針對「YOUBI」進行優化。這意味著它雖然佔據了一個位置，但並未對品牌方構成有效的內容競爭，點擊率可能極低，是一個容易被超越的對手。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 依賴個別賣家的評價，平台本身不提供產品經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 平台專業性低，產品質量和資訊準確性由賣家決定。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 平台具有高流量權威，但在產品質量權威上不如B2C平台。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 蝦皮提供了購物保障機制，但在用戶心中，其信賴度可能因賣家差異而波動。</div>
+            </div>
+        </div>
+    </div>
+     <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第9名</span>
+                <h4 class="font-bold text-xl">Yahoo購物中心</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">電商平台</div>
+                <div class="text-lg font-semibold text-blue-600">大型零售通路</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://tw.buy.yahoo.com/gdsale/Youbi%E5%A4%9A%E5%8A%9F%E8%83%BD%E6%88%90%E9%95%B7%E5%9E%8B%E5%AC%B0%E5%85%92%E5%BA%8A%E9%82%8A%E5%BA%8A-11735266.html" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">tw.buy.yahoo.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">Yahoo採用「產品羅列型」策略，其標題直接點明產品全稱「Youbi多功能成長型嬰兒床邊床」，精準吸引已對特定產品有深入了解、處於購買決策最後階段的用戶。頁面結構是標準的商品詳情頁(PDP)，從H1標題、商品特色、規格到商品保證，流程清晰，完全為交易服務。這種頁面是品牌官網需要直接競爭的對象。</p>
+        </div>
+         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 &amp; CTA 分析</h5>
+            <div class="text-gray-700 narrative-analysis-list">
+                <p class="leading-relaxed">採用典型的產品導向敘事流。從產品名稱(&lt;H1&gt;)出發，直接切入「商品特色」和「規格」，最後用「商品評價」和「商品保證」建立信任，整個流程旨在快速促成交易。CTA是隱性的，體現在頁面各處的購買按鈕和分期付款選項，引導用戶完成購買。</p>
+            </div>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 依賴用戶評價來提供間接經驗，平台本身不創造經驗內容。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 專業性體現在商品規格的清晰羅列上，但缺乏品牌層面的深度專業知識。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 高。Yahoo作為老牌大型入口網站與電商，其平台權威性深植人心。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 高。提供明確的商品保證和成熟的購物體系，用戶對其信賴度高。</div>
+            </div>
+        </div>
+    </div>
+</div>
+                            
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題與描述效能：</strong>品牌方雖排名第一，但若Meta表達不夠清晰，用戶仍可能被電商平台的「好評推薦」、「優惠價格」等直接的轉化詞彙吸引。目前競爭者的Meta主要圍繞**產品類型 + 平台品牌 + 價值主張**的公式化結構，目標明確，直指交易。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌認知干擾：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>語義模糊問題：</strong>排名第四的C2（Youbi的小宇宙）其Meta訴諸個人成長與價值實現，這進一步干擾了用戶對"YOUBI"嬰幼兒品牌的正確認知。</div>
+          <div><strong>技術性失誤：</strong>排名第七的C4（蝦皮）的Meta為通用登入頁面，屬於技術性失誤，暫不構成威脅，但佔據了一個寶貴的SERP位置。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">內容定位策略：</h5>
+            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                <li><strong>效率強調型 (momo, ETMall)：</strong>強調「好評推薦」、「優惠便宜好價格」，直接滿足用戶尋找優惠和驗證口碑的需求。</li>
+                <li><strong>產品羅列型 (Yahoo)：</strong>標題直接點出產品全稱，吸引已對特定產品有了解的用戶。</li>
+                <li><strong>品牌混淆型 (Youbi的小宇宙)：</strong>使用「創造全方位豐盛的超級玩家」等詞彙，定位於個人成長，與品牌方市場完全脫節。</li>
+            </ul>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">E-E-A-T &amp; 信任元素：</h5>
+            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                <li><strong>權威/信賴：</strong>電商平台通過展示自身平台品牌（momo、Yahoo）來建立權威與信賴感。</li>
+                <li><strong>經驗/專業：</strong>所有電商競爭者在這方面均表現薄弱，它們是銷售渠道，而非產品專家。</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>強調「官方網站」的獨特性，傳遞電商平台無法提供的品牌價值，如設計哲學、創辦故事、安全承諾。</li>
+        <li><strong>競爭優勢：</strong>突出「官方保固」、「正品保障」、「最新款式首發」等官方渠道獨有的優勢，將流量從單純比價引導至價值認同。</li>
+        <li><strong>目標受眾：</strong>直接對話重視安全、設計感與品牌原創性的新手父母，使用「專為現代父母設計」、「守護寶寶每一刻」等情感化語言。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>建議格式 `YOUBI 官方網站 | 專為現代父母設計的嬰幼兒推車與床邊床`。長度控制在30個中文字內，既點明官方身份，也清晰定義了品牌領域，主動排除C2的干擾。</li>
+        <li><strong>描述優化：</strong>建議內容 `探索 YOUBI 全系列嬰兒手推車、成長型床邊床。我們堅持最高安全標準與北歐簡約設計，給寶寶最舒適的守護。享官方獨家保固與新品資訊。` 這樣既傳達了品牌價值（安全、設計），也提供了具體的官方優勢（保固、新品）。</li>
+        <li><strong>執行優先級：</strong>高。這是鞏固品牌形象、提升點擊率、對抗語義模糊最直接且成本最低的手段。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方的內容架構是建立品牌權威性的關鍵。目前，競爭者的內容結構呈現兩極化：電商平台的頁面結構是功能性的，圍繞商品展示、篩選和購買流程，敘事性弱。而C2的內容網站結構則具有強烈的教育和個人品牌塑造意圖。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">內容覆蓋深度：</h5>
+            <p class="text-gray-600">電商平台對「YOUBI」品牌的介紹僅限於產品規格和用戶評價，缺乏品牌層面的深度內容。Yahoo的頁面展示了標準的PDP結構（商品特色、規格、保證），但這是所有電商都能複製的。品牌方最大的內容缺口在於**品牌故事、設計理念、材質安全報告、國際認證**等建立E-E-A-T的模塊。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">敘事流與CTA分析：</h5>
+            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                <li><strong>電商平台 (Yahoo)：</strong>採用典型的**產品導向敘事流**，從產品名稱出發，切入特色與規格，旨在快速促成交易。</li>
+                <li><strong>內容網站 (youbi520.com)：</strong>採用**教育導向敘事流**，從引發思考到介紹服務，是一個完整的內容行銷漏斗。</li>
+            </ul>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">內容補強機會識別：</h5>
+            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                <li><strong>優先補強主題：</strong>創建「關於我們」專區，詳細闡述品牌緣起、設計哲學、對安全的承諾。</li>
+                <li><strong>專業模塊建設：</strong>建立「材質與安全」頁面，公開產品檢驗報告、國際安全認證，建立硬核信任。</li>
+                <li><strong>深度內容機會：</strong>增設「用戶故事/評價」專區，展示比電商平台更深度、更具情感的用戶使用心得與照片分享。</li>
+            </ul>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">差異化內容策略：</h5>
+            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                <li><strong>獨特角度：</strong>打造「新手父母指南」內容，圍繞核心產品發布專業文章（如「如何挑選第一台嬰兒推車？」），將品牌定位為育兒顧問。</li>
+                <li><strong>競爭優勢：</strong>通過專業內容捕獲長尾關鍵詞流量，並從根本上建立Expertise（專業性），這是電商平台無法競爭的領域。</li>
+                <li><strong>執行路徑：</strong>應借鑒C2的內容結構深度，但應用於自己的專業領域，以官網的權威性徹底超越電商平台的淺層信息。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">新手父母，特別是媽媽。他們重視產品的安全性、實用便利性，並對設計美學有一定要求。</span>
+            </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">決策階段：</strong>
+        <span class="text-gray-600">主要處於考慮和決策階段。他們已經知道YOUBI品牌，正在尋找更深入的資訊來驗證這是否是正確的選擇。</span>
+            </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：安全焦慮</strong>
+        <span class="text-gray-600">對嬰兒產品的材質、結構穩定性、檢測認證等安全問題感到極度焦慮，需要權威資訊來消除疑慮。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：資訊過載</strong>
+        <span class="text-gray-600">面對眾多品牌和型號，以及電商平台上碎片化的用戶評價，難以進行有效比較和決策。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：生活便利性</strong>
+        <span class="text-gray-600">育兒生活充滿挑戰，需要如「單手秒收」推車等能真正解決日常痛點、提升生活品質的產品。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：信任不足</strong>
+        <span class="text-gray-600">對品牌方的單方面說辭持保留態度，極度依賴第三方評價（社會認同）和權威認證來建立信任。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">次要障礙：價值感知</strong>
+        <span class="text-gray-600">不確定官網的價格是否包含了超越電商平台的附加價值（如更完善的保固、售後服務）。</span>
+      </div>
+        </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>創建「新手父母指南」內容，討論「如何挑選第一台嬰兒推車」等主題，將品牌定位為育兒顧問。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>提供官網與電商的詳細比較、產品功能演示影片、以及真實用戶故事，幫助用戶評估。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>清晰展示安全認證、官方保固政策、以及常見問題解答(FAQ)，消除用戶最後的疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>強調YOUBI不僅是產品，更是基於「安全」與「設計」的完整育兒解決方案。</div>
+          <div><strong>競爭優勢展現：</strong>突出「官方正品保障」、「完整保固服務」、「新品首發特權」等電商平台無法提供的獨家價值。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>電商平台僅提供淺層的產品規格，無法滿足用戶對品牌故事、安全細節、專業使用技巧的深度資訊需求。</div>
+          <div><strong>品牌突破機會：</strong>通過建立E-E-A-T內容護城河，成為YOUBI品牌的唯一權威資訊源，從根本上贏得用戶信任。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：建立權威第一印象</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">優化Meta標籤，在搜尋結果頁就突出「官方網站」身份，與電商平台形成區隔，贏得首次點擊。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">頁面首屏清晰傳達品牌價值主張（安全、設計），並展示一個核心產品的情境圖，快速建立品牌形象。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：深化信任與資訊滿足</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">頁面內容佈局遵循「品牌理念 → 安全認證 → 產品詳解 → 用戶故事」的邏輯，引導用戶深度了解。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立：</strong>
+          <span class="text-gray-600">在頁面中嵌入SGS等安全認證標章、真實用戶的開箱照片與評價，建立強大的社會認同。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：消除疑慮與價值強化</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除：</strong>
+          <span class="text-gray-600">提供詳細的FAQ頁面，主動回答關於保固、清潔、競品比較等常見問題。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化：</strong>
+          <span class="text-gray-600">在購買按鈕附近，清晰標示「官方保固」、「正品保障」、「獨家贈品」等官網獨有價值。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：引導行動與關係建立</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計：</strong>
+          <span class="text-gray-600">提供清晰的「立即選購」硬性CTA，以及「下載選購指南」、「訂閱電子報」等軟性CTA，滿足不同階段用戶需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">長期關係：</strong>
+          <span class="text-gray-600">引導用戶加入社群媒體，將一次性的購買行為轉化為長期的品牌粉絲關係。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>品牌已佔據排名第一的有利位置，但競爭格局複雜。核心挑戰在於應對兩大分流威脅：1) <strong>大型電商平台 (momo, Yahoo)</strong> 以其流量和促銷優勢，直接在SERP上爭奪具有明確購買意圖的用戶。2) <strong>名稱相似的非相關網站 (youbi520.com)</strong> 造成品牌語義模糊，可能混淆初次接觸的用戶，稀釋品牌形象。因此，當前策略核心是從「爭奪排名」轉向「贏得點擊與心智佔有率」。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：品牌語義清晰化與基礎技術優化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>透過優化Meta標籤、頁面標題結構(&lt;H1&gt;)和URL，主動向搜索引擎和用戶澄清YOUBI是專業的「嬰幼兒用品」品牌，消除與非相關網站的語義混淆，並修復影響權威累積的技術債。</div>
+        <div><strong>執行評估：</strong>難度低，效果快，能迅速提升品牌在SERP上的專業形象和點擊率。</div>
+        <div><strong>優先級：</strong>高 - 這是鞏固領導地位、提升流量質量的基礎工程。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：建立超越電商的E-E-A-T內容護城河</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>電商平台缺乏品牌深度內容。透過創建「關於我們」、「安全認證」頁面，並整合用戶深度評價(UGC)，建立電商無法複製的品牌故事與信任感。</div>
+        <div><strong>執行評估：</strong>難度中，能顯著提升用戶信任度和頁面停留時間，是差異化競爭的關鍵。</div>
+        <div><strong>優先級：</strong>高 - 直接回應了品牌官網相較於銷售渠道的核心價值。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：打造以使用者為中心的差異化體驗</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>通過發布「新手父母指南」等專業內容捕獲長尾流量，並開發「產品比較工具」、AR預覽等互動功能，滿足用戶在購買旅程中「學習」和「評估」的深層需求。</div>
+        <div><strong>執行評估：</strong>難度中至高，是從品牌官網進化為行業資源中心的長遠佈局，能建立強大的競爭壁壘。</div>
+        <div><strong>優先級：</strong>中 - 屬於中期建設策略，用以鞏固和擴大領導地位。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>結合生活方式：</strong>「新生兒推車推薦 YOUBI」、「適合小公寓的嬰兒床」、「YOUBI 單手秒收推車」。</div>
+        <div><strong>結合品牌專業領域：</strong>「YOUBI 床邊床 安全嗎」、「YOUBI 推車 YB-101 評價」、「YOUBI 材質認證」。</div>
+        <div><strong>問題導向：</strong>「YOUBI 推車如何清潔」、「YOUBI vs. [競品名] 比較」、「嬰兒床邊床挑選指南」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「銷售產品」轉向「提供育兒解決方案」，強調產品如何解決父母的痛點。</div>
+        <div><strong>專業詞彙：</strong>強化與「安全」、「設計美學」、「人體工學」、「輕量化」、「SGS認證」等體現高品質和專業性的詞彙關聯。</div>
+        <div><strong>品牌調性：</strong>建立「溫暖、專業、值得信賴」的語氣，在所有內容中貫徹，形成與電商平台冰冷交易感的情感區隔。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🎯 轉換優化藍圖：建立超越價格的「價值」</h4>
+    <p class="text-gray-700">品牌官網的轉換優化核心在於「價值超越」。路徑設計：1) <strong>建立獨家價值：</strong> 在產品頁面顯著位置突出「官方2年保固」、「新品獨家首發」、「官網限定配件」等電商沒有的優勢。2) <strong>消除購買疑慮：</strong> 提供清晰的退換貨政策、詳細的FAQ頁面以及線上客服，降低決策門檻。3) <strong>強化信任背書：</strong> 整合深度用戶評價、KOL推薦和安全認證標章，讓用戶在官網感受到最大程度的安心。4) <strong>流暢結帳體驗：</strong> 簡化購物流程，提供多元支付方式，確保從瀏覽到下單的過程無縫銜接。</p>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>從「排名第一」進化為「點擊首選」，通過在SERP上展現超越電商平台的權威性與價值主張，贏得用戶的直接點擊。</div>
+        <div><strong>競爭者超越路徑：</strong>建立電商平台無法複製的E-E-A-T內容護城河，提供品牌故事、安全認證、深度用戶評價與專業育兒指南，實現價值差異化。</div>
+        <div><strong>使用者價值最大化：</strong>滿足用戶從「購買」到「學習」、「比較」、「解決問題」的全方位需求，將官網打造成值得信賴的育兒顧問。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>YOUBI官網不僅是銷售渠道，更是品牌精神、安全承諾與專業知識的權威發布中心。</div>
+        <div><strong>差異化價值：</strong>提供電商平台缺失的品牌溫度、深度信任感和一站式育兒解決方案。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>鞏固品牌詞第一排名，並提升長尾關鍵詞（如「嬰兒推車推薦」）的排名。</div>
+        <div><strong>流量增長目標：</strong>提升品牌詞CTR 5-10%，並通過長尾內容帶來額外20%的自然流量。</div>
+        <div><strong>轉換率優化：</strong>提升官網直接銷售的轉換率，並增加輔助轉換（如指南頁面瀏覽量）。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：基礎鞏固與形象清晰化 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心任務：</strong>
+          <span class="text-gray-600">重點優化Meta標籤、URL與頁面結構，在SERP上確立「官方」與「專業嬰幼兒用品」的品牌形象，提升CTR。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：建立信任與內容差異化 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心任務：</strong>
+          <span class="text-gray-600">上線「關於我們」、「安全認證」等權威頁面，整合UGC與多媒體內容，建立超越電商的信任感。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：打造領導地位與體驗護城河 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心任務：</strong>
+          <span class="text-gray-600">創建「育兒指南」內容中心，佈局長尾關鍵詞，並開發互動工具，成為行業思想領袖。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>對單一產品（床中床）的功能介紹詳細，能夠滿足已有購買意圖的用戶。</div>
+          <div><strong>改善空間：</strong>缺乏品牌層面的深度內容，無法與電商平台形成差異化；未能滿足用戶在考慮階段的比較和學習需求。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">關鍵詞整合策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>主詞布局：</strong>優化Title/Description，明確標識「官方網站」及核心產品（嬰兒推車、床邊床），與混淆網站(youbi520.com)區隔。</div>
+          <div><strong>長尾詞機會：</strong>透過「育兒指南」與FAQ內容，捕獲「YOUBI推車如何清潔」、「床邊床安全須知」等問題導向的高價值流量。</div>
+        </div>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">E-E-A-T強化策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>權威性：</strong>創建「安全與認證」等權威頁面、整合UGC真實評價、引入育兒專家背書，全方位建立信任。</div>
+          <div><strong>專業性：</strong>合理使用&lt;H1&gt;等標籤定義品牌/品類層級，而非單一產品，向搜索引擎傳達更清晰的網站結構。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>官方權威性與完整資訊：</strong>提供電商通路沒有的完整設計理念、品牌故事與創辦人初衷。</div>
+        <div><strong>透明化的安全承諾：</strong>公開展示SGS等多項安全檢測報告，提供可驗證的信任。</div>
+        <div><strong>深度用戶生成內容(UGC)：</strong>展示比電商制式評論更具情感與細節的「用戶真實開箱故事」。</div>
+        <div><strong>一站式育兒解決方案：</strong>不只賣產品，更提供「新手父母指南」，解答選購、使用、保養的全程疑問。</div>
+        <div><strong>官網獨家保障與優惠：</strong>強調「官方完整保固」、「新品首發」、「獨家配件」等電商無法提供的價值。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>建立「關於YOUBI」頁面，講述品牌故事與價值觀。</div>
+        <div>建立專門的「安全與認證」頁面，以高品質掃描件或PDF形式展示所有檢測報告。</div>
+        <div>在官網開設「用戶故事」或「開箱實拍」專區，並策劃活動鼓勵用戶分享。</div>
+        <div>創建「育兒指南」部落格，發布針對長尾關鍵詞的深度文章。</div>
+        <div>在所有產品頁面及首頁顯著位置，使用圖標和文字標示官網獨家優勢。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 轉換路徑設計策略：價值超越</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded-lg border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">第一步：建立獨家價值</h5>
+            <p class="text-gray-600">在產品頁面顯著位置突出「官方2年保固」、「新品獨家首發」、「官網限定配件」等電商沒有的優勢，讓用戶明白官網的獨特價值。</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">第二步：消除購買疑慮</h5>
+            <p class="text-gray-600">提供清晰的FAQ、退換貨政策與即時客服，並整合深度UGC、KOL推薦與安全認證標章，讓用戶在官網感受到最大程度的安心。</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">第三步：流暢結帳體驗</h5>
+            <p class="text-gray-600">簡化購物流程，提供多元支付方式，確保從瀏覽到下單的過程無縫銜接，減少購物車放棄率。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h5 class="font-semibold text-blue-700 mb-2">1. 豐富媒體體驗</h5>
+        <p class="text-gray-600">為核心產品提供高品質功能演示影片、360度視圖與生活情境圖，超越電商的標準圖文。</p>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h5 class="font-semibold text-blue-700 mb-2">2. 互動決策支持</h5>
+        <p class="text-gray-600">開發「產品比較」或「選購助理」工具，幫助用戶根據身高、居住環境、用車習慣等快速決策。</p>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h5 class="font-semibold text-blue-700 mb-2">3. 內容可讀性</h5>
+        <p class="text-gray-600">採用清晰的標題層級、短段落、項目符號列表，並在長文開頭創建快速導航目錄。</p>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h5 class="font-semibold text-blue-700 mb-2">4. 行動裝置優先</h5>
+        <p class="text-gray-600">確保所有內容與互動功能在手機上都有完美的瀏覽與操作體驗，符合現代父母的使用習慣。</p>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
