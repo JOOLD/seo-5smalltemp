@@ -1,0 +1,2065 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 貓跳台</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">貓跳台 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「貓跳台」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">5</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現況評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現況評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站頁面明確定位為「Hug抱抱貓跳台」的<strong>商品銷售頁面</strong>。內容緊密圍繞產品的核心賣點，如<strong>省空間、靈活調整、極簡設計</strong>與<strong>頂天立地</strong>等特色，直接面向具有購買意圖的用戶。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容架構極為精簡，主要分為「貓跳台」主體與「配件」兩大區塊。這表明頁面策略是<strong>純粹的交易導向</strong>，專注於展示可購買的商品，而缺乏如選購指南、安裝教學或品牌故事等延伸性內容，內容廣度與深度均有限。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對於已了解品牌並決定購買的用戶，此頁面提供了直接、高效的購物路徑。然而，對於尚在研究、比較階段的潛在消費者，頁面因缺少<strong>決策輔助資訊</strong>與<strong>信任建立元素</strong>（如用戶評價、詳細比較），所能提供的價值相對較低。</p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>決策支援缺口：缺少選購指南與適用性分析
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">缺乏引導用戶根據自家環境（空間大小、樓高）、貓咪狀況（年齡、體重、數量）來選擇合適貓跳台組合的指南。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶在購買前會充滿疑問：「我家天花板夠高嗎？」、「多貓家庭該怎麼配置？」、「我的貓是大型貓，這個穩固嗎？」。競爭者「貓老闆」的頁面正是透過詳盡的挑選重點教學來回答這些問題，從而贏得用戶信任。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">新增一個「如何為您的愛貓挑選」區塊，內容包含：<strong>空間測量教學、單貓與多貓配置建議圖、不同體重貓咪的穩固性說明</strong>，並以圖文或影片形式呈現。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-users text-orange-600 mr-2"></i>信任建立缺口：缺乏用戶實證與評價內容
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面上完全沒有用戶的<strong>實際安裝照片、使用心得、開箱影片</strong>或任何形式的第三方評價。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">從您自身的 meta keywords 設定中可以看到「貓跳台開箱」、「貓跳台評價」等詞，這證明了用戶極度依賴真實回饋來做決策。他們想看到產品在真實居家環境中的樣子，而非僅有完美的商品照。競爭者「拍拍」便善用「好味小姐推薦」來建立社會認同。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">建立一個「飼主真實分享」區塊，展示從社群媒體募集的<strong>用戶投稿照片與簡短心得</strong>。若有與網紅或KOL合作（如meta keywords中的「豆漿」），應將其評價或影片嵌入頁面。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-balance-scale text-purple-600 mr-2"></i>比較意圖缺口：未與其他類型貓跳台進行比較
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">未解釋自家「頂天立地」貓跳台與市面上常見的「壁掛式」、「複合式大型貓跳台」等其他類型相比，其優劣勢何在。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">首次購買的用戶可能不確定哪種類型最適合自己。他們會搜尋「頂天立地貓跳台 vs. 壁掛式」等關鍵字。透過主動比較，可以凸顯自家產品「不需鑽牆」、「省空間」的核心優勢，並幫助用戶確認這就是他們要的產品。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">製作一個清晰的<strong>比較表格</strong>，列出不同類型貓跳台在安裝難易度、佔用空間、穩固性、擴充彈性等維度的差異，並突顯「Hug抱抱貓跳台」的獨特優勢。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-tools text-blue-600 mr-2"></i>使用指導缺口：缺乏創意組裝與DIY教學
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">雖然產品強調「高變化度」與「創意搭配」，但頁面並未提供具體的<strong>安裝教學、多種組合範例</strong>或DIY靈感。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶希望看到產品潛力的極致發揮，這能激發他們的購買慾望。meta keywords中的「貓跳台diy」也反映了此需求。提供清晰的教學不僅能降低購買後的安裝焦慮，更能展示產品的無限可能性，成為一大賣點。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">建立「靈感展示區」，提供<strong>3-5種針對不同戶型（如小套房、公寓客廳）的官方推薦配置圖</strong>，並附上詳細的安裝步驟影片或GIF動圖。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站具備了良好的SEO基礎。<strong>Meta Title、Description 和 Keywords 標籤</strong>都已設定，且內容與目標關鍵詞相關。<strong>Open Graph 標籤</strong>（og:title, og:description 等）也配置完整，有利於社群媒體分享時的呈現效果。此外，響應式設計的 viewport 標籤確保了在行動裝置上的瀏覽體驗。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">頁面的內容結構過於扁平。從Outline分析可見，僅使用少量的 &lt;h2&gt; 標籤將頁面分為幾個大區塊，缺乏使用 &lt;h3&gt;、&lt;h4&gt; 等標籤來建立更細緻的資訊層次。這使得頁面在搜尋引擎眼中<strong>缺乏深度與結構化</strong>，不利於理解頁面各部分的詳細主題。關鍵字雖然存在於Meta標籤中，但在頁面結構中的佈局稍嫌薄弱。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">當前的URL (`/buy?srsltid=...`) 包含了追蹤參數，不利於SEO。建議改用靜態、語義化的URL，例如 `/products/hug-cat-tree`。此外，`google-signin-client_id` 的值為預設的 `YOUR_CLIENT_ID...`，這可能是一個需要修正的技術設定錯誤。最重要的是，應<strong>豐富頁面內容並使用更具層次的標題標籤（&lt;h2&gt; 到 &lt;h4&gt;）</strong>來組織資訊，以提升頁面的SEO價值與使用者體驗。</p>
+    </div>
+</div>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>定位精準但受眾狹隘：</strong> 頁面高效地服務於已決定購買的客戶，但其純粹的交易屬性使其完全錯失了處於廣泛研究與比較階段的潛在用戶，限制了流量的來源。</li><li><strong>內容深度嚴重不足：</strong> 與排名靠前的內容型網站（如「貓老闆」）相比，在教育性、引導性內容上存在巨大鴻溝，無法滿足用戶在購買前的資訊需求，是排名無法提升的關鍵因素。</li><li><strong>信任建立機制缺失：</strong> 頁面缺乏用戶評價、開箱實例等社會認同元素，而這正是電商轉化的關鍵推力。未能有效利用自身的關鍵字研究（如「評價」、「開箱」）來指導內容創作。</li><li><strong>結構簡單錯失SEO機會：</strong> 儘管技術基礎良好，但過於扁平的內容結構（缺乏 H-tag 層次）讓搜尋引擎難以深入理解內容，削弱了頁面在多個子主題上競爭的潛力。</li><li><strong>獨特賣點溝通不足：</strong> 產品的「靈活調整」、「創意搭配」是核心優勢，但頁面上僅以文字提及，缺乏視覺化的範例或教學來充分展示其價值，說服力不足。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第5位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">4個位置</div>
+                                <div class="text-xs text-gray-600">與第1名 MYZOO 動物緣 距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">目前排名第5，位於搜尋結果首頁，具備良好的基礎，但面對品牌、大型電商與內容網站的多重夾擊，位置不穩固，需立即優化以鞏固並提升排名。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>抱抱貓跳台</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+    <td class="px-4 py-2 border-b font-semibold">標題 (Title)</td>
+    <td class="px-4 py-2 border-b">以「所有商品-」開頭，關鍵詞後置，削弱SEO效益。</td>
+    <td class="px-4 py-2 border-b">關鍵詞前置 (momo) 或以問題引導 (貓老闆)，搜尋意圖明確。</td>
+    <td class="px-4 py-2 border-b">移除「所有商品-」，將「貓跳台」置於最前，並整合獨特賣點。</td>
+  </tr>
+  <tr>
+    <td class="px-4 py-2 border-b font-semibold">描述 (Description)</td>
+    <td class="px-4 py-2 border-b">闡述設計理念，但缺乏直接的用戶利益點和點擊誘因。</td>
+    <td class="px-4 py-2 border-b">強調優惠 (momo)、品牌理念 (MYZOO) 或內容價值 (貓老闆)。</td>
+    <td class="px-4 py-2 border-b">加入「好評推薦」、「專為小宅設計」等字眼，並附上CTA。</td>
+  </tr>
+  <tr>
+    <td class="px-4 py-2 border-b font-semibold">關鍵詞密度</td>
+    <td class="px-4 py-2 border-b">`keywords` 標籤佈局良好，但標題與描述中的主關鍵詞密度不足。</td>
+    <td class="px-4 py-2 border-b">競爭者在標題與描述中更頻繁且自然地使用「貓跳台」。</td>
+    <td class="px-4 py-2 border-b">在優化後的標題與描述中，確保「貓跳台」至少出現1-2次。</td>
+  </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="technical-issue">
+  <h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+  <ul class="list-disc list-inside space-y-2 text-gray-700">
+    <li><strong>缺少 &lt;h1&gt; 標籤：</strong> 頁面沒有最重要的 &lt;h1&gt; 標題，這是嚴重的SEO結構缺陷，無法向搜尋引擎明確傳達頁面核心主題。</li>
+    <li><strong>URL結構不佳：</strong> `.../buy?srsltid=...` 的URL包含查詢參數，不利於搜尋引擎索引和用戶理解。而競爭者momo使用 `/search/貓跳台`，結構清晰且包含關鍵詞。</li>
+    <li><strong>內容深度不足：</strong> 頁面僅為商品列表，缺乏輔助性內容，導致頁面主題性薄弱，難以和排名第4的深度內容頁面競爭。</li>
+  </ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="technical-advantage">
+  <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+  <ul class="list-disc list-inside space-y-2 text-gray-700">
+    <li><strong>精準的長尾關鍵詞策略：</strong> Meta `keywords` 標籤中包含了「不釘牆貓跳台」、「貓跳台推薦」等高價值長尾詞，能有效捕獲高轉換意圖的流量。</li>
+  </ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="analysis-box">
+    <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">關鍵詞覆蓋分析</h4>
+    <p>品牌頁面精準覆蓋了與其產品特性相關的關鍵詞，如「省空間」、「靈活調整」、「極簡設計」、「頂天立地」。然而，在更廣泛的語義覆蓋上存在缺口。</p>
+    <ul class="list-disc list-inside space-y-2 mt-2">
+      <li><strong class="text-red-500">缺失：</strong> 缺少對同義詞「貓爬架」、「貓抓柱」的覆蓋。</li>
+      <li><strong class="text-red-500">缺失：</strong> 未能滿足資訊型搜尋意圖，如「貓跳台 挑選」、「貓跳台 材質」、「貓跳台 穩固」等。</li>
+      <li><strong class="text-green-500">機會：</strong> 在頁面新增FAQ區塊或連結至相關部落格文章，以覆蓋這些資訊型關鍵詞，全面提升頁面的主題權威性。</li>
+    </ul>
+  </div>
+                                <div class="analysis-box">
+    <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容深度分析</h4>
+    <p>當前頁面內容深度嚴重不足，僅是一個商品陳列頁。與排名第4的「貓老闆」相比，後者提供了超過千字的詳盡指南，涵蓋了貓咪習性、挑選重點、材質分析、款式介紹到擺放技巧，形成了壓倒性的內容優勢。</p>
+    <p class="mt-2">這種內容深度的差距，導致品牌方頁面在Google眼中僅被視為一個「選項」，而「貓老闆」則被視為該主題的「答案」。要提升排名，必須增加頁面的資訊量與價值，而不僅僅是展示商品。</p>
+  </div>
+                        </div>
+
+                            <div class="analysis-box">
+    <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化機會</h4>
+    <div class="space-y-4">
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 強調「生活美學」與「空間整合」</h5>
+        <p>競爭者多從「功能」出發，品牌方可從「設計」切入。創建內容模組展示Hug貓跳台如何無縫融入不同室內設計風格（北歐風、無印風、現代簡約風），用高品質的情境圖取代單純的產品圖。</p>
+      </div>
+      <div>
+        <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 打造「模組化」與「可擴充性」的互動內容</h5>
+        <p>開發一個簡單的線上配置器或展示GIF/短影片，演示貓跳台如何從一個基礎模組擴充成一個完整的貓樂園。這能將「靈活調整」這一賣點具象化，是純文字或靜態圖片難以比擬的。</p>
+      </div>
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">3. 聚焦「小宅養貓」的痛點解決方案</h5>
+        <p>針對「省空間」這一核心優勢，製作專題內容，例如「如何在10坪空間打造貓咪垂直樂園」，提供具體的佈置方案與顧客案例，將品牌定位為小空間養貓家庭的首選。</p>
+      </div>
+    </div>
+  </div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="analysis-box">
+    <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">權威性對比 (E-E-A-T)</h4>
+    <ul class="list-disc list-inside space-y-2">
+      <li><strong>MYZOO (排名1):</strong> 透過「台灣原創設計」和品牌故事建立專業形象。</li>
+      <li><strong>momo (排名2):</strong> 依靠其巨大的平台信譽和海量用戶評價建立權威。</li>
+      <li><strong>paipaipets (排名3):</strong> 提及「金點設計獎」、「好味小姐推薦」，利用第三方背書建立信任。</li>
+      <li><strong>貓老闆 (排名4):</strong> 透過提供深度、專業的選購指南建立專家形象。</li>
+      <li><strong>品牌方 (Hug):</strong> 目前頁面缺乏權威性信號，僅有產品自身特性，信任感較弱。</li>
+    </ul>
+  </div>
+                                <div class="analysis-box">
+    <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">信任指標評估</h4>
+    <p>當前頁面缺乏常見的信任指標，例如：</p>
+    <ul class="list-disc list-inside space-y-2 mt-2">
+      <li>用戶評價或星級評分。</li>
+      <li>材質安全認證或檢驗報告。</li>
+      <li>媒體報導或設計師推薦。</li>
+      <li>清晰的退換貨政策與保固說明。</li>
+    </ul>
+  </div>
+                        </div>
+
+                            <div class="success-box">
+    <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+    <div class="space-y-4">
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標：</h5>
+        <ul class="space-y-2 list-disc list-inside">
+          <li><strong>展示用戶評價：</strong> 在商品列表頁整合星級評分和精選的用戶評價（附圖片更佳）。</li>
+          <li><strong>標示材質來源與安全認證：</strong> 明確標示所用木材、麻繩的來源，並提供SGS等相關安全檢測證明。</li>
+          <li><strong>創辦人/設計師介紹：</strong> 增加一個小區塊介紹品牌背後的故事和設計理念，增加品牌溫度與專業感。</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展權威內容：</h5>
+        <ul class="space-y-2 list-disc list-inside">
+          <li><strong>發布專業安裝指南：</strong> 製作詳細的圖文或影片教學，展示安裝的簡易性與穩固性。</li>
+          <li><strong>分享顧客案例研究：</strong> 深度採訪2-3位用戶，分享他們如何使用Hug貓跳台解決空間問題，打造人貓共樂的環境。</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設：</h5>
+        <ul class="space-y-2 list-disc list-inside">
+          <li><strong>尋求寵物KOL合作：</strong> 與風格相符的寵物KOL或YouTuber合作開箱，獲取真實的使用回饋與外部連結。</li>
+          <li><strong>投稿設計媒體：</strong> 將產品作為室內設計案例，投稿至居家設計相關的線上雜誌或部落格，爭取高質量的反向連結。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+    <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+    <div class="space-y-4">
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+        <ul class="space-y-2 list-disc list-inside">
+          <li><strong>優化產品圖片：</strong> 提供多角度、高解析度的產品圖，以及展示比例的場景圖（例如，與貓咪、沙發的對比）。</li>
+          <li><strong>增加影片展示：</strong> 為主打商品增加30秒短影片，展示貓咪實際使用、跳躍的動態畫面，比靜態圖更具吸引力。</li>
+          <li><strong>明確標示價格與規格：</strong> 確保每個商品都有清晰的價格、尺寸、材質、承重等關鍵資訊，減少用戶的思考成本。</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+        <ul class="space-y-2 list-disc list-inside">
+          <li><strong>開發「組合搭配」功能：</strong> 允許用戶在頁面上預覽不同配件（如貓窩、跳板）組合後的效果。</li>
+          <li><strong>導入3D/AR預覽：</strong> 讓用戶可以透過手機相機將貓跳台模型投射到自己家中，預覽實際擺放效果，大幅提升轉換率。</li>
+          <li><strong>建立「靈感牆」：</strong> 收集用戶分享的真實佈置照片，建立一個社群靈感牆，既能作為社會認同，也能為新用戶提供購買靈感。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">MYZOO 動物緣</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">設計型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.myzoostudio.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.myzoostudio.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位高端市場，將貓跳台視為「貓家具」，強調與室內設計的融合。以「臺灣原創設計」為核心價值，吸引重視居家風格與生活美學的飼主。其內容策略是先以感性的品牌故事和氛圍營造（如H1標題）來吸引用戶，再展示精選商品，屬於典型的品牌形象優先型敘事。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流從感性的H1「讓家中的每一刻都值得收藏」開始，直接進入H2「精選商品」，先建立品牌氛圍再展示產品。CTA較為隱晦，主要鼓勵用戶瀏覽和探索，而非直接促銷，符合其高端品牌定位。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 透過「專員到府安裝服務」的提供，展現了豐富的實務經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 強調「台灣原創設計」與「貓空間規劃」，凸顯其在寵物家具設計領域的專業能力。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 作為市場上知名的設計品牌，MYZOO本身已具備相當的品牌權威。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 品牌信譽和專業的安裝服務共同建立了消費者的信賴感。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">momo購物網</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">電商平台</div>
+                <div class="text-lg font-semibold text-blue-600">綜合型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.momoshop.com.tw/search/%E8%B2%93%E8%B7%B3%E5%8F%B0?srsltid=AfmBOorhi2EAxK_hv8xauqAjAZvUOEGK_D5dIijpxYUIc2ZAaZgR9Efq" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.momoshop.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位大眾市場，以海量商品選擇、價格競爭及快速物流為核心競爭力。其頁面是典型的產品列表頁(PLP)，策略是提供最廣泛的選擇，從平價到中高價位一應俱全，滿足尋求多樣性、比價與性價比的廣大消費者。Meta標題利用「好評推薦」和動態年份增加新鮮感和可信度。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用「產品羅列型」結構，H1直接點明關鍵詞，其後是無盡的H3產品列表，完全以交易為導向。敘事流極為直接，旨在讓用戶快速瀏覽、比較並下單。CTA明確，就是每個產品下方的購買按鈕。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 頁面匯集了大量用戶評價和銷售數據，提供了豐富的購買經驗參考。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 專業性體現在商品分類的精細度和篩選功能的完善，而非單品深度介紹。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 作為台灣頂級電商平台，其品牌本身就是巨大的權威性保證。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 完善的購物流程、金流、退貨政策和富邦及台灣大哥大的企業背書，建立了極高的信賴度。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第3名</span>
+                <h4 class="font-bold text-xl">拍拍paipaipets</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">功能型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.paipaipets-lab.com/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.paipaipets-lab.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">同樣定位於設計型品牌，但更強調「功能性」與「靈活性」。其核心賣點是「自由調整可擴充」，精準打擊了空間有限或希望未來能升級的飼主痛點。內容策略圍繞這一核心功能展開，並利用「好味小姐推薦」和「金點設計獎」等第三方背書來快速建立信任與專業形象。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流直接且務實，Meta標題直接點出核心功能，吸引有明確需求的用戶。頁面內容著重展示產品的模組化特性和多樣組合的可能性。CTA旨在引導用戶了解產品的靈活性，並進行購買。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 透過「好味小姐推薦」來借用知名KOL的實際使用經驗，增強說服力。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 「自由調整可擴充」的設計本身就體現了對貓咪習性和飼主需求的深刻理解。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 「榮獲金點設計獎認證」是其權威性的最強力證明，直接與其他品牌區隔開來。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 設計獎項和KOL的雙重背書，為品牌建立了高度的信賴感。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第4名</span>
+                <h4 class="font-bold text-xl">貓老闆BossCat</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">內容網站</div>
+                <div class="text-lg font-semibold text-blue-600">知識型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.bosscat.com.tw/post/2295/cat-tree/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.bosscat.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位為「貓咪問題解決專家」，通過提供極度深入、專業的選購指南來吸引處於研究和考慮階段的用戶。其Meta標題以問句「貓跳台怎麼選？」直接命中用戶的資訊搜尋意圖。內容策略是先建立信任感和專業形象，然後再進行導購，是典型的内容行銷模式。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用「教育導向型」敘事。從「為什麼要買」開始教育用戶，接著是「挑選重點」提供解決方案，最後是「款式」和「擺放」給予具體建議。敘事邏輯清晰，引導性強，完美覆蓋了用戶的決策旅程。CTA是引導用戶加入會員，旨在進行長期關係培養。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list">
+                <div class="space-y-3">
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Experience (經驗):</strong> 內容深入探討了產品生命週期（零件替換）和空間規劃，展現了豐富的實踐經驗。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Expertise (專業性):</strong> 文章結構完整，從貓咪天性講到產品材質、尺寸，充分展現了對該主題的深度專業知識。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Authority (權威性):</strong> 「貓老闆」作為作者，通過持續產出高質量內容，建立了個人品牌的權威性。</div>
+                    <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong class="text-green-700">Trust (信賴性):</strong> 完整且有條理的內容讓用戶產生信賴，相信其推薦是專業且客觀的。</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方目前排名第5，意味著其Meta標題與描述在點擊率(CTR)上可能輸給了前四名。需要找到一個既能清晰傳達價值，又能引發好奇心的獨特角度。</div>
+          <div><strong>描述效能：</strong>當前描述較為平鋪直敘，缺乏能驅動點擊的強力誘因，如優惠、推薦或獨特賣點。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">價值導向型 (C1 - MYZOO)：</h5>
+            <p class="text-gray-600">`MYZOO 動物緣｜臺灣原創設計貓家具`。直接訴求對設計、品質有要求的客群，建立高端品牌形象。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">效率強調型 (C2 - momo)：</h5>
+            <p class="text-gray-600">`貓跳台 - momo購物網 - 好評推薦 - 2025年12月`。利用「好評推薦」和動態年份增加可信度與新鮮感，吸引尋求快速、安全交易的用戶。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">功能導向型 (C3 - 拍拍)：</h5>
+            <p class="text-gray-600">`拍拍paipaipets｜自由調整可擴充貓跳台`。精準打擊特定痛點（空間限制、未來擴充需求），吸引有明確需求的用戶。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">問題解決型 (C4 - 貓老闆)：</h5>
+            <p class="text-gray-600">`貓跳台怎麼選？推薦款式、挑選重點...`。直接命中用戶的搜索意圖，用「指南」、「教學」的口吻吸引處於資訊收集階段的流量。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>主打「安全感」與「穩定性」。將「抱抱貓」的品牌概念實體化，強調產品如何為貓咪提供一個像主人懷抱一樣穩固、安心的空間。</li>
+        <li><strong>競爭優勢：</strong>從物理上的「穩固防晃」延伸到貓咪心理上的「安穩放鬆」，這是競爭對手尚未深入挖掘的情感訴求。</li>
+        <li><strong>目標受眾：</strong>針對特別關心貓咪福祉、擔憂跳台不穩固、或家有膽小/年長貓咪的飼主。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>「抱抱貓跳台｜貓咪最安心的角落【加寬底座超穩固】絕不晃動」(約29字)。結合品牌名、情感訴求、核心功能(穩定)，並加入強烈承諾。</li>
+        <li><strong>描述優化：</strong>「還在擔心貓跳台搖晃讓貓咪害怕嗎？抱抱貓專為貓咪安全感設計，採用加厚實木板材與防滑底座。無論是肥貓跳躍或多貓追逐，都穩如泰山。立即為您的愛貓打造一個安心的專屬領地。」</li>
+        <li><strong>執行優先級：</strong>高。Meta是影響點擊率的第一道關卡，優化成本低、見效快。</li>
+      </ul>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>可能以產品展示為主，缺乏C4那樣的深度內容。結構相對簡單，以品牌故事和產品美學展示為主。</div>
+          <div><strong>板塊覆蓋：</strong>主要覆蓋產品展示，但在選購指南、深度知識、用戶評價等關鍵板塊存在明顯缺口。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者架構模式：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>產品羅列型 (C2, C6)：</strong>以商品為核心，結構扁平，無深度內容。</div>
+          <div><strong>教育導向型 (C4)：</strong>擁有最完整的內容架構，從「Why（為何買）」到「How（如何選/放）」再到「What（有哪些款式）」，完美覆蓋了用戶的決策旅程。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">內容標竿 (C4 - 貓老闆)：</h5>
+            <p class="text-gray-600">C4是目前的內容標竿。它不僅回答了表面問題，還深入探討了「貓咪行為學」（喜歡居高臨下）、「產品生命週期」（零件替換）和「空間規劃」（動線設計）。這是品牌方最需要學習和超越的地方。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg text-primary mb-3"><strong>🚀 品牌方內容優化策略</strong></h4>
+    <h5 class="font-semibold text-green-700 mb-2"><strong>內容補強機會識別：</strong></h5>
+    <ul class="list-disc pl-5 space-y-1 mb-4">
+      <li><strong>優先補強主題：</strong>應立即規劃一個結合「選購指南」和「品牌理念」的頁面。可以借鑒C4的結構，但用B1的「安全感」視角重新詮釋。</li>
+      <li><strong>專業模塊建設：</strong>創建「貓跳台安全白皮書」，深入探討結構力學、材質毒性測試、底座穩定性計算等硬核知識，建立絕對權威。</li>
+      <li><strong>深度內容機會：</strong>增加「特殊貓群」專區，為老貓、幼貓、肥貓、多貓家庭提供專門的內容和產品建議。</li>
+    </ul>
+    <h5 class="font-semibold text-purple-700 mb-2"><strong>差異化內容策略：</strong></h5>
+    <ul class="list-disc pl-5 space-y-1">
+      <li><strong>獨特角度：</strong>從「安全感」出發，將物理上的穩固與貓咪心理上的安心感連結，創造獨特的情感共鳴。</li>
+      <li><strong>競爭優勢：</strong>透過內容建立在「安全」領域的專業形象，這是其他競爭者尚未深入挖掘的領域。</li>
+      <li><strong>執行路徑：</strong>短期內，在現有頁面增加安全相關的內容模塊；中長期，創建獨立的部落格文章，深入探討各個安全子主題，並鏈接回產品頁。</li>
+    </ul>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">貓飼主，視貓咪為家人，年齡介於 25-45 歲，對生活品質有一定要求。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">從新手（首次養貓）到進階（尋求升級或替換品）。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">預算範圍廣，但普遍願意為品質、安全與設計支付更高價格。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：安全與穩定性焦慮</strong>
+        <span class="text-gray-600">害怕跳台不穩固，貓咪跳躍時會翻覆導致受傷。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：空間與美感的衝突</strong>
+        <span class="text-gray-600">市售貓跳台體積龐大且設計過時，與現代居家裝潢風格格不入。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：資訊過載與選擇困難</strong>
+        <span class="text-gray-600">市場上產品繁多，缺乏清晰的選購指南，難以判斷優劣。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙1：「貓咪會用嗎？」的疑慮</strong>
+        <span class="text-gray-600">擔心花大錢買了產品，貓咪卻完全不賞臉。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙2：材質與健康的擔憂</strong>
+        <span class="text-gray-600">害怕產品使用廉價板材、含甲醛的膠水，影響貓咪健康。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙3：安裝與清潔的麻煩</strong>
+        <span class="text-gray-600">擔心組裝過程複雜，或布料髒污後難以清潔。</span>
+      </div>
+    </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>創作主題式文章與指南，如《貓跳台是必需品嗎？》，扮演「貓咪行為顧問」角色，建立專業形象。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>在產品頁提供極度詳細的資訊，包括尺寸模擬圖、材質安全認證、承重測試影片，強調「絕對穩固」的獨特賣點。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>強化信任， prominently display 使用者評價、詳細安裝教學、清晰的保固與退換貨政策（例如「30天貓咪試用保證」），消除最後疑慮。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>1. 絕對穩固的安全承諾；2. 家具級的設計美學；3. 模組化與可擴充性。</div>
+          <div><strong>競爭優勢展現：</strong>透過高品質影片展示極端情況下的穩定性；提供多種顏色與材質選項讓消費者客製化搭配；強調所有零件皆可獨立購買更換。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>競品普遍忽略美學與客製化需求、安全證明模糊不清、售後與維護資訊缺乏。</div>
+          <div><strong>品牌突破機會：</strong>建立「風格靈感」內容單元；開發線上AR預覽功能；提供「貓抓柱舊換新」等加值服務。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">頁面標題與主標題直接命中關鍵詞，例如「風格貓跳台｜兼具安全、美學與貓咪最愛 - 抱抱貓跳台」。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">以高品質、融入居家環境的情境圖吸引目光，並用簡潔標題點出三大核心價值：「穩固安全」、「家具美學」、「終身耐用」。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">資訊架構依用戶決策邏輯排列：情境美圖 > 核心賣點 > 規格尺寸 > 材質與安全認證 > 使用者評價 > 安裝與保固。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立策略：</strong>
+          <span class="text-gray-600">在材質說明區塊放置檢驗報告縮圖（可點擊放大），評價區塊優先顯示附有照片或影片的評論。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化策略：</strong>
+          <span class="text-gray-600">透過互動模組，例如點擊不同顏色選項可即時切換產品圖片，加強個人化感受。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除策略：</strong>
+          <span class="text-gray-600">在價格下方設置一個「常見問答」區塊，直接回答「我家貓 O 公斤，適合嗎？」、「安裝會很難嗎？」等問題。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計策略：</strong>
+          <span class="text-gray-600">使用高對比度、文案清晰的按鈕，如「安心帶回家」。在頁面滾動時，保持一個懸浮的「加入購物車」按鈕可見。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化策略：</strong>
+          <span class="text-gray-600">簡化結帳流程，提供多元支付方式，並在最後一步再次提示「享 X 年保固」以增強信心。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>品牌方(第5)處於激烈競爭中，前方是設計品牌(MYZOO)、電商平台(momo)和內容權威(貓老闆)。當前的網站技術基礎薄弱，但品牌名「抱抱貓」具備圍繞「安全感」建立差異化優勢的巨大潛力。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：技術SEO基礎快速修復</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修正缺失的&lt;h1&gt;標籤、糟糕的Meta標題與非語義化URL等嚴重基礎缺陷，是成本最低、見效最快的排名提升方式。</div>
+        <div><strong>執行評估：</strong>難度：低 | 預期效果：排名+2-3位 | 資源：開發&amp;SEO人力&lt;2天</div>
+        <div><strong>優先級：</strong>極高 - 這些是排名賽的「入場券」，必須立即解決。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：以「安全穩固」為核心的內容差異化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>競爭者普遍忽略使用者對「安全性」的深層焦慮。透過創建穩定性測試影片、材質安全證明等內容，搶佔「最安心貓跳台」的專家定位。</div>
+        <div><strong>執行評估：</strong>難度：中 | 預期效果：排名+1-2位，提升轉換率 | 資源：內容、攝影、行銷人力</div>
+        <div><strong>優先級：</strong>高 - 這是品牌超越競爭者的核心策略支點。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：一站式滿足使用者「研究到購買」的完整意圖</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>在商品頁策略性地融入選購指南、FAQ、風格搭配等資訊內容，可超越純商品列表頁面，提升頁面主題權威性與使用者停留時間。</div>
+        <div><strong>執行評估：</strong>難度：中 | 預期效果：排名+1位，降低跳出率 | 資源：內容策略&amp;文案人力</div>
+        <div><strong>優先級：</strong>中 - 在解決基礎問題後，這是鞏固排名的關鍵一步。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>結合安全特性：</strong>穩固貓跳台、防倒貓跳台、肥貓 貓跳台、貓跳台 承重、安全貓跳台推薦。</div>
+        <div><strong>結合特殊需求：</strong>老貓跳台、多貓家庭 貓跳台、貓跳台 樓梯、小空間 貓跳台。</div>
+        <div><strong>結合材質健康：</strong>實木貓跳台 無甲醛、環保材質貓跳台、貓跳台 SGS認證。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>將物理的「穩固」提升至情感的「安心」。使用「給貓咪一個穩固的擁抱」、「貓咪的安全堡壘」等文案，強化品牌聯想。</div>
+        <div><strong>專業詞彙：</strong>在內容中融入「加寬底座」、「低重心設計」、「E0級板材」等專業術語，建立專業形象。</div>
+        <div><strong>品牌調性：</strong>圍繞「抱抱貓」的溫暖、關懷調性，所有文案都應體現對貓咪福祉的極致關懷。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🎯 轉換優化藍圖</h4>
+    <p class="text-gray-700">設計一條從「消除焦慮」到「建立信任」再到「輕鬆決策」的轉換路徑。1. <strong>首屏印象</strong>：用「穩固如山，美如畫」標語和高品質情境圖，直接回應安全與美學兩大痛點。2. <strong>頁面中段</strong>：依序展示「視覺吸引(產品圖) &gt; 安全證明(測試影片/認證) &gt; 社會認同(真實評價) &gt; 透明資訊(材質/尺寸)」，引導用戶深度信任。3. <strong>行動召喚</strong>：提供「安心帶回家」的CTA按鈕，並在結帳前以保固政策消除最後疑慮，降低決策門檻。</p>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>以「機會點A：技術SEO修復」為基礎，結合「機會點B+C：差異化內容與完整意圖滿足」的整合型頁面，實現快速排名提升。</div>
+        <div><strong>競爭者超越路徑：</strong>超越「貓老闆」的資訊深度，同時具備超越「MYZOO」等設計品牌的專業信任信號（安全證明），打造一個兼具商業與資訊價值的權威頁面。</div>
+        <div><strong>使用者價值最大化：</strong>一站式解決使用者從「擔心貓跳台不安全」的焦慮，到「如何挑選」的困惑，再到「安心購買」的完整決策旅程。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將「抱抱貓」定位為「貓跳台安全工程專家」，而不僅僅是賣家。</div>
+        <div><strong>差異化價值：</strong>提供競爭者所缺乏的「可驗證的安全性」內容，如穩定性測試影片、材質SGS報告、結構設計原理說明等。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>6個月內穩定進入前2名，並在「穩固貓跳台」等長尾關鍵詞中排名第一。</div>
+        <div><strong>流量增長目標：</strong>自然搜尋流量提升50%以上。</div>
+        <div><strong>轉換率優化：</strong>頁面轉換率提升10-15%，降低跳出率20%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速突破 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心任務：</strong>
+          <span class="text-gray-600">完成所有技術SEO基礎修復，包括優化Meta標籤、添加H1標籤、並將URL改為靜態語義化結構。目標是快速鞏固SERP前段班位置。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：競爭超越 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心任務：</strong>
+          <span class="text-gray-600">上線以「安全感」為核心的差異化內容，包括穩定性測試影片、材質安全證明和規格比較表，目標是挑戰設計品牌，進入前3名。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：領導地位 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心任務：</strong>
+          <span class="text-gray-600">融入完整的使用者旅程內容（如選購指南、FAQ），並透過與獸醫或KOL合作建立外部權威性，爭取行業領導地位，目標前2名。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>產品定位清晰，聚焦於「頂天立地」、「省空間」等特定市場需求。</div>
+          <div><strong>改善空間：</strong>內容深度嚴重不足，缺乏決策輔助資訊與信任建立元素，無法滿足研究型用戶的需求。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">E-E-A-T 原則整合策略：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>經驗(Experience):</strong> 大量融入真實用戶的UGC照片與評價。</div>
+          <div><strong>專業(Expertise):</strong> 深入講解結構力學、材質科學等專業知識。</div>
+          <div><strong>權威(Authoritativeness):</strong> 引用SGS等第三方認證，並與獸醫或貓行為專家合作背書。</div>
+          <div><strong>信任(Trustworthiness):</strong> 透明公開所有安全相關資訊，並提供業界唯一的結構保固承諾。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>提供「可視化的」穩定性證明：</strong>透過暴力測試影片，將抽象的「穩固」具象化，建立瞬間信任。</div>
+        <div><strong>詳細介紹「安全工程」設計理念：</strong>解釋加寬底座、低重心設計背後的科學原理，建立專業形象。</div>
+        <div><strong>提供基於數據的透明比較：</strong>用規格比較表，量化展示產品在核心安全指標上的優勢。</div>
+        <div><strong>分享海量真實用戶的「安心」UGC：</strong>建立強大的社會認同，證明產品在真實多樣的家庭環境中同樣可靠。</div>
+        <div><strong>在Q&A中提供「超越期待的」保障承諾：</strong>以「結構安全保固」和「貓咪鑑賞期」消除消費者最後的購買疑慮。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>拍攝專業的穩定性測試短片，並嵌入頁面核心位置。</div>
+        <div>製作圖文並茂的設計原理說明模組，使用3D示意圖更佳。</div>
+        <div>設計一個清晰、易於理解的「抱抱貓 vs. 他牌」比較表格。</div>
+        <div>舉辦用戶曬圖活動，收集並建立一個自動更新的UGC牆模組。</div>
+        <div>將保固與服務承諾製作成醒目的圖標，放置在CTA按鈕旁。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 轉換路徑設計策略</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded-lg border-l-2 border-green-300">
+            <div class="flex items-center mb-2">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-green-500 text-white font-bold mr-3">1</span>
+                <h5 class="font-semibold text-green-700">首屏印象 (消除焦慮)</h5>
+            </div>
+            <p class="text-gray-600">用「別再擔心貓跳台搖晃了！」的標語和貓咪安穩睡覺的高品質情境圖，直接回應安全痛點。</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-green-300">
+            <div class="flex items-center mb-2">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-green-500 text-white font-bold mr-3">2</span>
+                <h5 class="font-semibold text-green-700">頁面中段 (建立信任)</h5>
+            </div>
+            <p class="text-gray-600">依序展示「視覺吸引(產品圖) > 理性說服(安全證明/影片/比較表) > 感性共鳴(真實用戶評價) > 資訊透明(材質/尺寸)」，引導用戶從懷疑到深度信任。</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-green-300">
+            <div class="flex items-center mb-2">
+                <span class="flex items-center justify-center w-8 h-8 rounded-full bg-green-500 text-white font-bold mr-3">3</span>
+                <h5 class="font-semibold text-green-700">行動召喚 (輕鬆決策)</h5>
+            </div>
+            <p class="text-gray-600">提供「安心帶回家」或「為貓咪選擇一個穩固的擁抱」的CTA按鈕，並在結帳前以結構保固和免運費消除最後疑慮。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h5 class="font-semibold text-blue-800 mb-2">導航與可讀性</h5>
+        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+            <li>建立頁內錨點連結，讓用戶可透過頂部目錄快速跳轉至感興趣的段落。</li>
+            <li>多用視覺化元素，如比較表、圖標、影片來取代大段文字，使資訊更易吸收。</li>
+        </ul>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h5 class="font-semibold text-blue-800 mb-2">互動與參與</h5>
+        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+            <li>設計互動式選購指南，幫助用戶在30秒內找到最適合的產品，增加參與感。</li>
+            <li>所有CTA按鈕在行動裝置上需清晰可見且易於點擊。</li>
+        </ul>
+    </div>
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 md:col-span-2">
+        <h5 class="font-semibold text-blue-800 mb-2">性能與加載</h5>
+        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+            <li>確保頁面載入速度，特別是UGC圖片牆和影片模組，需進行優化，避免過長等待。</li>
+        </ul>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
