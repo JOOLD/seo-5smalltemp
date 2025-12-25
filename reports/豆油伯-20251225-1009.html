@@ -1,0 +1,2111 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 豆油伯</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">豆油伯 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「豆油伯」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">7</div>
+                    <p class="text-blue-200 text-sm">首頁排名</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">此頁面內容定位非常精準，直接回應了一個核心的消費者疑問：「通路與官網購買的<strong>豆油伯醬油</strong>有何不同」。這表明網站策略是針對已對品牌有一定認知、正在進行購買決策的顧客，試圖解決他們在不同購買渠道間的資訊不對等問題。內容主題鎖定在<strong>通路差異化</strong>與<strong>產品區隔</strong>，具有高度的商業目的性。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容的廣度較為狹窄，完全聚焦於「官網 vs. 通路」的單一比較點，特別點名了「全聯」這個具體通路。從 H1 標題來看，文章旨在提供<strong>官方的第一手解答</strong>，建立品牌訊息的權威性。然而，它並未涵蓋更廣泛的<strong>台灣醬油</strong>知識、<strong>非基改醬油</strong>的優勢，或不同產品線的詳細介紹，屬於深度解決單一問題的「知識型」內容。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對目標用戶而言，此頁面提供了極高的決策價值。它能有效消除消費者的疑慮，幫助他們根據自身需求（如便利性、產品獨特性）選擇最合適的購買渠道。這種<strong>透明化的溝通方式</strong>有助於建立品牌信任感，並能引導對特定產品有興趣的消費者回到官網進行購買，<strong>實現流量的閉環</strong>。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>決策支援缺口：缺乏全系列產品選購指南
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">一個全面的「豆油伯醬油選購指南」，用表格或圖文方式比較各產品線（如：金桂、缸底、甘田、茶姬）的風味、鹹度、原料（黃豆/黑豆）及推薦用法。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶在 momo 和 PChome 等電商平台看到琳瑯滿目的產品組合，但往往不清楚其間的細微差異。他們迫切需要官方的指導來理解哪款<strong>醬油</strong>適合紅燒、哪款適合涼拌或當作<strong>生抽</strong>沾食，從而做出最明智的購買決策，避免買到不適合的產品。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">建立一篇圖文並茂的指南文章，包含「風味雷達圖」、「料理速配表」，並解釋「無添加糖」、「薄鹽」等關鍵特色，直接回應搜尋<strong>台灣醬油</strong>推薦的用戶。</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-shield-alt text-orange-600 mr-2"></i>信任建立缺口：缺乏品質與認證的專頁
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">一個專門的頁面或文章，詳細介紹品牌的品質堅持，例如<strong>非基改醬油</strong>的原料來源、釀造工藝、SGS檢驗報告（如競爭者Instagram所提），以及無麩質等健康聲明。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">現代消費者非常關心食品安全與健康。當他們搜尋<strong>非基改醬油</strong>時，他們不僅想買到產品，更想了解品牌為此付出的努力。透明地展示檢驗報告和製作過程，是建立深度信任感、讓品牌在眾多選擇中脫穎而出的關鍵。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">創建「我們的堅持」或「安心保證」頁面，整合所有品質證明，並將SGS報告以易於閱讀的方式呈現，而不是僅僅提供下載連結。</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-book-open text-purple-600 mr-2"></i>使用指導缺口：缺少官方食譜與料理應用
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">官方的線上食譜中心，展示如何使用豆油伯的<strong>醬油</strong>、<strong>橄欖油</strong>等產品製作美味佳餚。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">購買了優質的調味品後，用戶下一步就是尋找靈感。他們想知道如何最大化產品的價值，做出和KOL或廣告中一樣美味的料理。提供官方食譜不僅能教育用戶，更能激發他們購買更多不同種類產品的慾望，例如購買<strong>橄欖油</strong>來搭配沙拉，或購買特定<strong>醬油</strong>來滷肉。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">建立一個「豆油伯廚房」單元，每篇食譜都清晰標示使用的產品，並在頁面側邊或下方直接鏈接到該產品的購買頁面，形成內容到銷售的轉換。</span>
+        </div>
+    </div>
+</div>
+
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-info-circle text-blue-600 mr-2"></i>深度價值缺口：橄欖油相關知識內容
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">圍繞「橄欖油」這一目標關鍵詞的教育性內容，例如如何分辨特級初榨橄欖油、橄欖油的發煙點與烹飪建議、不同產區的風味差異等。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">雖然豆油伯以醬油聞名，但<strong>橄欖油</strong>也是其目標關鍵詞之一。用戶在搜尋橄欖油時，充滿了各種疑問，他們需要專業內容來幫助他們學習與選擇。如果品牌官網能提供這些專業知識，就能在用戶心中建立起「不僅是醬油專家，也是橄欖油專家」的形象，從而帶動橄欖油產品線的銷售。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">撰寫一系列關於橄欖油的部落格文章，從基礎知識到進階應用，並在其中自然地介紹自家「莊園橄欖油」和「TT橄欖油」的獨特之處。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站的基礎SEO設置尚可。已正確配置 <strong>&lt;title&gt;</strong> 標籤、<strong>Open Graph</strong> 標籤用於社群分享（儘管og:description內容不佳），並設定了 <strong>canonical</strong> 連結以避免重複內容問題。同時，<strong>viewport</strong> 的設置確保了網頁在行動裝置上的響應式瀏覽體驗。從圖片CDN網址 `cdn-next.cybassets.com` 可判斷，網站應是使用 <strong>Cyberbiz</strong> 平台架設。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">頁面的內容結構存在嚴重缺陷。從 Outline 數據分析，頁面使用了<strong>兩個 &lt;h1&gt; 標籤</strong>，這違反了單一 H1 的基本SEO原則，會對搜尋引擎造成混淆。此外，缺乏 &lt;h2&gt;、&lt;h3&gt; 等子標題，暗示文章內容可能未經良好分段，不利於閱讀和搜尋引擎理解內容層次。標題與目標關鍵詞「豆油伯醬油」的相關性高，但未有效整合其他次要關鍵詞。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700"><strong>首要任務是修正內容結構</strong>：確保每頁只有一個唯一的 <strong>&lt;h1&gt;</strong> 標籤，並使用 <strong>&lt;h2&gt;</strong>、<strong>&lt;h3&gt;</strong> 來組織文章段落。其次，<strong>meta description 亟待重寫</strong>，目前的「#豆油伯在全聯」完全沒有發揮作用，應改為一段約80-120字的、包含核心關鍵詞的通順描述，以提高點擊率。最後，應移除無效的 meta keywords 標籤，或僅保留最核心的2-3個詞組。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>內容策略精準但過於單一：</strong> 網站能準確洞察並回應特定消費者痛點（通路差異），但在內容廣度上嚴重不足，缺乏支持用戶完整決策旅程的周邊內容。</li><li><strong>技術SEO基礎不穩：</strong> 頁面存在結構性錯誤（重複的 &lt;h1&gt;）和元數據缺陷（無效的 meta description），這些基礎問題直接影響了搜尋引擎排名潛力。</li><li><strong>錯失教育市場的機會：</strong> 對於「非基改醬油」、「生抽」、「橄欖油」等高價值關鍵詞，網站缺乏相應的教育內容，無法有效攔截處於認知和研究階段的潛在客戶。</li><li><strong>電商通路依賴度高：</strong> 競爭者多為大型電商平台，顯示大量用戶搜尋意圖為直接購買。品牌官網需提供更強的「資訊價值」與「官網獨家誘因」，才能將流量從通路引導回自營渠道。</li><li><strong>缺乏明確的行動呼籲 (CTA)：</strong> 該知識頁面在解答完用戶疑惑後，並未引導他們進行下一步動作（如瀏覽官網限定商品、閱讀更多文章），導致用戶旅程中斷。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-good p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第7位</div>
+                                <div class="text-sm opacity-90">首頁排名</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">5個位置</div>
+                                <div class="text-xs text-gray-600">與第2名距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">品牌頁面已進入SERP第一頁，但位於較後段的第7位。這表明品牌具有一定的權威性，但當前登陸頁面（一篇知識型文章）未能有效滿足核心商業關鍵詞的搜尋意圖，導致排名受限於大型電商平台之後。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>豆油伯</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+        <td class="py-2 px-4 border-b text-left"><strong>標題 (Title)</strong></td>
+        <td class="py-2 px-4 border-b">問句形式，意圖模糊，缺乏核心關鍵詞：「你可能會好奇，通路買的豆油伯醬油和在官網的有什麼不同? | mitdub」</td>
+        <td class="py-2 px-4 border-b">陳述式，包含品牌名 + 產品分類 + 平台名：「豆油伯 | 醬料/調料品牌區... - PChome 24h購物」</td>
+        <td class="py-2 px-4 border-b">改為品牌核心頁標題，例如：「豆油伯官網｜台灣第一純釀非基改醬油、橄欖油」</td>
+      </tr>
+      <tr>
+        <td class="py-2 px-4 border-b text-left"><strong>描述 (Description)</strong></td>
+        <td class="py-2 px-4 border-b">極度簡短，僅為一個hashtag：「#豆油伯在全聯」</td>
+        <td class="py-2 px-4 border-b">包含品牌名、產品優勢、購物便利性及行動呼籲 (CTA)。</td>
+        <td class="py-2 px-4 border-b">全面重寫，突出品牌價值、產品線和購買誘因。</td>
+      </tr>
+      <tr>
+        <td class="py-2 px-4 border-b text-left"><strong>關鍵詞匹配度</strong></td>
+        <td class="py-2 px-4 border-b">低。僅匹配「豆油伯」，完全忽略「醬油」、「非基改」、「橄欖油」等。</td>
+        <td class="py-2 px-4 border-b">高。直接命中品牌詞，並涵蓋「醬料」、「調料」等相關詞。</td>
+        <td class="py-2 px-4 border-b">在新標題與描述中策略性地佈局所有目標關鍵詞。</td>
+      </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+<h4 class="font-semibold text-red-600 mb-2 pb-1 border-b-2 border-red-200">關鍵技術問題</h4>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>搜尋意圖嚴重不匹配：</strong>這是最根本的問題。當前排名頁面是一個知識型博客文章（`/blogs/knowledge/...`），而用戶搜尋「豆油伯」或「醬油」等關鍵詞時，其意圖主要是瀏覽產品和購買（商業意圖）。搜尋引擎很難將一篇知識文章排在眾多電商頁面之前。</li>
+  <li><strong>重複的 &lt;h1&gt; 標籤：</strong>頁面中存在兩個 &lt;h1&gt; 標籤，這違反了單一核心主題的SEO最佳實踐，會讓搜尋引擎對頁面的主要內容感到困惑。</li>
+  <li><strong>非語意化URL：</strong>URL 結構為 `.../blogs/knowledge/158690`，不僅冗長，且包含數字ID，完全沒有體現頁面內容或關鍵詞，對SEO和使用者體驗均不友好。</li>
+  <li><strong>貧乏的 Meta 標籤：</strong>如前述分析，Meta Title 和 Description 未能有效利用，描述甚至只是一個 hashtag，資訊量趨近於零。</li>
+</ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+<h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">技術優勢與穩固點</h4>
+<ul class="list-disc list-inside space-y-2">
+  <li><strong>官方品牌域名：</strong>`www.mitdub.com` 是品牌官方網站，這在搜尋引擎眼中具有最高的權威性和信任度。即使當前頁面存在嚴重問題，Google 依然給予了第一頁的排名，這證明了其強大的域名權威。</li>
+  <li><strong>網站可索引性：</strong>頁面meta中沒有 `noindex` 標籤，且存在 `google-site-verification`，表明網站已在Google Search Console中驗證，基礎的索引設定是正確的。</li>
+  <li><strong>安全性：</strong>網站使用 HTTPS (從URL推斷)，保障了用戶瀏覽安全，這是現代SEO的基礎要求。</li>
+</ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-300">
+<h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">關鍵詞覆蓋分析</h4>
+<div class="space-y-3">
+<p>當前知識文章頁面的關鍵詞覆蓋面極度狹窄，幾乎只專注於「豆油伯」、「通路」、「官網」這幾個詞。這導致了嚴重的覆蓋缺口：</p>
+<ul class="list-disc list-inside space-y-2">
+    <li><strong>產品關鍵詞缺失：</strong>完全沒有覆蓋「醬油」、「生抽」、「橄欖油」等核心產品詞。</li>
+    <li><strong>特性關鍵詞缺失：</strong>錯失了「非基改醬油」、「無添加糖」、「純釀造」、「無麩質」等能吸引注重健康和品質的消費者的重要詞彙。</li>
+    <li><strong>商業意圖詞缺失：</strong>缺乏如「推薦」、「禮盒」、「價格」、「優惠」、「購買」等引導轉換的詞語。</li>
+</ul>
+<p>相較之下，PChome和momo的頁面透過大量的產品列表，自然地覆蓋了以上所有類型的關鍵詞，形成了巨大的競爭優勢。</p>
+</div>
+</div>
+                                <div class="bg-purple-50 p-4 rounded-lg border-l-4 border-purple-300">
+<h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">內容深度分析</h4>
+<div class="space-y-3">
+<p>從滿足使用者需求的深度來看，當前頁面非常膚淺。</p>
+<ul class="list-disc list-inside space-y-2">
+    <li><strong>品牌方頁面：</strong>僅回答了一個非常具體的問題（通路與官網的區別），對於想要了解品牌、瀏覽所有產品或進行購買的用戶來說，該頁面無法提供任何下一步的價值，導致瀏覽路徑中斷。</li>
+    <li><strong>競爭者頁面 (以momo為例)：</strong>提供了極大的內容深度。用戶可以在一個頁面上瀏覽數十種不同的豆油伯產品，包括各種醬油、禮盒、組合，並能看到價格、規格（如500ml, 680ml）、促銷活動和用戶評價。這種一站式的瀏覽體驗深度是當前品牌頁面完全無法比擬的。</li>
+</ul>
+</div>
+</div>
+                        </div>
+
+                            <div class="success-box">
+<h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化機會</h4>
+<div class="space-y-4">
+    <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">1. 建立「品牌故事」與「釀造堅持」專區</h5>
+        <p>這是電商平台無法複製的內容。詳細介紹豆油伯的歷史、創始人理念、對非基改原料的堅持、純釀造工藝的獨特之處。利用圖文和影片，建立情感連結和品牌信任。</p>
+    </div>
+    <div>
+        <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">2. 開發「豆油伯廚房」食譜內容</h5>
+        <p>創建一個食譜中心，展示如何使用金美好醬油、缸底醬油、橄欖油等不同產品製作美味佳餚。每篇食譜都應清晰標示使用的產品，並附上直接購買連結。這不僅提供了實用價值，還能自然地推廣產品。</p>
+    </div>
+    <div>
+        <h5 class="font-semibold text-orange-600 mb-2 pb-1 border-b-2" style="border-color: #FDBA74;">3. 打造「安心認證」透明化頁面</h5>
+        <p>整合Instagram上提到的SGS檢驗報告、無麩質認證等第三方證明。將這些報告以清晰易懂的方式呈現在官網上，讓消費者能輕易查閱，極大地提升品牌信譽和產品的E-E-A-T（專業、經驗、權威、信任）。</p>
+    </div>
+</div>
+</div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-300">
+<h4 class="font-semibold text-indigo-600 mb-2 pb-1 border-b-2 border-indigo-200">權威性對比</h4>
+<p>品牌方作為官方網站，擁有天然的「主題權威性」，但在「域名權威性」上可能不及Shopee、PChome等大型平台。然而，Google在處理品牌搜尋時，會給予官網極高的權重。目前排名不佳的主要原因並非權威性不足，而是頁面內容與搜尋意圖的巨大鴻溝。一旦修正了這個問題，官網的天然權威性將使其排名迅速攀升。</p>
+</div>
+                                <div class="bg-teal-50 p-4 rounded-lg border-l-4 border-teal-300" style="background-color: #F0FDFA; border-color: #99F6E4;">
+<h4 class="font-semibold text-teal-600 mb-2 pb-1 border-b-2 border-teal-200" style="color: #0D9488; border-color: #A7F3D0;">信任指標評估</h4>
+<p>當前頁面缺乏信任指標。沒有清晰的公司資訊、聯絡方式、退貨政策、使用者評論或任何第三方認證。相比之下，電商平台頁面充滿了銷量、星級評價、問與答等社交證明，這些都是建立消費者信任的關鍵元素。</p>
+</div>
+                        </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li>在網站頁首或頁尾顯著位置標示公司全名、地址、客服電話與服務時間。</li>
+        <li>建立一個「品質保證」或「安心認證」頁面，集中展示SGS檢驗報告、ISO認證、非基改證明等。</li>
+        <li>在產品頁面中引入真實的用戶評價和星級評分系統。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">擴展權威內容：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li>撰寫創辦人或釀造師的專訪文章，分享其專業經驗與理念 (Experience & Expertise)。</li>
+        <li>製作影片或圖文內容，詳細介紹屏東竹田的釀造環境與獨特的釀造工藝。</li>
+        <li>分享與知名廚師或美食家的合作案例，利用他們的權威為品牌背書。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li>積極與美食部落格、健康生活網站合作，爭取外部連結和正面報導。</li>
+        <li>鼓勵用戶在社群媒體分享使用豆油伯產品製作的料理，並舉辦相關活動，增加品牌在外部的討論度。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+  <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>清晰的導航路徑：</strong>在當前的知識文章頁面頂部和底部，增加清晰的行動呼籲按鈕，如「前往選購醬油」、「探索所有產品」。</li>
+        <li><strong>麵包屑導航：</strong>在所有頁面（特別是文章和產品頁）實施麵包屑導航，幫助用戶理解他們在網站中的位置，並能輕鬆返回上一層。</li>
+        <li><strong>優化行動裝置瀏覽體驗：</strong>確保所有文字、圖片和按鈕在手機上都易於閱讀和點擊。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+      <ul class="space-y-2 list-disc list-inside">
+        <li><strong>站內搜尋功能強化：</strong>提供強大的站內搜尋功能，允許用戶透過產品名稱、特性（如無添加糖）、容量等快速找到商品。</li>
+        <li><strong>產品比較功能：</strong>開發產品比較工具，讓用戶可以並排查看不同醬油（如金美好 vs. 金美滿）的成分、風味和適用料理，輔助購買決策。</li>
+        <li><strong>打造一頁式結帳流程：</strong>簡化購物車到完成付款的步驟，減少用戶流失，提升轉換率。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第2名</span>
+                <h4 class="font-bold text-xl">蝦皮購物</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">登入頁面</div>
+                <div class="text-lg font-semibold text-blue-600">大型電商平台</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://shopee.tw/mitdub" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">shopee.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此頁面為通用登入頁，並非針對「豆油伯」的特定內容頁。其策略是利用蝦皮平台極高的域名權威性，攔截具有模糊品牌搜尋意圖的流量，並將用戶引導至平台生態系統內。它不提供產品資訊，而是作為一個流量入口，旨在將用戶轉化為平台會員。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流極為直接且功能化，核心是「登入以享受購物樂趣」。整個頁面的設計都是為了促使用戶完成登入或註冊這單一動作，缺乏品牌故事或產品介紹。CTA非常明確，即「登入」或使用社群帳號登入。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 低。此頁面未提供任何關於豆油伯產品的使用經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 無。頁面不具備任何關於醬油或豆油伯的專業知識。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 極高。作為台灣頂級電商平台，蝦皮的域名權威性極高，使其能夠為通用頁面爭取高排名。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 高。用戶普遍信賴蝦皮平台的交易安全性與便利性。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第4名</span>
+                <h4 class="font-bold text-xl">PChome 24h購物</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌分類頁</div>
+                <div class="text-lg font-semibold text-blue-600">綜合型電商</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://24h.pchome.com.tw/store/DBAI0S?srsltid=AfmBOopkHSSi-3sJHvuFiY_S5uUdTmQaxxagGmSMg3EkLekD5mq3Qa9M" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">24h.pchome.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">採用典型的電商分類頁策略，將「豆油伯」作為一個品牌專區進行展示。頁面結構以產品列表為主，H1為品牌名，H2為推薦區塊，旨在最大化商品曝光度。策略核心是滿足用戶的瀏覽和購買意圖，強調「方便」、「多樣」、「放心」等購物體驗價值。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流是純粹的交易導向。從「館長推薦」到「醬油產品優惠推薦」，引導用戶瀏覽商品並點擊購買。Meta描述中的「動動手指...送到家」、「快來清空購物車吧！」直接揭示了其以轉換為最終目標的敘事方式。CTA遍布於每個產品的「加入購物車」按鈕。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 低。僅陳列商品，缺乏使用經驗或情境的分享。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 低。網站是綜合通路，不具備醬油領域的專業知識。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 高。PChome作為老牌電商，其平台權威性高。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 高。平台提供安全的金流、物流及退貨保障，深受消費者信賴。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第5名</span>
+                <h4 class="font-bold text-xl">Facebook</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌粉絲頁</div>
+                <div class="text-lg font-semibold text-blue-600">社交媒體</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.facebook.com/mitdub/?locale=zh_TW" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">facebook.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此為豆油伯的官方Facebook粉絲專頁，內容策略圍繞品牌溝通、社群互動和活動推廣。透過發布食譜、品牌故事、優惠訊息等內容，建立與消費者的長期關係。然而，SERP結果顯示為登入頁面，這對非Facebook用戶或未登入用戶造成了瀏覽障礙，是一個嚴重的體驗缺陷。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">Facebook平台內的敘事是互動和對話式的，鼓勵用戶留言、分享。但從搜尋結果點擊後，敘事流被「登入或註冊」的門檻打斷，無法有效傳達品牌價值。其首要CTA變成了「登入Facebook」，而非與品牌互動。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 高。粉絲頁內充滿了產品的實際應用與用戶互動，是展現經驗的絕佳平台。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 中。可透過發布專業知識貼文來建立，但平台屬性偏向生活化。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 中。作為官方帳號，具有品牌權威，但平台本身權威性不如官網。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 高。透過與粉絲的直接互動和透明溝通，能有效建立品牌信賴感。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第6名</span>
+                <h4 class="font-bold text-xl">阿辰師官方網站</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">KOL電商</div>
+                <div class="text-lg font-semibold text-blue-600">專業背書型</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://shop.chefchouchou.com/collections/%E8%B1%86%E6%B2%B9%E4%BC%AF%E5%85%B8%E9%87%80?srsltid=AfmBOoqkfRaF-gZTnlOUaLAvuYGgIWufeMGOSoUqtzYgILXWNLTq02kh" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">shop.chefchouchou.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">此網站透過專業廚師（KOL）的形象為豆油伯產品背書，定位於「專家選品」。內容策略是將產品與專業料理場景連結，吸引那些信賴專家推薦、追求更高料理品質的消費者。頁面本身是商品集合頁，結構清晰，直接展示可購買的商品。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流是「因為我是專業廚師，所以我推薦這些產品」。它省去了消費者自己研究比較的時間，提供了一條信任捷徑。頁面圍繞商品介紹、規格說明等基本電商元素，CTA是引導用戶直接購買這些「專家認證」的商品。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 高。暗示了這些產品是經過專業廚師在實際烹飪中驗證過的。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 極高。整個網站的價值都建立在「阿辰師」的專業性之上。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 中。在料理領域具有權威性，但在品牌本身的權威性上不如官方網站。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 高。消費者對KOL的信任會轉移到其推薦的產品上。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第8名</span>
+                <h4 class="font-bold text-xl">momo購物網</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">搜尋結果頁</div>
+                <div class="text-lg font-semibold text-blue-600">綜合型電商</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.momoshop.com.tw/search/%E8%B1%86%E6%B2%B9%E4%BC%AF?srsltid=AfmBOoruckjqqfCnNAuxHMuWgMg8lRkQEPeIaaj55RzyHKpmJWmgge8R" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">momoshop.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">momo的頁面是一個高度優化的搜尋結果頁，其內容策略完全以轉換為導向。頁面結構清晰，H1是品牌名，H3是具體的產品標題，大量羅列了各種組合與禮盒，滿足用戶比價和選購的需求。Meta標題和描述都強調「好評推薦」、「優惠便宜」，直接命中商業搜尋意圖。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流是「來momo買豆油伯，便宜又方便」。從頁面頂部的篩選器到下方的產品列表，每一步都在引導用戶縮小選擇範圍並完成購買。頁面充滿了價格、促銷等強烈的商業信號，CTA是每個產品下方的購買按鈕。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 中。提供了大量用戶評價，這是一種間接的經驗分享。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 低。作為綜合平台，不具備產品本身的專業知識。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 極高。momo是台灣電商龍頭之一，平台權威性無庸置疑。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 極高。完善的購物流程、物流和客服體系建立了強大的消費者信賴。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-media card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第9名</span>
+                <h4 class="font-bold text-xl">Instagram (Reel)</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">短影音</div>
+                <div class="text-lg font-semibold text-blue-600">社交媒體</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.instagram.com/reel/DQluK_oAVmC/" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">instagram.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">這是一個豆油伯官方發布的短影音內容，策略是利用視覺化、易於消化的格式來溝通核心的品牌價值。此Reel專注於「無麩質」和「SGS檢驗」這兩個信任信號，旨在教育消費者並建立產品的健康、安全形象。這是一種高效的價值溝通方式，特別適合在社群平台傳播。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流是「你知道嗎？我們的醬油很安全！」。透過提問引發好奇，然後展示SGS檢驗報告等證據，最後總結「美味不該有負擔」。CTA是貼文中附帶的購買連結，引導被內容說服的用戶直接進行轉換。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 高。展示了品牌在品質檢驗方面的實際經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 高。能夠解釋「無麩質」和SGS檢驗的意義，展現了食安專業。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 中。引用SGS這一權威第三方，提升了內容的權威性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 極高。公開檢驗報告是建立消費者信任最直接有效的方式之一。</div>
+            </div>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方Meta標題為問句，與用戶的商業搜尋意圖不符，且缺乏關鍵詞。而電商競爭者（PChome, momo）的標題格式為「品牌 | 分類 - 平台」，直接明瞭，完美匹配用戶意圖。</div>
+          <div><strong>描述效能：</strong>品牌方描述幾乎為空，資訊價值極低。競爭者則充分利用描述空間，強調購物便利性、優惠價格和產品多樣性，有效吸引點擊。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">效率強調型 (PChome, momo)：</h5>
+            <p class="text-gray-600">Meta核心是促使交易，強調「網購...超方便」、「快速到貨」、「優惠便宜好價格」，直接回應使用者對便利性和性價比的需求。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">品質保證型 (Instagram)：</h5>
+            <p class="text-gray-600">Meta直接從貼文內容抓取關鍵價值點，如「SGS檢驗」、「無添加人工色素」，用具體的信任信號來吸引注重健康的用戶。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">專業背書型 (阿辰師網站)：</h5>
+            <p class="text-gray-600">Meta中的「阿辰師官方網站」字樣本身就是一種信譽保證，吸引那些相信專家意見的消費者，策略是利用KOL的權威性來賦予產品價值。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>從「銷售平台」轉向「品牌價值與知識中心」。強調官方網站是了解豆油伯釀造哲學、原料故事與食安承諾的唯一權威來源。</li>
+        <li><strong>競爭優勢：</strong>電商通路只能賣產品，B1官網可以講述產品背後的故事與堅持。這是電商平台無法複製的品牌資產。</li>
+        <li><strong>目標受眾：</strong>吸引不僅想「買醬油」，更想了解「為何這瓶醬油值得信賴」的深度使用者。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>「豆油伯官網｜台灣第一純釀非基改醬油，從產地到餐桌的安心承諾」— 結合品牌關鍵詞、核心價值（非基改）、情感訴求（安心承諾），長度約30-35字。</li>
+        <li><strong>描述優化：</strong>「認識豆油伯超過一甲子的釀造堅持。每一瓶醬油皆採用台灣在地非基改原豆，經SGS嚴格檢驗。探索我們的產品故事、獨家料理食譜，體驗真正的台灣好滋味。」— 包含品牌歷史、核心賣點、內容引導（故事、食譜）與價值主張。</li>
+        <li><strong>執行優先級：</strong>高。這是鞏固官方權威性、提升點擊率最直接有效的方法。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方當前頁面結構存在嚴重缺陷，使用了重複的&lt;h1&gt;標籤，且缺乏&lt;h2&gt;、&lt;h3&gt;等子標題來組織內容，導致結構扁平，不利於搜尋引擎理解。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者內容架構：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>電商平台（PChome, momo）採用的是典型的「產品羅列型」架構，以`&lt;H1&gt;`品牌名和一系列`&lt;H3&gt;`產品標題構成，結構清晰，專為瀏覽和購買設計，完美匹配商業意圖。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">E-E-A-T 質化線索分析：</h5>
+            <div class="space-y-2 text-gray-600">
+                <p>電商平台在**權威性(A)**和**信賴度(T)**上得分高，但在**經驗(E)**和**專業性(E)**上極低。阿辰師網站在**專業性(E)**上具備優勢。Instagram強於**經驗(E)**和傳遞**信賴度(T)**。品牌方官網有潛力在所有四個維度上都做到最強，但目前未能體現。</p>
+            </div>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">專業模塊缺口識別：</h5>
+            <p class="text-gray-600">所有競爭者頁面均缺少關於「釀造工藝的詳細說明」、「原料選擇標準」、「不同醬油風味輪廓比較」、「食安檢驗報告的深度解讀」等專業內容模塊。這是品牌方可以建立絕對優勢的巨大機會。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">內容補強機會識別：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                <li><strong>優先補強主題：</strong>立即建立一個「品牌故事」或「我們的堅持」專區，涵蓋原料溯源、釀造工法、食安承諾、以及互動式的產品選擇指南。</li>
+                <li><strong>專業模塊建設：</strong>不僅是放上SGS報告，更要解讀報告中的關鍵指標代表的意義，將信任狀轉化為易於理解的內容。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">差異化內容策略：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                <li><strong>獨特角度：</strong>從「產品銷售」轉變為「知識教育」與「生活提案」。發布如「醬油品評指南」、「橄欖油與醬油的完美搭配法」等內容。</li>
+                <li><strong>競爭優勢：</strong>將官網打造成醬油與健康烹飪的權威知識庫，這是任何電商平台都無法企及的高度，從而建立品牌護城河。</li>
+                <li><strong>執行路徑：</strong>短期內建立核心品牌價值頁面，中長期系統性地產出食譜與深度知識內容。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">注重家庭健康的家庭主婦/煮夫、對食材有要求的料理愛好者、追求生活品質的年輕專業人士。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">對料理有基本或進階認識，但對醬油的專業知識可能處於初中級水平。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">願意為更高品質和健康安全的產品支付溢價。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：資訊不透明，信任感低</strong>
+        <span class="text-gray-600">市場上醬油品牌眾多，廣告術語氾濫，使用者難以分辨真偽與品質優劣。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：產品選擇困難</strong>
+        <span class="text-gray-600">不理解「生抽」、「薄鹽」、「甘田」等不同品項的具體差異，導致買錯產品，影響料理風味。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：價格與價值的連結模糊</strong>
+        <span class="text-gray-600">不明白為何某些醬油價格較高，需要明確的價值論述來支持其購買決策。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙：</strong>
+        <span class="text-gray-600">對於「豆油伯」相對較高的價格感到猶豫，需要看見真實的第三方評價或權威認證來建立最終信任。</span>
+      </div>
+    </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>提供基礎醬油知識的教育性內容，如「一篇搞懂生抽、老抽、醬油的差別」，建立品牌作為醬油專家的權威形象。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>詳細展示「豆油伯」的獨特價值，如透明化的釀造過程影片、原料產地故事、SGS檢驗報告解讀，直接回應「為何值得這個價格？」的疑問。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>提供使用者評價、常見問答、清晰的退換貨政策，消除最後的購買疑慮，並利用組合優惠降低決策門檻。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>從「絕對的透明與安心」到「在地風味的極致演繹」，再到「超越醬油的品味生活提案」，提供一套完整的廚房高品質調味解決方案。</div>
+          <div><strong>競爭優勢展現：</strong>直接在產品頁面提供「非基改原料產地證明」及「SGS檢測報告」連結，並建立「醬油風味輪盤」等互動工具，解決用戶選擇困難。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>多數競品缺乏深度教育內容、信任證明的呈現薄弱、且品牌與使用者的情感連結不足。</div>
+          <div><strong>品牌突破機會：</strong>建立「醬油百科」內容中心，開發「料理需求配對器」互動工具，並提供小容量「風味體驗組」，全方位超越競爭者。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">登陸頁標題直接命中「豆油伯 - 堅持台灣在地非基改原料釀造」，快速響應用戶對品質與安全的核心需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">前3秒內展示明星商品圖片，並並列核心信任圖標（非基改、SGS、產銷履歷），迅速建立品牌價值認知。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費與信任建立</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">從「為何選擇非基改？」的教育性內容，無縫銜接到「豆油伯如何做到」的品牌實踐，再到產品系列的介紹，引導用戶深入了解。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立：</strong>
+          <span class="text-gray-600">在頁面中嵌入釀造過程的短影片，展示潔淨的廠房與傳統的陶缸，將無形的品質承諾視覺化。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化與疑慮消除</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化：</strong>
+          <span class="text-gray-600">產品頁不僅有基本資訊，更包含「風味描述」、「適用料理」、「釀造師的話」等模組，將產品價值最大化。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除：</strong>
+          <span class="text-gray-600">在產品頁下方整合「顧客真實評價」與「常見問答」區塊，利用社會認同和透明資訊消除用戶最後的購買疑慮。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA設計：</strong>
+          <span class="text-gray-600">採用懸浮式或滾動時固定的「加入購物車」按鈕，確保用戶在產生購買衝動時能隨時點擊，不錯失轉換機會。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化：</strong>
+          <span class="text-gray-600">提供多種支付方式（信用卡、行動支付），簡化結帳流程至最少步驟，並在結帳頁面明確告知預計到貨時間，提升用戶體驗。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>品牌當前位居第7，面臨與蝦皮、PChome等高權威電商平台的激烈競爭。核心挑戰並非權威性不足，而是嚴重的「登陸頁與使用者意圖錯位」，導致品牌官網的天然優勢無法發揮。首要任務是修正此根本性問題，以商業意圖頁面取代知識文章頁面進行排名競爭。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：根本性意圖修正與技術SEO基礎建設</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>將排名重心從意圖不符的知識文章頁，轉移至官網首頁或產品總覽頁，並修正Meta標籤、重複&lt;h1&gt;等基礎技術錯誤。</div>
+        <div><strong>執行評估：</strong>難度低、效果極高、資源需求少。</div>
+        <div><strong>優先級：</strong>極高 - 這是解決當前排名困境的關鍵第一步，ROI最高。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：內容深度與E-E-A-T差異化建設</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>創建電商平台無法複製的深度內容，如品牌故事、釀造工藝、食安承諾中心，建立無可取代的品牌信任與專業形象(E-E-A-T)。</div>
+        <div><strong>執行評估：</strong>難度中、效果高、需內容創作資源。</div>
+        <div><strong>優先級：</strong>高 - 這是超越電商平台，建立長期競爭優勢的核心。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：解決用戶痛點的體驗式引導</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>開發互動式工具（如產品比較、料理配對器）直接解決用戶「選擇困難」的痛點，提供超越靜態頁面的決策輔助體驗。</div>
+        <div><strong>執行評估：</strong>難度高、效果高（尤其在轉換率上）、需開發資源。</div>
+        <div><strong>優先級：</strong>中 - 在鞏固排名後，此為建立領導地位與品牌護城河的關鍵策略。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>知識型：</strong>「生抽老抽差別 台灣」、「如何分辨純釀造醬油」、「黑豆醬油功效」、「無麩質醬油料理」。</div>
+        <div><strong>應用型：</strong>「豆油伯缸底醬油滷肉食譜」、「橄欖油涼拌菜作法」、「過年送禮醬油禮盒推薦」。</div>
+        <div><strong>問題導向：</strong>「兒童可以吃什麼醬油」、「哪種醬油不死鹹」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>從「銷售醬油」轉向「提供安心的餐桌解決方案」，強調品牌是消費者的「廚房夥伴」。</div>
+        <div><strong>專業詞彙：</strong>使用「風味輪廓」、「總氮量」、「胺基態氮」等專業詞彙，並以淺顯方式解釋，建立專業形象。</div>
+        <div><strong>品牌調性：</strong>在內容中融入「堅持」、「傳承」、「在地情感」等感性詞彙，與用戶建立情感連結。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <p>轉換優化藍圖的核心是構建一個從「認知」到「轉換」的無縫信任階梯。首先，透過權威的教育內容（如醬油挑選指南）吸引處於認知階段的用戶。接著，利用透明化的品牌故事與製程介紹，將用戶的普遍需求轉化為對豆油伯的品牌偏好。最後，在產品頁面整合用戶評價、安心認證與清晰的產品比較，消除用戶最後的購買疑慮，並以流暢的結帳體驗促成最終轉換。</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>第一階段，修正根本性的「登陸頁意圖錯位」，將官網首頁或產品總覽頁作為排名主力，預期快速進入前五。</div>
+        <div><strong>競爭者超越路徑：</strong>第二階段，打造電商平台無法複製的E-E-A-T內容護城河，透過「品牌堅持」、「釀造工藝」、「安心認證」等深度內容，建立主題權威性，穩定超越通路商，進入前三。</div>
+        <div><strong>使用者價值最大化：</strong>從單純的「賣醬油」轉變為「提供廚房安心美味的解決方案」，透過食譜、選擇指南、互動工具成為使用者的廚房夥伴。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將豆油伯定位為「台灣純釀醬料的權威教育者與風味嚮導」。</div>
+        <div><strong>差異化價值：</strong>提供競爭者（特別是電商平台）所缺乏的：透明的製程、品牌故事的情感連結、以及專業的料理應用指導。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>6個月內，核心關鍵詞組穩定排名第1-2名。</div>
+        <div><strong>流量增長目標：</strong>提升來自「如何挑選醬油」、「非基改醬油推薦」等非品牌字詞的自然搜尋流量佔比至30%以上。</div>
+        <div><strong>轉換率優化：</strong>透過解決「選擇困難」痛點與建立信任，提升網站整體轉換率2-3%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速突破期 (1-4週)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">核心任務：</strong>
+          <span class="text-gray-600">修正意圖錯位與技術SEO，將排名主力頁面更換為商業意圖頁面，目標是迅速將排名從第7提升至第3-5位。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：競爭超越期 (1-3個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">核心任務：</strong>
+          <span class="text-gray-600">建立E-E-A-T內容護城河，上線「我們的堅持」、「安心認證」等深度內容頁，目標是穩定超越電商平台，進入前3名。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：領導地位期 (3-6個月)</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">核心任務：</strong>
+          <span class="text-gray-600">開發解決使用者痛點的互動體驗，如「產品比較」、「料理配對器」等工具，目標是爭取並鞏固第1名，並顯著提升轉換率。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>擁有官方第一手的品牌故事、釀造工藝、食安承諾等深度內容資產，這是任何電商通路都無法複製的「主題權威性」。</div>
+          <div><strong>改善空間：</strong>當前用於排名的頁面完全不符合用戶的商業搜尋意圖，且存在基礎技術錯誤，導致官網的權威性未能有效發揮。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">Hub-and-Spoke 模型：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>核心頁 (Hub)：</strong>創建一個權威性的「醬料指南」核心頁面，作為豆油伯官網在「醬油」主題下的內容中樞。</div>
+          <div><strong>輻射頁 (Spoke)：</strong>從核心頁出發，策略性地將流量透過內部連結引導至具體的產品頁、食譜文章頁和品牌故事頁，建立強大的主題關聯性(Topical Authority)。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>透明化的釀造工藝揭秘：</strong>詳細介紹從選豆、製麴到日曝熟成超過180天的完整過程，這是電商平台無法提供的第一手資訊。</div>
+        <div><strong>強調台灣在地原料與情感連結：</strong>突出使用台灣非基改黑豆/黃豆的承諾，並分享與在地農民合作的故事，建立情感共鳴。</div>
+        <div><strong>建立一站式「安心認證中心」：</strong>將所有SGS檢驗報告、非基改證明、無麩質標示等信任狀集中展示並加以解說，將無形的「安心」具象化。</div>
+        <div><strong>提供專業的風味剖析與料理搭配指南：</strong>將抽象的風味（如豆酯香、甘醇味）透過風味輪盤圖等方式具象化，並提供精準的料理搭配建議，解決使用者「選擇困難」的痛點。</div>
+        <div><strong>分享真實的品牌傳承故事：</strong>透過創辦人與家族的故事，賦予品牌獨一無二的個性與溫度，這點是任何通路商都無法複製的核心資產。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在「豆油伯的堅持」頁面中，以高品質圖文與影片呈現釀造過程。</div>
+        <div>在品牌故事與原料介紹部分，加入農民的訪談與照片。</div>
+        <div>建立獨立的「安心認證」頁面，並在所有產品頁放置清晰的認證標章與連結。</div>
+        <div>在產品分類頁與最終產品頁加入「風味輪盤圖」與「推薦料理」模組。</div>
+        <div>創建「品牌故事」專區，並將其核心理念貫穿於所有文案溝通中。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+        <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+        <h4 class="font-bold text-lg mb-4 text-green-800">吸引 (Awareness)</h4>
+        <p class="text-gray-700">透過解答「醬油怎麼選」等通用問題，創建高品質的教育性內容，吸引處於認知階段、正在尋找解決方案的廣泛流量。</p>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+        <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+        <h4 class="font-bold text-lg mb-4 text-blue-800">教育 (Education)</h4>
+        <p class="text-gray-700">利用方案比較與專業知識，將使用者從「尋找任何醬油」轉變為「尋找高品質的純釀造醬油」，提升他們對品質的認知標準。</p>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+        <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+        <h4 class="font-bold text-lg mb-4 text-purple-800">說服 (Conviction)</h4>
+        <p class="text-gray-700">展示品牌故事、釀造工藝與安心認證，將使用者對品類的需求轉化為對「豆油伯」品牌的偏好與信任。</p>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+        <div class="absolute -left-3 top-6 w-6 h-6 rounded-full flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B;">4</div>
+        <h4 class="font-bold text-lg mb-4 text-yellow-800">促成 (Conversion)</h4>
+        <p class="text-gray-700">在使用者建立信任後，透過清晰的情境推薦（如滷肉推薦缸底醬油）與流暢的購物流程，引導其完成購買。</p>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="grid md:grid-cols-2 gap-6">
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">清晰導航</h4>
+        <p class="text-gray-600">使用頁首快速導航目錄與文內的錨點連結，讓使用者能快速找到所需資訊，降低尋找成本。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">內容可掃描性</h4>
+        <p class="text-gray-600">運用短段落、條列式清單、粗體字與高品質的視覺化圖表（如釀造流程圖、風味比較表），幫助使用者快速吸收資訊。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">互動輔助</h4>
+        <p class="text-gray-600">開發「料理需求配對器」等互動工具，將被動閱讀轉化為主動探索，直接解決使用者痛點，提升參與感。</p>
+    </div>
+    <div class="bg-gray-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-gray-800 mb-2">行動裝置優先</h4>
+        <p class="text-gray-600">確保所有內容與互動功能在手機上都能完美呈現與操作，符合當前主流使用習慣，優化行動端結帳流程。</p>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
