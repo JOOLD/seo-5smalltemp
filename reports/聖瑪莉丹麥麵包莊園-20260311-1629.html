@@ -1,0 +1,2047 @@
+
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> SEO 分析報告 | 餐盒</title>
+      <!-- 改用 Tailwind 2.2.19 版本 -->
+      <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css">
+
+      <!-- Font Awesome 保持不變 -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+      <!-- Google Fonts -->
+      <link rel="stylesheet" 
+  href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap">
+
+    <style>
+        :root {
+            --primary: #2A4365;
+            --secondary: #4A5568;
+            --accent: #1E88E5;
+            --light: #F7FAFC;
+            --dark: #1A202C;
+            --success: #38A169;
+            --warning: #D97706;
+            --danger: #E53E3E;
+            --neutral: #718096;
+            --gradient-primary: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            --gradient-success: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            --gradient-warning: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            --gradient-danger: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; 
+            color: var(--secondary);
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Noto Serif SC', Georgia, serif; 
+            color: var(--primary);
+            font-weight: 700; 
+            line-height: 1.2; 
+            letter-spacing: -0.025em;
+        }
+        
+        .mega-number {
+            font-size: 6rem;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(42, 67, 101, 0.1);
+        }
+        
+        /* Enhanced Card System */
+        .card {
+            background: white; 
+            border-radius: 16px; 
+            box-shadow: var(--shadow-md); 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+            border: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            border-color: rgba(30, 136, 229, 0.2);
+        }
+        
+        .card:hover::before {
+            opacity: 1;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #2A4365 0%, #4299E1 100%);
+            color: white;
+        }
+        
+        .accent-border {
+            border-left: 4px solid var(--accent);
+        }
+        
+        .quote {
+            position: relative;
+            padding-left: 1.5rem;
+            font-style: italic;
+        }
+        
+        .quote:before {
+            content: "\201C";
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 3rem;
+            color: rgba(30, 136, 229, 0.2);
+            line-height: 1;
+        }
+        
+        .key-insight {
+            display: inline-block;
+            background-color: rgba(30, 136, 229, 0.1);
+            border-bottom: 2px solid var(--accent);
+            padding: 0 0.25rem;
+        }
+        
+        .pill {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .pill-primary {
+            background-color: rgba(42, 67, 101, 0.1);
+            color: var(--primary);
+        }
+        
+        .pill-accent {
+            background-color: rgba(30, 136, 229, 0.1);
+            color: var(--accent);
+        }
+        
+        .pill-neutral {
+            background-color: rgba(113, 128, 150, 0.1);
+            color: var(--neutral);
+        }
+        
+        .pill-danger {
+            background-color: rgba(229, 62, 62, 0.1);
+            color: var(--danger);
+        }
+        
+        .pill-warning {
+            background-color: rgba(217, 119, 6, 0.1);
+            color: var(--warning);
+        }
+        
+        .pill-success {
+            background-color: rgba(56, 161, 105, 0.1);
+            color: var(--success);
+        }
+        
+        .competitor-card {
+            border-top: 4px solid;
+        }
+        
+        .competitor-1 {
+            border-color: var(--primary);
+        }
+        
+        .competitor-2 {
+            border-color: var(--accent);
+        }
+        
+        .competitor-3 {
+            border-color: var(--neutral);
+        }
+        
+        /* Enhanced Section Headers */
+        .section-header {
+            position: relative;
+            z-index: 1;
+            margin-bottom: 1rem;
+            background: var(--gradient-primary);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .section-header::after { 
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: -8px; 
+            height: 4px; 
+            width: 60px; 
+            background: var(--gradient-primary);
+            border-radius: 2px;
+            animation: expandWidth 0.6s ease-out;
+        }
+        
+        @keyframes expandWidth {
+            from { width: 0; }
+            to { width: 60px; }
+        }
+        
+        /* Enhanced Section Numbers */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 3rem; 
+            height: 3rem; 
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            color: white;
+            font-weight: 700; 
+            margin-right: 1rem; 
+            font-size: 1.25rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+        }
+        
+        .section-number::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border-radius: 50%;
+            background: var(--gradient-primary);
+            z-index: -1;
+            opacity: 0.3;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+        }
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        
+        th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: rgba(42, 67, 101, 0.02);
+        }
+        
+        .toc {
+            position: sticky;
+            top: 2rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0;
+            color: var(--secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 0.75rem;
+        }
+        
+        .toc-link:hover, .toc-link.active {
+            color: var(--accent);
+            border-left-color: var(--accent);
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        .insight-card {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+        
+        .progress-container {
+            width: 100%;
+            height: 0.5rem;
+            background-color: rgba(42, 67, 101, 0.1);
+            border-radius: 9999px;
+            margin-top: 0.5rem;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            border-radius: 9999px;
+        }
+        
+        .priority-high {
+            background-color: var(--danger);
+        }
+        
+        .priority-medium {
+            background-color: var(--warning);
+        }
+        
+        .priority-low {
+            background-color: var(--success);
+        }
+        
+        .first-letter-drop p:first-of-type:first-letter {
+            float: left;
+            font-size: 3rem;
+            line-height: 0.8;
+            padding-right: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .ranking-status-excellent {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+        }
+        
+        .ranking-status-good {
+            background: linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%);
+            color: white;
+        }
+        
+        .ranking-status-fair {
+            background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
+            color: white;
+        }
+        
+        .ranking-status-poor {
+            background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+            color: white;
+        }
+        
+        .technical-issue {
+            background-color: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .technical-advantage {
+            background-color: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--success);
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .comparison-table th {
+            background-color: rgba(42, 67, 101, 0.05);
+            font-weight: 600;
+            text-align: center;
+        }
+        
+        .comparison-table td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        
+        .improvement-roadmap {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.05) 0%, rgba(42, 67, 101, 0.05) 100%);
+            border: 1px solid rgba(30, 136, 229, 0.2);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--neutral);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .content-gap {
+            background-color: #fff5f5;
+            border-left: 4px solid #ff6b6b;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        /* 優化後的樣式 */
+        .content-section {
+            margin-bottom: 2rem;
+        }
+        
+        /* 單欄寬版佈局樣式 */
+        .space-y-6 > * + * {
+            margin-top: 1.5rem;
+        }
+        
+        .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+        
+        .space-y-3 > * + * {
+            margin-top: 0.75rem;
+        }
+        
+        .space-y-2 > * + * {
+            margin-top: 0.5rem;
+        }
+        
+        /* Enhanced Content Boxes */
+        .insight-box {
+            background: linear-gradient(135deg, rgba(30, 136, 229, 0.08) 0%, rgba(42, 67, 101, 0.08) 100%); 
+            border-left: 6px solid var(--accent); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .insight-box::before {
+            content: '💡';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.6;
+        }
+        
+        .warning-box {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(220, 38, 38, 0.08) 100%); 
+            border-left: 6px solid var(--danger); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        .success-box {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(5, 150, 105, 0.08) 100%); 
+            border-left: 6px solid var(--success); 
+            padding: 2rem; 
+            border-radius: 0 16px 16px 0; 
+            margin: 1.5rem 0; 
+            position: relative;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .success-box::before {
+            content: '✅';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            opacity: 0.8;
+        }
+        
+        /* Enhanced Pills */
+        .pill { 
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem; 
+            border-radius: 50px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s ease;
+        }
+        
+        .pill:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        .pill-primary { 
+            background: linear-gradient(135deg, rgba(42, 67, 101, 0.1) 0%, rgba(30, 136, 229, 0.1) 100%);
+            color: var(--primary); 
+            border: 1px solid rgba(42, 67, 101, 0.2);
+        }
+        
+        /* Enhanced Tables */
+        .comparison-table { 
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%; 
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .comparison-table th { 
+            background: #64748B;
+            color: white;
+            font-weight: 600; 
+            text-align: center; 
+            padding: 1rem;
+            position: relative;
+        }
+        
+        .comparison-table td { 
+            text-align: center; 
+            vertical-align: middle; 
+            padding: 1rem;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            transition: background-color 0.2s ease;
+        }
+        
+        .comparison-table tr:hover td {
+            background-color: rgba(30, 136, 229, 0.05);
+        }
+        
+        /* Enhanced Competitor Cards */
+        .competitor-card {
+            background: white;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-top: 6px solid;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competitor-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0) 0%, rgba(0,0,0,0.02) 100%);
+            pointer-events: none;
+        }
+        
+        .competitor-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .competitor-type-brand { border-top-color: #2A4365; }
+        .competitor-type-ecommerce { border-top-color: #1E88E5; }
+        .competitor-type-media { border-top-color: #38A169; }
+        
+        /* Enhanced Ranking Status */
+        .ranking-status-excellent { 
+            background: var(--gradient-success); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-good { 
+            background: var(--gradient-primary); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-fair { 
+            background: var(--gradient-warning); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-poor { 
+            background: var(--gradient-danger); 
+            color: white; 
+            border-radius: 12px;
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ranking-status-excellent::before,
+        .ranking-status-good::before,
+        .ranking-status-fair::before,
+        .ranking-status-poor::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: translate(30px, -30px);
+        }
+        
+        /* Enhanced Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(226, 232, 240, 0.3);
+            position: relative;
+            padding-left: 2rem;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover {
+            background-color: rgba(30, 136, 229, 0.02);
+        }
+        
+        .feature-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+        
+        .feature-list li:hover::before {
+            color: var(--primary);
+        }
+        
+        .competitor-overview {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid;
+        }
+        
+        .competitor-type-brand { border-color: #2A4365; }
+        .competitor-type-ecommerce { border-color: #1E88E5; }
+        .competitor-type-media { border-color: #38A169; }
+        
+        .strategy-card {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--accent);
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .feature-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+        }
+        
+        .roadmap-step {
+            background: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid var(--warning);
+            position: relative;
+        }
+        
+        .roadmap-step::before {
+            content: attr(data-step);
+            position: absolute;
+            left: -0.75rem;
+            top: 1rem;
+            background: var(--warning);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+        
+        .no-data-placeholder {
+            background: #f9fafb;
+            border: 2px dashed #d1d5db;
+            border-radius: 0.5rem;
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+            margin: 1rem 0;
+        }
+        
+        .content-outline-section {
+            background: #fafafa;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .outline-item {
+            background: white;
+            border-radius: 0.375rem;
+            padding: 1rem;
+            margin-bottom: 0.75rem;
+            border-left: 3px solid var(--accent);
+        }
+
+        /* New styles for variable blocks */
+        .bg-blue-50 { background-color: #EFF6FF; }
+        .border-blue-400 { border-color: #60A5FA; }
+        .text-blue-800 { color: #1E40AF; }
+        .border-blue-300 { border-color: #93C5FD; }
+        .text-blue-700 { color: #3B82F6; }
+
+        .bg-green-50 { background-color: #ECFDF5; }
+        .border-green-400 { border-color: #34D399; }
+        .text-green-800 { color: #065F46; }
+        .border-green-300 { border-color: #A7F3D0; }
+        .text-green-700 { color: #047857; }
+
+        .bg-purple-50 { background-color: #F3E8FF; }
+        .border-purple-400 { border-color: #A78BFA; }
+        .text-purple-800 { color: #5B21B6; }
+        .border-purple-300 { border-color: #D8B4FE; }
+        .text-purple-700 { color: #7C3AED; }
+
+        .bg-orange-50 { background-color: #FFF7ED; }
+        .border-orange-400 { border-color: #FDBA74; }
+        .text-orange-800 { color: #9A3412; }
+        .border-orange-300 { border-color: #FCD34D; }
+        .text-orange-700 { color: #F59E0B; }
+
+        .bg-red-50 { background-color: #FEF2F2; }
+        .border-red-400 { border-color: #F87171; }
+        .text-red-800 { color: #991B1B; }
+        .border-red-300 { border-color: #FCA5A5; }
+        .text-red-700 { color: #EF4444; }
+
+        .bg-yellow-50 { background-color: #FFFBEB; }
+        .border-yellow-400 { border-color: #FCD34D; }
+        .text-yellow-800 { color: #92400E; }
+        .border-yellow-300 { border-color: #FDE68A; }
+        .text-yellow-700 { color: #D97706; }
+
+         .bg-cyan-50 { background-color: #ECFEFF; }
+        .border-cyan-400 { border-color: #22D3EE; }
+        .text-cyan-800 { color: #0E7490; }
+
+         .bg-indigo-50 { background-color: #EEF2FF; }
+        .border-indigo-400 { border-color: #818CF8; }
+        .text-indigo-800 { color: #4338CA; }
+
+        /* 🆕 AI Overview 來源分析樣式 */
+        .source-analysis {
+            background-color: #fafafa;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            transition: all 0.2s ease;
+        }
+        
+        .source-analysis:hover {
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            border-color: #d0d0d0;
+        }
+        
+        .source-analysis h4 {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            word-break: break-all;
+            margin: 0 0 15px 0;
+            font-weight: bold;
+        }
+        
+        .source-analysis .space-y-4 > * + * {
+            margin-top: 1rem;
+        }
+
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="gradient-bg py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0 flex-1">
+                    <div class="flex items-center mb-2">
+                        <span class="bg-white bg-opacity-20 text-white px-3 py-1 rounded-full text-sm mr-4">
+                            <i class="fas fa-chart-line mr-1"></i>SEO 分析報告
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold text-white mb-2">聖瑪莉丹麥麵包莊園 SEO 分析報告</h1>
+                    <p class="text-blue-100">深入剖析「餐盒」關鍵詞的搜尋意圖、競爭格局與內容優化機會，幫助您的網站在這一關鍵健康主題中脫穎而出。</p>
+                </div>
+                
+                <!-- 目前排名卡片 -->
+                <div class="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-6 text-center border border-white border-opacity-20 min-w-[200px]">
+                    <p class="text-blue-100 text-sm mb-1">目前排名</p>
+                    <div class="text-6xl font-bold text-white mb-2">2</div>
+                    <p class="text-blue-200 text-sm">表現優異</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 md:px-6 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Table of Contents -->
+            <div class="lg:w-1/4">
+                <nav class="toc">
+                    <h3 class="text-lg font-semibold mb-4">目錄</h3>
+                    <a href="#overview" class="toc-link">你的網址現狀評估</a>
+                    
+                    <a href="#serp-ranking" class="toc-link">SERP排名深度診斷</a>
+                    <a href="#competitors" class="toc-link">競爭者分析</a>
+                    <a href="#user-intent" class="toc-link">使用者意圖分析</a>
+                    <a href="#opportunities" class="toc-link">機會識別與洞察分析</a>
+                    <a href="#content-outline" class="toc-link">內容大綱建議</a>
+                </nav>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">1</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">你的網址現狀評估</h2>
+                    </div>
+                    
+                    <!-- 網站內容概況 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-blue-500 mr-2"></i>網站內容概況
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">內容主題定位</h4>
+        <p class="text-gray-700">網站內容明確聚焦於<strong>餐盒訂購</strong>服務，特別鎖定企業或團體客戶。從架構中的「會議/點心餐盒」與「茶點、外燴點心盤」可見，其核心業務是為<strong>會議、活動、下午茶</strong>等場合提供點心解決方案，定位清晰，直接滿足商業客戶的餐飲需求。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容涵蓋面向</h4>
+        <p class="text-gray-700">內容架構完整涵蓋了訂購流程的關鍵環節，將產品分為<strong>「個人餐盒」與「分享點心盤」</strong>兩大類，並針對不同客戶需求提供<strong>「門市自取」和「專車配送」</strong>兩種物流選項。這顯示品牌方充分考慮到客戶在訂購時的便利性與不同情境的需求，分類邏輯清晰。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">用戶價值評估</h4>
+        <p class="text-gray-700">對目標用戶而言，此頁面提供了直接、高效的訂購指引。用戶可以快速根據活動類型（會議、茶會）和取貨方式找到對應的服務入口，減少了搜尋和決策時間。<strong>核心價值在於簡化B2B採購流程</strong>，讓負責人能輕鬆完成點心餐盒的預訂。</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 內容優化機會 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-red-500 mr-2"></i>內容優化機會
+                        </h3>
+                        <div class="space-y-3">
+                            <div class="space-y-6">
+<div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400">
+    <h4 class="font-bold text-lg mb-3 text-red-800 flex items-center">
+        <i class="fas fa-search text-red-600 mr-2"></i>缺乏明確的價格帶選項
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面未提供依「價格」或「預算」分類的餐盒組合。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">用戶需求：</strong>
+            <span class="text-gray-600">企業採購或活動主辦方通常有固定的預算，他們希望快速找到符合預算的方案，例如搜尋「150元餐盒」或「200元餐盒」。缺乏此功能會讓用戶難以快速比較，可能因此流失給像「方師傅」或「御華興」這樣直接以價格命名的競爭者。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-red-300">
+            <strong class="text-red-700">建議補強：</strong>
+            <span class="text-gray-600">新增「依預算選擇」的分類，或推出多款如<strong>「$120 經典會議餐盒」、「$180 豪華午茶餐盒」</strong>等固定價格的組合，並在標題中明確標示價格。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-3 text-orange-800 flex items-center">
+        <i class="fas fa-cogs text-orange-600 mr-2"></i>缺少客製化服務說明
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面中沒有提及或詳細說明<strong>客製化餐盒</strong>的服務。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">用戶需求：</strong>
+            <span class="text-gray-600">許多公司或活動有特殊需求，例如素食、過敏源調整、或根據活動主題搭配點心。競爭者「一之軒」明確主打「客製化餐盒服務」，能滿足這類高價值客戶的需求。缺乏此資訊會讓有特殊需求的客戶直接放棄。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <strong class="text-orange-700">建議補強：</strong>
+            <span class="text-gray-600">新增一個「<strong>餐盒客製化洽詢</strong>」區塊，說明可調整的範圍（如品項、數量、預算），並提供聯絡方式或表單，吸引有大量或特殊需求的訂單。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400">
+    <h4 class="font-bold text-lg mb-3 text-purple-800 flex items-center">
+        <i class="fas fa-file-alt text-purple-600 mr-2"></i>訂購須知與條件不明確
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面缺乏詳細的訂購規則，如<strong>最低訂購數量、預訂前置時間、外送運費標準</strong>等。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">用戶需求：</strong>
+            <span class="text-gray-600">用戶在下單前需要清楚了解交易的所有條件，以避免後續溝通問題。競爭者「PAUL」提供了非常清晰的「訂購需知」，包含免運門檻和預訂天數，這能建立信任感並加速決策。資訊不明確會增加用戶的猶豫成本。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+            <strong class="text-purple-700">建議補強：</strong>
+            <span class="text-gray-600">建立一個獨立的「<strong>訂購須知</strong>」區塊，用條列式清楚說明：最低訂購盒數、建議提前幾天預訂、不同地區的運費計算方式、大量訂購的優惠等。</span>
+        </div>
+    </div>
+</div>
+<div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-3 text-blue-800 flex items-center">
+        <i class="fas fa-lightbulb text-blue-600 mr-2"></i>缺乏適用情境推薦
+    </h4>
+    <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">缺少內容：</strong>
+            <span class="text-gray-600">頁面未針對不同活動情境推薦適合的餐盒組合。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">用戶需求：</strong>
+            <span class="text-gray-600">初次訂購的用戶可能不知道如何搭配，希望能有專家建議。例如「部門會議推薦」、「貴賓接待首選」、「戶外野餐組合」。競爭者「PAUL」為其餐盒標示了適合的場合（如 Professional Meetings, Picnic Adventures），有效引導用戶選擇。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+            <strong class="text-blue-700">建議補強：</strong>
+            <span class="text-gray-600">為不同的餐盒組合或點心盤加上<strong>情境標籤或推薦說明</strong>，幫助用戶快速做出最適合的選擇，例如「適合午餐會議的鹹點組合」或「兒童派對點心盤」。</span>
+        </div>
+    </div>
+</div>
+</div>
+                        </div>
+                    </div>
+
+                    <!-- 技術表現與使用者體驗 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-green-500 mr-2"></i>技術表現與使用者體驗
+                        </h3>
+                        <p class="mb-4">
+                            <div class="space-y-4">
+    <div>
+        <h4 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">SEO 技術設置</h4>
+        <p class="text-gray-700">網站具備良好的SEO基礎。<strong>`title`標籤、`canonical`標籤、Open Graph標籤（`og:title`, `og:image`等）</strong>皆已正確設置，有助於搜尋引擎理解頁面內容及社群分享時的呈現。具備<strong>`viewport`</strong>標籤，確保了行動裝置的友善瀏覽體驗。從技術特徵（如`cdn-next.cybassets.com`）判斷，網站應是使用<strong>Cyberbiz</strong>平台架設。</p>
+    </div>
+    
+    <div>
+        <h4 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">內容結構優化</h4>
+        <p class="text-gray-700">頁面採用了清晰的層級結構，以一個主要的<strong>`&lt;h1&gt;`標籤「◉餐盒訂購」</strong>作為頁面核心，再透過<strong>`&lt;h3&gt;`標籤</strong>細分服務項目，邏輯清楚，有助於使用者和搜尋引擎快速掌握網頁重點。這種結構直接對應了使用者的搜尋意圖。</p>
+    </div>
+    
+    <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-400">
+        <h4 class="font-semibold text-yellow-800 mb-2 pb-1 border-b-2 border-yellow-300">
+            技術改善建議
+        </h4>
+        <p class="text-yellow-700">1. <strong>修復多餘的`&lt;h1&gt;`標籤：</strong> 網站原始碼中出現了兩次`&lt;h1&gt;${ netCategory.title }&lt;/h1&gt;`的樣板程式碼，這會產生無意義或重複的`&lt;h1&gt;`標籤，干擾SEO。應檢查並移除這些多餘的標籤，確保每頁只有一個具備核心關鍵字的`&lt;h1&gt;`。<br>2. <strong>優化Meta Description：</strong> 目前的描述只是產品名稱的堆砌，缺乏吸引力。建議改寫成一段通順且包含關鍵字的句子，例如：「聖瑪莉提供各式會議點心、客製化餐盒與外燴點心盤，是您企業活動、派對的最佳選擇。提供專車配送與門市自取服務。」</p>
+    </div>
+</div>
+                        </p>
+                    </div>
+
+                    <!-- 核心發現摘要 -->
+                    <div class="insight-box">
+                        <h4 class="font-bold text-primary mb-3 flex items-center">
+                            <i class="fas fa-lightbulb text-yellow-500 mr-2"></i>核心發現摘要
+                        </h4>
+                        <ul class="feature-list">
+                            <li><strong>服務定位精準：</strong>網頁結構清晰地區分了會議餐盒、點心盤及自取/配送服務，完全符合B2B客戶的採購邏輯，這是最大的競爭優勢。</li>
+    <li><strong>價格資訊嚴重缺失：</strong>與主要競爭者相比，缺乏明確的價格區間與組合範例，是內容上最大的硬傷，阻礙了用戶的比較與決策過程。</li>
+    <li><strong>潛在技術瑕疵：</strong>頁面存在重複且由樣板變數產生的`&lt;h1&gt;`標籤，此技術問題會稀釋核心主題的權重，應優先修正。</li>
+    <li><strong>缺乏關鍵決策資訊：</strong>缺少客製化說明與詳細的訂購規則（如最低數量、前置時間），降低了專業度和可信度，容易讓潛在客戶轉向資訊更透明的競爭者。</li>
+    <li><strong>搜尋結果摘要（Meta Description）吸引力不足：</strong>目前的描述內容為純商品羅列，未能有效傳達服務價值，錯失了在搜尋結果頁面吸引點擊的機會。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                
+
+                <!-- SERP Ranking Section -->
+                <section id="serp-ranking" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">4</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">SERP排名深度診斷</h2>
+                    </div>
+                    
+                    <!-- 排名狀態總覽 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-chart-bar text-blue-500 mr-2"></i>品牌當前排名狀態
+                        </h3>
+                        
+                        <div class="grid md:grid-cols-3 gap-4 mb-6">
+                            <div class="ranking-status-excellent p-4 rounded-lg text-center">
+                                <div class="text-3xl font-bold mb-1">第2位</div>
+                                <div class="text-sm opacity-90">表現優異</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">排名差距</div>
+                                <div class="text-xl font-bold text-gray-800">1個位置</div>
+                                <div class="text-xs text-gray-600">與第1名距離</div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg text-center">
+                                <div class="text-lg font-semibold text-gray-700 mb-1">波動風險</div>
+                                <div class="text-xl font-bold text-gray-800">高</div>
+                                <div class="text-xs text-gray-600">排名穩定度</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">排名狀態評估</h4>
+                            <p class="text-blue-700">當前排名第2，處於SERP的頂端位置，僅需超越一個競爭者即可登頂。這是一個極具攻擊性的位置，優化效益明顯。</p>
+                        </div>
+                    </div>
+
+                    <!-- 技術SEO競爭力分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-cogs text-purple-500 mr-2"></i>技術 SEO 競爭力分析
+                        </h3>
+                        
+                        <!-- Meta標籤效能對比 -->
+                        <div class="mb-6">
+                            <h4 class="font-semibold text-gray-800 mb-3">Meta 標籤效能對比</h4>
+                            <div class="overflow-x-auto">
+                                <table class="comparison-table w-full">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-left">指標</th>
+                                            <th>聖瑪莉丹麥麵包莊園</th>
+                                            <th>競爭者平均</th>
+                                            <th>改善空間</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+    <td class="font-semibold text-left">標題 (Title)</td>
+    <td>◉餐盒訂購 | 聖瑪莉</td>
+    <td>多為產品分類或品牌名，競品1甚至未包含「餐盒」。</td>
+    <td>加入使用情境和價值主張。建議改為：<strong>會議點心餐盒訂購｜多款精緻選擇，企業外燴首選 - 聖瑪莉</strong></td>
+  </tr>
+  <tr>
+    <td class="font-semibold text-left">描述 (Description)</td>
+    <td>僅條列少量產品，如「黑森林(26入/盤)-外燴店取...」。</td>
+    <td>競品1以大量關鍵詞列表方式，廣泛覆蓋各種餐盒類型。</td>
+    <td>重寫為完整的段落，涵蓋目標客群（企業）、用途（會議、活動）和服務（客製化、配送）。</td>
+  </tr>
+  <tr>
+    <td class="font-semibold text-left">關鍵詞 (Keywords)</td>
+    <td>◉餐盒訂購</td>
+    <td>競品1在此欄位填充了大量相關詞。</td>
+    <td>雖然此標籤權重低，但可補充「會議餐盒, 點心餐盒, 茶會點心, 企業訂餐, 外燴服務」。</td>
+  </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- 關鍵技術問題識別 -->
+                        <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-red-800">關鍵技術問題</h4>
+  <ul class="list-disc list-inside space-y-2 text-red-700">
+    <li><strong>嚴重 H1 標籤錯誤：</strong> 頁面源碼中存在兩個多餘的 <code>&lt;h1&gt;${ netCategory.title }&lt;/h1&gt;</code> 標籤。這是因後端模板變數未正確渲染而產生的錯誤，會讓搜尋引擎對頁面的核心主題產生嚴重困惑。這是目前最緊急、最需要修復的問題。</li>
+    <li><strong>og:type 宣告不精確：</strong> 頁面被標記為 <code>og:product</code>，但它實際上是一個產品分類頁(Category Page)。應將其修正為 <code>og:website</code> 或 <code>product.group</code> 更為合適。</li>
+    <li><strong>URL結構：</strong> URL `.../categories/box` 使用英文 "box"，雖然簡潔，但若能使用 `.../categories/meal-box` 或中文 `.../categories/餐盒`，相關性會更強。不過此項為次要優化點。</li>
+  </ul>
+</div>
+
+                        <!-- 技術優勢與穩固點 -->
+                        <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+  <h4 class="font-bold text-lg mb-4 text-green-800">技術優勢與穩固點</h4>
+  <ul class="list-disc list-inside space-y-2 text-green-700">
+    <li><strong>URL結構清晰：</strong> 相較於競品1充滿參數的動態URL (`.../index.php?route=product/category&amp;path=90`)，品牌的靜態URL (`.../categories/box`) 結構更為乾淨、易於理解，對SEO更友好。</li>
+    <li><strong>HTTPS安全傳輸：</strong> 網站已啟用HTTPS，符合現代搜尋引擎的基本安全要求。</li>
+    <li><strong>Canonical標籤正確設置：</strong> 頁面正確使用 `canonical` 標籤指向自身，避免了重複內容問題。</li>
+  </ul>
+</div>
+
+
+                    </div>
+
+                    <!-- 內容策略競爭分析 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-file-alt text-green-500 mr-2"></i>內容策略競爭分析
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-300">
+    <h5 class="font-semibold text-blue-700 mb-2">關鍵詞語義覆蓋分析</h5>
+    <p class="text-gray-700">品牌頁面內容的核心是「餐盒訂購」，但缺乏對「餐盒」種類、材質、用途的詳細描述。競爭對手 `IDEAHOUSE` 則透過大量產品列表，自然地覆蓋了「紙漿餐盒」、「小麥秸稈」、「方形四格」、「免洗餐盤」、「環保餐盒」等長尾關鍵詞，語義覆蓋範圍遠超品牌方。品牌的機會在於補充「食用型」餐盒的相關語義，如「會議」、「點心」、「西式」、「輕食」、「客製化」。</p>
+</div>
+                                <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-300">
+    <h5 class="font-semibold text-green-700 mb-2">內容深度與品質分析</h5>
+    <p class="text-gray-700">品牌的頁面目前僅作為一個導覽頁，內容深度不足。它提供了分類連結，但沒有提供實質性的內容來幫助使用者決策。相比之下，`IDEAHOUSE` 雖然是產品列表，但每個產品標題本身就是一段豐富的內容，包含材質、規格、用途等資訊，整體頁面的內容總量和資訊密度遠高於品牌頁面。</p>
+</div>
+                        </div>
+
+                            <div class="success-box">
+    <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">內容差異化與市場切入點</h4>
+    <p class="mb-4">品牌與排名第一的競爭者存在根本性的市場定位差異，這是最大的策略機會點。</p>
+    <div class="space-y-4">
+      <div>
+        <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">競爭者定位：B2B包材供應商</h5>
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>產品：</strong> 空的、一次性的餐盒容器。</li>
+          <li><strong>目標客群：</strong> 餐廳、店家、團膳業者。</li>
+          <li><strong>關鍵詞：</strong> 材質（紙漿、牛皮）、規格（9吋、五格）、特性（環保、免洗）。</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">品牌定位：B2C/B2B餐點熟食供應商</h5>
+        <ul class="list-disc list-inside space-y-2">
+          <li><strong>產品：</strong> 裝有熟食、點心的即食餐盒。</li>
+          <li><strong>目標客群：</strong> 企業（會議、活動）、一般消費者（派對、野餐）。</li>
+          <li><strong>差異化關鍵詞機會：</strong> <strong>「會議餐盒」、「點心餐盒」、「外燴」、「客製化」、「派對點心盤」、「企業下午茶」</strong>。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+                    </div>
+
+                    <!-- 品牌權威性評估 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-shield-alt text-indigo-500 mr-2"></i>品牌權威性 (E-E-A-T) 評估
+                        </h3>
+                        
+                        <div class="space-y-6 mb-6">
+                                <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-300">
+    <h5 class="font-semibold text-indigo-700 mb-2">專業性與權威性對比</h5>
+    <p class="text-gray-700">品牌的權威性建立在「聖瑪莉」的品牌知名度上，屬於餐飲烘焙領域。而競爭者 `IDEAHOUSE` 的權威性則來自其作為「外帶包材整合供應商」的專業形象和產品廣度。在「餐盒」這個廣泛的詞彙下，兩者都有機會，但品牌方需要透過內容優化，明確告訴搜尋引擎自己在「熟食餐盒」、「會議點心餐盒」領域的權威性。</p>
+</div>
+                                <div class="bg-yellow-50 p-4 rounded-lg border-l-4 border-yellow-300">
+    <h5 class="font-semibold text-yellow-700 mb-2">可信度指標評估</h5>
+    <p class="text-gray-700">品牌頁面目前的信任指標較弱，僅有品牌LOGO。可以增加如「榮獲獎項」、「媒體報導」、「客戶案例(logo牆)」、「訂購流程說明」、「常見問答」等元素來強化用戶信任感。</p>
+</div>
+                        </div>
+
+                            <div class="success-box">
+    <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 E-E-A-T 強化與權威建立機會</h4>
+    <div class="space-y-4">
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">強化信任指標 (Trust)：</h5>
+      <ul class="space-y-2">
+          <li>在頁面顯眼處加入「服務超過千家企業」、「公司會議指定品牌」等標語。</li>
+          <li>新增「合作夥伴」區塊，展示曾服務過的知名企業Logo。</li>
+          <li>提供清晰的訂購聯絡方式，包含電話、Email及線上客服連結。</li>
+      </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">展示專業經驗 (Experience &amp; Expertise)：</h5>
+      <ul class="space-y-2">
+          <li>建立一個「成功案例」或「客戶見證」頁面，分享不同活動（如產品發表會、員工家庭日）的餐盒搭配方案與客戶回饋。</li>
+          <li>在頁面中簡要介紹餐點特色，如「堅持使用當季新鮮食材」、「每日新鮮現做」等，突顯專業品質。</li>
+      </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">外部權威建設 (Authoritativeness)：</h5>
+        <ul class="space-y-2">
+          <li>主動聯繫美食部落客或活動策劃媒體，進行合作開箱或報導，爭取高品質的外部連結。</li>
+          <li>鼓勵滿意的企業客戶在其官網或社群媒體上分享活動照片並標註品牌。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+                    </div>
+
+                    <!-- 使用者體驗優化對比 -->
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4 flex items-center">
+                            <i class="fas fa-user-cog text-orange-500 mr-2"></i>使用者體驗優化對比
+                        </h3>
+                        
+                        <div class="success-box">
+    <h4 class="font-semibold text-orange-600 mb-4 pb-1 border-b-2 border-orange-200">🚀 使用者體驗優化策略</h4>
+    <div class="space-y-4">
+      <div>
+        <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">快速勝利機會 (UX層面)：</h5>
+        <ul class="space-y-2">
+          <li><strong>視覺化分類：</strong> 將純文字的H3分類連結改為帶有代表性圖片的圖文卡片，讓用戶能更快理解「西式點心」和「茶點心盤」的區別。</li>
+          <li><strong>行動呼籲(CTA)按鈕：</strong> 在頁面頂部或每個分類旁，增加「立即洽詢客製化」或「下載菜單」的顯眼按鈕。</li>
+          <li><strong>簡化導航：</strong> 確保用戶能從頁面頂部清晰地看到訂購流程或聯絡方式。</li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-semibold text-blue-600 mb-2 pb-1 border-b-2 border-blue-200">中長期優化機會：</h5>
+        <ul class="space-y-2">
+          <li><strong>互動式篩選器：</strong> 開發一個簡易篩選器，讓用戶可以根據「預算」、「人數」、「活動類型（會議/派對）」來快速找到推薦的餐盒組合。</li>
+          <li><strong>整合客戶評價：</strong> 在頁面下方嵌入Google商家檔案或Facebook的五星好評，增加社會認同感。</li>
+          <li><strong>影片內容：</strong> 製作一個30秒短片，展示餐盒的精美外觀、豐富內容以及適用於各種歡樂場合的畫面，並嵌入頁面中。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+                    </div>
+
+
+                </section>
+                
+                <!-- Competitors Analysis Section -->
+                <section id="competitors" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">5</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">競爭者分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+
+                        <!-- 競爭者詳細分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-bar text-green-500 mr-2"></i>主要競爭者分析
+                            </h3>
+                            
+                            <div class="space-y-6 mb-6">
+    <div class="competitor-card competitor-type-ecommerce card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第1名</span>
+                <h4 class="font-bold text-xl">IDEAHOUSE</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">B2B包材供應商</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.ideahouse.tw/index.php?route=product/category&path=90" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.ideahouse.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">作為外帶包材整合供應商，其頁面是典型的B2B產品目錄。內容以大量、詳細的產品列表為主，強調規格、材質與批發數量。Meta標籤採用關鍵詞羅列策略，旨在最大化覆蓋B2B採購者的搜尋。此策略與品牌方完全不同，存在明顯的搜尋意圖錯位。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流為功能導向，用戶直接瀏覽產品並加入購物車。CTA是標準的電商購買流程，缺乏情感引導或價值溝通。這種模式對目標明確的餐飲業者有效，但無法吸引尋找熟食餐盒的企業客戶。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 透過豐富的產品線展示其在包材領域的廣泛經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 詳細的產品規格（如mm、材質）體現了其專業性。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 作為「整合供應商」的定位，在B2B包材領域建立權威。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 清晰的批發價格與線上訂購系統建立交易信任。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第3名</span>
+                <h4 class="font-bold text-xl">方師傅點心坊</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">地域性品牌</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.masterfang.com.tw/kaohsiung-meeting-boxes?srsltid=AfmBOoopRYVsTZway9FpBS2f6V3r1ejrtDw2Qu541PZuGR9hdRjuY6sa" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.masterfang.com.tw</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">深耕高雄市場的知名品牌，其Meta標題直接點名「高雄餐盒首選」，精準鎖定區域用戶。頁面內容以價格區間（如100元餐盒、120元餐盒）作為分類，非常直觀，符合有明確預算考量的用戶需求。這是一種高效、務實的內容策略。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流同樣是產品目錄式，引導用戶根據預算點擊查看不同組合。CTA清晰，引導用戶進行購買決策。整體體驗流暢，特別適合對品牌已有認知或預算先決的客戶。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 提供多樣化的價格組合，顯示其服務不同客戶層的豐富經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 作為點心坊，其產品本身即是專業性的體現。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> 在高雄地區建立的「首選」地位是其核心權威。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 知名品牌的信譽和清晰的價格體系建立了用戶信任。</div>
+            </div>
+        </div>
+    </div>
+    <div class="competitor-card competitor-type-brand card p-6">
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+                <span class="pill pill-primary mr-3"><i class="fas fa-trophy mr-1"></i>第5名</span>
+                <h4 class="font-bold text-xl">PAUL Taiwan</h4>
+            </div>
+            <div class="text-right">
+                <div class="text-sm text-gray-500">品牌官網</div>
+                <div class="text-lg font-semibold text-blue-600">高端精緻市場</div>
+            </div>
+        </div>
+        <p class="text-gray-500 mb-4"><a href="https://www.paultaiwan.com/boxedmeal" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">www.paultaiwan.com</a></p>
+        <div class="border-t border-gray-200 my-4"></div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-800 flex items-center"><i class="fas fa-lightbulb mr-2"></i>內容策略分析</h5>
+            <p class="text-gray-700 leading-relaxed">定位高端市場，以「法式」、「優雅」為核心價值。頁面設計精美，採用體驗敘事式結構，從情境導入（盒裝的法式美味）到方案展示，再到訂購需知，完整引導用戶。這是所有競爭者中，品牌形象和價值感塑造得最成功的範例，對追求質感的客戶極具吸引力。</p>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-blue-700 flex items-center"><i class="fas fa-route mr-2"></i>內容敘事流 & CTA 分析</h5>
+            <p class="text-gray-700 leading-relaxed">敘事流極具引導性，先建立品牌氛圍，再展示具體方案並標註適用場合，有效提升產品價值感。CTA清晰，訂購需知詳細，消除了用戶的決策疑慮。整個頁面是一個優秀的銷售漏斗。</p>
+        </div>
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400 mb-4">
+            <h5 class="font-semibold text-lg mb-3 text-green-800 flex items-center"><i class="fas fa-shield-alt mr-2"></i>E-E-A-T 內容信譽分析</h5>
+            <div class="text-gray-700 eeat-analysis-list space-y-3">
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Experience (經驗):</strong> 標註適用場合（Professional Meetings, Picnic Adventures）展現其服務多元活動的經驗。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Expertise (專業性):</strong> 詳細的餐點內容物描述和精緻的視覺呈現，突顯其在法式烘焙領域的專業。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Authority (權威性):</strong> PAUL作為國際知名品牌，本身就是強大的權威信號。</div>
+                <div class="bg-white p-3 rounded border-l-2 border-green-300"><strong>Trust (信賴性):</strong> 清晰的訂購規則、聯繫方式和品牌聲譽共同建立了高度的信賴感。</div>
+            </div>
+        </div>
+    </div>
+</div>
+                        
+                        </div>
+
+                        <!-- Meta標題和描述趨勢 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-tags text-purple-500 mr-2"></i>Meta標題和描述策略分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">📊 Meta效能現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <h5 class="font-semibold text-blue-700 mb-2">品牌方表現差距：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>標題效能：</strong>品牌方標題雖然明確，但缺乏情感和價值訴求，相較於強調「首選」、「精緻」的競爭者，吸引力較弱。</div>
+          <div><strong>描述效能：</strong>品牌方描述為關鍵詞條列，而競爭者則以完整句子溝通適用場合與服務價值，更能貼近目標客群的需求。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 競爭者策略模式分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">價值導向型 (C3, C5, C6)：</h5>
+            <p class="text-gray-600">直接溝通產品價值。「餐盒**首選**方師傅」、「以法式輕食精神打造**精緻**餐盒」、「提供**客製化**餐盒服務」，旨在第一時間抓住用戶眼球。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">地域聚焦型 (C3)：</h5>
+            <p class="text-gray-600">「**高雄**餐盒首選」，精準鎖定區域用戶，建立在地權威感。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">品類羅列型 (C1, C8)：</h5>
+            <p class="text-gray-600">Meta中堆疊大量同義詞，如「紙盒,木盒,微波餐盒...」，目標是最大化關鍵詞覆蓋，對B2B採購者有效，但對一般消費者吸引力較低。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+  <h4 class="font-semibold text-blue-600 mb-4 pb-1 border-b-2 border-blue-200">💡 品牌方差異化機會與優化建議</h4>
+  <div class="space-y-4">
+    <div>
+      <h5 class="font-semibold text-green-600 mb-2 pb-1 border-b-2 border-green-200">獨特價值主張機會：</h5>
+      <ul class="space-y-2">
+        <li><strong>差異化角度：</strong>強調「<strong>烘焙職人手作</strong>」與「<strong>新鮮出爐</strong>」的特點，區別於中央廚房或外燴餐盒。</li>
+        <li><strong>競爭優勢：</strong>突顯「<strong>聖瑪莉丹麥麵包</strong>」的明星商品，打造「吃得到招牌麵包的特色餐盒」。</li>
+        <li><strong>目標受眾：</strong>專門針對「重視餐點質感與品牌形象」的企業福委、活動主辦人進行訴求。</li>
+      </ul>
+    </div>
+    <div>
+      <h5 class="font-semibold text-purple-600 mb-2 pb-1 border-b-2 border-purple-200">具體優化行動方案：</h5>
+      <ul class="space-y-2">
+        <li><strong>標題優化：</strong>建議格式為「【聖瑪莉精緻餐盒】會議活動首選｜烘焙職人手作．可客製化」。長度約25-30字，包含品牌、產品、價值主張與服務。</li>
+        <li><strong>描述優化：</strong>建議內容為「聖瑪莉提供多款會議、派對、野餐適用的精緻餐盒。每日新鮮手作，搭配招牌丹麥麵包與西點。可依預算客製化，是企業活動、下午茶點心的質感首選。歡迎大量訂購。」</li>
+        <li><strong>執行優先級：</strong><strong>高</strong>。Meta是點擊率的第一道關卡，優化成本低、見效快。預期能有效提升點擊率，並篩選出更精準的目標客群。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 內容大綱主題分析 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-list text-orange-500 mr-2"></i>內容大綱主題趨勢
+                            </h3>
+                            
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-purple-800">📊 內容架構現狀對比</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>架構特點：</strong>品牌方極可能缺乏一個精心設計的專屬餐盒頁面。若僅是商品列表，將難以在品牌故事和價值感上與體驗敘事式的競爭者(PAUL)抗衡。</div>
+          <div><strong>板塊覆蓋：</strong>目前頁面僅為分類導覽，缺乏情境導入、方案展示、品牌差異化、客戶見證等關鍵說服板塊。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+        <h5 class="font-semibold text-purple-700 mb-2">競爭者策略模式：</h5>
+        <div class="space-y-2 text-gray-600">
+            <div><strong>產品目錄式 (C1, C3, C7, C8):</strong> 直接展示商品列表，以價格或品類分類，敘事性弱，轉化依賴品牌或價格吸引力。</div>
+            <div><strong>體驗敘事式 (C5):</strong> 以「盒裝的法式美味」開場，引導用戶進入情境，再展示方案與適用場合，引導性強，能有效提升價值感。</div>
+            <div><strong>功能導向式 (C6):</strong> 直接提供「訂購單下載」，目標明確，適合已有購買意向的熟客。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🔍 內容深度與專業性分析</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">專業模塊建設：</h5>
+            <p class="text-gray-600">競爭者PAUL(C5)在內容中展示了每個套餐的詳細內容物及餐盒尺寸，展現了專業性。品牌方應補強此類細節，建立專業形象。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+            <h5 class="font-semibold text-orange-700 mb-2">信任建立 (E-E-A-T) 缺口：</h5>
+            <p class="text-gray-600">品牌方需要建立一個專頁來系統性地展示其E-E-A-T。這包括：為何聖瑪莉的餐盒與眾不同（Expertise）、展示合作過的企業案例（Experience & Trustworthiness）、以及利用品牌知名度（Authoritativeness）。</p>
+        </div>
+    </div>
+  </div>
+
+                            <div class="success-box">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🚀 品牌方內容優化策略</h4>
+    <div class="space-y-4">
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">內容補強機會識別：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                <li><strong>優先補強主題：</strong>應立即規劃並建立一個獨立的餐盒解決方案頁面，包含情境導入、方案展示、品牌差異化、客製化服務與客戶見證等五大區塊。</li>
+                <li><strong>專業模塊建設：</strong>為每個餐盒方案詳細列出內容物、適合人數與價格，並提供高品質實拍圖。</li>
+                <li><strong>深度內容機會：</strong>可撰寫部落格文章，如「如何為公司活動挑選餐盒」，建立專業形象並捕獲長尾流量。</li>
+            </ul>
+        </div>
+        <div>
+            <h5 class="font-semibold text-green-700 mb-2">差異化內容策略：</h5>
+            <ul class="list-disc pl-5 space-y-2 text-gray-700">
+                <li><strong>獨特角度：</strong>核心差異化武器是「烘焙」。內容應圍繞「不只是餐盒，更是一份新鮮出爐的幸福感」此主題展開。</li>
+                <li><strong>競爭優勢：</strong>強調餐盒內的麵包、蛋糕均為門市同步銷售的明星商品，而非普通餐盒的附屬品。</li>
+                <li><strong>執行路徑：</strong>短期建立獨立登陸頁，中期透過客戶見證與部落格文章豐富內容，長期可考慮製作影片展示製作過程，傳遞專業與用心。</li>
+            </ul>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- User Intent Analysis Section -->
+                <section id="user-intent" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">6</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">使用者意圖分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 使用者需求分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-circle text-green-500 mr-2"></i>目標使用者需求分析
+                            </h3>
+                            
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">👥 使用者畫像特徵</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">角色身份：</strong>
+        <span class="text-gray-600">企業行政人員、福委會成員、部門秘書、活動主辦人。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">經驗水平：</strong>
+        <span class="text-gray-600">新手至中階，尋求簡單、可靠的解決方案。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">決策影響力：</strong>
+        <span class="text-gray-600">第一線研究者，負責整理選項給主管批准。</span>
+      </div>
+       <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+        <strong class="text-blue-700">資源狀況：</strong>
+        <span class="text-gray-600">時間有限，預算有上限，重視性價比。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-red-50 p-6 rounded-lg border-l-4 border-red-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-red-800">🎯 核心需求與痛點</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點1：選擇困難</strong>
+        <span class="text-gray-600">市面上選項繁多，但菜單、價格、訂購條件等資訊分散且不標準，難以快速橫向比較。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點2：品質風險</strong>
+        <span class="text-gray-600">擔心餐點的實際品質、份量、口味與照片不符，若出錯會影響活動評價及自身工作表現。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-red-300">
+        <strong class="text-red-700">痛點3：流程繁瑣</strong>
+        <span class="text-gray-600">害怕遇到複雜的訂購表格、溝通不暢的客服，以及不確定的外送安排。</span>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-yellow-800">⚠️ 決策障礙</h4>
+    <div class="space-y-3">
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙1：</strong>
+        <span class="text-gray-600">缺乏清晰、高品質的實物照片，無法判斷餐盒的質感。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙2：</strong>
+        <span class="text-gray-600">擔心隱藏費用（如運費、稅金）。</span>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <strong class="text-yellow-700">主要障礙3：</strong>
+        <span class="text-gray-600">對於供應商的可靠性（特別是準時送達）存有疑慮。</span>
+      </div>
+        </div>
+    </div>
+
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎨 品牌意圖滿足策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">分階段內容策略：</h5>
+        <div class="space-y-3 text-gray-600">
+          <div><strong>認知階段 (問題察覺)：</strong>透過部落格文章如「如何挑選會議餐盒？」建立權威，將聖瑪莉定位為餐飲顧問。</div>
+          <div><strong>考慮階段 (方案評估)：</strong>提供清晰的「餐盒方案」頁面，展示多款組合與專業實拍圖，並附上企業客戶案例，強調烘焙專業優勢。</div>
+          <div><strong>決策階段 (選擇確認)：</strong>提供「訂購流程」懶人包與詳細FAQ，消除所有訂購前的疑慮，展現專業、便捷的服務流程。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-green-300">
+        <h5 class="font-semibold text-green-700 mb-2">品牌差異化價值提供：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>獨特價值主張：</strong>主打每日新鮮出爐的丹麥麵包與精緻西點，提供市場上一般餐盒無法比擬的品質，並以品牌信譽為可靠性背書。</div>
+          <div><strong>競爭優勢展現：</strong>在頁面中直接呈現「為何選擇聖瑪莉餐盒？」區塊，強調`新鮮烘焙`、`嚴選食材`、`專人服務`、`準時配送`。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+        <h5 class="font-semibold text-yellow-700 mb-2">競品意圖滿足弱點與品牌機會：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>競品響應不足分析：</strong>多數競品網站僅是菜單羅列，缺乏質感與情境塑造，且服務流程不透明，無法讓企業採購者完全放心。</div>
+          <div><strong>品牌突破機會：</strong>製作「餐盒應用情境」視覺化指南，設計互動式「線上報價產生器」，並強調「企業客戶專屬服務」，打造超越競品的體驗。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>轉換路徑優化設計
+                            </h3>
+                            
+                            <div class="space-y-6">
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第一步：初始搜尋階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">頁面響應策略：</strong>
+          <span class="text-gray-600">標題與H1明確包含「會議餐盒」、「企業訂購」等關鍵字，快速匹配用戶意圖。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">首屏價值建立：</strong>
+          <span class="text-gray-600">以高品質餐盒形象圖作為主視覺，搭配標題「聖瑪莉精緻餐盒｜為您的重要場合加分」，並附上主要CTA「查看所有餐盒方案」。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-blue-800">第二步：資訊消費階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">內容引導策略：</strong>
+          <span class="text-gray-600">使用清晰的卡片式設計並列不同價位與風格的餐盒，並穿插「適用場合」標籤，幫助用戶快速決策。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+          <strong class="text-blue-700">信任建立策略：</strong>
+          <span class="text-gray-600">在頁面中置入「合作夥伴」logo牆或簡短的客戶見證，建立社會認同感。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-purple-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-purple-800">第三步：意圖深化階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">價值強化策略：</strong>
+          <span class="text-gray-600">提供「餐盒自由配」或「預算客製化」選項，展現服務彈性，滿足高價值客戶需求。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+          <strong class="text-purple-700">疑慮消除策略：</strong>
+          <span class="text-gray-600">設計一個顯眼的FAQ區塊，主動回答關於外送、訂購數量、付款方式等常見問題。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 flex items-center justify-center text-white text-sm font-bold" style="background-color: #F59E0B; border-radius: 50%;">4</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第四步：行動轉換階段</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">CTA 設計策略：</strong>
+          <span class="text-gray-600">頁面提供多個轉換入口：頂部的「聯絡專員」、方案旁的「加入報價單」、頁尾的詳細聯絡表單。行動裝置版本則提供「一鍵撥號」的浮動按鈕。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">轉換優化策略：</strong>
+          <span class="text-gray-600">報價表單應盡可能簡潔，只要求必要資訊，並註明「我們將在1個工作小時內與您聯繫」，降低用戶填寫門檻。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Opportunities Analysis Section -->
+                <section id="opportunities" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">7</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">機會識別與洞察分析</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 競爭格局總覽 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>SERP競爭格局總覽
+                            </h3>
+                            <p>當前排名第2，具備極高超越潛力。主要機會來自於超越排名第1但搜尋意圖不符的B2B包材供應商(IDEAHOUSE)，並專注於滿足「尋找熟食餐盒」的企業用戶需求。長期真正的競爭對手為高端品牌PAUL及其他烘焙同業。</p>
+                        </div>
+
+                        <!-- 內容基石分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess-board text-green-500 mr-2"></i>戰略機會矩陣
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-green-800">🚀 核心機會點識別與評估</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點A：技術SEO快速優化</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>修復嚴重的&lt;h1&gt;標籤錯誤，並重寫過於狹隘的Meta標籤以涵蓋「會議、活動」等核心用戶情境，是成本極低、見效極快的突破口。</div>
+        <div><strong>執行評估：</strong>難度：低 | 預期效果：高 (排名+1-2) | 資源：前端/內容人力(1天)</div>
+        <div><strong>優先級：</strong>極高 - 這是目前阻礙排名登頂最關鍵、最容易解決的問題。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點B：建立意圖導向的專屬登陸頁</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>取代現有單薄的分類頁，打造一個「體驗敘事式」的解決方案頁面。透過情境引導、方案展示與專業攝影，直接與B2B包材商做出市場區隔，並在價值感上超越多數烘焙同業。</div>
+        <div><strong>執行評估：</strong>難度：中 | 預期效果：高 (穩固排名，提升轉換) | 資源：企劃/設計/開發</div>
+        <div><strong>優先級：</strong>高 - 這是從「有排名」到「有生意」的關鍵轉變，是中期的核心戰略。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-green-300">
+      <h5 class="font-semibold text-green-700 mb-2">機會點C：強化信任(E-E-A-T)與使用者體驗</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>機會描述：</strong>針對企業採購者規避風險的心理，在頁面中增加客戶見證、合作夥伴Logo、清晰訂購流程與FAQ。此舉能有效降低用戶決策疑慮，超越競品在服務透明度上的不足。</div>
+        <div><strong>執行評估：</strong>難度：中 | 預期效果：中 (提升轉換率與停留時間) | 資源：內容/行銷人力</div>
+        <div><strong>優先級：</strong>高 - 與機會點B相輔相成，是提升頁面說服力、將流量轉化為訂單的重要佈局。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 關鍵詞機會分析 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-purple-500 mr-2"></i>關鍵詞擴展路線圖
+                            </h3>
+                            <div class="bg-purple-50 p-6 rounded-lg border-l-4 border-purple-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-purple-800">💡 品牌方長尾關鍵詞機會與語義差異化空間</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">長尾關鍵詞機會：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>結合B2B需求：</strong>「企業會議餐盒」、「公司活動點心盒」、「高質感商業餐盒」、「員工下午茶外送」。</div>
+        <div><strong>結合場合需求：</strong>「派對點心盤訂購」、「野餐輕食餐盒推薦」、「茶會點心外燴」。</div>
+        <div><strong>問題導向：</strong>「台北會議餐盒推薦」、「大量訂購餐盒優惠」。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-purple-300">
+      <h5 class="font-semibold text-purple-700 mb-2">語義差異化空間：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>獨特角度：</strong>強調品牌核心「烘焙專業」，搶佔「烘焙坊手作餐盒」、「新鮮出爐點心盒」等獨特語義。</div>
+        <div><strong>專業詞彙：</strong>使用「客製化餐盒」、「依預算搭配」等詞彙，溝通專業服務能力。</div>
+        <div><strong>品牌特色：</strong>創造如「聖瑪莉丹麥麵包餐盒」、「招牌西點輕食盒」等品牌特色詞，建立強記憶點。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 用戶體驗優化機會 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-bullseye text-orange-500 mr-2"></i>轉換優化藍圖
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400">
+    <h4 class="font-bold text-lg mb-4 text-orange-800">🎯 轉換優化藍圖</h4>
+    <p class="text-gray-700">從現有的「產品分類導覽頁」轉型為一個完整的「餐盒解決方案登陸頁」。用戶旅程將被重新設計為：1) <strong>吸引：</strong>以高品質情境圖與價值主張吸引目標客群。2) <strong>引導：</strong>透過清晰的方案卡片（依場合、預算分類）引導用戶評估。3) <strong>說服：</strong>利用客戶見證、品牌優勢與FAQ模組建立信任、消除疑慮。4) <strong>轉換：</strong>在頁面多處提供低門檻、高引導性的CTA，如「下載完整菜單」、「索取客製化報價」，並在行動端提供一鍵撥號功能，最大化轉換機會。</p>
+</div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Content Outline Section -->
+                <section id="content-outline" class="mb-12">
+                    <div class="flex items-center mb-6">
+                        <span class="section-number">8</span>
+                        <h2 class="text-2xl md:text-3xl font-bold section-header">內容大綱建議</h2>
+                    </div>
+                    
+                    <div class="content-section">
+                        <!-- 戰略內容概述 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chess text-blue-500 mr-2"></i>戰略內容概述
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-blue-800">🎯 戰略內容概述</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">核心競爭策略：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名突破方向：</strong>透過技術優化與意圖更匹配的優質內容，超越販售「空餐盒」的#1競爭者，搶佔「熟食餐盒」的搜尋意圖榜首。</div>
+        <div><strong>競爭者超越路徑：</strong>從單純的「產品目錄頁」升級為「B2B解決方案登陸頁」，在內容深度、價值溝通與信任建立上全面超越其他烘焙同業。</div>
+        <div><strong>使用者價值最大化：</strong>直接回應企業採購者對「效率、品質、可靠性」的核心需求，提供從方案選擇到訂購流程的全方位解答，成為他們的首選採購指南。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">內容戰略定位：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>品牌定位策略：</strong>將聖瑪莉定位為「企業活動餐飲的專業顧問與可靠夥伴」，而不僅僅是餐盒銷售商。</div>
+        <div><strong>差異化價值：</strong>核心是「烘焙專業」，強調「每日新鮮手作」與「門市明星商品入盒」的獨特性，這是其他競品難以複製的優勢。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-blue-300">
+      <h5 class="font-semibold text-blue-700 mb-2">預期成效目標：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>排名提升預期：</strong>「餐盒」關鍵詞在1-3個月內穩定排名第1。</div>
+        <div><strong>流量增長目標：</strong>透過滿足長尾關鍵詞，帶動相關自然搜尋流量提升20-30%。</div>
+        <div><strong>轉換率優化：</strong>新頁面「索取報價」與「電話諮詢」的轉換率提升3-5%。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 三階段突破路線圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-route text-green-500 mr-2"></i>三階段突破路線圖
+                            </h3>
+                            <div class="space-y-6">
+    <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center text-white text-sm font-bold">1</div>
+      <h4 class="font-bold text-lg mb-4 text-orange-800">第一階段：快速優化（1-4週）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">技術SEO修復：</strong>
+          <span class="text-gray-600">立即修復嚴重的H1標籤錯誤，確保搜尋引擎能正確理解頁面核心主題。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+          <strong class="text-orange-700">Meta標籤優化：</strong>
+          <span class="text-gray-600">重寫標題與描述，精準溝通「聖瑪莉精緻手作餐盒」的定位，從B2B包材商手中搶奪正確的用戶意圖流量。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-yellow-500 rounded-full flex items-center justify-center text-white text-sm font-bold">2</div>
+      <h4 class="font-bold text-lg mb-4 text-yellow-800">第二階段：內容深化（1-3個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">專屬登陸頁開發：</strong>
+          <span class="text-gray-600">建立全新的「餐盒解決方案」頁面，整合情境導入、方案展示、客戶見證與FAQ，穩固排名並提升轉換率。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-yellow-300">
+          <strong class="text-yellow-700">信任元素整合：</strong>
+          <span class="text-gray-600">在頁面中加入合作企業案例與清晰的訂購流程說明，消除用戶決策疑慮。</span>
+        </div>
+      </div>
+    </div>
+    <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400 relative">
+      <div class="absolute -left-3 top-6 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-bold">3</div>
+      <h4 class="font-bold text-lg mb-4 text-green-800">第三階段：競爭超越（3-6個月）</h4>
+      <div class="space-y-3">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">權威內容建設：</strong>
+          <span class="text-gray-600">發佈部落格文章，主題如「如何為公司活動挑選餐盒」，捕獲長尾關鍵詞流量。</span>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+          <strong class="text-green-700">互動體驗優化：</strong>
+          <span class="text-gray-600">製作高品質品牌影片，或開發互動式餐盒推薦工具，建立行業領導地位。</span>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 內容優化藍圖 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-chart-line text-purple-500 mr-2"></i>內容優化藍圖
+                            </h3>
+                            <div class="bg-cyan-50 p-6 rounded-lg border-l-4 border-cyan-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-cyan-800">📊 內容現狀對比分析</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-cyan-300">
+        <h5 class="font-semibold text-cyan-700 mb-2">品牌方內容現狀：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div><strong>優勢領域：</strong>品牌知名度高，服務定位清晰（會議、茶會）。</div>
+          <div><strong>改善空間：</strong>目前頁面僅為分類導覽，缺乏實質內容說服力，無法有效傳達價值、建立信任，也未能滿足用戶對價格、客製化等關鍵資訊的需求。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-indigo-50 p-6 rounded-lg border-l-4 border-indigo-400 mb-6">
+    <h4 class="font-bold text-lg mb-4 text-indigo-800">🎯 內容優化執行策略</h4>
+    <div class="space-y-4">
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">核心策略轉變：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div>從「產品思維」轉向「用戶思維」，將頁面從「產品目錄」升級為「解決方案指南」。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">結構與視覺優化：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div>採用敘事性結構引導決策，並使用高品質情境攝影取代單純產品圖，提升價值感。</div>
+        </div>
+      </div>
+      <div class="bg-white p-4 rounded border-l-2 border-indigo-300">
+        <h5 class="font-semibold text-indigo-700 mb-2">功能與轉換優化：</h5>
+        <div class="space-y-2 text-gray-600">
+          <div>整合信任模組（客戶案例、FAQ）和清晰的轉換路徑（下載菜單、索取報價），最大化頁面停留時間與商業轉換率。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+                        </div>
+
+                        <!-- 品牌差異化展現 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-star text-orange-500 mr-2"></i>品牌差異化展現重點
+                            </h3>
+                            <div class="bg-orange-50 p-6 rounded-lg border-l-4 border-orange-400 mb-6">
+  <h4 class="font-bold text-lg mb-4 text-orange-800">✨ 品牌差異化展現重點</h4>
+  <div class="space-y-4">
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">核心差異化優勢：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div><strong>烘焙職人每日新鮮手作：</strong>強調餐點非工廠預製或冷凍品，保證最佳口感與風味。</div>
+        <div><strong>採用門市人氣明星商品：</strong>將消費者熟悉的招牌產品（如丹麥麵包、蛋糕）入盒，品質有保證且具吸引力。</div>
+        <div><strong>提供彈性客製化服務：</strong>可依據客戶的預算、場合、口味偏好調整內容，超越標準化競品。</div>
+        <div><strong>豐富的企業活動合作經驗：</strong>透過展示成功案例，證明品牌是處理B2B需求的可靠夥伴。</div>
+        <div><strong>品牌信譽與多門市支持：</strong>以知名連鎖烘焙坊的品牌力背書，提供穩定的品質與便捷的自取選項。</div>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded border-l-2 border-orange-300">
+      <h5 class="font-semibold text-orange-700 mb-2">實施方案：</h5>
+      <div class="space-y-2 text-gray-600">
+        <div>在「方案介紹」與「品牌優勢」區塊，使用「職人手作」、「當日出爐」等詞彙，並搭配製作過程的圖片或短影片。</div>
+        <div>在餐盒內容介紹中，明確標示出「內含招牌XX丹麥麵包」、「人氣冠軍XX蛋糕」，並連結至該產品的單獨介紹頁。</div>
+        <div>在「訂購流程」與FAQ中，設立專門區塊說明客製化流程，並提供「與我們的餐盒顧問聊聊」的CTA。</div>
+        <div>建立專門的「成功案例」或「合作夥伴」模組，展示合作過的企業Logo與案例故事。</div>
+        <div>在頁首頁尾及聯絡資訊處，清晰標示聖瑪莉品牌Logo，並提供多門市查詢連結。</div>
+      </div>
+    </div>
+  </div>
+</div>
+                        </div>
+
+                        <!-- 轉換路徑設計 -->
+                        <div class="card p-6 mb-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-funnel-dollar text-green-500 mr-2"></i>轉換路徑設計策略
+                            </h3>
+                            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
+    <h4 class="font-bold text-lg mb-4 text-green-800">🎯 多層次轉換路徑設計</h4>
+    <div class="space-y-4">
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">針對高意向用戶 (硬性CTA)：</h5>
+            <p class="text-gray-600">在首屏和頁尾提供最直接的轉換按鈕，如<strong>「索取報價」</strong>和<strong>「電話諮詢」</strong>，讓準備好購買的客戶能立即採取行動。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">針對考慮階段用戶 (軟性CTA)：</h5>
+            <p class="text-gray-600">提供<strong>「下載完整菜單」</strong>作為一個低門檻的潛在客戶獲取方式。用戶留下聯絡資訊後即可獲得詳細菜單，方便他們進行內部討論，同時也為品牌方收集了銷售線索。</p>
+        </div>
+        <div class="bg-white p-4 rounded border-l-2 border-green-300">
+            <h5 class="font-semibold text-green-700 mb-2">漸進式信任引導：</h5>
+            <p class="text-gray-600">透過成功案例、FAQ等內容建立信任，逐步引導尚在猶豫的用戶。在案例旁放置「立即規劃您的專屬餐盒」等引導性CTA，鼓勵他們進入下一步。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+
+                        <!-- 使用者體驗優化 -->
+                        <div class="card p-6">
+                            <h3 class="text-xl font-semibold mb-4 flex items-center">
+                                <i class="fas fa-user-check text-blue-500 mr-2"></i>使用者體驗優化指南
+                            </h3>
+                            <div class="bg-blue-50 p-6 rounded-lg border-l-4 border-blue-400">
+    <h4 class="font-bold text-lg mb-4 text-blue-800">✨ 使用者體驗優化指南</h4>
+    <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-4 rounded-lg border-l-2 border-blue-300">
+            <h5 class="font-semibold text-blue-700 mb-2 flex items-center"><i class="fas fa-mobile-alt mr-2"></i>行動優先設計</h5>
+            <p class="text-gray-600">頁面將採用行動優先的響應式設計，確保在手機上圖片清晰、文字大小適中、按鈕易於點擊。所有聯絡方式（尤其是電話）在行動裝置上均可一鍵觸發，最大化便利性。</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-blue-300">
+            <h5 class="font-semibold text-blue-700 mb-2 flex items-center"><i class="fas fa-camera-retro mr-2"></i>高品質視覺化</h5>
+            <p class="text-gray-600">使用高品質、專業的餐盒情境圖取代單調的產品去背圖，展示餐點在真實會議、派對中的質感與氛圍。</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-blue-300">
+            <h5 class="font-semibold text-blue-700 mb-2 flex items-center"><i class="fas fa-stream mr-2"></i>清晰的資訊架構</h5>
+            <p class="text-gray-600">內容結構清晰，大量使用標題、列表和視覺化圖標，讓忙碌的企業採購者可以快速掃描、獲取關鍵資訊，避免資訊過載。</p>
+        </div>
+        <div class="bg-white p-4 rounded-lg border-l-2 border-blue-300">
+            <h5 class="font-semibold text-blue-700 mb-2 flex items-center"><i class="fas fa-mouse-pointer mr-2"></i>互動性與引導</h5>
+            <p class="text-gray-600">嵌入客戶好評的引言區塊，或考慮加入餐盒開箱短影片。頁面各處放置清晰的CTA，引導用戶完成從瀏覽到諮詢的每一步。</p>
+        </div>
+    </div>
+</div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>© 2025 Leadion AI - 極導數位 | 專注於AI與自動化技術的分享與實踐！</p>
+                </div>
+                <div class="flex space-x-4">
+                    <!-- <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-linkedin fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-facebook fa-lg"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-200">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a> -->
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Active state for TOC
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+            });
+        });
+        
+        // Scroll spy for TOC
+        window.addEventListener('scroll', function() {
+            const scrollPosition = window.scrollY + 100;
+            
+            document.querySelectorAll('section').forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                    const id = section.getAttribute('id');
+                    document.querySelectorAll('.toc-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
